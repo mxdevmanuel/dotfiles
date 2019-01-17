@@ -117,16 +117,16 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
-bindsym $mod+KP_1 workspace $ws1
-bindsym $mod+KP_2 workspace $ws2
-bindsym $mod+KP_3 workspace $ws3
-bindsym $mod+KP_4 workspace $ws4
-bindsym $mod+KP_5 workspace $ws5
-bindsym $mod+KP_6 workspace $ws6
-bindsym $mod+KP_7 workspace $ws7
-bindsym $mod+KP_8 workspace $ws8
-bindsym $mod+KP_9 workspace $ws9
-bindsym $mod+KP_0 workspace $ws10
+bindcode $mod+87 workspace $ws1
+bindcode $mod+88 workspace $ws2
+bindcode $mod+89 workspace $ws3
+bindcode $mod+83 workspace $ws4
+bindcode $mod+84 workspace $ws5
+bindcode $mod+85 workspace $ws6
+bindcode $mod+79 workspace $ws7
+bindcode $mod+80 workspace $ws8
+bindcode $mod+81 workspace $ws9
+bindcode $mod+90 workspace $ws10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -372,6 +372,7 @@ bindsym $mod+t exec i3-sensible-terminal
 
 bindsym $mod+F1 exec /home/manuel/.config/i3/tareas.py
 bindsym $mod+F2 exec rofi -show run
+bindsym $mod+Shift+F2 exec dmenu_run 
 bindsym $mod+F3 exec /home/manuel/.config/i3/hdmi.sh
 
 bindsym $mod+Escape exec /home/manuel/.config/i3/i3-exit.py
@@ -379,6 +380,7 @@ bindsym $mod+Escape exec /home/manuel/.config/i3/i3-exit.py
 bindsym $mod+Shift+bar move scratchpad
 bindsym $mod+bar scratchpad show
 
+bindsym $mod+Shift+f exec urxvt -e ranger
 #bindsym control+bar exec "rofi -combi-modi window,drun -show combi -modi combi"
 #bindsym $mod+Menu exec jgmenu_run
 

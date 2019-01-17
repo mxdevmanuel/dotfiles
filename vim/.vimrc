@@ -53,6 +53,7 @@ map <C-k><C-b> :NERDTreeToggle<CR>
 " Settings
 set laststatus=2
 set noshowmode
+set number
 
 let g:jedi#show_call_signatures = "2"
 
