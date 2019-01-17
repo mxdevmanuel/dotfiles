@@ -1,0 +1,14 @@
+{
+  "segments": [
+    "virtual_env", 
+    "username", 
+    "hostname", 
+    "cwd",
+    "ssh", 
+    "git", 
+    "hg", 
+    "jobs", 
+    "root"
+  ],
+  "theme": "~/.config/powerline-shell/i3.py"
+}
