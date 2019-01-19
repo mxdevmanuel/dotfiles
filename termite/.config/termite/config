@@ -4,7 +4,7 @@
 #bold_is_bright = true
 #clickable_url = true
 #dynamic_title = true
-font = DejaVu Sans Mono 10
+font = Source Code Pro for Powerline, Medium 10
 #fullscreen = true
 #icon_name = terminal
 #mouse_autohide = false
@@ -38,7 +38,7 @@ scrollback_lines = 10000
 # "off", "left" or "right"
 #scrollbar = right
 
-[colors]
+#[colors]
 # If both of these are unset, cursor falls back to the foreground color,
 # and cursor_foreground falls back to the background color.
 #cursor = #dcdccc
@@ -49,28 +49,56 @@ scrollback_lines = 10000
 #background = #3f3f3f
 
 # 20% background transparency (requires a compositor)
-background = rgba(20, 20, 21, 0.8)
+#background = rgba(20, 20, 21, 0.8)
 
 # If unset, will reverse foreground and background
-highlight = #2f2f2f
+#highlight = #2f2f2f
 
 # Colors from color0 to color254 can be set
-color0 = #3f3f3f
-color1 = #705050
-color2 = #60b48a
-color3 = #dfaf8f
-color4 = #506070
-color5 = #dc8cc3
-color6 = #8cd0d3
-color7 = #dcdccc
-color8 = #709080
-color9 = #dca3a3
-color10 = #c3bf9f
-color11 = #f0dfaf
-color12 = #94bff3
-color13 = #ec93d3
-color14 = #93e0e3
-color15 = #ffffff
+#color0 = #3f3f3f
+#color1 = #705050
+#color2 = #60b48a
+#color3 = #dfaf8f
+#color4 = #506070
+#color5 = #dc8cc3
+#color6 = #8cd0d3
+#color7 = #dcdccc
+#color8 = #709080
+#color9 = #dca3a3
+#color10 = #c3bf9f
+#color11 = #f0dfaf
+#color12 = #94bff3
+#color13 = #ec93d3
+#color14 = #93e0e3
+#color15 = #ffffff
+
+[colors]
+cursor = #d8dee9
+cursor_foreground = #2e3440
+
+foreground = #d8dee9
+foreground_bold = #d8dee9
+background = rgba(9, 9, 10, 0.85)
+#background = #2e3440
+
+highlight = #4c566a
+
+color0  = #3b4252
+color1  = #bf616a
+color2  = #a3be8c
+color3  = #ebcb8b
+color4  = #81a1c1
+color5  = #b48ead
+color6  = #88c0d0
+color7  = #e5e9f0
+color8  = #4c566a
+color9  = #bf616a
+color10 = #a3be8c
+color11 = #ebcb8b
+color12 = #81a1c1
+color13 = #b48ead
+color14 = #8fbcbb
+color15 = #eceff4
 
 [hints]
 #font = Monospace 12
