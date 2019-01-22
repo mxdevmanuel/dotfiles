@@ -56,3 +56,15 @@ color18=#333333
 color19=#555555
 color20=#999999
 color21=#dddddd
+
+[hints]
+font = Monospace 12
+foreground = #dcdccc
+background = #3f3f3f
+active_foreground = #e68080
+active_background = #3f3f3f
+padding = 2
+border = #3f3f3f
+border_width = 0.5
+roundness = 2.0
+
