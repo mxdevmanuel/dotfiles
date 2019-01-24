@@ -1,4 +1,3 @@
-!--------------------xdefauls
 !URxvt.font: xft:monaco:pixelsize=13
 URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=15:antialias=true:hinting=true,xft:Consolas:style=Regular:pixelsize=15,xft:Inconsolata for Powerline:pixelsize=15
 URxvt*boldFont:

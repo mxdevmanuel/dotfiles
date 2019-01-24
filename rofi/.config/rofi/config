@@ -271,4 +271,4 @@ rofi.drun-icon-theme: Pocillo
 ! rofi.me-accept-entry:                MouseDPrimary
 ! "Accept hovered row with custom action" Set from: Default
 ! rofi.me-accept-custom:               Control+MouseDPrimary
-rofi.theme: /home/manuel/.local/share/rofi/themes/onedark.rasi
+rofi.theme: /home/manuel/.local/share/rofi/themes/flat-orange.rasi

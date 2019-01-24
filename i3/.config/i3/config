@@ -299,8 +299,8 @@ exec --no-startup-id /home/manuel/.config/i3/touchpad.sh
 exec --no-startup-id "copyq &"
 exec --no-startup-id "flameshot &"
 exec --no-startup-id "nm-applet &" 
-exec --no-startup-id "udiskie -t &"
-exec --no-startup-id "feh --randomize --bg-fill ~/Imágenes/Wallpapers"
+#exec --no-startup-id "udiskie -t &"
+exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
 exec --no-startup-id "conky &"
 
 exec --no-startup-id "compton --config /home/manuel/.config/compton/compton.conf &"
@@ -360,12 +360,12 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 bindsym $mod+Tab exec rofi -show window
-bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort
+bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -width 90 -theme ~/.local/share/rofi/themes/flat-orange.rasi -location 2
 
 bindsym Print exec flameshot gui
 bindsym $mod+Print exec flameshot full
 bindsym $mod+t exec i3-sensible-terminal
-bindsym $mod+Shift+e exec feh --randomize --bg-fill ~/Imágenes/Wallpapers
+bindsym $mod+Shift+e exec /home/manuel/.config/i3/random_feh.sh
 
 exec --no-startup-id "udiskie -t &"
 exec --no-startup-id feh --randomize --bg-fill ~/Imágenes/Wallpapers

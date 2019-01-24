@@ -13,7 +13,8 @@ entrada = subprocess.run(
         '-dmenu',
         '-markup-rows',
         '-p',
-        'Power'
+        'Power',
+        '-i'
     ],
     input='\n'.join(para_stdin), encoding="utf-8", stdout=subprocess.PIPE)
 

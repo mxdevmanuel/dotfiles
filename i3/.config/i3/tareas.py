@@ -41,7 +41,9 @@ entrada = subprocess.run(
         '-kb-custom-1',
         'Alt+d',
         '-kb-custom-2',
-        'Alt+a'
+        'Alt+a',
+        '-columns',
+        '1'
     ],
     input=para_stdin, encoding="utf-8", stdout=subprocess.PIPE)
 
