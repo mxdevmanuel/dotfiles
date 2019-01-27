@@ -140,3 +140,5 @@ sftp-config.json
 Session.vim
 .netrwhist
 *~
+
+*.nocommit.*

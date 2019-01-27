@@ -15,6 +15,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'itchyny/lightline.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'lervag/vimtex'
+Plugin 'chrisbra/Colorizer'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo

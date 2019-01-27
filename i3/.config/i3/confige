@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Anonymous Pro 8
+font pango: Anonymous Pro 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).title_aligntitle_align
@@ -40,7 +40,7 @@ bindsym $mod+d exec "rofi -show drun"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# bindsym $mod+d exec -no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -144,8 +144,6 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -301,9 +299,9 @@ exec --no-startup-id /home/manuel/.config/i3/touchpad.sh
 exec --no-startup-id "copyq &"
 exec --no-startup-id "flameshot &"
 exec --no-startup-id "nm-applet &" 
-#exec --no-startup-id nitrogen --restore
-exec --no-startup-id "udiskie -t &"
-exec --no-startup-id feh --randomize --bg-fill ~/Imágenes/Wallpapers
+#exec --no-startup-id "udiskie -t &"
+exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
+exec --no-startup-id "conky &"
 
 exec --no-startup-id "compton --config /home/manuel/.config/compton/compton.conf &"
 #exec --no-startup-id jgmenu --at-pointer
@@ -341,6 +339,7 @@ for_window [window_role="pop-up"] floating enable
 for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
 
 for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
+for_window [class="^Mailspring$" instance="^mailspring$"] move to workspace $ws6
 assign [class="^Sublime_text$" instance="^sublime_text$"] → $ws3
 
 # class                 border  backgr. text    indicator child_border
@@ -362,11 +361,15 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 bindsym $mod+Tab exec rofi -show window
-bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort
+bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -width 90 -theme ~/.local/share/rofi/themes/flat-orange.rasi -location 2
 
 bindsym Print exec flameshot gui
 bindsym $mod+Print exec flameshot full
 bindsym $mod+t exec i3-sensible-terminal
+bindsym $mod+Shift+e exec /home/manuel/.config/i3/random_feh.sh
+
+exec --no-startup-id "udiskie -t &"
+exec --no-startup-id feh --randomize --bg-fill ~/Imágenes/Wallpapers
 
 bindsym $mod+F1 exec /home/manuel/.config/i3/tareas.py
 bindsym $mod+F2 exec rofi -show run

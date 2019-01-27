@@ -339,6 +339,7 @@ for_window [window_role="pop-up"] floating enable
 for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
 
 for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
+for_window [class="^Mailspring$" instance="^mailspring$"] move to workspace $ws6
 assign [class="^Sublime_text$" instance="^sublime_text$"] → $ws3
 
 # class                 border  backgr. text    indicator child_border

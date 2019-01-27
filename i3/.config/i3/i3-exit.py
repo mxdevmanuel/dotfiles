@@ -14,7 +14,7 @@ entrada = subprocess.run(
         '-markup-rows',
         '-p',
         'Power',
-        '-i'
+        '-i',
     ],
     input='\n'.join(para_stdin), encoding="utf-8", stdout=subprocess.PIPE)
 
