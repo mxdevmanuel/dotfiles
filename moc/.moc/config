@@ -235,7 +235,7 @@
 #
 # Example:    Theme = laras_theme
 #
-Theme = transparent-background
+Theme = darkdot_theme
 
 # The theme used when running on an xterm.
 #
