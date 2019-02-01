@@ -342,7 +342,7 @@ for_window [class="flameshot" window_type="normal"] floating enable, border pixe
 for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
 for_window [class="^Mailspring$" instance="^mailspring$"] move to workspace $ws6
 assign [class="^Sublime_text$" instance="^sublime_text$"] → $ws3
-
+assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
 # class                 border  backgr. text    indicator child_border
 #client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
 client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
@@ -376,6 +376,9 @@ bindsym $mod+Shift+F2 exec dmenu_run
 bindsym $mod+F3 exec /home/manuel/.config/i3/workspace_auto_bf.sh
 bindsym $mod+Shift+F3 exec /home/manuel/.config/i3/follow_focus_fly.sh
 bindsym $mod+F4 exec /home/manuel/.config/i3/hdmi.sh
+bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
+
+bindsym $mod+apostrophe exec /home/manuel/.config/i3/show_battery.sh
 
 bindsym $mod+Escape exec /home/manuel/.config/i3/i3-exit.py
 
@@ -394,10 +397,8 @@ for_window [class="^.*"] border pixel 1
 # Smart Gaps
 # smart_gaps on
 # Smart Borders
-# smart_borders on
+smart_borders on
 # Set inner/outer gaps
 gaps inner 5
 gaps outer 0
-
-
 
