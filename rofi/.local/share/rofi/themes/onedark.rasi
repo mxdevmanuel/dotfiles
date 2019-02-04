@@ -7,6 +7,10 @@
  * User: me-benni
  *
  */
+configuration {
+    show-icons: true;
+    drun-icon-theme: "Paper";
+}
 
 
 * {
@@ -99,8 +103,4 @@ button selected {
   background-color: @emphasis;
 }
 
-configuration {
-    show-icons: true;
-    drun-icon-theme: "Paper";
-}
 

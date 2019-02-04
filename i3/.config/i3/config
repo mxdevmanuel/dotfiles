@@ -362,7 +362,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 bindsym $mod+Tab exec rofi -show window
-bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -location 2
+bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -location 2 -plugin-path /usr/local/lib/rofi
 
 bindsym Print exec flameshot gui
 bindsym $mod+Print exec flameshot full

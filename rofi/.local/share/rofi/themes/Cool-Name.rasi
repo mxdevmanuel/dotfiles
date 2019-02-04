@@ -3,6 +3,10 @@
  * User: leofa
  * Copyright: 2017 leofa
  ***********************************************/
+configuration {
+    show-icons: true;
+    drun-icon-theme: "Pocillo";
+}
 
 * {
     selected-normal-foreground:  rgba ( 249, 249, 249, 100 % );
@@ -135,8 +139,4 @@
     text-color: @normal-foreground;
 }
 
-configuration {
-    show-icons: true;
-    drun-icon-theme: "Pocillo";
-}
 /* vim:ft=css

@@ -7,14 +7,13 @@ ACPI=$(acpi)
 STATUS=$(echo $ACPI | grep 'Discharging')
 BATTERY_LEVEL=$(echo $ACPI | awk '{ print $4 } ' | sed 's/[^[:digit:]]//g' | bc)
 
-BATTERY_DANGER=$(echo $BATTERY_LEVEL | awk '{print $1 < 5}' | bc)
+BATTERY_DANGER=$(echo $BATTERY_LEVEL | awk '{print $1 < 100}' | bc)
 
 if [[ -n "${STATUS}" ]]
 then
 	if [[ "$BATTERY_DANGER" -ne "0"  ]]
 	then
-		notify-send -u critical -i "/usr/share/icons/Paper/16x16/status/xfce-battery-critical.png" -t 3000 "Hibernando el sistema"
-		sudo systemctl hibernate
+		notify-send -u critical -i "/usr/share/icons/Paper/16x16/status/xfce-battery-critical.png" -t 3000 "Hibernando el sistema"; sudo systemctl -i hibernate
 	elif [[ "$BATTERY_LEVEL" -le "10" ]]
 	then
 		notify-send -u critical -i "/usr/share/icons/Paper/16x16/status/xfce-battery-critical.png" -t 3000 $(echo $ACPI | awk '{ print $5 " " $6 }')

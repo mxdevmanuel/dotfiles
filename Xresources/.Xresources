@@ -1,66 +1,35 @@
-!URxvt.font: xft:monaco:pixelsize=13
-URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=15:antialias=true:hinting=true,xft:Consolas:style=Regular:pixelsize=15,xft:Inconsolata for Powerline:pixelsize=15
-URxvt*boldFont:
-URxvt*italicFont:
-URxvt*boldItalicFont:
-URxvt*termName: rxvt
-URxvt*depth: 32
-URxvt*background: rgba:0000/0000/0200/c800
-URxvt*scrollBar: false
-URxvt*matcher.button: 1
-URxvt.transparent: false
-URxvt.boldFont:
-URxvt.letterSpace: -1
-Xft*dpi: 96
-Xft*antialias: true
-Xft*hinting: true
-Xft*hintstyle: hintfull
-URxvt*cursorUnderline: true
-Xft*rgba: rgb
-URxvt*geometry: 85x20
-*internalBorder: 15
-URxvt*fading: 0
-URxvt*tintColor: #ffffff
-URxvt*shading: 0
-URxvt*inheritPixmap: False
-! special
-*.foreground:   #c5c8c6
-*.background:   #1d1f21
-*.cursorColor:  #c5c8c6
+Xcursor.theme: Breeze-Adapta
 
-! black
-*.color0:       #282a2e
-*.color8:       #373b41
+URxvt.font: xft:DejaVu Sans Mono for Powerline:style=Regular:size=12
+URxvt*boldFont: xft:DejaVu Sans Mono for Powerline:style=Bold:size=12
+URxvt.scrollBar: false
+URxvt*termName:         rxvt
+URxvt*background:           #000000
+URxvt*foreground:           #666699
+URxvt*cursorColor:          #6699CC
+URxvt*colorBD:              #CCCCFF
 
-! red
-*.color1:       #a54242
-*.color9:       #cc6666
+!Visiblue
+URxvt*color0:               #333366
+URxvt*color8:               #333399
 
-! green
-*.color2:       #8c9440
-*.color10:      #b5bd68
+URxvt*color1:               #6666CC
+URxvt*color9:               #9999FF
 
-! yellow
-*.color3:       #de935f
-*.color11:      #f0c674
+URxvt*color2:               #0099CC
+URxvt*color10:              #00CCFF
 
-! blue
-*.color4:       #5f819d
-*.color12:      #81a2be
+URxvt*color3:               #3366CC
+URxvt*color11:              #6699FF
 
-! magenta
-*.color5:       #85678f
-*.color13:      #b294bb
+URxvt*color4:               #006699
+URxvt*color12:              #0099CC
 
-! cyan
-*.color6:       #5e8d87
-*.color14:      #8abeb7
+URxvt*color5:               #0066FF
+URxvt*color13:              #0099FF
 
-! white
-*.color7:       #707880
-*.color15:      #c5c8c6
+URxvt*color6:               #669999
+URxvt*color14:              #66CCCC
 
-URxvt.keysym.Home: \033[1~
-URxvt.keysym.End: \033[4~
-URxvt.keysym.KP_Home: \033[1~
-URxvt.keysym.KP_End:  \033[4~
+URxvt*color7:               #99CCCC
+URxvt*color15:              #CCFFFF

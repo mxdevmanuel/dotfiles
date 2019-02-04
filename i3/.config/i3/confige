@@ -378,6 +378,8 @@ bindsym $mod+Shift+F3 exec /home/manuel/.config/i3/follow_focus_fly.sh
 bindsym $mod+F4 exec /home/manuel/.config/i3/hdmi.sh
 bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
 
+bindsym $mod+apostrophe exec /home/manuel/.config/i3/show_battery.sh
+
 bindsym $mod+Escape exec /home/manuel/.config/i3/i3-exit.py
 
 bindsym $mod+Shift+bar move scratchpad
@@ -395,7 +397,7 @@ for_window [class="^.*"] border pixel 1
 # Smart Gaps
 # smart_gaps on
 # Smart Borders
-# smart_borders on
+smart_borders on
 # Set inner/outer gaps
 gaps inner 5
 gaps outer 0

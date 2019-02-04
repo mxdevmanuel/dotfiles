@@ -7,6 +7,15 @@
 /* global settings and color variables */
 /* OG colors */
 /* ed8712 */
+
+configuration {
+	show-icons: true;
+	drun-icon-theme: "Adwaita";
+	columns: 3;
+	width: 90;
+	lines: 10;
+}
+
 * {
    maincolor:        #ed8712;
    highlight:        bold #ed8712;
@@ -148,10 +157,4 @@ case-indicator {
    background-color:@blackwidget;
 }
 
-configuration {
-	show-icons: true;
-	drun-icon-theme: "Paper";
-	columns: 3;
-	width: 90;
-	lines: 10;
-}
+
