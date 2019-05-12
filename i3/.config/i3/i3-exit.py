@@ -4,6 +4,8 @@ import subprocess
 para_stdin = [
     ' Poweroff',
     ' Reboot',
+    ' Suspend',
+    ' Hibernate',
     ' Logout'
 ]
 
@@ -29,6 +31,14 @@ if entrada.stdout == para_stdin[1] + '\n':
     subprocess.Popen(['systemctl', 'reboot'])
 
 if entrada.stdout == para_stdin[2] + '\n':
+    print("Logout")
+    subprocess.Popen(['systemctl', 'suspend'])
+
+if entrada.stdout == para_stdin[3] + '\n':
+    print("Logout")
+    subprocess.Popen(['systemctl', 'hibernate'])
+
+if entrada.stdout == para_stdin[4] + '\n':
     print("Logout")
     subprocess.Popen(['i3-msg', 'exit'])
 

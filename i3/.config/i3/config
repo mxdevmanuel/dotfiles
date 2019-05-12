@@ -299,13 +299,14 @@ exec --no-startup-id /home/manuel/.config/i3/touchpad.sh
 exec --no-startup-id "copyq &"
 exec --no-startup-id "flameshot &"
 exec --no-startup-id "nm-applet &" 
-exec --no-startup-id "redshift -l 19:-98.1 &"
+exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
 exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
 exec --no-startup-id "conky &"
 exec --no-startup-id "udiskie -t &"
 exec --no-startup-id "compton --config /home/manuel/.config/compton/compton.conf &"
-exec --no-startup-id "/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &"
-exec --no-startup-id "xss-lock -- i3lock-fancy"
+exec --no-startup-id "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
+exec --no-startup-id "xss-lock -- i3lock-fancy-rapid 5 5 -n &"
+#exec --no-startup-id "xautolock -time 10 -locker 'i3lock-fancy-rapid 5 5' -killtime 1 -killer 'systemctl suspend' --detect-sleep &" 
 exec_always --no-startup-id $HOME/.config/i3/polybar.sh
 
 bindsym $mod+Mod1+l move workspace to output right
@@ -320,29 +321,35 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #d
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
 
 # Touchpad controls
 bindsym XF86TouchpadToggle exec /home/manuel/.config/i3/toggletouchpad.sh # toggle touchpad
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioPlay exec playerctl play-pause
+#bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-bindsym Control+$mod+l exec /home/manuel/.config/i3/msglock.sh
+bindsym Control+$mod+l exec --no-startup-id i3lock-fancy-rapid 5 5 
 
 for_window [class="copyq" window_type="normal"] floating enable
 for_window [class="Gpick"] floating enable
 for_window [window_role="pop-up"] floating enable
+for_window [window_role="GtkFileChooserDialog"] fullscreen 
 for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
 
+for_window [class="controlador-Main"] floating enable
+
 for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
+
 for_window [class="^Mailspring$" instance="^mailspring$"] move to workspace $ws6
-assign [class="^Sublime_text$" instance="^sublime_text$"] → $ws3
+assign [class="^Subl3$" instance="^subl3$"] → $ws3
 assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
+assign [class="^Google-chrome" instance="^google-chrome"] → $ws2
+
 # class                 border  backgr. text    indicator child_border
 #client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
 client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
@@ -367,7 +374,7 @@ bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -location
 bindsym Print exec flameshot gui
 bindsym $mod+Print exec flameshot full
 bindsym $mod+t exec i3-sensible-terminal
-bindsym $mod+Shift+e exec /home/manuel/.config/i3/random_feh.sh
+bindsym $mod+Shift+e exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
 
 
 bindsym $mod+F1 exec /home/manuel/.config/i3/tareas.py
@@ -390,7 +397,7 @@ bindsym $mod+Shift+f exec urxvt -e ranger
 #bindsym $mod+Menu exec jgmenu_run
 
 focus_follows_mouse yes
-workspace_auto_back_and_forth no
+workspace_auto_back_and_forth yes
 
 # Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 1

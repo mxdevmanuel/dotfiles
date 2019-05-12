@@ -57,7 +57,7 @@ module-margin-right = 1
 
 font-0 = DejaVu Sans Mono for Powerline:style=Regular:pixelsize=10;1
 font-1 = FontAwesome:style=Regular:pixelsize=10;0
-font-2 = SauceCodePro Nerd Font:style=Regular:pixelsize=12;1
+font-2 = SauceCodePro Nerd Font:style=Regular:pixelsize=14;1
 
 modules-left = i3
 ;modules-center = 
@@ -89,15 +89,15 @@ label = %title:0:30:...%
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-prefix-underline = #cc00b4
 
-label-layout = %layout%
+format = <label-indicator>
+label-layout = 
 label-layout-underline = #cc00b4
 
 label-indicator-padding = 1
-label-indicator-margin = 1
+label-indicator-margin = 0
 label-indicator-background = #cc00b4
 label-indicator-underline = #cc00b4
 
@@ -173,13 +173,12 @@ label-urgent-padding = 1
 ; label-separator = |
 ws-icon-0 = 1;
 ws-icon-1 = 2;
-;ws-icon-2 = 3;
 ws-icon-2 = 3;
-;ws-icon-2 = 3;
 ws-icon-3 = 4;
 ws-icon-4 = 5;
 ws-icon-5 = 6;
 ws-icon-6 = 7;
+ws-icon-7 = 8;
 ws-icon-default = 
 
 
@@ -246,7 +245,7 @@ interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
 format-connected-underline = #9f78e1
-label-connected = %essid%
+label-connected = %signal%% %essid%
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
@@ -254,11 +253,11 @@ format-disconnected =
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
 ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]

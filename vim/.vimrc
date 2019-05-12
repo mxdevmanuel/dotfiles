@@ -16,6 +16,7 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'lervag/vimtex'
 Plugin 'chrisbra/Colorizer'
+Plugin 'peterhoeg/vim-qml'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -56,6 +57,7 @@ map <C-k><C-b> :NERDTreeToggle<CR>
 set laststatus=2
 set noshowmode
 set number
+syntax on
 
 let g:jedi#show_call_signatures = "2"
 

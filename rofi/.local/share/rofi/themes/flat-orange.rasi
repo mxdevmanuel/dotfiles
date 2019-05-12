@@ -10,7 +10,6 @@
 
 configuration {
 	show-icons: true;
-	drun-icon-theme: "Adwaita";
 	columns: 3;
 	width: 90;
 	lines: 10;
@@ -157,4 +156,4 @@ case-indicator {
    background-color:@blackwidget;
 }
 
-
+/* vim:ft=css
