@@ -10,7 +10,7 @@
 
 configuration {
 	show-icons: true;
-	columns: 3;
+	columns: 1;
 	width: 90;
 	lines: 10;
 }

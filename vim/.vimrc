@@ -11,6 +11,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'The-NERD-tree'
 Plugin 'tpope/vim-fugitive'
+Plugin 'morhetz/gruvbox'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'itchyny/lightline.vim'
 Plugin 'davidhalter/jedi-vim'
@@ -74,3 +75,5 @@ let g:lightline = {
       \ },
       \ }
 autocmd BufEnter * lcd %:p:h
+colorscheme gruvbox
+set background=dark

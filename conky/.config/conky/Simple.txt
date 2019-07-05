@@ -1,0 +1,174 @@
+#==============================================================================
+#                               conky Simple
+# Date    : 07/08/2016
+# Author  : AndeOn
+# Version : v0.1
+# License : Distributed under the terms of GNU GPL version 2 
+# 
+# 
+# conky:		https://github.com/brndnmtthws/conky
+# conky Manager:	http://www.teejeetech.in/p/conky-manager.html
+#==============================================================================
+# conky configuration
+
+# Set to yes if you want Conky to be forked in the background
+background yes
+
+# Update interval in seconds
+update_interval 1
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+
+# number of net samples to average
+# set to 1 to disable averaging
+net_avg_samples 2
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+double_buffer yes
+text_buffer_size 2048
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer right
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 40
+gap_y 80
+
+# Minimum size of text area
+minimum_size 30 0
+maximum_width 290
+
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+own_window_type dock
+own_window_transparent yes
+own_window_argb_visual yes
+own_window_argb_visual no
+own_window_colour 000000
+own_window_argb_value 0
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+draw_graph_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+border_margin 4
+
+# border width
+border_width 1
+
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+# Use Xft?
+use_xft yes
+
+# Xft font when Xft is enabled
+xftfont Bitstream Monospace:size=9
+
+# Text alpha when using Xft
+xftalpha 0.5
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# Default colors and also border colors
+default_color white
+default_shade_color black
+default_outline_color white
+# Shades of Gray
+color1 DDDDDD
+color2 AAAAAA
+color3 888888
+color4 ffa54f # Orange
+color5 77B753 # Green
+color6 3a5153 # DarkGrey
+
+# Header with base system info
+# stuff after 'TEXT' will be formatted on screen
+own_window_argb_value 0
+own_window_argb_visual yes
+own_window_colour 000000
+TEXT
+#SYSTEM DETAILS:
+${font Monospace:style=Bold:pixelsize=16}${color4}SYSTEM ${color6}${hr 2}
+${color}${font Monospace:size=7.2}OS: ${alignr}Ubuntu 16.04.1 LTS (Xenial Xerus) - Unity
+KERNEL: $alignr$sysname $kernel ($machine)
+UPTIME: $alignr$uptime
+RUNNING PROCESSES: ${alignr}$processes (${color4}$running_processes Executing${color})
+
+
+${color4}${font Monospace:style=Bold:pixelsize=12}CPU USAGE ${color6}${hr 2 }
+${color}${font Monospace:style=Bold:pixelsize=8}
+CORE I:                        CORE II:${font Monospace:size=6.5}
+${freq}MHz / ${acpitemp}°C ${color3}(${cpu cpu1}%)           ${color}${freq}MHz / ${acpitemp}°C ${color3}(${cpu cpu2}%)
+${cpubar 5,120 cpu1}       ${cpubar 5,120 cpu2}
+${color}1st ${color4}${top name 1}${top cpu 1}%${alignr}${color}1st ${color4}${top name 2}${top cpu 2}%
+${color}2nd ${color}${top name 3}${top cpu 3}%${alignr}${color}2nd ${color}${top name 4}${top cpu 4}%
+${color}3rd ${color1}${top name 5}${top cpu 5}%${alignr}${color}3rd ${color1}${top name 6}${top cpu 6}%
+${color}4th ${color2}${top name 7}${top cpu 7}%${alignr}${color}4th ${color2}${top name 8}${top cpu 8}%
+${color}5th ${color3}${top name 9}${top cpu 9}%${alignr}${color}5th ${color3}${top name 10}${top cpu 10}%
+
+
+${color4}${font Monospace:style=Bold:pixelsize=12}MEMORY USAGE ${color6}${hr 2 }
+${color}${font Monospace:size=6.5}
+$mem / $memmax ($memperc%)
+${color3}${membar 5,120}
+${color}1st ${color4}${top_mem name 1}${top_mem mem 1}% ${alignr}${color}6th ${color3}${top_mem name 6}${top_mem mem 6}%
+${color}2nd ${color}${top_mem name 2}${top_mem mem 2}% ${alignr}${color}7th ${color3}${top_mem name 7}${top_mem mem 7}%
+${color}3rd ${color1}${top_mem name 3}${top_mem mem 3}% ${alignr}${color}8th ${color3}${top_mem name 8}${top_mem mem 8}%
+${color}4th ${color2}${top_mem name 4}${top_mem mem 4}% ${alignr}${color}9th ${color3}${top_mem name 9}${top_mem mem 9}%
+${color}5th ${color3}${top_mem name 5}${top_mem mem 5}% ${alignr}${color}10th ${color3}${top_mem name 10}${top_mem mem 10}%
+ 
+
+${color4}${font Monospace:style=Bold:pixelsize=12}DISK USAGE ${color6}${hr 2 }
+
+${color}${font Monospace:style=Bold:pixelsize=11}COMPUTER:${font Monospace:size=7} ${alignr}${fs_used /}/${fs_size /}
+${alignr}${color2}${fs_used_perc /}% ${color3}${fs_bar 5,120 /}
+
+${color4}${font Monospace:style=Bold:pixelsize=12}INTERNET ${color6}${hr 2 }
+
+${font Monospace:style=Bold:pixelsize=11}${color}WIRELESS:${font Monospace:size=7}
+#${color}SSID: ${alignr} ${color}${wireless_essid wlan0}
+${color}SIGNAL STRENGTH: ${alignr} ${color1}${wireless_link_qual wlan0}%
+#${color}WLAN IP: ${alignr} ${color}${addr wlan0}
+#${color}MAC: ${alignr} ${color}${wireless_ap wlan0}
+
+
+${color}${font Monospace:style=Bold:pixelsize=11}DOWN SPEED:${font Monospace:size=7} ${alignr} ${color2}${downspeed wlan0} kb/s 
+${alignr}${color BBCCDD}${downspeedgraph wlan0 20,290 EF5A29 EF5A29}
+${color}TOTAL DOWN ${alignr}${totaldown wlan0} 
+
+${color}${font Monospace:style=Bold:pixelsize=11}UP SPEED:${font Monospace:size=7} ${alignr} ${color2}${upspeed wlan0} kb/s 
+${alignr}${color BBCCDD}${upspeedgraph wlan0 20,290 77B753 77B753}
+${color}TOTAL UP ${alignr}${totalup wlan0}
+
+
+${color}${font :size=10:style=Bold}${alignc}"Talk is cheap. Show me the code"
+${color}${font :size=9}${alignc}(Linus Torvalds)

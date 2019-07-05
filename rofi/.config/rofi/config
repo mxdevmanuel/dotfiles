@@ -3,7 +3,7 @@ rofi.modi:                           drun,window,run
 ! "Window width" Set from: Default
 ! rofi.width:                          50
 ! "Number of lines" Set from: Default
-rofi.lines:                          5
+! rofi.lines:                          5
 ! "Number of columns" Set from: Default
 ! rofi.columns:                        1
 ! "Font to use" Set from: Default
@@ -271,4 +271,4 @@ rofi.drun-icon-theme: Pocillo
 ! rofi.me-accept-entry:                MouseDPrimary
 ! "Accept hovered row with custom action" Set from: Default
 ! rofi.me-accept-custom:               Control+MouseDPrimary
-rofi.theme: /home/manuel/.local/share/rofi/themes/flat-orange.rasi
+rofi.theme: /home/manuel/.local/share/rofi/themes/Cool-Name.rasi

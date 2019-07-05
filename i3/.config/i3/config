@@ -299,9 +299,10 @@ exec --no-startup-id /home/manuel/.config/i3/touchpad.sh
 exec --no-startup-id "copyq &"
 exec --no-startup-id "flameshot &"
 exec --no-startup-id "nm-applet &" 
-exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
+exec --no-startup-id "redshift-gtk -l 19:-98.1 -t 5000:3500 &"
 exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
 exec --no-startup-id "conky &"
+exec --no-startup-id "scratch &"
 exec --no-startup-id "udiskie -t &"
 exec --no-startup-id "compton --config /home/manuel/.config/compton/compton.conf &"
 exec --no-startup-id "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
@@ -333,11 +334,14 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+bindsym $mod+o  exec --no-startup-id xset dpms force off
+
 bindsym Control+$mod+l exec --no-startup-id i3lock-fancy-rapid 5 5 
 
 for_window [class="copyq" window_type="normal"] floating enable
 for_window [class="Gpick"] floating enable
 for_window [window_role="pop-up"] floating enable
+for_window [class="scratch"] floating enable
 for_window [window_role="GtkFileChooserDialog"] fullscreen 
 for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
 
@@ -346,9 +350,10 @@ for_window [class="controlador-Main"] floating enable
 for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
 
 for_window [class="^Mailspring$" instance="^mailspring$"] move to workspace $ws6
-assign [class="^Subl3$" instance="^subl3$"] → $ws3
+assign [class="^Sublime_text$" instance="^sublime_text$"] → $ws3
 assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
 assign [class="^Google-chrome" instance="^google-chrome"] → $ws2
+assign [instance="insomnia" class="Insomnia"] → $ws10
 
 # class                 border  backgr. text    indicator child_border
 #client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
@@ -369,7 +374,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 bindsym $mod+Tab exec rofi -show window
-bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -location 2 -plugin-path /usr/local/lib/rofi
+bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -plugin-path /usr/local/lib/rofi
 
 bindsym Print exec flameshot gui
 bindsym $mod+Print exec flameshot full
@@ -384,13 +389,18 @@ bindsym $mod+F3 exec /home/manuel/.config/i3/workspace_auto_bf.sh
 bindsym $mod+Shift+F3 exec /home/manuel/.config/i3/follow_focus_fly.sh
 bindsym $mod+F4 exec /home/manuel/.config/i3/hdmi.sh
 bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
+bindsym $mod+F7 exec /home/manuel/.config/rofi/rofi-emoji.sh
 
 bindsym $mod+apostrophe exec /home/manuel/.config/i3/show_battery.sh
 
-bindsym $mod+Escape exec /home/manuel/.config/i3/i3-exit.py
+bindsym $mod+Escape exec clearine
 
 bindsym $mod+Shift+bar move scratchpad
 bindsym $mod+bar scratchpad show
+
+bindsym $mod+z exec --no-startup-id rofi -modi keys -show keys
+bindsym $mod+v exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
+bindsym $mod+braceright exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/share/scripts/i3_keys.sh
 
 bindsym $mod+Shift+f exec urxvt -e ranger
 #bindsym control+bar exec "rofi -combi-modi window,drun -show combi -modi combi"

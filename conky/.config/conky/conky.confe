@@ -1,0 +1,54 @@
+
+# Simple Bar Conky Theme V. 0.1 - by mrmaire <maire.nunez@gmail.co>
+# Minimalist theme for conky
+
+
+use_xft yes
+#xftfont play:bold:size=9
+#xftalpha 0.1
+font DejaVu Sans Mono for Powerline:style=Bold:pixelsize=12 
+update_interval 2
+total_run_times 0
+
+own_window yes
+own_window_type normal
+own_window_transparent no
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+#own_window_colour 262729
+own_window_argb_visual yes 
+own_window_argb_value 156
+
+double_buffer yes
+#minimum_size 250 5
+#maximum_width 500
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color white
+default_shade_color red
+default_outline_color green
+alignment top_middle
+gap_x 0
+gap_y 10 
+no_buffers yes
+uppercase no
+draw_shades no 
+cpu_avg_samples 2
+net_avg_samples 1
+override_utf8_locale yes
+use_spacer yes
+minimum_size 0 0
+
+
+#------------------------------------ Colores
+color1 17ba9d #verde manjaro
+color2 fd971f #naranja
+color3 cbcbcb #gris
+color4 20a5e4 #azul
+color5 a6e22e #verde claro
+color6 D45959 #rojo
+
+
+TEXT
+${color3}${font FontAwesome:pixelsize=12}  ${font}${color4}${time %a}, ${time %d} ${time  %B} ${time %Y} ${color5}|${color3} ${font FontAwesome:pixelsize=12} ${font}${color2} $uptime ${color5}| ${color3}Root: ${color e0e0e0}${fs_free /} / ${fs_size /} ${color5}| ${color4}Home: ${color e0e0e0}${fs_free /home} / ${fs_size /home} ${color5}| ${color1}Extra: ${color e0e0e0}${fs_free /home/manuel/Extra} / ${fs_size /home/manuel/Extra}${color5} | ${if_up wlp6s0}${font FontAwesome:pixelsize=12} ${font} ${color3}${addr wlp6s0} ${color5}U:${color}${upspeed wlp6s0} ${color6}D:${color}${downspeed wlp6s0}${endif}${if_match "${addr enp9s0}"!="No Address"} | ${color6}${font FontAwesome:pixelsize=12} ${font} ${color3}${addr enp9s0} ${color5}U:${color}${upspeed enp9s0} ${color6}D:${color}${downspeed enp9s0}${endif}${color5} |  ${color4}${font FontAwesome:pixelsize=12} ${color}${font}${texeci 300 ~/.config/conky/outlook.sh}${color5} ${color6}${font FontAwesome:pixelsize=12} ${color}${font}${execpi 300 python3 ~/.config/conky/gmail.py}

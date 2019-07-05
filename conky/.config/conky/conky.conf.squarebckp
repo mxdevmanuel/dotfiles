@@ -1,0 +1,69 @@
+conky.config = {
+	alignment = 'top_left',
+	background = false,
+	color2 = 'RoyalBlue1',
+	color3 = 'Crimson',
+	color4  = 'DodgerBlue',
+	color5 = 'ed8712',
+	cpu_avg_samples = 2,
+	default_color = 'ffffff',
+	double_buffer = true,
+	font = 'San Francisco Display:size=12',
+	gap_x = 1005,
+	gap_y = 10,
+	minimum_width = 350,
+	draw_outline = false,
+	draw_shades = false,
+	no_buffers = true,
+	own_window = true,
+	own_window_type = 'override',
+	own_window_argb_visual = true,
+	own_window_argb_value = 156,
+	own_window_transparent = false,
+	update_interval = 2.0,
+	use_xft = true,
+}
+
+conky.text = [[
+${alignc}${font :pixelsize=10}${time %A}
+${alignc}${font :pixelsize=18}${time %F }
+${alignc}${color}${font :pixelsize=38}Hola ${exec echo "${USER}"}${font}
+${alignc}${color3}${font FontAwesome:pixelsize=16}  ${color}${font :pixelsize=14}${execi 300 python3 ~/.config/conky/gmail.py}\
+${alignc}${color4}${font FontAwesome:pixelsize=16}    ${color}${font :pixelsize=14}${execi 300 ~/.config/conky/outlook.sh}
+
+$hr
+${alignc}${font SauceCodePro Nerd Font:pixelsize=18} ${font :pixelsize=14}${color2}root: ${color}${fs_used_perc /}% \
+${color2}home: ${color}${fs_used_perc /home}% \
+${color2}extra: ${color}${fs_used_perc /home/manuel/Extra}%
+
+${if_up wlp6s0}${alignc}${color5}${font FontAwesome:pixelsize=16} ${font :pixelsize=14}${color}${wireless_essid wlp6s0}
+${alignc}${font :size=8}${addr wlp6s0}
+${alignc}${color5}${font FontAwesome:pixelsize=14} ${font :pixelsize=14}${color}${downspeed wlp6s0}  \
+${color5}${font FontAwesome:pixelsize=14} ${font :pixelsize=14}${color}${upspeed wlp6s0}
+${alignc}${font :pixelsize=10}${totaldown wlp6s0} ${totalup wlp6s0}${endif}
+
+${if_running mocp}\
+${alignc}${color DeepPink}${font FontAwesome:pixelsize=16}\
+${if_match "${moc_state}"=="PLAY"}\
+\
+${endif}\
+${if_match "${moc_state}"=="PAUSE"}\
+\
+${endif}\
+${if_match "${moc_state}"=="STOP"}\
+\
+${endif} \
+${color}${font :bold:pixelsize=14}${moc_song}
+${alignc}${font :pixelsize=12}${moc_artist}
+${alignc}${font :pixelsize=10}${moc_album}
+${alignc}${font :pixelsize=10}${moc_curtime}/${moc_totaltime}
+${alignc}${font :pixelsize=10}${moc_bitrate}
+${endif}\
+${if_running mopidy}${if_mpd_playing}\
+${alignc}${color Chartreuse}${font FontAwesome:pixelsize=18} ${color}${font :bold:pixelsize=14}${mpd_name}
+${alignc}${font :pixelsize=12}${mpd_artist}
+${alignc}${font :pixelsize=10}${mpd_album}
+${alignc}${font :pixelsize=10}${mpd_status} \
+${alignc}${font :pixelsize=10}${mpd_elapsed}/${mpd_length} \
+${endif}${endif}
+]]
