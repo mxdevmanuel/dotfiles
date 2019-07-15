@@ -1,79 +1,54 @@
-Xcursor.theme: Breeze-Adapta
-URxvt*termName: rxvt
+Xcursor.theme:Paper
+rofi.terminal: termite
 
-XTerm*faceName: SauceCodePro Nerd Font Mono:style=Medium:size=12:antialias=true
+! ===================
+!       urxvt
+! ===================
 
-URxvt.font: xft:SauceCodePro Nerd Font Mono:style=Medium:size=12:antialias=true
+URxvt*scrollBar:	    false
+URxvt*letterSpace:  	-1
+URxvt.internalBorder: 10
+URxvt*font: 		      xft:SauceCodePro Nerd Font Mono:style=Medium:size=12:antialias=true
+URxvt*boldFont:		    xft:SauceCodePro Nerd Font Mono:style=Medium:size=12:antialias=true
+URxvt*cursorBlink:    true
+URxvt.iso14755:		    false
+URxvt*utf8:			      true
+URxvt.keysym.C-equal:      resize-font:bigger
+URxvt.keysym.C-parenright: resize-font:smaller
 
-! special
-*.foreground:   #d1d1d1
-! *.background:   #221e2d
-*.cursorColor:  #d1d1d1
-
-! black
-*.color0:       #272822
-*.color8:       #75715e
-
-! red
-*.color1:       #f92672
-*.color9:       #f92672
-
-! green
-*.color2:       #a6e22e
-*.color10:      #a6e22e
-
-! yellow
-*.color3:       #f4bf75
-*.color11:      #f4bf75
-
-! blue
-*.color4:       #66d9ef
-*.color12:      #66d9ef
-
-! magenta
-*.color5:       #ae81ff
-*.color13:      #ae81ff
-
-! cyan
-*.color6:       #a1efe4
-*.color14:      #a1efe4
-
-! white
-*.color7:       #f8f8f2
-*.color15:      #f9f8f5
-
-Xft.dpi: 96
-Xft.antialias: true
-Xft.hinting: true
-Xft.rgba: rgb
-Xft.autohint: false
-Xft.hintstyle: hintslight
-Xft.lcdfilter: lcddefault
-Xcursor.size:  0
-
-!XTerm*background: #272827
-!XTerm*foreground: #fdf6e3
-XTerm*reverseVideo: on
-XTerm*selectToClipboard: true
+! =================
+!       Xft
+! =================
+Xft.dpi:          	96
+Xft.antialias:     	true
+Xft.rgba:			      subpixel
+Xft.hinting:       	true
+Xft.hintstyle:		  hintslight
+! Xft.lcdfilter:	  lcddefault
 
 URxvt.depth: 32
+URxvt.transparent: false
+URxvt.fading: 0
+URxvt.loginShell: true
+URxvt.saveLines: 20000
+URxvt.internalBorder: 3
+URxvt.lineSpace: 0
 
-!! BACKGROUND TRANSPARENT
-URxvt.background: [80]#06060a
-
-URxvt*scrollBar:                      false
-URxvt*mouseWheelScrollPage:           false
-URxvt*cursorBlink:                    true
-URxvt*background:                     black
-!URxvt*foreground:                     grey
-URxvt*saveLines:                      5000
-
-! for 'fake' transparency (without Compton) uncomment the following three lines
-! URxvt*inheritPixmap:                  true
-! URxvt*transparent:                    true
-! URxvt*shading:                        138
-
-URxvt.keysym.Home: \033[1~
-URxvt.keysym.End: \033[4~
-URxvt.keysym.KP_Home: \033[1~
-URxvt.keysym.KP_End:  \033[4~
+URxvt*background: #101010
+*foreground: #CCCCCC
+URxvt*color0: #101010
+URxvt*color1: #960050
+URxvt*color2: #66aa11
+URxvt*color3: #c47f2c
+URxvt*color4: #30309b
+URxvt*color5: #7e40a5
+URxvt*color6: #3579a8
+URxvt*color7: #9999aa
+URxvt*color8: #303030
+URxvt*color9: #ff0090
+URxvt*color10: #80ff00
+URxvt*color11: #ffba68
+URxvt*color12: #5f5fee
+URxvt*color13: #bb88dd
+URxvt*color14: #4eb4fa
+URxvt*color15: #d0d0d0

@@ -75,5 +75,3 @@ let g:lightline = {
       \ },
       \ }
 autocmd BufEnter * lcd %:p:h
-colorscheme gruvbox
-set background=dark
