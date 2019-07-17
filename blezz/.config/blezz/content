@@ -1,15 +1,9 @@
--e Main:
+Main:
+dir(i,Info)
+dir(w,Workspaces)
 
-dir(e,exec)
-dir(f,floating)
-dir(o,focus)
-dir(u,fullscreen)
-dir(k,kill)
-dir(l,layout)
-dir(m,mode)
-dir(v,move)
-dir(r,reload)
-dir(s,restart)
-dir(c,scratchpad)
-dir(p,split)
-dir(w,workspace)
+Info:
+act(w, Weather, termite -e 'curl wttr.in' --hold)
+
+Workspaces:
+act(c, Client, ~/Workspaces/client.sh)

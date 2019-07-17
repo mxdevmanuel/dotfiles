@@ -341,7 +341,7 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-bindsym XF86Mail exec mailspring & 
+bindsym XF86Mail exec 'i3-msg workspace 6; exec mailspring; nop'
 
 bindsym $mod+o  exec --no-startup-id xset dpms force off
 
@@ -357,9 +357,11 @@ for_window [class="flameshot" window_type="normal"] floating enable, border pixe
 for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
 
 for_window [class="^Mailspring$" instance="^mailspring$"] move to workspace $ws6
+assign [class="^Mailspring$" instance="^mailspring$"] → $ws6
 assign [class="^Sublime_text$" instance="^sublime_text$"] → $ws3
 assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
 assign [class="^Google-chrome" instance="^google-chrome"] → $ws2
+assign [class="^Chromium" instance="^chromium"] → $ws2
 assign [instance="insomnia" class="Insomnia"] → $ws10
 assign [floating] border pixel none 
 assign [title="vifm"] → $ws5 
@@ -402,6 +404,7 @@ bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
 bindsym $mod+F7 exec /home/manuel/.config/rofi/rofi-emoji.sh
 
 bindsym $mod+apostrophe exec /home/manuel/.config/i3/show_battery.sh
+bindsym --release $mod+period exec wmfocus
 
 bindsym $mod+Escape exec clearine
 bindsym $mod+Shift+Escape exec /home/manuel/.config/i3/i3-exit.py
@@ -415,7 +418,7 @@ bindsym $mod+braceright exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/
 
 bindsym $mod+Shift+f exec /home/manuel/.config/rofi/rofi-fb.sh /home/manuel
 #bindsym control+bar exec "rofi -combi-modi window,drun -show combi -modi combi"
-#bindsym $mod+Menu exec jgmenu_run
+bindsym $mod+Shift+Menu exec blezz
 
 focus_follows_mouse yes
 workspace_auto_back_and_forth yes
@@ -431,3 +434,4 @@ gaps inner 5
 gaps outer 0
 
 new_float none
+
