@@ -1,0 +1,27 @@
+diff --git a/themes/agnoster.zsh-theme b/themes/agnoster.zsh-theme
+index 518a14a3..7d395c7b 100644
+--- a/themes/agnoster.zsh-theme
++++ b/themes/agnoster.zsh-theme
+@@ -201,6 +201,14 @@ prompt_dir() {
+   prompt_segment blue $CURRENT_FG '%~'
+ }
+ 
++prompt_tmux() {
++if [[ ! -z "${TMUX}" ]]
++then
++	INFO=$(tmux display-message -p "#S #I #P")
++	prompt_segment white $CURRENT_FG $INFO
++fi
++}
++
+ # Virtualenv: current working virtualenv
+ prompt_virtualenv() {
+   local virtualenv_path="$VIRTUAL_ENV"
+@@ -239,6 +247,7 @@ prompt_aws() {
+ ## Main prompt
+ build_prompt() {
+   RETVAL=$?
++	prompt_tmux
+   prompt_status
+   prompt_virtualenv
+   prompt_aws

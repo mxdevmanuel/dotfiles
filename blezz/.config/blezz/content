@@ -1,9 +1,36 @@
-Main:
+Menu:
+dir(c,Config)
 dir(i,Info)
+dir(t,Troubleshoot)
 dir(w,Workspaces)
 
+Config:
+dir(s,Screenlock)
+
 Info:
-act(w, Weather, termite -e 'curl wttr.in' --hold)
+act(w,Weather, termite -e 'curl wttr.in' --hold)
+
+Troubleshoot:
+act(f,Is it the firewall?, gufw)
+
+
+
+Screenlock:
+act(c, Cars, betterlockscreen -u ~/Imágenes/Wallpapers/Cars)
+act(d, Dope, betterlockscreen -u ~/Imágenes/Wallpapers/Dope)
+act(e, Flat, betterlockscreen -u ~/Imágenes/Wallpapers/Flat)
+act(f, Forms, betterlockscreen -u ~/Imágenes/Wallpapers/Forms)
+act(g, Geometry, betterlockscreen -u ~/Imágenes/Wallpapers/Geometry)
+act(h, Landscape, betterlockscreen -u ~/Imágenes/Wallpapers/Landscape)
+act(l, Linux, betterlockscreen -u ~/Imágenes/Wallpapers/Linux)
+act(m, Marvel-JM, betterlockscreen -u ~/Imágenes/Wallpapers/Marvel-JM)
+act(n, Neon, betterlockscreen -u ~/Imágenes/Wallpapers/Neon)
+act(o, OnePiece, betterlockscreen -u ~/Imágenes/Wallpapers/OnePiece)
+act(p, Pokemon, betterlockscreen -u ~/Imágenes/Wallpapers/Pokemon)
+act(s, StarWars, betterlockscreen -u ~/Imágenes/Wallpapers/StarWars)
+act(t, Textures, betterlockscreen -u ~/Imágenes/Wallpapers/Textures)
+act(u, Unsplash, betterlockscreen -u ~/Imágenes/Wallpapers/Unsplash)
+
 
 Workspaces:
-act(c, Client, ~/Workspaces/client.sh)
+act(c,Client, ~/Workspaces/client.sh)

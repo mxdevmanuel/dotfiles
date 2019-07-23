@@ -58,11 +58,11 @@ module-margin-right = 1
 
 font-0 = DejaVu Sans Mono for Powerline:style=Regular:pixelsize=10;1
 font-1 = FontAwesome:style=Regular:pixelsize=10;0
-font-2 = SauceCodePro Nerd Font:style=Regular:pixelsize=10;1
+font-2 = SauceCodePro Nerd Font:style=Regular:pixelsize=12;1
 
 modules-left = i3
 ;modules-center = 
-modules-right = tareas xbacklight pulseaudio cpu memory battery temperature xkeyboard date 
+modules-right = tareas pomo xbacklight pulseaudio cpu memory battery temperature xkeyboard date 
 
 tray-position = right
 tray-padding = 1
@@ -94,7 +94,7 @@ format-prefix-foreground = ${colors.foreground-alt}
 format-prefix-underline = #cc00b4
 
 format = <label-indicator>
-label-layout = 
+label-layout = %layout%
 label-layout-underline = #cc00b4
 
 label-indicator-padding = 1
@@ -230,7 +230,7 @@ type = internal/cpu
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
+format-underline = #00FF00
 label = %percentage:2%%
 
 [module/memory]
@@ -291,7 +291,7 @@ time-alt = %H:%M:%S
 
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #ed8712
+format-underline = #099999
 
 label = %date% %time%
 
@@ -452,6 +452,15 @@ format-underline = #56ff61
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 interval = 15
+
+[module/pomo]
+type = custom/script
+interval = 1
+exec = pomo status
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #dd0000
 
 [settings]
 screenchange-reload = true
