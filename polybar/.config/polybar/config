@@ -31,7 +31,7 @@ focused = #00cdcd
 
 [bar/example]
 ;monitor = ${env:MONITOR:LVDS-1}
-;monitor = ${env:MONITOR:HDMI-1}
+;monitor = ${env:MONITOR:HDMI1}
 width = 100%
 height = 27
 ;offset-x = 1%

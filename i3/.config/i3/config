@@ -91,7 +91,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+less focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -318,7 +318,7 @@ exec --no-startup-id numlockx &
 exec --no-startup-id unclutter --fork --exclude-root --jitter 20 --ignore-scrolling --timeout 5
 exec_always --no-startup-id $HOME/.config/i3/polybar.sh
 
-bindsym $mod+t [urgent=latest] focus
+bindsym $mod+End [urgent=latest] focus
 
 bindsym $mod+Mod1+l move workspace to output right
 bindsym $mod+Mod1+h move workspace to output left
@@ -348,7 +348,7 @@ bindsym XF86Mail exec 'i3-msg workspace 6; exec mailspring; nop'
 
 bindsym --release $mod+Shift+o  exec --no-startup-id mate-power-preferences
 
-bindsym Control+$mod+l exec --no-startup-id betterlockscreen -l blur 
+bindsym Control+$mod+l exec --no-startup-id betterlockscreen -l  
 bindsym Control+Shift+$mod+l exec --no-startup-id /home/manuel/.config/i3/rest-screen.sh 
 
 for_window [class="copyq" window_type="normal"] floating enable
@@ -395,7 +395,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
-bindsym $mod+Tab exec rofi -show window
+bindsym $mod+Menu exec rofi -show window
 bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -plugin-path /usr/local/lib/rofi
 
 bindsym Print exec flameshot gui
@@ -425,7 +425,9 @@ bindsym $mod+z exec --no-startup-id rofi -modi keys -show keys
 bindsym $mod+v exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
 bindsym $mod+braceright exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/share/scripts/i3_keys.sh
 
-bindsym $mod+Shift+f exec /home/manuel/.config/rofi/rofi-fb.sh /home/manuel
+bindsym $mod+Shift+f exec pcmanfm
+bindcode $mod+Shift+59 exec termite -e "vifm"
+bindsym $mod+plus exec /home/manuel/.config/rofi/rofi-fb.sh /home/manuel
 #bindsym control+bar exec "rofi -combi-modi window,drun -show combi -modi combi"
 bindsym $mod+Shift+Menu exec blezz
 bindsym Control+$mod+Shift+Menu exec rofi -show blezz -modi blezz  -plugin-path /usr/local/lib/rofi -auto-select -matching normal
@@ -455,9 +457,22 @@ mode "moc" {
 	bindsym m exec --no-startup-id mocp --volume +5
 	bindsym l exec --no-startup-id mocp --volume -5
 	bindsym q exec --no-startup-id pkill dzen2; mode "default"
+	bindsym $mod+m exec --no-startup-id pkill dzen2; mode "default"
 	bindsym Escape exec --no-startup-id pkill dzen2; mode "default"
 	bindsym Shift+q exec --no-startup-id pkill dzen2; exec --no-startup-id mocp --exit ; mode "default"
 }
 
 
 #for_window [class="Termite" title="mocp"] floating enable
+
+bindsym --release $mod+Prior workspace prev
+bindsym --release $mod+Next workspace next
+bindsym --release $mod+Tab workspace back_and_forth
+
+bindsym --release Mod3+h exec xdotool key Left
+bindsym --release Mod3+j exec xdotool key Down
+bindsym --release Mod3+k exec xdotool key Up
+bindsym --release Mod3+l exec xdotool key Right
+
+bindsym $mod+Mod2+KP_Add exec xbacklight -inc 10 # increase screen brightness
+bindsym $mod+Mod2+KP_Subtract exec xbacklight -dec 10 # decrease screen brightness

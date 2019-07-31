@@ -16,6 +16,7 @@ act(f,Is it the firewall?, gufw)
 
 
 Screenlock:
+act(a, Architecture, betterlockscreen -u ~/Imágenes/Wallpapers/Architecture)
 act(c, Cars, betterlockscreen -u ~/Imágenes/Wallpapers/Cars)
 act(d, Dope, betterlockscreen -u ~/Imágenes/Wallpapers/Dope)
 act(e, Flat, betterlockscreen -u ~/Imágenes/Wallpapers/Flat)
