@@ -62,7 +62,7 @@ font-2 = SauceCodePro Nerd Font:style=Regular:pixelsize=12;1
 
 modules-left = i3
 ;modules-center = 
-modules-right = tareas pomo xbacklight pulseaudio cpu memory battery temperature xkeyboard date 
+modules-right = tareas pomo pulseaudio cpu memory battery temperature xkeyboard date 
 
 tray-position = right
 tray-padding = 1

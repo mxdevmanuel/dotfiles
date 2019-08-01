@@ -348,7 +348,7 @@ bindsym XF86Mail exec 'i3-msg workspace 6; exec mailspring; nop'
 
 bindsym --release $mod+Shift+o  exec --no-startup-id mate-power-preferences
 
-bindsym Control+$mod+l exec --no-startup-id betterlockscreen -l  
+bindsym Pause exec --no-startup-id betterlockscreen -l  
 bindsym Control+Shift+$mod+l exec --no-startup-id /home/manuel/.config/i3/rest-screen.sh 
 
 for_window [class="copyq" window_type="normal"] floating enable
