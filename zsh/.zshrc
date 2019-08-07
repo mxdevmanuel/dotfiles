@@ -3,12 +3,16 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/manuel/.oh-my-zsh"
+export EDITOR=vim
+export VISUAL=vim
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+ZSH_THEME="agnoster"
+#ZSH_THEME="harruka"
+#ZSH_THEME="oxide"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -63,7 +67,7 @@ ZSH_THEME="spaceship"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
+  git ssh-agent 
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -97,7 +101,76 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
+alias open="xdg-open"
+alias ssh="TERM=xterm-256color ssh"
+
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [[ $TERM == xterm-termite ]]; then
+  . /etc/profile.d/vte.sh 
+  __vte_osc7
+fi
+
+if [ -z "${TMUX}" ]
+then
+	tmux attach -t default || tmux new -s default
+fi
+
+[ ! -f /tmp/firstrun ] && clear && neofetch && touch /tmp/firstrun
+
+if [[ $TERM == rxvt ]];
+then
+	export TERM=rxvt-unicode
+fi
+
+if [[ ! -z "${TMUX}" ]]
+then
+	export TERM=tmux-256color
+fi
+
+CD(){
+	cd $@
+}
+
+load-nvm() {
+	# if nvm command is present nvm is ready no need to load
+	if [[ $(command -v nvm) == "nvm" ]]; then
+		#echo "nvm is ready"
+	else
+		# unalias nvm if alias exists
+		[ `alias | grep nvm | wc -l` != 0 ] && unalias nvm
+
+		echo "loading nvm..."
+		export NVM_DIR="$HOME/.nvm"
+		[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+	fi
+}
+
+alias nvm="load-nvm && nvm"
+alias npm="load-nvm ; npm"
+alias node="load-nvm ; node"
+
+# Some tmux-related shell aliases
+
+# Attaches tmux to the last session; creates a new session if none exists.
+alias t='tmux attach || tmux new-session'
+
+# Attaches tmux to a session (example: ta portal)
+alias ta='tmux attach -t'
+
+# Creates a new session
+alias tn='tmux new-session'
+
+# Lists all ongoing sessions
+alias tl='tmux list-sessions'
+
+
+export DEFAULT_USER="manuel"
+export VIRTUAL_ENV_DISABLE_PROMPT="Y"
+prompt_context(){}
