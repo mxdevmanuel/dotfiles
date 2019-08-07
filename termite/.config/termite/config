@@ -29,7 +29,7 @@ highlight = #30343e
 # https://github.com/chriskempson/base16-xresources/blob/master/xresources/base16-monokai-256.Xresources
 foreground=   #f8f8f2
 # background=   #272822
-background= rgba(39,40,34,0.98)
+background= rgba(39,40,34,0.97)
 
 cursor=  #f8f8f2
 
