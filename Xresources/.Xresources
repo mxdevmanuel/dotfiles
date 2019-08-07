@@ -38,7 +38,7 @@ rofi.terminal: termite
 *.color15:      #f9f8f5
 
 ! Xterm
-xterm*faceName: DejaVuSansMono Nerd Font
+xterm*faceName: RobotoMono Nerd Font
 xterm*faceSize: 12
 xterm*renderFont: true
 xterm*termName: xterm-256color
