@@ -351,7 +351,7 @@ bindsym --release $mod+Shift+o  exec --no-startup-id mate-power-preferences
 
 bindsym Pause exec --no-startup-id betterlockscreen -l  
 
-bindsym $mod+t exec uxterm -e bash
+bindsym $mod+t exec termite -e bash
 
 for_window [class="copyq" window_type="normal"] floating enable
 for_window [class="Gpick"] floating enable
