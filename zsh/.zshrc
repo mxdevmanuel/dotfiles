@@ -10,8 +10,8 @@ export VISUAL=vim
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
-#ZSH_THEME="harruka"
+#ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 #ZSH_THEME="oxide"
 
 # Set list of themes to pick from when loading at random
@@ -61,13 +61,18 @@ ZSH_THEME="agnoster"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# TMUX plugin settings
+ZSH_TMUX_AUTOSTART="true"
+ZSH_TMUX_AUTOCONNECT="false"
+ZSH_TMUX_FIXTERM="false"
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git ssh-agent 
+  git ssh-agent tmux vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -116,11 +121,6 @@ if [[ $TERM == xterm-termite ]]; then
   __vte_osc7
 fi
 
-if [ -z "${TMUX}" ]
-then
-	tmux attach -t default || tmux new -s default
-fi
-
 [ ! -f /tmp/firstrun ] && clear && neofetch && touch /tmp/firstrun
 
 if [[ $TERM == rxvt ]];
@@ -161,16 +161,9 @@ alias node="load-nvm ; node"
 # Attaches tmux to the last session; creates a new session if none exists.
 alias t='tmux attach || tmux new-session'
 
-# Attaches tmux to a session (example: ta portal)
-alias ta='tmux attach -t'
-
-# Creates a new session
-alias tn='tmux new-session'
-
-# Lists all ongoing sessions
-alias tl='tmux list-sessions'
-
-
 export DEFAULT_USER="manuel"
 export VIRTUAL_ENV_DISABLE_PROMPT="Y"
 prompt_context(){}
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh

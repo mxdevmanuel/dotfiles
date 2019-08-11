@@ -11,14 +11,13 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'The-NERD-tree'
 Plugin 'tpope/vim-fugitive'
-Plugin 'morhetz/gruvbox'
-Plugin 'terryma/vim-multiple-cursors'
 Plugin 'itchyny/lightline.vim'
 Plugin 'Quramy/tsuquyomi'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'lervag/vimtex'
 Plugin 'chrisbra/Colorizer'
 Plugin 'peterhoeg/vim-qml'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo

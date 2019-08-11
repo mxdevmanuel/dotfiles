@@ -449,24 +449,6 @@ gaps outer 0
 
 new_float none
 
-bindsym $mod+m mode "moc"; exec --no-startup-id /home/manuel/.config/i3/moc_mode.sh
-
-mode "moc" {
-	bindsym o exec --no-startup-id termite -e "mocp -m"
-	bindsym n exec --no-startup-id mocp --next
-	bindsym b exec --no-startup-id mocp --previous
-	bindsym p exec --no-startup-id mocp --toggle-pause
-	bindsym m exec --no-startup-id mocp --volume +5
-	bindsym l exec --no-startup-id mocp --volume -5
-	bindsym q exec --no-startup-id pkill dzen2; mode "default"
-	bindsym $mod+m exec --no-startup-id pkill dzen2; mode "default"
-	bindsym Escape exec --no-startup-id pkill dzen2; mode "default"
-	bindsym Shift+q exec --no-startup-id pkill dzen2; exec --no-startup-id mocp --exit ; mode "default"
-}
-
-
-#for_window [class="Termite" title="mocp"] floating enable
-
 bindsym --release $mod+Prior workspace prev
 bindsym --release $mod+Next workspace next
 bindsym --release $mod+Tab workspace back_and_forth
@@ -479,8 +461,5 @@ bindsym --release Mod3+l exec xdotool key Right
 bindsym $mod+Mod2+KP_Add exec xbacklight -inc 10 # increase screen brightness
 bindsym $mod+Mod2+KP_Subtract exec xbacklight -dec 10 # decrease screen brightness
 
-bindsym --release ISO_Level3_Lock mode "AltGr"
-
-mode "AltGr" {
-	bindsym --release Mod5+ISO_Level3_Lock mode "default"
-}
+bindsym $mod+t exec termite -e bash
+bindsym $mod+m exec termite -e /home/manuel/.config/i3/cmus.sh
