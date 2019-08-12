@@ -1,3 +1,51 @@
 Xcursor.theme:Paper
 rofi.terminal: termite
 
+urxvt*font:             xft:FuraCode Nerd Font Mono:style=Medium,Regular
+urxvt*fontSize:		12
+urxvt*termName:         rxvt
+urxvt*background:       #000000
+urxvt*foreground:       #cccccc
+urxvt*scrollBar:        false
+urxvt*perl-lib:         /usr/lib/urxvt/perl/
+urxvt*perl-ext-common:  default,matcher
+urxvt*urlLauncher:      /usr/bin/jumanji
+urxvt*matcher.button:   1
+!urxvt*fading:           50
+!urxvt*fadeColor:        #000000
+
+Xft*dpi:                96
+Xft*antialias:          true
+Xft*hinting:            full
+
+urxvt*background:       rgba:0000/0000/0000/0000
+
+URxvt.transparent:   true
+URxvt.tintColor:     white
+URxvt.shading:       20 
+URxvt.internalBorder: 0
+
+!black
+URxvt*color0: #101010
+URxvt*color8: #404040
+!red
+URxvt*color1: #953331
+URxvt*color9: #8D4A48
+!green
+URxvt*color2: #546A29
+URxvt*color10: #7E9960
+!yellow
+URxvt*color3: #909737
+URxvt*color11: #9CA554
+!blue
+URxvt*color4: #385E6B
+URxvt*color12: #5C737C
+!magenta
+URxvt*color5: #7F355E
+URxvt*color13: #95618B
+!cyan
+URxvt*color6: #34676F
+URxvt*color14: #5D858A
+!white
+URxvt*color7: #dddddd
+URxvt*color15: #dddddd

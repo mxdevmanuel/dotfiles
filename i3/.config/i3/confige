@@ -316,6 +316,8 @@ exec --no-startup-id xss-lock -- betterlockscreen -l dim
 exec --no-startup-id mate-power-manager
 exec --no-startup-id numlockx &
 exec --no-startup-id unclutter --fork --exclude-root --jitter 20 --ignore-scrolling --timeout 5
+exec --no-startup-id keynav daemonize
+
 exec_always --no-startup-id $HOME/.config/i3/polybar.sh
 
 bindsym $mod+End [urgent=latest] focus
@@ -375,8 +377,6 @@ assign [instance="insomnia" class="Insomnia"] → $ws10
 assign [floating] border pixel none 
 assign [title="vifm"] → $ws5 
 
-
-
 # class                 border  backgr. text    indicator child_border
 #client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
 client.focused		#000000 #000000 #FFFFFF #2e9ef4   #285577
@@ -402,7 +402,6 @@ bindsym Print exec flameshot gui
 bindsym $mod+Print exec flameshot full
 bindsym $mod+Shift+e exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
 
-
 bindsym $mod+F1 exec /home/manuel/.config/i3/tareas.py
 bindsym $mod+F2 exec rofi -show run
 bindsym $mod+Shift+F2 exec dmenu_run 
@@ -421,9 +420,9 @@ bindsym $mod+Shift+Escape exec /home/manuel/.config/i3/i3-exit.py
 bindsym $mod+Shift+bar move scratchpad
 bindsym $mod+bar scratchpad show
 
-bindsym $mod+z exec --no-startup-id rofi -modi keys -show keys
+#bindsym $mod+z AVAILABLE
+#bindsym $mod+braceright AVAILABLE
 bindsym $mod+v exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
-bindsym $mod+braceright exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/share/scripts/i3_keys.sh
 
 bindsym $mod+Shift+f exec pcmanfm
 bindcode $mod+Shift+59 exec termite -e "vifm"
@@ -433,7 +432,7 @@ bindsym $mod+Shift+Menu exec blezz
 bindsym Control+$mod+Shift+Menu exec rofi -show blezz -modi blezz  -plugin-path /usr/local/lib/rofi -auto-select -matching normal
 
 focus_follows_mouse yes
-workspace_auto_back_and_forth no
+workspace_auto_back_and_forth yes
 
 # Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 1
@@ -447,23 +446,6 @@ gaps outer 0
 
 new_float none
 
-bindsym $mod+m mode "moc"; exec --no-startup-id /home/manuel/.config/i3/moc_mode.sh
-
-mode "moc" {
-	bindsym o exec --no-startup-id termite -e "mocp -m"
-	bindsym n exec --no-startup-id mocp --next
-	bindsym b exec --no-startup-id mocp --previous
-	bindsym p exec --no-startup-id mocp --toggle-pause
-	bindsym m exec --no-startup-id mocp --volume +5
-	bindsym l exec --no-startup-id mocp --volume -5
-	bindsym q exec --no-startup-id pkill dzen2; mode "default"
-	bindsym Escape exec --no-startup-id pkill dzen2; mode "default"
-	bindsym Shift+q exec --no-startup-id pkill dzen2; exec --no-startup-id mocp --exit ; mode "default"
-}
-
-
-#for_window [class="Termite" title="mocp"] floating enable
-
 bindsym --release $mod+Prior workspace prev
 bindsym --release $mod+Next workspace next
 bindsym --release $mod+Tab workspace back_and_forth
@@ -472,3 +454,10 @@ bindsym --release Mod3+h exec xdotool key Left
 bindsym --release Mod3+j exec xdotool key Down
 bindsym --release Mod3+k exec xdotool key Up
 bindsym --release Mod3+l exec xdotool key Right
+
+bindsym $mod+Mod2+KP_Add exec xbacklight -inc 10 # increase screen brightness
+bindsym $mod+Mod2+KP_Subtract exec xbacklight -dec 10 # decrease screen brightness
+
+bindsym $mod+t exec termite -e bash
+bindsym $mod+m exec termite -e /home/manuel/.config/i3/cmus.sh
+bindsym $mod+Shift+m exec termite -e /home/manuel/.config/i3/ncspot.sh

@@ -17,6 +17,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'lervag/vimtex'
 Plugin 'chrisbra/Colorizer'
 Plugin 'peterhoeg/vim-qml'
+Plugin 'junegunn/fzf.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -53,7 +54,7 @@ filetype plugin indent on    " required
 
 " Maps
 map <C-k><C-b> :NERDTreeToggle<CR>
-
+map <C-p> :GFiles<CR>
 " Settings
 set laststatus=2
 set noshowmode
