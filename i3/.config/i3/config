@@ -354,6 +354,7 @@ bindsym Pause exec --no-startup-id betterlockscreen -l
 bindsym $mod+t exec termite -e bash
 
 for_window [class="copyq" window_type="normal"] floating enable
+for_window [title="Android"] floating enable
 for_window [class="Gpick"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [class="scratch"] floating enable
@@ -451,20 +452,7 @@ gaps outer 0
 new_float none
 
 bindsym $mod+m exec termite -e /home/manuel/.config/i3/cmus.sh
-#bindsym $mod+m mode "moc"; exec --no-startup-id /home/manuel/.config/i3/moc_mode.sh
-#
-#mode "moc" {
-#	bindsym o exec --no-startup-id termite -e "mocp -m"
-#	bindsym n exec --no-startup-id mocp --next
-#	bindsym b exec --no-startup-id mocp --previous
-#	bindsym p exec --no-startup-id mocp --toggle-pause
-#	bindsym m exec --no-startup-id mocp --volume +5
-#	bindsym l exec --no-startup-id mocp --volume -5
-#	bindsym q exec --no-startup-id pkill dzen2; mode "default"
-#	bindsym $mod+m exec --no-startup-id pkill dzen2; mode "default"
-#	bindsym Escape exec --no-startup-id pkill dzen2; mode "default"
-#	bindsym Shift+q exec --no-startup-id pkill dzen2; exec --no-startup-id mocp --exit ; mode "default"
-#}
+bindsym $mod+Shift+m exec termite -e /home/manuel/.config/i3/ncspot.sh
 
 
 #for_window [class="Termite" title="mocp"] floating enable
