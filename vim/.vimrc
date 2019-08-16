@@ -68,6 +68,9 @@ nnoremap <Leader>L :Rg<CR>
 set laststatus=2
 set noshowmode
 set number
+set splitbelow
+set splitright
+
 syntax on
 
 let g:jedi#show_call_signatures = "2"
