@@ -14,10 +14,13 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'itchyny/lightline.vim'
 Plugin 'Quramy/tsuquyomi'
 Plugin 'davidhalter/jedi-vim'
-Plugin 'lervag/vimtex'
 Plugin 'chrisbra/Colorizer'
 Plugin 'peterhoeg/vim-qml'
 Plugin 'junegunn/fzf.vim'
+Plugin 'jparise/vim-graphql'
+Plugin 'prettier/vim-prettier', {
+  \ 'do': 'npm install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -51,10 +54,16 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line:
 
 " Manuel
+let mapleader = "-"
 
 " Maps
 map <C-k><C-b> :NERDTreeToggle<CR>
-map <C-p> :GFiles<CR>
+nnoremap <Leader>f :GFiles<CR>
+nnoremap <Leader>F :Files<CR>
+nnoremap <Leader>t :Tags<CR>
+nnoremap <Leader>T :BTags<CR>
+nnoremap <Leader>L :Rg<CR>
+
 " Settings
 set laststatus=2
 set noshowmode
@@ -76,3 +85,18 @@ let g:lightline = {
       \ },
       \ }
 autocmd BufEnter * lcd %:p:h
+
+function! s:DiffWithSaved()
+	let filetype=&ft
+	diffthis
+	vnew | r # | normal! 1Gdd
+	diffthis
+	exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+
+function! s:SetGitRootTags()
+	let root=system("git rev-parse --show-toplevel | tr -d '\\n'") . '/tags'
+	exe "set tags+=" . root
+endfunction
+com! GitRootTags call s:SetGitRootTags()
