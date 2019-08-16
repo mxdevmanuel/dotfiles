@@ -17,6 +17,11 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'chrisbra/Colorizer'
 Plugin 'peterhoeg/vim-qml'
 Plugin 'junegunn/fzf.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plugin 'jparise/vim-graphql'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -52,11 +57,19 @@ filetype plugin indent on    " required
 
 " Maps
 map <C-k><C-b> :NERDTreeToggle<CR>
+let mapleader = "-"
+nnoremap <Leader>f :GFiles<CR>
+nnoremap <Leader>F :Files<CR>
+nnoremap <Leader>t :Tags<CR>
+nnoremap <Leader>T :BTags<CR>
+nnoremap <Leader>l :Rg<CR>
 
 " Settings
 set laststatus=2
 set noshowmode
 set number
+set splitbelow
+set splitright
 syntax on
 
 let g:jedi#show_call_signatures = "2"
@@ -74,3 +87,12 @@ let g:lightline = {
       \ },
       \ }
 autocmd BufEnter * lcd %:p:h
+
+function! s:DiffWithSaved()
+	  let filetype=&ft
+	    diffthis
+	      vnew | r # | normal! 1Gdd
+	        diffthis
+		  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+	  endfunction
+	  com! DiffSaved call s:DiffWithSaved()
