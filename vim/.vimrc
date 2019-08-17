@@ -89,10 +89,16 @@ let g:lightline = {
 autocmd BufEnter * lcd %:p:h
 
 function! s:DiffWithSaved()
-	  let filetype=&ft
-	    diffthis
-	      vnew | r # | normal! 1Gdd
-	        diffthis
-		  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-	  endfunction
-	  com! DiffSaved call s:DiffWithSaved()
+	let filetype=&ft
+	diffthis
+	vnew | r # | normal! 1Gdd
+        diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+  endfunction
+com! DiffSaved call s:DiffWithSaved()
+
+function! s:SetGitRootTags()
+	let root=system("git rev-parse --show-toplevel | tr -d '\\n'") . '/tags'
+	exe "set tags+=" . root
+endfunction
+com! GitRootTags call s:SetGitRootTags()
