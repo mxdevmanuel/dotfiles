@@ -57,7 +57,7 @@ filetype plugin indent on    " required
 
 " Maps
 map <C-k><C-b> :NERDTreeToggle<CR>
-let mapleader = "-"
+let mapleader = " "
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>t :Tags<CR>
