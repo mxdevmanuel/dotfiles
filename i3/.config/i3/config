@@ -361,6 +361,7 @@ for_window [class="scratch"] floating enable
 for_window [window_role="GtkFileChooserDialog"] fullscreen 
 for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
 
+for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable 
 for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
 
 for_window [title="Open File"] focus
