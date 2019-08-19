@@ -22,6 +22,8 @@ Plugin 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plugin 'jparise/vim-graphql'
+Plugin 'tpope/vim-surround'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -58,11 +60,14 @@ filetype plugin indent on    " required
 " Maps
 map <C-k><C-b> :NERDTreeToggle<CR>
 let mapleader = " "
+
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>t :Tags<CR>
 nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>l :Rg<CR>
+nnoremap <Leader>L :Lines<CR>
+nnoremap <Leader>b :Buffers<CR>
 
 " Settings
 set laststatus=2
@@ -71,13 +76,14 @@ set number
 set splitbelow
 set splitright
 syntax on
+colorscheme darkblue
 
 let g:jedi#show_call_signatures = "2"
 
 "let g:jedi#use_splits_not_buffers = "left"
 
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
+      \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
