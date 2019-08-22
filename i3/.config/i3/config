@@ -427,9 +427,9 @@ bindsym $mod+Shift+Escape exec /home/manuel/.config/i3/i3-exit.py
 bindsym $mod+Shift+bar move scratchpad
 bindsym $mod+bar scratchpad show
 
-bindsym $mod+z exec --no-startup-id rofi -modi keys -show keys
+bindsym $mod+z exec --no-startup-id /home/manuel/.config/i3/tmux-session-selector.sh
 bindsym $mod+v exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
-bindsym $mod+braceright exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/share/scripts/i3_keys.sh
+#bindsym $mod+braceright exec --no-startup-id AVAILABLE
 
 bindsym $mod+Shift+f exec pcmanfm
 bindcode $mod+Shift+59 exec termite -e "vifm"
