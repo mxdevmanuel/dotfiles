@@ -19,10 +19,13 @@ Plugin 'peterhoeg/vim-qml'
 Plugin 'junegunn/fzf.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
+  \ 'do': 'npm install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plugin 'jparise/vim-graphql'
 Plugin 'tpope/vim-surround'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'mattn/emmet-vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -76,7 +79,7 @@ set number
 set splitbelow
 set splitright
 syntax on
-colorscheme darkblue
+colorscheme delek
 
 let g:jedi#show_call_signatures = "2"
 
