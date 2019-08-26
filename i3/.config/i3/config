@@ -419,7 +419,7 @@ bindsym $mod+Shift+Escape exec /home/manuel/.config/i3/i3-exit.py
 bindsym $mod+Shift+bar move scratchpad
 bindsym $mod+bar scratchpad show
 
-#bindsym $mod+z AVAILABLE
+bindsym $mod+z exec --no-startup-id /home/manuel/.config/i3/tmux-session-selector.sh
 #bindsym $mod+braceright AVAILABLE
 bindsym $mod+v exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
 
