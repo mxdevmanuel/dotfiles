@@ -37,6 +37,7 @@ nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>l :Rg<CR>
 nnoremap <Leader>L :Lines<CR>
 nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>q :bd<CR>
 
 inoremap { {<CR>}<ESC>ko
 inoremap ( ()<ESC>i
@@ -74,7 +75,7 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
-autocmd BufEnter * lcd %:p:h
+"autocmd BufEnter * lcd %:p:h
 
 function! s:DiffWithSaved()
 	let filetype=&ft

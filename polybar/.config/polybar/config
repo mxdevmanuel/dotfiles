@@ -33,10 +33,10 @@ focused = #00cdcd
 ;monitor = ${env:MONITOR:LVDS-1}
 ;monitor = ${env:MONITOR:HDMI1}
 width = 100%
-height = 27
+height = 25
 ;offset-x = 1%
 ;offset-y = 1%
-radius = 6.0
+radius = 0.0
 fixed-center = false
 
 bottom = true
@@ -47,7 +47,7 @@ foreground = ${colors.foreground}
 line-size = 3
 line-color = #f00
 
-border-size = 4
+border-size = 0
 border-color = #00000000
 
 padding-left = 0

@@ -71,7 +71,7 @@ ZSH_TMUX_AUTOCONNECT="false"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git ssh-agent tmux vi-mode
+  git ssh-agent tmux vi-mode k z
 )
 
 source $ZSH/oh-my-zsh.sh
