@@ -1,13 +1,11 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 
 Plug 'tpope/vim-fugitive'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'chrisbra/Colorizer'
-Plug 'peterhoeg/vim-qml'
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'prettier/vim-prettier', {
@@ -17,8 +15,15 @@ Plug 'jparise/vim-graphql'
 Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'mattn/emmet-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'editorconfig/editorconfig-vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 
 call plug#end()
+
 " Manuel
 
 " Maps
@@ -33,14 +38,31 @@ nnoremap <Leader>l :Rg<CR>
 nnoremap <Leader>L :Lines<CR>
 nnoremap <Leader>b :Buffers<CR>
 
+inoremap { {<CR>}<ESC>ko
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
+
 " Settings
 set laststatus=2
 set noshowmode
 set number
 set splitbelow
 set splitright
+set hidden
+set signcolumn=yes
+set updatetime=300
+
 syntax on
-colorscheme delek
+colorscheme manuel
+
+let g:gitgutter_override_sign_column_highlight = 0
+highlight clear SignColumn
+highlight GitGutterAdd ctermfg=2
+highlight GitGutterChange ctermfg=3
+highlight GitGutterDelete ctermfg=1
+highlight GitGutterChangeDelete ctermfg=4
+
+let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -52,7 +74,7 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
-autocmd BufEnter * lcd %:p:h
+"autocmd BufEnter * lcd %:p:h
 
 function! s:DiffWithSaved()
 	let filetype=&ft

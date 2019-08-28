@@ -11,8 +11,6 @@ export VISUAL=vim
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
-#ZSH_THEME="powerlevel10k/powerlevel10k"
-#ZSH_THEME="oxide"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -72,7 +70,7 @@ ZSH_TMUX_FIXTERM="false"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git ssh-agent tmux vi-mode
+  git ssh-agent tmux vi-mode docker
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -165,5 +163,5 @@ export DEFAULT_USER="manuel"
 export VIRTUAL_ENV_DISABLE_PROMPT="Y"
 prompt_context(){}
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-#[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+autoload -Uz compinit
+compinit

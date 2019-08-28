@@ -49,3 +49,13 @@ URxvt*color14: #5D858A
 !white
 URxvt*color7: #dddddd
 URxvt*color15: #dddddd
+
+!SXIV COLORS
+sxiv.font: 		   monospace:size=8
+sxiv.win_bg_color: #00ff00
+sxiv.win_fs_color: #2E2E2C
+sxiv.sel_color:    #2E2E2C
+sxiv.bar_bg_color: #292927
+sxiv.bar_fg_color: #B8B9B4
+!sxiv.win_width:    460
+!sxiv.win_height:   350
