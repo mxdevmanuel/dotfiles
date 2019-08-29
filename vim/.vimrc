@@ -22,6 +22,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 Plug 'leafgarland/typescript-vim'
+Plug 'chaoren/vim-wordmotion'
 
 call plug#end()
 
@@ -63,6 +64,7 @@ set hlsearch
 syntax on
 colorscheme manuel
 
+let g:wordmotion_prefix = '-'
 let g:gitgutter_override_sign_column_highlight = 0
 highlight clear SignColumn
 highlight GitGutterAdd ctermfg=2
