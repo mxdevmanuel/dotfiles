@@ -70,7 +70,7 @@ ZSH_TMUX_FIXTERM="false"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git ssh-agent tmux vi-mode docker
+  git ssh-agent tmux vi-mode k docker z
 )
 
 source $ZSH/oh-my-zsh.sh

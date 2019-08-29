@@ -21,6 +21,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
@@ -45,12 +46,19 @@ inoremap [ []<ESC>i
 " Settings
 set laststatus=2
 set noshowmode
+set showcmd
+set expandtab
 set number
 set splitbelow
 set splitright
 set hidden
 set signcolumn=yes
 set updatetime=300
+set backspace   =indent,eol,start
+set background=dark
+set ttyfast
+set incsearch
+set hlsearch
 
 syntax on
 colorscheme manuel
