@@ -61,6 +61,11 @@ set ttyfast
 set incsearch
 set hlsearch
 
+if has("persistent_undo")
+    set undodir=$HOME."/.undodir"
+    set undofile
+endif
+
 syntax on
 colorscheme manuel
 
