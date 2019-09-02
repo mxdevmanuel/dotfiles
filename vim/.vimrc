@@ -23,6 +23,7 @@ Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 Plug 'leafgarland/typescript-vim'
 Plug 'chaoren/vim-wordmotion'
+Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
@@ -40,6 +41,7 @@ nnoremap <Leader>l :Rg<CR>
 nnoremap <Leader>L :Lines<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>q :bd<CR>
+nnoremap <Leader>hh :nohl<CR>
 
 inoremap { {<CR>}<ESC>ko
 inoremap ( ()<ESC>i
@@ -64,6 +66,13 @@ set hlsearch
 
 syntax on
 colorscheme manuel
+
+" Use persistent history.
+if !isdirectory("/tmp/.vim-undo-dir")
+    call mkdir("/tmp/.vim-undo-dir", "", 0700)
+endif
+set undodir=/tmp/.vim-undo-dir
+set undofile
 
 let g:wordmotion_prefix = '-'
 let g:gitgutter_override_sign_column_highlight = 0

@@ -33,13 +33,13 @@ focused = #00cdcd
 ;monitor = ${env:MONITOR:LVDS-1}
 ;monitor = ${env:MONITOR:HDMI1}
 width = 100%
-height = 25
+height = 27
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 0.0
 fixed-center = false
 
-bottom = true
+bottom = false
 
 background = ${colors.background}
 foreground = ${colors.foreground}
