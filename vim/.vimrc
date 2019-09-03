@@ -58,7 +58,7 @@ set splitright
 set hidden
 set signcolumn=yes
 set updatetime=300
-set backspace   =indent,eol,start
+set backspace=indent,eol,start
 set background=dark
 set ttyfast
 set incsearch
