@@ -142,3 +142,4 @@ Session.vim
 *~
 
 *.nocommit.*
+neovim/.config/nvim/plugged/
