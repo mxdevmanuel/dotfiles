@@ -40,6 +40,7 @@ nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>l :Rg<CR>
 nnoremap <Leader>L :Lines<CR>
 nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>q :bd<CR>
 nnoremap <Leader>hh :nohl<CR>
 
 inoremap { {<CR>}<ESC>ko
@@ -63,13 +64,15 @@ set ttyfast
 set incsearch
 set hlsearch
 
-if has("persistent_undo")
-    set undodir=$HOME."/.undodir"
-    set undofile
-endif
-
 syntax on
 colorscheme manuel
+
+" Use persistent history.
+if !isdirectory("/tmp/.vim-undo-dir")
+    call mkdir("/tmp/.vim-undo-dir", "", 0700)
+endif
+set undodir=/tmp/.vim-undo-dir
+set undofile
 
 let g:wordmotion_prefix = '-'
 let g:gitgutter_override_sign_column_highlight = 0
