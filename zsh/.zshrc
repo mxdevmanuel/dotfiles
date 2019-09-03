@@ -135,6 +135,20 @@ CD(){
 	cd $@
 }
 
+vimf(){
+        if [ -z "$1" ]
+        then
+                FILE=$(rg --files | fzf)
+        else
+                FILE=$(rg --files --hidden | fzf)
+        fi
+
+        if [ ! -z "$FILE" ]
+        then
+                vim "$FILE"
+        fi
+}
+
 load-nvm() {
 	# if nvm command is present nvm is ready no need to load
 	if [[ $(command -v nvm) == "nvm" ]]; then

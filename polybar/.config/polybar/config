@@ -39,7 +39,7 @@ height = 27
 radius = 6.0
 fixed-center = false
 
-bottom = true
+bottom = false
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -62,7 +62,7 @@ font-2 = SauceCodePro Nerd Font:style=Regular:pixelsize=12;1
 
 modules-left = i3
 ;modules-center = 
-modules-right = tareas pomo xbacklight pulseaudio cpu memory battery temperature xkeyboard date 
+modules-right = tareas pomo xbacklight pulseaudio cpu memory battery temperature xkeyboard date powerbutton
 
 tray-position = right
 tray-padding = 1
@@ -413,6 +413,14 @@ ramp-0 = 
 ramp-1 = 
 ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
+
+[module/powerbutton]
+type = custom/text
+content = 
+
+click-left = clearine &
+content-foreground = #bcbcbc
+content-underline = #bcbcbc
 
 [module/powermenu]
 type = custom/menu

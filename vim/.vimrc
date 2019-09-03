@@ -23,6 +23,7 @@ Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 Plug 'leafgarland/typescript-vim'
 Plug 'chaoren/vim-wordmotion'
+Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
@@ -39,6 +40,7 @@ nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>l :Rg<CR>
 nnoremap <Leader>L :Lines<CR>
 nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>hh :nohl<CR>
 
 inoremap { {<CR>}<ESC>ko
 inoremap ( ()<ESC>i
