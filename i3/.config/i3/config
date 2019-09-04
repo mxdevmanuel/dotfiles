@@ -463,9 +463,10 @@ bindsym $mod+Shift+m exec termite -e /home/manuel/.config/i3/ncspot.sh
 
 #for_window [class="Termite" title="mocp"] floating enable
 
-bindsym --release $mod+Prior workspace prev
-bindsym --release $mod+Next workspace next
+bindsym --release $mod+b workspace prev
+bindsym --release $mod+n workspace next
 bindsym --release $mod+Tab workspace back_and_forth
+bindsym --release $mod+Shift+Tab exec --no-startup-id rofi -show window
 
 bindsym --release Mod3+h exec xdotool key Left
 bindsym --release Mod3+j exec xdotool key Down
