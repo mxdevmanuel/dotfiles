@@ -24,6 +24,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 Plug 'leafgarland/typescript-vim'
 Plug 'chaoren/vim-wordmotion'
 Plug 'easymotion/vim-easymotion'
+Plug 'Yggdroot/indentLine'
 
 call plug#end()
 
