@@ -46,14 +46,14 @@ while sleep 1;do
                         CURRENT=$(($CURRENT + 1))
                         ;;
                 2|4|6)
-                        [ ! -z "$POMOLOCK" ] && betterlockscreen -l -t "take a short break" & 
+                        [ ! -z "$POMOLOCK" ] && betterlockscreen -l dim -t "take a short break" & 
                         [ -z "$POMOLOCK" ] && notify-send Pomodoro "time to take a short break" -t 5000 -i ~/.pomo/icon.png 
                         counter "B" $SHORTBREAK
                         [ ! -z "$POMOLOCK" ] && pkill i3lock
                         CURRENT=$(($CURRENT + 1))
                         ;;
                 8)
-                        [ ! -z "$POMOLOCK" ] && betterlockscreen -l -t "time for a longer break" & 
+                        [ ! -z "$POMOLOCK" ] && betterlockscreen -l dim -t "time for a longer break" & 
                         [ -z "$POMOLOCK" ] && notify-send Pomodoro "time to take a longer break" -t 5000 -i ~/.pomo/icon.png 
                         counter "LB" $LONGBREAK
                         [ ! -z "$POMOLOCK" ] && pkill i3lock
