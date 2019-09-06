@@ -15,23 +15,41 @@ Xft.lcdfilter : lcddefault
 ! ------------------------------------------------------------
 ! Variables
 ! ------------------------------------------------------------
+! Original
+!#define base1 #141A1F
+!#define acr50 #EC5252
+!#define acg50 #5DA713
+!#define aco50 #C97016
+!#define acb50 #3890E9
+!#define acv50 #A359ED
+!#define acc50 #13AFAF
+!#define base3 #6B859E
+!#define base2 #1A2128
+!#define acr70 #FF9191
+!#define acg70 #9ACD68
+!#define aco70 #EDA55D
+!#define acb70 #7DBEFF
+!#define acv70 #CB96FF
+!#define acc70 #6ECFCF
+!#define base4 #A6B5C5
 
-#define base1 #141A1F
-#define acr50 #EC5252
-#define acg50 #5DA713
-#define aco50 #C97016
-#define acb50 #3890E9
-#define acv50 #A359ED
-#define acc50 #13AFAF
-#define base3 #6B859E
-#define base2 #1A2128
-#define acr70 #FF9191
-#define acg70 #9ACD68
-#define aco70 #EDA55D
-#define acb70 #7DBEFF
-#define acv70 #CB96FF
-#define acc70 #6ECFCF
-#define base4 #A6B5C5
+
+#define base1 #272822
+#define acr50 #f92672
+#define acg50 #a6e22e
+#define aco50 #f4bf75
+#define acb50 #66d9ef
+#define acv50 #ae81ff
+#define acc50 #a1efe4
+#define base3 #f8f8f2
+#define base2 #75715e
+#define acr70 #f92672
+#define acg70 #a6e22e
+#define aco70 #f4bf75
+#define acb70 #66d9ef
+#define acv70 #ae81ff
+#define acc70 #a1efe4
+#define base4 #f9f8f5
 
 *.foreground  : base4
 *.background  : base1
@@ -64,7 +82,7 @@ Xft.lcdfilter : lcddefault
 ! ------------------------------------------------------------
 
 URxvt*termName       : screen-256color
-URxvt*font           : xft:DejaVuSansMono Nerd Font:size=13
+URxvt*font           : xft:FuraCode Nerd Font Mono:size=12
 !
 ! Terminus italics are ugly, so I do not use them.
 !
@@ -74,7 +92,7 @@ URxvt*font           : xft:DejaVuSansMono Nerd Font:size=13
 !
 URxvt.keysym.C-M-8 : command:\033]710;xft:DejaVu Sans Mono for Powerline:size=11\007
 URxvt.keysym.C-M-9 : command:\033]710;xft:DejaVu Sans Mono for Powerline:size=11:bold\007
-URxvt.keysym.C-M-0 : command:\033]710;xft:FuraCode Nerd Font Mono:size=13:bold\007
+URxvt.keysym.C-M-0 : command:\033]710;xft:DejaVuSansMono Nerd Font Mono:size=13:bold\007
 
 URxvt*letterSpace    : 0
 URxvt*internalBorder : 1
@@ -198,7 +216,7 @@ URxvt.keysym.Control-R : resize-font:reset
 xterm*termName        : screen-256color
 xterm*renderFont      : true
 xterm*faceName        : FuraCode Nerd Font Mono
-xterm*faceSize        : 13
+xterm*faceSize        : 12
 xterm*locale          : true
 xterm*metaSendsEscape : true
 xterm*eightBitInput   : false
