@@ -62,7 +62,7 @@ font-2 = SauceCodePro Nerd Font:style=Regular:pixelsize=12;1
 
 modules-left = i3
 ;modules-center = 
-modules-right = tareas pomo pulseaudio cpu memory battery temperature xkeyboard date 
+modules-right = tareas pomo pulseaudio cpu memory temperature xkeyboard date 
 
 tray-position = right
 tray-padding = 1
@@ -456,7 +456,10 @@ interval = 15
 [module/pomo]
 type = custom/script
 interval = 1
-exec = pomo status
+exec = pomodoro.sh
+click-left = pkill pomodoro.sh -USR1
+click-right = pkill pomodoro.sh -USR2 
+tail = true
 
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
