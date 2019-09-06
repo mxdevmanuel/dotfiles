@@ -1,4 +1,6 @@
-# Manuel's dotfiles
+# Manuel's dotfiles 
+
+## __Desktop version__
 
 ## Programs:
 - i3-gaps
@@ -9,6 +11,9 @@
 - polybar
 - conky
 - vifm
+- cmus
+- ncspot
+- vlc:w
 - mailspring
 - chromium
 - sxiv
