@@ -464,7 +464,10 @@ interval = 15
 [module/pomo]
 type = custom/script
 interval = 1
-exec = pomo status
+exec = pomodoro.sh
+click-left = pkill pomodoro.sh -USR1
+click-right = pkill pomodoro.sh -USR2 
+tail = true
 
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
