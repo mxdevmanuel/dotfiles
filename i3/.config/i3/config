@@ -156,10 +156,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym ntilde resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -350,7 +350,7 @@ bindsym XF86Mail exec 'i3-msg workspace 6; exec mailspring; nop'
 bindsym --release $mod+Shift+o  exec --no-startup-id mate-power-preferences
 
 bindsym Control+$mod+l exec --no-startup-id betterlockscreen -l  
-bindsym Control+Shift+$mod+l exec --no-startup-id /home/manuel/.config/i3/rest-screen.sh 
+#bindsym Control+Shift+$mod+l exec AVAILABLE
 
 for_window [class="copyq" window_type="normal"] floating enable
 for_window [class="Gpick"] floating enable
@@ -363,7 +363,7 @@ for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
 
 for_window [title="Open File"] focus
 for_window [title="Save File"] focus
-for_window [class="URxvt" instance="urxvt"] floating enable
+#for_window [class="URxvt" instance="urxvt"] floating enable
 for_window [class="^Mailspring$" instance="^mailspring$"] move to workspace $ws6
 assign [class="^Mailspring$" instance="^mailspring$"] → $ws6
 assign [instance="^libreoffice$"] → $ws8
@@ -458,5 +458,5 @@ bindsym $mod+Mod2+KP_Add exec xbacklight -inc 10 # increase screen brightness
 bindsym $mod+Mod2+KP_Subtract exec xbacklight -dec 10 # decrease screen brightness
 
 bindsym $mod+t exec termite -e bash
-bindsym $mod+m exec termite -e /home/manuel/.config/i3/cmus.sh
-bindsym $mod+Shift+m exec termite -e /home/manuel/.config/i3/ncspot.sh
+#bindsym $mod+m  AVAILABLE
+#bindsym $mod+Shift+m AVAILABLE
