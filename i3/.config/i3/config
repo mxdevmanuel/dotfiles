@@ -401,7 +401,8 @@ bindsym Print exec flameshot gui
 bindsym $mod+Print exec flameshot full
 bindsym $mod+Shift+e exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
 
-bindsym $mod+F1 exec /home/manuel/.config/i3/tareas.py
+bindsym $mod+F1 exec /home/manuel/.config/i3/quick-task.sh
+bindsym $mod+Shift+F1 exec qtodotxt2
 bindsym $mod+F2 exec rofi -show run
 bindsym $mod+Shift+F2 exec dmenu_run 
 bindsym $mod+F3 exec /home/manuel/.config/i3/workspace_auto_bf.sh
