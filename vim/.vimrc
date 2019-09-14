@@ -25,6 +25,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'chaoren/vim-wordmotion'
 Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
@@ -43,10 +44,11 @@ nnoremap <Leader>L :Lines<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>q :bd<CR>
 nnoremap <Leader>hh :nohl<CR>
+nnoremap <Leader>rr :set rnu!<CR>
 
-inoremap { {<CR>}<ESC>ko
-inoremap ( ()<ESC>i
-inoremap [ []<ESC>i
+"inoremap { {<CR>}<ESC>ko
+"inoremap ( ()<ESC>i
+"inoremap [ []<ESC>i
 
 " Settings
 set laststatus=2
@@ -64,6 +66,9 @@ set background=dark
 set ttyfast
 set incsearch
 set hlsearch
+set wildmenu
+set display+=lastline
+set visualbell
 
 syntax on
 colorscheme manuel
