@@ -173,6 +173,8 @@ alias node="load-nvm ; node"
 # Attaches tmux to the last session; creates a new session if none exists.
 alias t='tmux attach || tmux new-session'
 
+alias packs="pacman -Q | wc -l"
+
 export DEFAULT_USER="manuel"
 export VIRTUAL_ENV_DISABLE_PROMPT="Y"
 prompt_context(){}

@@ -44,8 +44,7 @@ nnoremap <Leader>L :Lines<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>q :bd<CR>
 nnoremap <Leader>hh :nohl<CR>
-
-inoremap ñ <ESC>
+nnoremap <Leader>rr :set rnu!<CR>
 
 " Settings
 set laststatus=2

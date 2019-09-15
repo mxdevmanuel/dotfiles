@@ -1,0 +1,35 @@
+## General options
+set header_cache = "~/.cache/neomutt"
+set imap_check_subscribed
+set imap_keepalive = 300
+unset imap_passive
+set mail_check = 60
+set mbox_type=Maildir
+set sleep_time=0
+set sort=reverse-date
+set mailcap_path=~/.mailcap
+
+alternative_order text/plain text/html
+auto_view text/html
+
+set new_mail_command="notify-send --icon='/usr/share/icons/Papirus/64x64/apps/mailspring.svg' \
+'New Email in %f' '%n new messages, %u unread.' &"
+
+## ACCOUNT1
+source "~/.config/neomutt/account.com.outlook.dsmanuelm"
+folder-hook imaps://imap-mail.outlook.com:993 'source ~/.config/neomutt/account.com.outlook.dsmanuelm'
+
+## ACCOUNT2
+source "~/.config/neomutt/account.com.gmail.p513"
+# Here we use the $folder variable that has just been set in the sourced file.
+# We must set it right now otherwise the 'folder' variable will change in the next sourced file.
+folder-hook imaps://imap.gmail.com:993 'source ~/.config/neomutt/account.com.gmail.p513'
+
+# Shortcuts
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/account.com.gmail.p513<enter><change-folder>!<enter>'
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/account.com.outlook.dsmanuelm<enter><change-folder>!<enter>'
+macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 | vimb -<enter>"
+
+#source ~/.config/neomutt/gruvbox.muttrc
+source ~/.config/neomutt/monokai.muttrc
+
