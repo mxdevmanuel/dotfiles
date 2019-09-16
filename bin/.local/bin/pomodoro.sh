@@ -12,7 +12,7 @@ WAIT=1
 notify(){
         if [ "$1" == "W" ]
         then
-                notify-send Pomodoro "time to take a break in 10s" -t 5000 -i ~/.pomo/icon.png 
+                notify-send Pomodoro "time to take a break in 10s" -t 5000 -i ~/.dotfiles/icons/pomo.png 
         fi
 }
 
@@ -54,7 +54,7 @@ while sleep 1;do
 
         case $CURRENT in
                 1)
-                        notify-send Pomodoro "Let's start to work" -t 5000 -i ~/.pomo/icon.png 
+                        notify-send Pomodoro "Let's start to work" -t 5000 -i ~/.dotfiles/icons/pomo.png 
                         counter "W" $WORK
                         CURRENT=$(($CURRENT + 1))
                         ;;
@@ -81,7 +81,7 @@ while sleep 1;do
                                 unset ISIDLE
                         fi
 
-                        notify-send Pomodoro "It's time to work" -t 5000 -i ~/.pomo/icon.png 
+                        notify-send Pomodoro "It's time to work" -t 5000 -i ~/.dotfiles/icons/pomo.png 
                         counter "W" $WORK
                         CURRENT=$(($CURRENT + 1))
                         ;;

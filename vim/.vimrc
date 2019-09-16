@@ -14,7 +14,7 @@ Plug 'prettier/vim-prettier', {
 Plug 'jparise/vim-graphql'
 Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'

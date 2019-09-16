@@ -2,7 +2,6 @@ Menu:
 dir(c,Config)
 dir(i,Info)
 dir(t,Troubleshoot)
-dir(w,Workspaces)
 
 Config:
 dir(s,Screenlock)
@@ -32,6 +31,3 @@ act(s, StarWars, betterlockscreen -u ~/Imágenes/Wallpapers/StarWars)
 act(t, Textures, betterlockscreen -u ~/Imágenes/Wallpapers/Textures)
 act(u, Unsplash, betterlockscreen -u ~/Imágenes/Wallpapers/Unsplash)
 
-
-Workspaces:
-act(c,Client, ~/Workspaces/client.sh)

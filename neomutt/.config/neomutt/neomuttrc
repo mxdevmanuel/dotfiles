@@ -8,6 +8,7 @@ set mbox_type=Maildir
 set sleep_time=0
 set sort=reverse-date
 set mailcap_path=~/.mailcap
+set pager_stop=yes
 
 alternative_order text/plain text/html
 auto_view text/html
