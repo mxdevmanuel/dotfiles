@@ -1,0 +1,27 @@
+## Receive options.
+set imap_user=p513manu@gmail.com
+set imap_pass = "vqonjmfmddbmyukg"
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = +INBOX
+set postponed = +Drafts
+set record = +Sent
+
+## Send options.
+set smtp_url = "smtps://p513manu@gmail.com@smtp.gmail.com:465/"
+set smtp_pass = $imap_pass
+set realname = "Manuel Morales"
+set from = $imap_user
+set hostname="gmail.com"
+set signature="Manuel Morales"
+set use_from = yes
+# Connection options
+set ssl_force_tls = yes
+unset ssl_starttls
+
+## Hook -- IMPORTANT!
+account-hook $folder "set imap_user=p513manu@gmail.com imap_pass=vqonjmfmddbmyukg"
+
+set header_cache = ~/.cache/neomutt/com.gmail.p513manu/cache/headers            
+set message_cachedir = ~/.cache/neomutt/com.gmail.p513manu/cache/bodies         
+set certificate_file = ~/.config/neomutt/com.gmail.p513manu/certificates    
+# vi: ft=neomuttrc
