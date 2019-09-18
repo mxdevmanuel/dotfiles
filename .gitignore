@@ -143,3 +143,4 @@ Session.vim
 
 *.nocommit.*
 vifm/.config/vifm/vifminfo
+account.com.*
