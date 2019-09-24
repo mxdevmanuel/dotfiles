@@ -1,6 +1,7 @@
 Menu:
 dir(c,Config)
 dir(i,Info)
+dir(l,Layout)
 dir(t,Troubleshoot)
 dir(w,Workspaces)
 
@@ -13,7 +14,9 @@ act(w,Weather, termite -e 'curl wttr.in' --hold)
 Troubleshoot:
 act(f,Is it the firewall?, gufw)
 
-
+Layout:
+act(e, Euro, setxkbmap -layout us -variant euro)
+act(l, Latam, setxkbmap latam)
 
 Screenlock:
 act(a, Architecture, betterlockscreen -u ~/Imágenes/Wallpapers/Architecture)

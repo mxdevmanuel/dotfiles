@@ -171,6 +171,7 @@ alias nvm="load-nvm && nvm"
 alias npm="load-nvm ; npm"
 alias node="load-nvm ; node"
 alias videoshot="videoshot.sh"
+alias btctl="bluetoothctl"
 
 # Some tmux-related shell aliases
 
