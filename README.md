@@ -13,9 +13,11 @@
 - vifm
 - cmus
 - ncspot
-- vlc:w
-- mailspring
-- chromium
+- vlc
+- neomutt
+- newsboat
+- tig
+- vimb
 - sxiv
 - zathura
 - blezz
@@ -33,5 +35,4 @@
 TAD
 
 ### TODO:
-- add audible aid on pomodoro script
 - migrate todo script to a text file to sync over laptop-desktop-work
