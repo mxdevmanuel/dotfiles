@@ -32,7 +32,8 @@
 )
 
 ### Screenshots
-TAD
+![Empty desk](./Screenshots/plain.png)
+![Terminal](./Screenshots/terminal.png)
 
 ### TODO:
 - migrate todo script to a text file to sync over laptop-desktop-work
