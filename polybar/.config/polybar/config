@@ -60,9 +60,9 @@ font-0 = DejaVu Sans Mono for Powerline:style=Regular:pixelsize=10;1
 font-1 = FontAwesome:style=Regular:pixelsize=10;0
 font-2 = SauceCodePro Nerd Font:style=Regular:pixelsize=12;1
 
-modules-left = i3
-;modules-center = 
-modules-right = tareas pomo pulseaudio cpu memory temperature xkeyboard date 
+modules-left = i3 tasks 
+;modules-center =
+modules-right = pomo pulseaudio cpu memory temperature xkeyboard date 
 
 tray-position = right
 tray-padding = 1
@@ -443,13 +443,12 @@ menu-2-0-exec = menu-open-0
 menu-2-1 = power off
 menu-2-1-exec = systemctl poweroff
 
-[module/tareas]
+[module/tasks]
 type = custom/script
-exec = ~/.config/i3/tareasbar.py
-click-left = /home/manuel/.config/i3/tareas.py
+exec = todotxt-polybar.sh
+click-left = todotxt-show.txt 
 
-format-underline = #56ff61
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 interval = 15
 

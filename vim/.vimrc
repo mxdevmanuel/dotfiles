@@ -17,6 +17,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'chaoren/vim-wordmotion'
 Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
+Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
 
 " VCS
