@@ -446,7 +446,7 @@ menu-2-1-exec = systemctl poweroff
 [module/tasks]
 type = custom/script
 exec = todotxt-polybar.sh
-click-left = todotxt-show.txt 
+click-left = todotxt-show.sh 
 
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
