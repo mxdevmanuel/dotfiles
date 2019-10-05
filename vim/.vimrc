@@ -117,3 +117,25 @@ function! s:SetGitRootTags()
 	exe "set tags+=" . root
 endfunction
 com! GitRootTags call s:SetGitRootTags()
+
+command! W execute 'silent w !sudo tee % >/dev/null' | edit!
+
+" enable mouse
+set mouse=a
+if has('mouse_sgr')
+    " sgr mouse is better but not every term supports it
+    set ttymouse=sgr
+endif
+
+" change cursor shape for different editing modes, neovim does this by default
+if !has('nvim')
+    if exists('$TMUX')
+        let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+        let &t_SR = "\<Esc>Ptmux;\<Esc>\e[4 q\<Esc>\\"
+        let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+    else
+        let &t_SI = "\e[6 q"
+        let &t_SR = "\e[4 q"
+        let &t_EI = "\e[2 q"
+    endif
+endif
