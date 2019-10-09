@@ -57,6 +57,7 @@ set noshowmode
 set showcmd
 set expandtab
 set number
+set rnu
 set splitbelow
 set splitright
 set hidden
