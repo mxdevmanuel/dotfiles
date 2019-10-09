@@ -60,9 +60,9 @@ font-0 = DejaVu Sans Mono for Powerline:style=Regular:pixelsize=10;1
 font-1 = FontAwesome:style=Regular:pixelsize=10;0
 font-2 = SauceCodePro Nerd Font:style=Regular:pixelsize=12;1
 
-modules-left = i3
+modules-left = i3 tasks
 ;modules-center = 
-modules-right = tasks pomo xbacklight pulseaudio cpu memory battery temperature xkeyboard date powerbutton
+modules-right =  pomo xbacklight pulseaudio cpu memory battery temperature xkeyboard date powerbutton
 
 tray-position = right
 tray-padding = 1
@@ -453,13 +453,12 @@ menu-2-1-exec = systemctl poweroff
 
 [module/tasks]
 type = custom/script
-interval = 15
-exec = taskbar.sh
-click-left = qtodotxt2
+exec = todotxt-polybar.sh
+click-left = todotxt-show.sh 
 
-format-underline = #56ff61
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
+interval = 15
 
 [module/pomo]
 type = custom/script

@@ -360,7 +360,7 @@ for_window [window_role="GtkFileChooserDialog"] fullscreen
 for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
 
 for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
-
+for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable
 for_window [title="Open File"] focus
 for_window [title="Save File"] focus
 #for_window [class="URxvt" instance="urxvt"] floating enable
@@ -401,13 +401,13 @@ bindsym Print exec flameshot gui
 bindsym $mod+Print exec flameshot full
 bindsym $mod+Shift+e exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
 
-bindsym $mod+F1 exec /home/manuel/.config/i3/quick-task.sh
-bindsym $mod+Shift+F1 exec qtodotxt2
+bindsym $mod+F1 exec todotxt-show.sh
 bindsym $mod+F2 exec rofi -show run
 bindsym $mod+Shift+F2 exec dmenu_run 
 bindsym $mod+F3 exec /home/manuel/.config/i3/workspace_auto_bf.sh
 bindsym $mod+Shift+F3 exec /home/manuel/.config/i3/follow_focus_fly.sh
 bindsym $mod+F4 exec /home/manuel/.config/i3/hdmi.sh
+bindsym $mod+F5 exec todotxt-sync.sh
 bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
 bindsym $mod+F7 exec /home/manuel/.config/rofi/rofi-emoji.sh
 
@@ -434,6 +434,7 @@ bindsym Control+$mod+Shift+Menu exec rofi -show blezz -modi blezz  -plugin-path 
 focus_follows_mouse yes
 workspace_auto_back_and_forth yes
 
+bindsym $mod+Shift+Return exec env NOTMUX=1 i3-sensible-terminal
 # Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 1
 # Smart Gaps
