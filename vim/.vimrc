@@ -19,6 +19,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'morhetz/gruvbox'
 
 " VCS
 Plug 'tpope/vim-fugitive'
@@ -57,6 +58,7 @@ set noshowmode
 set showcmd
 set expandtab
 set number
+set rnu
 set splitbelow
 set splitright
 set hidden
@@ -70,9 +72,11 @@ set ttyfast
 set incsearch
 set hlsearch
 set visualbell
+set scrolloff=3
+set autoread
 
 syntax on
-colorscheme manuel
+colorscheme gruvbox
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -92,7 +96,7 @@ highlight GitGutterChangeDelete ctermfg=4
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -112,13 +116,30 @@ function! s:DiffWithSaved()
   endfunction
 com! DiffSaved call s:DiffWithSaved()
 
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+" Revert with: ":delcommand DiffOrig".
+"if !exists(":DiffOrig")
+  "command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+		  "\ | wincmd p | diffthis
+"endif
+
+if has('langmap') && exists('+langremap')
+  " Prevent that the langmap option applies to characters that result from a
+  " mapping.  If set (default), this may break plugins (but it's backward
+  " compatible).
+  set nolangremap
+endif
+
 function! s:SetGitRootTags()
 	let root=system("git rev-parse --show-toplevel | tr -d '\\n'") . '/tags'
 	exe "set tags+=" . root
 endfunction
 com! GitRootTags call s:SetGitRootTags()
 
-command! W execute 'silent w !sudo tee % >/dev/null' | edit!
+command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
+command W write
 
 " enable mouse
 set mouse=a
@@ -139,3 +160,11 @@ if !has('nvim')
         let &t_EI = "\e[2 q"
     endif
 endif
+
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
+
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow

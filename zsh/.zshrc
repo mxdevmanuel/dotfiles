@@ -70,9 +70,17 @@ ZSH_TMUX_AUTOCONNECT="false"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git ssh-agent tmux vi-mode k z
-)
+if [ -z "$NOTMUX" ]
+then
+        plugins=(
+          git ssh-agent tmux vi-mode k z
+        )
+else
+
+        plugins=(
+          git ssh-agent vi-mode k z
+        )
+fi
 
 source $ZSH/oh-my-zsh.sh
 
