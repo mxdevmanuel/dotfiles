@@ -19,6 +19,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'jiangmiao/auto-pairs'
 Plug 'freitass/todo.txt-vim'
+Plug 'morhetz/gruvbox'
 
 " VCS
 Plug 'tpope/vim-fugitive'
@@ -72,7 +73,7 @@ set incsearch
 set hlsearch
 
 syntax on
-colorscheme manuel
+colorscheme gruvbox
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -92,7 +93,7 @@ highlight GitGutterChangeDelete ctermfg=4
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]

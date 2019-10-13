@@ -14,7 +14,7 @@
 
 # TUI:
 al
-q0
+q1
 v2
 ov
 m-1
@@ -23,8 +23,29 @@ r2
 
 # Left window history (oldest to newest):
 d/home/manuel
-	..
-0
+	Imágenes
+10
+d/home/manuel/Imágenes
+	Wallpapers
+2
+d/home/manuel/Imágenes/Wallpapers
+	Architecture
+1
+d/home/manuel/Imágenes/Wallpapers/Architecture
+	20191011.jpg
+9
+d/home/manuel/Imágenes/Wallpapers
+	Universe
+17
+d/home/manuel/Imágenes/Wallpapers/Universe
+	20191013.jpg
+17
+d/home/manuel/Imágenes/Wallpapers
+	Unsplash
+18
+d/home/manuel/Imágenes/Wallpapers/Unsplash
+	20190903.jpg
+4
 d
 
 # Right window history (oldest to newest):
@@ -34,6 +55,8 @@ D/home/manuel
 D
 
 # Command line history (oldest to newest):
+:view
+:set nu
 :q
 
 # Search history (oldest to newest):
