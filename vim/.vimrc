@@ -1,4 +1,4 @@
-set nocompatible              " be iMproved, required
+        set nocompatible              " be iMproved, required
 filetype off                  " required
 
 call plug#begin()
@@ -74,6 +74,9 @@ set hlsearch
 set visualbell
 set scrolloff=3
 set autoread
+set foldmethod=syntax
+set foldlevelstart=10
+set tags^=./.git/tags;
 
 syntax on
 colorscheme gruvbox

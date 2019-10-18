@@ -9,7 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -420,6 +420,7 @@ bindsym $mod+bar scratchpad show
 
 bindsym $mod+z exec --no-startup-id /home/manuel/.config/i3/tmux-session-selector.sh
 bindsym $mod+v exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
+#bindsym $mod+braceright exec --no-startup-id AVAILABLE
 
 bindsym $mod+Shift+f exec pcmanfm
 bindcode $mod+Shift+59 exec termite -e "vifm"
@@ -428,7 +429,7 @@ bindsym $mod+Shift+Menu exec blezz
 bindsym Control+$mod+Shift+Menu exec rofi -show blezz -modi blezz  -plugin-path /usr/local/lib/rofi -auto-select -matching normal
 
 focus_follows_mouse yes
-workspace_auto_back_and_forth yes
+workspace_auto_back_and_forth no
 
 # Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 1
@@ -454,10 +455,3 @@ bindsym --release $mod+Shift+Tab exec --no-startup-id rofi -show window
 
 bindsym $mod+Mod2+KP_Add exec xbacklight -inc 10 # increase screen brightness
 bindsym $mod+Mod2+KP_Subtract exec xbacklight -dec 10 # decrease screen brightness
-
-bindsym $mod+braceright mode "Alt"
-
-mode "Alt" {
-        bindsym Control+Escape mode "default"
-        bindsym $mod+braceright mode "default"
-}
