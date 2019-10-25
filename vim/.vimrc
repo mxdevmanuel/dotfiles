@@ -1,4 +1,4 @@
-        set nocompatible              " be iMproved, required
+set nocompatible              " be iMproved, required
 filetype off                  " required
 
 call plug#begin()
@@ -75,8 +75,9 @@ set visualbell
 set scrolloff=3
 set autoread
 set foldmethod=syntax
-set foldlevelstart=10
+set foldlevelstart=20
 set tags^=./.git/tags;
+set smarttab
 
 syntax on
 colorscheme gruvbox
@@ -87,6 +88,11 @@ if !isdirectory("/tmp/.vim-undo-dir")
 endif
 set undodir=/tmp/.vim-undo-dir
 set undofile
+
+if !isdirectory("/tmp/.vim-swap-dir")
+    call mkdir("/tmp/.vim-swap-dir", "", 0700)
+endif
+set directory=/tmp/.vim-swap-dir
 
 let g:wordmotion_prefix = '-'
 let g:gitgutter_override_sign_column_highlight = 0
@@ -171,3 +177,5 @@ endif
 
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
+
+autocmd FileType json let g:indentLine_enabled=0
