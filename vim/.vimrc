@@ -3,8 +3,6 @@ filetype off                  " required
 
 call plug#begin()
 
-Plug 'itchyny/lightline.vim'
-Plug 'chrisbra/Colorizer'
 Plug 'junegunn/fzf.vim'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
@@ -24,8 +22,8 @@ Plug 'morhetz/gruvbox'
 " VCS
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
+Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
+Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 
 " Syntax
 Plug 'pangloss/vim-javascript'
@@ -41,6 +39,7 @@ call plug#end()
 map <C-k><C-b> :NERDTreeToggle<CR>
 let mapleader = " "
 
+nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>t :Tags<CR>
@@ -53,8 +52,8 @@ nnoremap <Leader>hh :nohl<CR>
 nnoremap <Leader>rr :set rnu!<CR>
 
 " Settings
-set laststatus=2
-set noshowmode
+"set laststatus=1
+"set noshowmode
 set showcmd
 set expandtab
 set number
@@ -71,6 +70,10 @@ set background=dark
 set ttyfast
 set incsearch
 set hlsearch
+set scrolloff=3
+set foldmethod=syntax
+set foldlevelstart=5
+set tags^=./.git/tags;
 
 syntax on
 colorscheme gruvbox
@@ -82,6 +85,7 @@ endif
 set undodir=/tmp/.vim-undo-dir
 set undofile
 
+let g:netrw_banner=0
 let g:wordmotion_prefix = '-'
 let g:gitgutter_override_sign_column_highlight = 0
 highlight clear SignColumn
@@ -92,16 +96,6 @@ highlight GitGutterChangeDelete ctermfg=4
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
 "autocmd BufEnter * lcd %:p:h
 
 function! s:DiffWithSaved()
@@ -119,7 +113,7 @@ function! s:SetGitRootTags()
 endfunction
 com! GitRootTags call s:SetGitRootTags()
 
-command! W execute 'silent w !sudo tee % >/dev/null' | edit!
+"command! W execute 'silent w !sudo tee % >/dev/null' | edit!
 
 " enable mouse
 set mouse=a
@@ -140,3 +134,5 @@ if !has('nvim')
         let &t_EI = "\e[2 q"
     endif
 endif
+
+let javaScript_fold=1

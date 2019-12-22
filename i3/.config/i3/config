@@ -9,7 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
+set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -321,11 +321,11 @@ exec_always --no-startup-id $HOME/.config/i3/polybar.sh
 
 bindsym $mod+End [urgent=latest] focus
 
-bindsym $mod+Mod1+l move workspace to output right
-bindsym $mod+Mod1+h move workspace to output left
+#bindsym $mod+Mod1+l move workspace to output right
+#bindsym $mod+Mod1+h move workspace to output left
 
-bindsym $mod+Mod1+Right move workspace to output right
-bindsym $mod+Mod1+Left move workspace to output left
+#bindsym $mod+Mod1+Right move workspace to output right
+#bindsym $mod+Mod1+Left move workspace to output left
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id /home/manuel/.config/i3/sink-smart-selector.sh +5% #increase sound volume
