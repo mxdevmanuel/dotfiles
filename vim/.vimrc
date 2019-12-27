@@ -3,6 +3,7 @@ filetype off                  " required
 
 call plug#begin()
 
+Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
@@ -12,12 +13,12 @@ Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'chaoren/vim-wordmotion'
 Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'jiangmiao/auto-pairs'
 Plug 'freitass/todo.txt-vim'
 Plug 'morhetz/gruvbox'
+Plug 'terryma/vim-multiple-cursors'
 
 " VCS
 Plug 'tpope/vim-fugitive'
@@ -36,7 +37,9 @@ call plug#end()
 " Manuel
 
 " Maps
+map <bs> <Plug>(easymotion-prefix)
 map <C-k><C-b> :NERDTreeToggle<CR>
+map <C-k><C-o> :NERDTreeFind<CR>
 let mapleader = " "
 
 nnoremap <C-p> :GFiles<CR>
@@ -52,8 +55,8 @@ nnoremap <Leader>hh :nohl<CR>
 nnoremap <Leader>rr :set rnu!<CR>
 
 " Settings
-"set laststatus=1
-"set noshowmode
+set noshowmode
+set laststatus=2
 set showcmd
 set expandtab
 set number
@@ -74,6 +77,9 @@ set scrolloff=3
 set foldmethod=syntax
 set foldlevelstart=5
 set tags^=./.git/tags;
+set autoread
+set pastetoggle=<F2>
+set formatoptions+=j
 
 syntax on
 colorscheme gruvbox
@@ -86,7 +92,6 @@ set undodir=/tmp/.vim-undo-dir
 set undofile
 
 let g:netrw_banner=0
-let g:wordmotion_prefix = '-'
 let g:gitgutter_override_sign_column_highlight = 0
 highlight clear SignColumn
 highlight GitGutterAdd ctermfg=2
@@ -96,7 +101,35 @@ highlight GitGutterChangeDelete ctermfg=4
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
 "autocmd BufEnter * lcd %:p:h
+
+if &t_Co == 8 && $TERM !~# '^Eterm'
+  set t_Co=16
+endif
+
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
 
 function! s:DiffWithSaved()
 	let filetype=&ft
@@ -107,13 +140,20 @@ function! s:DiffWithSaved()
   endfunction
 com! DiffSaved call s:DiffWithSaved()
 
+if has('langmap') && exists('+langremap')
+  " Prevent that the langmap option applies to characters that result from a
+  " mapping.  If set (default), this may break plugins (but it's backward
+  " compatible).
+  set nolangremap
+endif
+
 function! s:SetGitRootTags()
 	let root=system("git rev-parse --show-toplevel | tr -d '\\n'") . '/tags'
 	exe "set tags+=" . root
 endfunction
 com! GitRootTags call s:SetGitRootTags()
 
-"command! W execute 'silent w !sudo tee % >/dev/null' | edit!
+command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
 
 " enable mouse
 set mouse=a
@@ -136,3 +176,17 @@ if !has('nvim')
 endif
 
 let javaScript_fold=1
+
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
+
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
+autocmd FileType json let g:indentLine_enabled=0
+autocmd FileType typescript set makeprg=make
+
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
