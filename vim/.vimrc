@@ -3,8 +3,6 @@ filetype off                  " required
 
 call plug#begin()
 
-Plug 'itchyny/lightline.vim'
-Plug 'chrisbra/Colorizer'
 Plug 'junegunn/fzf.vim'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
@@ -14,11 +12,17 @@ Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
+
+" Colorschemes
 Plug 'morhetz/gruvbox'
+
+" Wanna get rid of
+Plug 'terryma/vim-multiple-cursors'
+Plug 'easymotion/vim-easymotion'
+Plug 'itchyny/lightline.vim'
 
 " VCS
 Plug 'tpope/vim-fugitive'
@@ -37,19 +41,24 @@ call plug#end()
 " Manuel
 
 " Maps
-map <C-k><C-b> :NERDTreeToggle<CR>
 let mapleader = " "
 
+map <C-k><C-b> :NERDTreeToggle<CR>
+map <C-k><C-o> :NERDTreeFind<CR>
+map <bs> <Plug>(easymotion-prefix)
+
+nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>t :Tags<CR>
 nnoremap <Leader>T :BTags<CR>
-nnoremap <Leader>l :Rg<CR>
+nnoremap <Leader>l :BLines<CR>
 nnoremap <Leader>L :Lines<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>q :bd<CR>
 nnoremap <Leader>hh :nohl<CR>
 nnoremap <Leader>rr :set rnu!<CR>
+nnoremap <Leader>/ :Rg<space>
 
 " Settings
 set laststatus=2
@@ -77,6 +86,8 @@ set foldmethod=syntax
 set foldlevelstart=20
 set tags^=./.git/tags;
 set smarttab
+set pastetoggle=<F2>
+set formatoptions+=j
 
 syntax on
 colorscheme gruvbox
@@ -102,6 +113,7 @@ highlight GitGutterChangeDelete ctermfg=4
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
+
 let g:lightline = {
       \ 'colorscheme': 'gruvbox',
       \ 'active': {
@@ -109,10 +121,29 @@ let g:lightline = {
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
+      \   'filename': 'LightlineFilename',
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
+
 "autocmd BufEnter * lcd %:p:h
+
+if &t_Co == 8 && $TERM !~# '^Eterm'
+  set t_Co=16
+endif
+
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
 
 function! s:DiffWithSaved()
 	let filetype=&ft
@@ -172,3 +203,6 @@ autocmd FileType typescript set makeprg=make
 
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
+let javaScript_fold=1
+let g:netrw_banner=0
