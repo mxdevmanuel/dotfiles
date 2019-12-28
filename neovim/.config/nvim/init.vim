@@ -18,6 +18,7 @@ Plug 'jiangmiao/auto-pairs'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
+Plug 'jaredgorski/spacecamp'
 
 " Wanna get rid of
 Plug 'terryma/vim-multiple-cursors'

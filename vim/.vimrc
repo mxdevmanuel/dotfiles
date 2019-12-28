@@ -88,6 +88,7 @@ set tags^=./.git/tags;
 set smarttab
 set pastetoggle=<F2>
 set formatoptions+=j
+set encoding=UTF-8
 
 syntax on
 colorscheme gruvbox
