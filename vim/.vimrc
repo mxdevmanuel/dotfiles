@@ -4,6 +4,7 @@ filetype off                  " required
 call plug#begin()
 
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-peekaboo'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
@@ -60,6 +61,11 @@ nnoremap <Leader>hh :nohl<CR>
 nnoremap <Leader>rr :set rnu!<CR>
 nnoremap <Leader>/ :Rg<space>
 
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
+
 " Settings
 set laststatus=2
 set noshowmode
@@ -89,6 +95,8 @@ set smarttab
 set pastetoggle=<F2>
 set formatoptions+=j
 set encoding=UTF-8
+set cursorline
+set lazyredraw
 
 syntax on
 colorscheme gruvbox
@@ -191,11 +199,6 @@ if !has('nvim')
     endif
 endif
 
-" Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-endif
-
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
@@ -207,3 +210,8 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 
 let javaScript_fold=1
 let g:netrw_banner=0
+
+let g:peekaboo_window="vert abo 30new"
+let g:peekaboo_prefix="<F12>"
+let g:peekaboo_ins_prefix="<F12>"
+
