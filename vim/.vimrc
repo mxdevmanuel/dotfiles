@@ -19,6 +19,8 @@ Plug 'jiangmiao/auto-pairs'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-solarized8'
+Plug 'NLKNguyen/papercolor-theme'
 
 " Wanna get rid of
 Plug 'terryma/vim-multiple-cursors'
@@ -92,11 +94,12 @@ set foldmethod=syntax
 set foldlevelstart=20
 set tags^=./.git/tags;
 set smarttab
-set pastetoggle=<F2>
+set pastetoggle=<F11>
 set formatoptions+=j
 set encoding=UTF-8
 set cursorline
 set lazyredraw
+set shortmess+=I
 
 syntax on
 colorscheme gruvbox

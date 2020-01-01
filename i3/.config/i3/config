@@ -310,13 +310,15 @@ exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
 exec --no-startup-id "safeeyes &"
 exec --no-startup-id "scratch &"
 exec --no-startup-id "udiskie -t &"
+exec --no-startup-id urxvtd
 exec --no-startup-id keynav daemonize
 exec --no-startup-id unclutter --fork --exclude-root --jitter 20 --ignore-scrolling --timeout 5
 exec --no-startup-id xss-lock -- betterlockscreen -l dim
 
 bindsym $mod+End [urgent=latest] focus
 
-bindsym $mod+Shift+Return exec env NOTMUX=1 i3-sensible-terminal
+bindsym $mod+Shift+Return exec urxvtc
+bindsym $mod+Shift+t exec env NOTMUX=1 i3-sensible-terminal
 
 #bindsym $mod+Mod1+l move workspace to output right
 #bindsym $mod+Mod1+h move workspace to output left

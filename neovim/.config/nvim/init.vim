@@ -18,7 +18,8 @@ Plug 'jiangmiao/auto-pairs'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'jaredgorski/spacecamp'
+Plug 'crusoexia/vim-monokai'
+Plug 'patstockwell/vim-monokai-tasty'
 
 " Wanna get rid of
 Plug 'terryma/vim-multiple-cursors'
@@ -92,7 +93,7 @@ set formatoptions+=j
 set termguicolors
 
 syntax on
-colorscheme gruvbox
+colorscheme monokai
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -117,7 +118,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'monokai_tasty',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -138,10 +139,6 @@ function! LightlineFilename()
 endfunction
 
 "autocmd BufEnter * lcd %:p:h
-
-if &t_Co == 8 && $TERM !~# '^Eterm'
-  set t_Co=16
-endif
 
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim

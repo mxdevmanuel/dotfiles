@@ -82,7 +82,7 @@ Xft.lcdfilter : lcddefault
 ! ------------------------------------------------------------
 
 URxvt*termName       : screen-256color
-URxvt*font           : xft:FuraCode Nerd Font:size=12
+URxvt*font           : xft:FuraCode Nerd Font Mono:size=12
 !
 ! Terminus italics are ugly, so I do not use them.
 !
@@ -90,6 +90,7 @@ URxvt*font           : xft:FuraCode Nerd Font:size=12
 ! URxvt*italicFont     : xft:Terminus:size=12:italic
 ! URxvt*boldItalicFont : xft:Terminus:size=12:bold:italic
 !
+URxvt.keysym.C-M-7 : command:\033]710;xft:FuraCode Nerd Font Mono:size=12\007
 URxvt.keysym.C-M-8 : command:\033]710;xft:DejaVu Sans Mono for Powerline:size=11\007
 URxvt.keysym.C-M-9 : command:\033]710;xft:DejaVu Sans Mono for Powerline:size=11:bold\007
 URxvt.keysym.C-M-0 : command:\033]710;xft:DejaVuSansMono Nerd Font Mono:size=13:bold\007
@@ -116,7 +117,7 @@ URxvt*keysym.KP_Home : \033[1~
 URxvt*keysym.KP_End  : \033[4~
 
 ! URxvt*keysym.F1   : \033[11~
-! URxvt*keysym.F2   : \033[12~
+URxvt*keysym.F2   : \033[12~
 ! URxvt*keysym.F3   : \033[13~
 ! URxvt*keysym.F4   : \033[14~
 ! URxvt*keysym.F5   : \033[15~
