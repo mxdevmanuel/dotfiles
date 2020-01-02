@@ -149,6 +149,8 @@ vimf(){
         fi
 }
 
+alias vimh="vimf ."
+
 load-nvm() {
 	# if nvm command is present nvm is ready no need to load
 	if [[ $(command -v nvm) == "nvm" ]]; then
@@ -167,6 +169,10 @@ load-nvm() {
 alias nvm="load-nvm && nvm"
 alias npm="load-nvm ; npm"
 alias node="load-nvm ; node"
+
+diffancy(){
+ git diff $@ --color | diff-so-fancy | less
+}
 
 # Some tmux-related shell aliases
 

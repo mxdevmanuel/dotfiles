@@ -19,6 +19,7 @@ Plug 'jiangmiao/auto-pairs'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-solarized8'
 
 " Wanna get rid of
 Plug 'terryma/vim-multiple-cursors'
@@ -83,7 +84,6 @@ set backspace=indent,eol,start
 set display+=lastline
 set wildmenu
 set background=dark
-set ttyfast
 set incsearch
 set hlsearch
 set visualbell
@@ -93,11 +93,12 @@ set foldmethod=syntax
 set foldlevelstart=20
 set tags^=./.git/tags;
 set smarttab
-set pastetoggle=<F2>
+set pastetoggle=<F11>
 set formatoptions+=j
 set encoding=UTF-8
 set cursorline
 set lazyredraw
+set termguicolors
 
 syntax on
 colorscheme gruvbox
@@ -178,7 +179,7 @@ endfunction
 com! GitRootTags call s:SetGitRootTags()
 
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
-command W write
+command! W write
 
 " enable mouse
 set mouse=a
@@ -206,6 +207,8 @@ autocmd QuickFixCmdPost    l* nested lwindow
 autocmd FileType json let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
 
+autocmd FileType typescript,javascript nnoremap <buffer> K :!zeal "<cword>"&<CR><CR>
+
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
@@ -216,3 +219,29 @@ let g:peekaboo_window="vert abo 30new"
 let g:peekaboo_prefix="<F12>"
 let g:peekaboo_ins_prefix="<F12>"
 
+" Using floating windows of Neovim to start fzf
+if has('nvim')
+  let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
+
+  function! FloatingFZF()
+    let width = float2nr(&columns * 0.9)
+    let height = float2nr(&lines * 0.6)
+    let opts = { 'relative': 'editor',
+               \ 'row': (&lines - height) / 2,
+               \ 'col': (&columns - width) / 2,
+               \ 'width': width,
+               \ 'height': height }
+
+    let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    call setwinvar(win, '&winhighlight', 'NormalFloat:TabLineSel')
+    setlocal
+        \ buftype=nofile
+        \ nobuflisted
+        \ bufhidden=hide
+        \ nonumber
+        \ norelativenumber
+        \ signcolumn=no
+  endfunction
+
+  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+endif
