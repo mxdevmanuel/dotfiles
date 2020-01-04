@@ -57,11 +57,13 @@ nnoremap <Leader>t :Tags<CR>
 nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>l :BLines<CR>
 nnoremap <Leader>L :Lines<CR>
+nnoremap <Leader>w :Windows<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>q :bd<CR>
 nnoremap <Leader>hh :nohl<CR>
 nnoremap <Leader>rr :set rnu!<CR>
 nnoremap <Leader>/ :Rg<space>
+nnoremap <Leader>? :Help<space>
 
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
@@ -83,7 +85,6 @@ set updatetime=300
 set backspace=indent,eol,start
 set display+=lastline
 set wildmenu
-set background=dark
 set ttyfast
 set incsearch
 set hlsearch
@@ -100,9 +101,40 @@ set encoding=UTF-8
 set cursorline
 set lazyredraw
 set shortmess+=I
+set background=dark
 
 syntax on
-colorscheme gruvbox
+
+" Colors
+let is_dark=(&background == 'dark')
+if is_dark 
+        colorscheme gruvbox
+        let lltheme='gruvbox'
+else
+        colorscheme PaperColor
+        let lltheme='PaperColor'
+endif
+
+let g:lightline = {
+      \ 'colorscheme': lltheme,
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -125,27 +157,6 @@ highlight GitGutterChangeDelete ctermfg=4
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
-
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-
-function! LightlineFilename()
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
-  let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return path[len(root)+1:]
-  endif
-  return expand('%')
-endfunction
 
 "autocmd BufEnter * lcd %:p:h
 
@@ -180,7 +191,7 @@ endfunction
 com! GitRootTags call s:SetGitRootTags()
 
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
-command W write
+command! W write
 
 " enable mouse
 set mouse=a
@@ -218,3 +229,25 @@ let g:peekaboo_window="vert abo 30new"
 let g:peekaboo_prefix="<F12>"
 let g:peekaboo_ins_prefix="<F12>"
 
+func NpmSelected(id, result)
+        echo ""
+        if a:result > 0
+                let cmd = "npm run " . b:ks[a:result - 1]
+                exec "terminal " . cmd
+        endif
+endfunc
+
+function! RunNpm()
+        if filereadable("./package.json")
+                let st = readfile("./package.json")
+                let package = json_decode(join(st, " "))
+                if has_key(package, "scripts")
+                        let b:ks = keys(package.scripts)
+                        call popup_menu(b:ks, #{callback: 'NpmSelected'})
+                endif
+        else
+                echo "No package.json found"
+        endif
+endfunction
+
+nnoremap <F10> :call RunNpm()<CR>

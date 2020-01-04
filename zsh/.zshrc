@@ -184,6 +184,8 @@ alias npm="load-nvm ; npm"
 alias node="load-nvm ; node"
 alias videoshot="videoshot.sh"
 alias btctl="bluetoothctl"
+alias vimc="vim ~/.vimrc"
+alias nvimc="nvim ~/.config/nvim/init.vim"
 
 # Some tmux-related shell aliases
 
