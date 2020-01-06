@@ -178,7 +178,7 @@ endfunction
 com! GitRootTags call s:SetGitRootTags()
 
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
-command W write
+command! W write
 
 " enable mouse
 set mouse=a
@@ -216,3 +216,4 @@ let g:peekaboo_window="vert abo 30new"
 let g:peekaboo_prefix="<F12>"
 let g:peekaboo_ins_prefix="<F12>"
 
+let g:gruvbox_italic=1
