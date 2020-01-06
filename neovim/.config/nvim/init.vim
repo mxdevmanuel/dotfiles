@@ -1,3 +1,4 @@
+filetype indent plugin on
 call plug#begin()
 
 Plug 'junegunn/fzf.vim'
@@ -19,6 +20,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-solarized8'
 Plug 'arcticicestudio/nord-vim'
+Plug 'NLKNguyen/papercolor-theme'
 
 " Wanna get rid of
 Plug 'terryma/vim-multiple-cursors'
@@ -101,7 +103,18 @@ set lazyredraw
 set ruler
 
 syntax on
+
+let hr = (strftime('%H'))
+if hr >= 19
+        set background=dark
+elseif hr >= 8
+        set background=light
+elseif hr >= 0
+        set background=dark
+endif
+
 colorscheme gruvbox
+let g:gruvbox_contrast_dark='hard'
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -208,7 +221,7 @@ autocmd FileType json let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
 
 autocmd FileType typescript,javascript nnoremap <buffer> K :!zeal "<cword>"&<CR><CR>
-autocmd FileType typescript,javascript nnoremap <buffer> <silent> <F13> :call <SID>show_documentation()<CR>
+autocmd FileType typescript,javascript nnoremap <buffer> <silent> <F9> :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
