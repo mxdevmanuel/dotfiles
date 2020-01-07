@@ -1,13 +1,13 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
+filetype indent plugin on
 call plug#begin()
 
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-peekaboo'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
@@ -18,8 +18,9 @@ Plug 'jiangmiao/auto-pairs'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'crusoexia/vim-monokai'
-Plug 'patstockwell/vim-monokai-tasty'
+Plug 'lifepillar/vim-solarized8'
+Plug 'arcticicestudio/nord-vim'
+Plug 'NLKNguyen/papercolor-theme'
 
 " Wanna get rid of
 Plug 'terryma/vim-multiple-cursors'
@@ -57,10 +58,17 @@ nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>l :BLines<CR>
 nnoremap <Leader>L :Lines<CR>
 nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>w :Windows<CR>
 nnoremap <Leader>q :bd<CR>
 nnoremap <Leader>hh :nohl<CR>
 nnoremap <Leader>rr :set rnu!<CR>
 nnoremap <Leader>/ :Rg<space>
+nnoremap <Leader>? :Help<space>
+
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
 
 " Settings
 set laststatus=2
@@ -78,7 +86,6 @@ set backspace=indent,eol,start
 set display+=lastline
 set wildmenu
 set background=dark
-set ttyfast
 set incsearch
 set hlsearch
 set visualbell
@@ -88,12 +95,34 @@ set foldmethod=syntax
 set foldlevelstart=20
 set tags^=./.git/tags;
 set smarttab
-set pastetoggle=<F2>
+set pastetoggle=<F11>
 set formatoptions+=j
-set termguicolors
+set encoding=UTF-8
+set cursorline
+set lazyredraw
+set ruler
 
 syntax on
-colorscheme monokai
+
+let hr = (strftime('%H'))
+if hr >= 18
+        set background=dark
+elseif hr >= 8
+        set background=light
+elseif hr >= 0
+        set background=dark
+endif
+
+let is_dark=(&background == 'dark')
+if is_dark 
+        colorscheme gruvbox
+        let lltheme='gruvbox'
+else
+        colorscheme PaperColor
+        let lltheme='PaperColor'
+endif
+
+"let g:gruvbox_contrast_dark='hard'
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -118,7 +147,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 
 let g:lightline = {
-      \ 'colorscheme': 'monokai_tasty',
+      \ 'colorscheme': lltheme,
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -139,6 +168,10 @@ function! LightlineFilename()
 endfunction
 
 "autocmd BufEnter * lcd %:p:h
+
+if &t_Co == 8 && $TERM !~# '^Eterm'
+  set t_Co=16
+endif
 
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
@@ -167,7 +200,7 @@ endfunction
 com! GitRootTags call s:SetGitRootTags()
 
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
-command W write
+command! W write
 
 " enable mouse
 set mouse=a
@@ -189,19 +222,97 @@ if !has('nvim')
     endif
 endif
 
-" Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-endif
-
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
 autocmd FileType json let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
 
+autocmd FileType typescript,javascript nnoremap <buffer> K :!zeal "<cword>"&<CR><CR>
+autocmd FileType typescript,javascript nnoremap <buffer> <silent> <F9> :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 let javaScript_fold=1
 let g:netrw_banner=0
+
+let g:peekaboo_window="vert abo 30new"
+let g:peekaboo_prefix="<F12>"
+let g:peekaboo_ins_prefix="<F12>"
+
+command! -bang -nargs=? -complete=dir PFiles
+    \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
+
+" Using floating windows of Neovim to start fzf
+let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
+
+function! CreateCenteredFloatingWindow()
+    let width = float2nr(&columns * 0.6)
+    let height = float2nr(&lines * 0.6)
+    let top = ((&lines - height) / 2) - 1
+    let left = (&columns - width) / 2
+    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
+
+    let top = "╭" . repeat("─", width - 2) . "╮"
+    let mid = "│" . repeat(" ", width - 2) . "│"
+    let bot = "╰" . repeat("─", width - 2) . "╯"
+    let lines = [top] + repeat([mid], height - 2) + [bot]
+    let s:buf = nvim_create_buf(v:false, v:true)
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+    call nvim_open_win(s:buf, v:true, opts)
+    set winhl=Normal:Floating
+    let opts.row += 1
+    let opts.height -= 2
+    let opts.col += 2
+    let opts.width -= 4
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    au BufWipeout <buffer> exe 'bw '.s:buf
+endfunction
+
+let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
+
+" Open Floating terminal
+function! OpenTerm(cmd)
+    call CreateCenteredFloatingWindow()
+    call termopen(a:cmd, { 'on_exit': function('OnTermExit') })
+endfunction
+
+function! OnTermExit(job_id, code, event) dict
+    if a:code == 0
+        bd!
+    endif
+endfunction
+
+autocmd TermOpen * startinsert
+" Turn off line numbers etc
+autocmd TermOpen * setlocal listchars= nonumber norelativenumber
+
+" npm run menu
+function! SelectNpmScript()
+        if filereadable("./package.json")
+                let st = readfile("./package.json")
+                let package = json_decode(join(st, " "))
+                if has_key(package, "scripts")
+                        let b:ks = keys(package.scripts)
+                        call fzf#run(fzf#wrap( {'source': b:ks, 'sink': function('RunNpmScript')} ))
+                endif
+        else
+                echo "No package.json found"
+	endif
+endfunction
+
+function! RunNpmScript(result)
+        call OpenTerm("npm run " . a:result)
+endfunction
+
+nnoremap <silent> <F10> :call SelectNpmScript()<CR>
+
