@@ -85,6 +85,7 @@ set updatetime=300
 set backspace=indent,eol,start
 set display+=lastline
 set wildmenu
+set wildoptions-=pum
 set background=dark
 set incsearch
 set hlsearch
@@ -104,8 +105,11 @@ set ruler
 
 syntax on
 
+let g:gruvbox_italic=1
+"let g:gruvbox_contrast_dark='hard'
+
 let hr = (strftime('%H'))
-if hr >= 19
+if hr >= 18
         set background=dark
 elseif hr >= 8
         set background=light
@@ -113,8 +117,15 @@ elseif hr >= 0
         set background=dark
 endif
 
-colorscheme gruvbox
-let g:gruvbox_contrast_dark='hard'
+let is_dark=(&background == 'dark')
+if is_dark 
+        colorscheme gruvbox
+        let lltheme='gruvbox'
+else
+        colorscheme PaperColor
+        let lltheme='PaperColor'
+endif
+
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -139,7 +150,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': lltheme,
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -244,9 +255,9 @@ let g:peekaboo_ins_prefix="<F12>"
 command! -bang -nargs=? -complete=dir PFiles
     \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 
+
 " Using floating windows of Neovim to start fzf
 let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
-
 function! CreateCenteredFloatingWindow()
     let width = float2nr(&columns * 0.6)
     let height = float2nr(&lines * 0.6)
@@ -289,13 +300,15 @@ autocmd TermOpen * startinsert
 autocmd TermOpen * setlocal listchars= nonumber norelativenumber
 
 " npm run menu
+let s:fzf_flat=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:5,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,1'
+
 function! SelectNpmScript()
         if filereadable("./package.json")
                 let st = readfile("./package.json")
                 let package = json_decode(join(st, " "))
                 if has_key(package, "scripts")
                         let b:ks = keys(package.scripts)
-                        call fzf#run(fzf#wrap( {'source': b:ks, 'sink': function('RunNpmScript')} ))
+                        call fzf#run(fzf#wrap( {'source': b:ks, 'sink': function('RunNpmScript'), 'options': s:fzf_flat} ))
                 endif
         else
                 echo "No package.json found"
@@ -307,4 +320,4 @@ function! RunNpmScript(result)
 endfunction
 
 nnoremap <silent> <F10> :call SelectNpmScript()<CR>
-
+command! Wuzz call OpenTerm('wuzz')
