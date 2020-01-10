@@ -214,9 +214,9 @@ URxvt.keysym.Control-R : resize-font:reset
 ! XTerm
 ! ------------------------------------------------------------
 
-xterm*termName        : screen-256color
+xterm*termName        : tmux-256color
 xterm*renderFont      : true
-xterm*faceName        : FuraCode Nerd Font Mono
+xterm*faceName        : monospace
 xterm*faceSize        : 12
 xterm*locale          : true
 xterm*metaSendsEscape : true

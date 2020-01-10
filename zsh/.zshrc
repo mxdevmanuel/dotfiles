@@ -137,6 +137,11 @@ then
 	export TERM=rxvt-unicode
 fi
 
+if [[ ! -z $KITTY_WINDOW_ID ]];
+then
+	export TERM=xterm-kitty
+fi
+
 if [[ ! -z "${TMUX}" ]]
 then
 	export TERM=tmux-256color
@@ -156,9 +161,11 @@ vimf(){
 
         if [ ! -z "$FILE" ]
         then
-                vim "$FILE"
+                nvim "$FILE"
         fi
 }
+
+alias vimh='vimf .'
 
 load-nvm() {
 	# if nvm command is present nvm is ready no need to load

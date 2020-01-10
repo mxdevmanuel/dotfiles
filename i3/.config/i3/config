@@ -361,6 +361,7 @@ for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable
 for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
 for_window [title="Open File"] focus
 for_window [title="Save File"] focus
+for_window [title="rofi-btctl"] floating enable
 for_window [class="feh"] floating enable
 for_window [class="^Mailspring$" instance="^mailspring$"] move to workspace $ws6
 
@@ -410,6 +411,8 @@ bindsym $mod+F5 exec todotxt-sync.sh
 bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
 bindsym $mod+F7 exec /home/manuel/.config/rofi/rofi-emoji.sh
 bindsym $mod+F9 sticky toggle
+bindsym $mod+F10 exec /home/manuel/.config/i3/bluetooth-connect.sh
+
 
 #bindsym $mod+apostrophe  [AVAILABLE]
 bindsym --release $mod+period exec wmfocus
@@ -439,7 +442,7 @@ for_window [class="^.*"] border pixel 1
 # Smart Borders
 smart_borders on
 # Set inner/outer gaps
-gaps inner 5
+gaps inner 0
 gaps outer 0
 
 new_float none

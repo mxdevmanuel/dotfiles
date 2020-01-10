@@ -1,3 +1,4 @@
+" Manuel
 filetype indent plugin on
 call plug#begin()
 
@@ -18,12 +19,10 @@ Plug 'jiangmiao/auto-pairs'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'lifepillar/vim-solarized8'
 Plug 'arcticicestudio/nord-vim'
 Plug 'NLKNguyen/papercolor-theme'
 
 " Wanna get rid of
-Plug 'terryma/vim-multiple-cursors'
 Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/lightline.vim'
 
@@ -38,10 +37,9 @@ Plug 'pangloss/vim-javascript'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'jparise/vim-graphql'
+Plug 'hashivim/vim-terraform'
 
 call plug#end()
-
-" Manuel
 
 " Maps
 let mapleader = " "
@@ -63,7 +61,7 @@ nnoremap <Leader>q :bd<CR>
 nnoremap <Leader>hh :nohl<CR>
 nnoremap <Leader>rr :set rnu!<CR>
 nnoremap <Leader>/ :Rg<space>
-nnoremap <Leader>? :Help<space>
+nnoremap <Leader>? :Help<CR>
 
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
@@ -85,6 +83,7 @@ set updatetime=300
 set backspace=indent,eol,start
 set display+=lastline
 set wildmenu
+set wildoptions-=pum
 set background=dark
 set incsearch
 set hlsearch
@@ -102,6 +101,9 @@ set cursorline
 set lazyredraw
 set ruler
 
+set t_ZH=^[[3m
+set t_ZR=^[[23m
+
 syntax on
 
 let hr = (strftime('%H'))
@@ -113,6 +115,15 @@ elseif hr >= 0
         set background=dark
 endif
 
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.light': {
+  \     'allow_bold': 1,
+  \     }
+  \   }
+  \ }
+
+"let g:gruvbox_italic=1
 let is_dark=(&background == 'dark')
 if is_dark 
         colorscheme gruvbox
@@ -291,6 +302,8 @@ function! OnTermExit(job_id, code, event) dict
         bd!
     endif
 endfunction
+
+command! Wuzz call OpenTerm('wuzz')
 
 autocmd TermOpen * startinsert
 " Turn off line numbers etc
