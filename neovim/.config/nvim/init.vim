@@ -38,6 +38,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'jparise/vim-graphql'
+Plug 'hashivim/vim-terraform'
 
 call plug#end()
 
@@ -106,7 +107,14 @@ set ruler
 syntax on
 
 let g:gruvbox_italic=1
-"let g:gruvbox_contrast_dark='hard'
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default': {
+  \       'allow_italic': 1,
+  \       'allow_bold': 1
+  \     }
+  \   }
+  \ }
 
 let hr = (strftime('%H'))
 if hr >= 18
@@ -147,7 +155,6 @@ highlight GitGutterDelete ctermfg=1
 highlight GitGutterChangeDelete ctermfg=4
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
-
 
 let g:lightline = {
       \ 'colorscheme': lltheme,

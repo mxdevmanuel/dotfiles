@@ -31,7 +31,7 @@ font pango:SauceCodePro Nerd Font Mono 9
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty #i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -305,7 +305,8 @@ exec --no-startup-id "flameshot &"
 exec --no-startup-id "nm-applet &" 
 #exec --no-startup-id "redshift-gtk -l 19:-98.1 -t 5000:3500 &"
 exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
-exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
+#exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
+exec --no-startup-id feh --bg-fill --no-fehbg /home/manuel/Imágenes/Wallpapers/Gruvbox/IwzTykJ.jpg
 exec --no-startup-id /home/manuel/.config/i3/remove_pomo_dubree.sh
 exec --no-startup-id urxvtd
 exec --no-startup-id "conky &"
@@ -379,16 +380,17 @@ assign [title="vifm"] → $ws5
 
 # class                 border  backgr. text    indicator child_border
 #client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
-client.focused		#000000 #000000 #FFFFFF #2e9ef4   #285577
+#client.focused		#000000 #000000 #FFFFFF #2e9ef4   #285577
+client.focused #689d6a #689d6a #282828 #282828
 
 #client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #888888
+client.focused_inactive #1d2021 #1d2021 #928374 #282828
 
 #client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.unfocused #32302f #32302f #928374 #282828
 
 #client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.urgent #cc241d #cc241d #ebdbb2 #282828
 
 #client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
@@ -415,8 +417,7 @@ bindsym $mod+F7 exec /home/manuel/.config/rofi/rofi-emoji.sh
 bindsym $mod+apostrophe exec /home/manuel/.config/i3/show_battery.sh
 bindsym --release $mod+period exec wmfocus
 
-bindsym $mod+Escape exec clearine
-bindsym $mod+Shift+Escape exec /home/manuel/.config/i3/i3-exit.py
+bindsym $mod+Escape exec /home/manuel/.config/i3/i3-exit.py
 
 bindsym $mod+Shift+bar move scratchpad
 bindsym $mod+bar scratchpad show
@@ -436,11 +437,13 @@ focus_follows_mouse yes
 workspace_auto_back_and_forth yes
 
 bindsym $mod+Shift+Return exec urxvtc
-bindsym $mod+Shift+t exec env NOTMUX=1 i3-sensible-terminal
+
+bindsym $mod+t exec kitty -e bash
+bindsym $mod+Shift+t exec env NOTMUX=1 kitty
 # Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 1
 # Smart Gaps
-# smart_gaps on
+smart_gaps on
 # Smart Borders
 smart_borders on
 # Set inner/outer gaps
@@ -453,14 +456,8 @@ bindsym --release $mod+Prior workspace prev
 bindsym --release $mod+Next workspace next
 bindsym --release $mod+Tab workspace back_and_forth
 
-bindsym --release Mod3+h exec xdotool key Left
-bindsym --release Mod3+j exec xdotool key Down
-bindsym --release Mod3+k exec xdotool key Up
-bindsym --release Mod3+l exec xdotool key Right
-
 bindsym $mod+Mod2+KP_Add exec xbacklight -inc 10 # increase screen brightness
 bindsym $mod+Mod2+KP_Subtract exec xbacklight -dec 10 # decrease screen brightness
 
-bindsym $mod+t exec termite -e bash
 #bindsym $mod+m  AVAILABLE
 #bindsym $mod+Shift+m AVAILABLE

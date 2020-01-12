@@ -63,15 +63,24 @@ ZSH_THEME='powerlevel10k/powerlevel10k'
 ZSH_TMUX_AUTOSTART="true"
 ZSH_TMUX_AUTOCONNECT="false"
 ZSH_TMUX_FIXTERM="false"
+ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
+ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git ssh-agent tmux vi-mode k docker z
-)
+if [ ! -z "$NOTMUX"  ]
+then
+        plugins=(
+          git ssh-agent vi-mode k docker z
+        )
+else
+        plugins=(
+          git ssh-agent tmux vi-mode k docker z
+        )
+fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -126,11 +135,6 @@ then
 	export TERM=rxvt-unicode
 fi
 
-if [[ ! -z "${TMUX}" ]]
-then
-	export TERM=tmux-256color
-fi
-
 CD(){
 	cd $@
 }
@@ -169,6 +173,7 @@ load-nvm() {
 alias nvm="load-nvm && nvm"
 alias npm="load-nvm ; npm"
 alias node="load-nvm ; node"
+alias vimc="nvim ~/.config/nvim/init.vim"
 
 diffancy(){
  git diff $@ --color | diff-so-fancy | less
@@ -177,7 +182,7 @@ diffancy(){
 # Some tmux-related shell aliases
 
 # Attaches tmux to the last session; creates a new session if none exists.
-alias t='tmux attach || tmux new-session'
+# alias t='tmux attach || tmux new-session'
 
 alias packs="pacman -Q | wc -l"
 

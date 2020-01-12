@@ -18,7 +18,7 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #222
+background = #272727
 background-alt = #444
 ;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
@@ -33,10 +33,10 @@ focused = #00cdcd
 ;monitor = ${env:MONITOR:LVDS-1}
 ;monitor = ${env:MONITOR:HDMI1}
 width = 100%
-height = 27
+height = 25
 ;offset-x = 1%
 ;offset-y = 1%
-radius = 6.0
+radius = 0.0
 fixed-center = false
 
 bottom = false
@@ -44,10 +44,10 @@ bottom = false
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 3
+line-size = 0
 line-color = #f00
 
-border-size = 4
+border-size = 0
 border-color = #00000000
 
 padding-left = 0
@@ -56,9 +56,10 @@ padding-right = 1
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = DejaVu Sans Mono for Powerline:style=Regular:pixelsize=10;1
+font-0 = SF Mono:style=Regular:pixelsize=12;1
 font-1 = FontAwesome:style=Regular:pixelsize=10;0
-font-2 = SauceCodePro Nerd Font:style=Regular:pixelsize=12;1
+font-2 = Hack:style=Regular:pixelsize=12;1
+font-3 = FuraCode Nerd Font:style=Regular:pixelsize=12;0
 
 modules-left = i3 tasks
 ;modules-center = 
@@ -69,7 +70,7 @@ tray-padding = 1
 ;tray-background = #0063ff
 
 ;wm-restack = bspwm
-;wm-restack = i3
+wm-restack = i3
 
 ;override-redirect = true
 
@@ -99,8 +100,8 @@ label-layout-underline = #cc00b4
 
 label-indicator-padding = 1
 label-indicator-margin = 0
-label-indicator-background = #cc00b4
-label-indicator-underline = #cc00b4
+label-indicator-background = #cc01b4
+label-indicator-underline = #cc00b5
 
 [module/filesystem]
 type = internal/fs
