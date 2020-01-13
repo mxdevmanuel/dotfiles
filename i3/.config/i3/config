@@ -309,7 +309,7 @@ exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
 exec --no-startup-id feh --bg-fill --no-fehbg /home/manuel/Imágenes/Wallpapers/Gruvbox/IwzTykJ.jpg
 exec --no-startup-id /home/manuel/.config/i3/remove_pomo_dubree.sh
 exec --no-startup-id urxvtd
-exec --no-startup-id "conky &"
+exec --no-startup-id "/home/manuel/.conky/conky-startup.sh &"
 exec --no-startup-id "scratch &"
 exec --no-startup-id "safeeyes &"
 exec --no-startup-id "udiskie -t &"
@@ -433,7 +433,7 @@ bindsym $mod+plus exec /home/manuel/.config/rofi/rofi-fb.sh /home/manuel
 bindsym $mod+Shift+Menu exec blezz
 bindsym Control+$mod+Shift+Menu exec rofi -show blezz -modi blezz  -plugin-path /usr/local/lib/rofi -auto-select -matching normal
 
-focus_follows_mouse yes
+focus_follows_mouse no
 workspace_auto_back_and_forth yes
 
 bindsym $mod+Shift+Return exec urxvtc

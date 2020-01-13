@@ -60,7 +60,12 @@ ZSH_THEME='powerlevel10k/powerlevel10k'
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # TMUX plugin settings
-ZSH_TMUX_AUTOSTART="true"
+if [[ "$TERM" == "linux" ]]
+then
+        ZSH_TMUX_AUTOSTART="false"
+else
+        ZSH_TMUX_AUTOSTART="true"
+fi
 ZSH_TMUX_AUTOCONNECT="false"
 ZSH_TMUX_FIXTERM="false"
 ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
@@ -174,6 +179,7 @@ alias nvm="load-nvm && nvm"
 alias npm="load-nvm ; npm"
 alias node="load-nvm ; node"
 alias vimc="nvim ~/.config/nvim/init.vim"
+alias vimd="env FORCE_DARK='true' nvim"
 
 diffancy(){
  git diff $@ --color | diff-so-fancy | less

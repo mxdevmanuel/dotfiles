@@ -125,6 +125,11 @@ elseif hr >= 0
         set background=dark
 endif
 
+let force_dark = $FORCE_DARK
+if !empty(force_dark)
+        set background=dark
+endif
+
 let is_dark=(&background == 'dark')
 if is_dark 
         colorscheme gruvbox

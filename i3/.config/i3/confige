@@ -9,7 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
+set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -31,7 +31,7 @@ font pango:SauceCodePro Nerd Font Mono 9
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty #i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -156,10 +156,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym ntilde resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -305,9 +305,11 @@ exec --no-startup-id "flameshot &"
 exec --no-startup-id "nm-applet &" 
 #exec --no-startup-id "redshift-gtk -l 19:-98.1 -t 5000:3500 &"
 exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
-exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
+#exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
+exec --no-startup-id feh --bg-fill --no-fehbg /home/manuel/Imágenes/Wallpapers/Gruvbox/IwzTykJ.jpg
 exec --no-startup-id /home/manuel/.config/i3/remove_pomo_dubree.sh
-exec --no-startup-id "conky &"
+exec --no-startup-id urxvtd
+exec --no-startup-id "/home/manuel/.conky/conky-startup.sh &"
 exec --no-startup-id "scratch &"
 exec --no-startup-id "safeeyes &"
 exec --no-startup-id "udiskie -t &"
@@ -321,11 +323,11 @@ exec_always --no-startup-id $HOME/.config/i3/polybar.sh
 
 bindsym $mod+End [urgent=latest] focus
 
-bindsym $mod+Mod1+l move workspace to output right
-bindsym $mod+Mod1+h move workspace to output left
+#bindsym $mod+Mod1+l move workspace to output right
+#bindsym $mod+Mod1+h move workspace to output left
 
-bindsym $mod+Mod1+Right move workspace to output right
-bindsym $mod+Mod1+Left move workspace to output left
+#bindsym $mod+Mod1+Right move workspace to output right
+#bindsym $mod+Mod1+Left move workspace to output left
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id /home/manuel/.config/i3/sink-smart-selector.sh +5% #increase sound volume
@@ -350,7 +352,7 @@ bindsym XF86Mail exec 'i3-msg workspace 6; exec mailspring; nop'
 bindsym --release $mod+Shift+o  exec --no-startup-id mate-power-preferences
 
 bindsym Control+$mod+l exec --no-startup-id betterlockscreen -l  
-bindsym Control+Shift+$mod+l exec --no-startup-id /home/manuel/.config/i3/rest-screen.sh 
+#bindsym Control+Shift+$mod+l exec AVAILABLE
 
 for_window [class="copyq" window_type="normal"] floating enable
 for_window [class="Gpick"] floating enable
@@ -360,10 +362,10 @@ for_window [window_role="GtkFileChooserDialog"] fullscreen
 for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
 
 for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
-
+for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable
 for_window [title="Open File"] focus
 for_window [title="Save File"] focus
-for_window [class="URxvt" instance="urxvt"] floating enable
+#for_window [class="URxvt" instance="urxvt"] floating enable
 for_window [class="^Mailspring$" instance="^mailspring$"] move to workspace $ws6
 assign [class="^Mailspring$" instance="^mailspring$"] → $ws6
 assign [instance="^libreoffice$"] → $ws8
@@ -378,16 +380,17 @@ assign [title="vifm"] → $ws5
 
 # class                 border  backgr. text    indicator child_border
 #client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
-client.focused		#000000 #000000 #FFFFFF #2e9ef4   #285577
+#client.focused		#000000 #000000 #FFFFFF #2e9ef4   #285577
+client.focused #689d6a #689d6a #282828 #282828
 
 #client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #888888
+client.focused_inactive #1d2021 #1d2021 #928374 #282828
 
 #client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.unfocused #32302f #32302f #928374 #282828
 
 #client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.urgent #cc241d #cc241d #ebdbb2 #282828
 
 #client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
@@ -401,20 +404,20 @@ bindsym Print exec flameshot gui
 bindsym $mod+Print exec flameshot full
 bindsym $mod+Shift+e exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
 
-bindsym $mod+F1 exec /home/manuel/.config/i3/tareas.py
+bindsym $mod+F1 exec todotxt-show.sh
 bindsym $mod+F2 exec rofi -show run
 bindsym $mod+Shift+F2 exec dmenu_run 
 bindsym $mod+F3 exec /home/manuel/.config/i3/workspace_auto_bf.sh
 bindsym $mod+Shift+F3 exec /home/manuel/.config/i3/follow_focus_fly.sh
 bindsym $mod+F4 exec /home/manuel/.config/i3/hdmi.sh
+bindsym $mod+F5 exec todotxt-sync.sh
 bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
 bindsym $mod+F7 exec /home/manuel/.config/rofi/rofi-emoji.sh
 
 bindsym $mod+apostrophe exec /home/manuel/.config/i3/show_battery.sh
 bindsym --release $mod+period exec wmfocus
 
-bindsym $mod+Escape exec clearine
-bindsym $mod+Shift+Escape exec /home/manuel/.config/i3/i3-exit.py
+bindsym $mod+Escape exec /home/manuel/.config/i3/i3-exit.py
 
 bindsym $mod+Shift+bar move scratchpad
 bindsym $mod+bar scratchpad show
@@ -430,13 +433,17 @@ bindsym $mod+plus exec /home/manuel/.config/rofi/rofi-fb.sh /home/manuel
 bindsym $mod+Shift+Menu exec blezz
 bindsym Control+$mod+Shift+Menu exec rofi -show blezz -modi blezz  -plugin-path /usr/local/lib/rofi -auto-select -matching normal
 
-focus_follows_mouse no
+focus_follows_mouse yes
 workspace_auto_back_and_forth yes
 
+bindsym $mod+Shift+Return exec urxvtc
+
+bindsym $mod+t exec kitty -e bash
+bindsym $mod+Shift+t exec env NOTMUX=1 kitty
 # Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 1
 # Smart Gaps
-# smart_gaps on
+smart_gaps on
 # Smart Borders
 smart_borders on
 # Set inner/outer gaps
@@ -449,14 +456,8 @@ bindsym --release $mod+Prior workspace prev
 bindsym --release $mod+Next workspace next
 bindsym --release $mod+Tab workspace back_and_forth
 
-bindsym --release Mod3+h exec xdotool key Left
-bindsym --release Mod3+j exec xdotool key Down
-bindsym --release Mod3+k exec xdotool key Up
-bindsym --release Mod3+l exec xdotool key Right
-
 bindsym $mod+Mod2+KP_Add exec xbacklight -inc 10 # increase screen brightness
 bindsym $mod+Mod2+KP_Subtract exec xbacklight -dec 10 # decrease screen brightness
 
-bindsym $mod+t exec termite -e bash
-bindsym $mod+m exec termite -e /home/manuel/.config/i3/cmus.sh
-bindsym $mod+Shift+m exec termite -e /home/manuel/.config/i3/ncspot.sh
+#bindsym $mod+m  AVAILABLE
+#bindsym $mod+Shift+m AVAILABLE

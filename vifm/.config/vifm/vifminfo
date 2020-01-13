@@ -86,8 +86,50 @@ d/home/manuel/Imágenes/Wallpapers
 	Architecture
 1
 d/home/manuel/Imágenes/Wallpapers/Architecture
-	20191104.jpg
+	..
+0
+d/home/manuel/Imágenes/Wallpapers
+	Gruvbox
+8
+d/home/manuel/Imágenes/Wallpapers/Gruvbox
+	paint.jpg
+4
+d/home/manuel/Imágenes/Wallpapers
+	Cars
+2
+d/home/manuel/Imágenes/Wallpapers/Cars
+	red-toyota-gr-supra-wallpaper-66765-69051-hd-wallpapers.jpg
+28
+d/home/manuel/Imágenes/Wallpapers
+	StarWars
+16
+d/home/manuel/Imágenes/Wallpapers/StarWars
+	44775.jpg
 5
+d/home/manuel/Imágenes/Wallpapers
+	Marvel-JM
+11
+d/home/manuel/Imágenes/Wallpapers/Marvel-JM
+	WP_Wallcrawler-2560x1440_00000.jpg
+15
+d/home/manuel/Imágenes/Wallpapers
+	OnePiece
+13
+d/home/manuel/Imágenes/Wallpapers/OnePiece
+	one-piece-wallpaper-29.png
+4
+d/home/manuel/Imágenes/Wallpapers
+	Gruvbox
+8
+d/home/manuel/Imágenes/Wallpapers/Gruvbox
+	PJbX0MG.png
+2
+d/home/manuel/Imágenes/Wallpapers
+	Geometry
+7
+d/home/manuel/Imágenes/Wallpapers/Geometry
+	flat-hexagon-widescreen-wallpaper-60187-61983-hd-wallpapers.jpg
+25
 d
 
 # Right window history (oldest to newest):
@@ -99,6 +141,8 @@ D
 # Command line history (oldest to newest):
 :view
 :set nu
+:copy 
+:!gimp
 :q
 
 # Search history (oldest to newest):
@@ -108,6 +152,7 @@ D
 # Local filter history (oldest to newest):
 
 # Registers:
+""/home/manuel/Imágenes/Wallpapers/OnePiece/one-piece-wallpaper-29.png
 
 # Directory stack (oldest to newest):
 
