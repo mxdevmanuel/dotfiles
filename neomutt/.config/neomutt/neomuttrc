@@ -38,6 +38,7 @@ macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 | vimb -<enter>"
 bind index 'I' imap-fetch-mail
 bind index,pager 'B' sidebar-toggle-visible
 
-source ~/.config/neomutt/dracula.muttrc
+#source ~/.config/neomutt/dracula.muttrc
+source ~/.config/neomutt/gruvbox.muttrc
 #source ~/.config/neomutt/monokai.muttrc
 

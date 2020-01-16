@@ -119,11 +119,12 @@ let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.light': {
   \     'allow_bold': 1,
+  \     'allow_italic': 1,
   \     }
   \   }
   \ }
 
-"let g:gruvbox_italic=1
+let g:gruvbox_italic=1
 let is_dark=(&background == 'dark')
 if is_dark 
         colorscheme gruvbox

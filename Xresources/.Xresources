@@ -82,14 +82,15 @@ Xft.lcdfilter : lcddefault
 ! ------------------------------------------------------------
 
 URxvt*termName       : screen-256color
-URxvt*font           : xft:FuraCode Nerd Font Mono:size=12
 !
 ! Terminus italics are ugly, so I do not use them.
 !
-! URxvt*boldFont       : xft:Terminus:size=12:bold
-! URxvt*italicFont     : xft:Terminus:size=12:italic
-! URxvt*boldItalicFont : xft:Terminus:size=12:bold:italic
+URxvt*font           : xft:Hack:size=12
+URxvt*boldFont       : xft:Hack:size=12:bold
+URxvt*italicFont     : xft:Hack:size=12:italic
+URxvt*boldItalicFont : xft:Hack:size=12:bold:italic
 !
+URxvt.keysym.C-M-6 : command:\033]710;xft:Hack:size=12\007
 URxvt.keysym.C-M-7 : command:\033]710;xft:FuraCode Nerd Font Mono:size=12\007
 URxvt.keysym.C-M-8 : command:\033]710;xft:DejaVu Sans Mono for Powerline:size=11\007
 URxvt.keysym.C-M-9 : command:\033]710;xft:DejaVu Sans Mono for Powerline:size=11:bold\007
@@ -116,8 +117,12 @@ URxvt*keysym.End     : \033[4~
 URxvt*keysym.KP_Home : \033[1~
 URxvt*keysym.KP_End  : \033[4~
 
+*URxvt*keysym.F1:	\033OP
+*URxvt*keysym.F2:	\033OQ
+*URxvt*keysym.F3:	\033OR
+*URxvt*keysym.F4:	\033OS
 ! URxvt*keysym.F1   : \033[11~
-URxvt*keysym.F2   : \033[12~
+! URxvt*keysym.F2   : \033[12~
 ! URxvt*keysym.F3   : \033[13~
 ! URxvt*keysym.F4   : \033[14~
 ! URxvt*keysym.F5   : \033[15~
@@ -188,6 +193,38 @@ URxvt.keysym.C-9: command:\033]10;#554D37\007\033]11;#EFE6C9\007\033]12;#554D37\
 
 ! Light mode (hard)
 URxvt.keysym.C-0: command:\033]10;#554D37\007\033]11;#F7F2E4\007\033]12;#554D37\007\033]704;#EC5252\007\033]706;#13AFAF\007\033]707;#3890E9\007\033]708;#F7F2E4\007\033]4;0;#F7F2E4\007\033]4;1;#C11C1C\007\033]4;2;#346900\007\033]4;3;#824100\007\033]4;4;#095CAE\007\033]4;5;#7C19DF\007\033]4;6;#006E6E\007\033]4;7;#8D815C\007\033]4;8;#F2EBD4\007\033]4;9;#EC5252\007\033]4;10;#5DA713\007\033]4;11;#C97016\007\033]4;12;#3890E9\007\033]4;13;#A359ED\007\033]4;14;#13AFAF\007\033]4;15;#554D37\007
+
+!- GruvBox:
+ URxvt.color24: #076678
+ URxvt.color66: #427b58
+ URxvt.color88: #9d0006
+ URxvt.color96: #8f3f71
+ URxvt.color100: #79740e
+ URxvt.color108: #8ec07c
+ URxvt.color109: #83a598
+ URxvt.color130: #af3a03
+ URxvt.color136: #b57614
+ URxvt.color142: #b8bb26
+ URxvt.color167: #fb4934
+ URxvt.color175: #d3869b
+ URxvt.color208: #fe8019
+ URxvt.color214: #fabd2f
+ URxvt.color223: #ebdbb2
+ URxvt.color228: #f4e8ba
+ URxvt.color229: #fdf4c1
+ URxvt.color230: #ffffc8
+ URxvt.color234: #1d2021
+ URxvt.color235: #282828
+ URxvt.color236: #32302f
+ URxvt.color237: #3c3836
+ URxvt.color239: #504945
+ URxvt.color241: #665c54
+ URxvt.color243: #7c6f64
+ URxvt.color244: #928374
+ URxvt.color245: #928374
+ URxvt.color246: #a89984
+ URxvt.color248: #bdae93
+ URxvt.color250: #d5c4a1
 
 ! ------------------------------------------------------------
 ! URxvt plugins

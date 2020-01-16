@@ -63,7 +63,9 @@ setopt HIST_IGNORE_SPACE
 #
 # Tmux plugin options
 ZSH_TMUX_AUTOSTART="true"
-ZSH_TMUX_FIXTERM="false"
+ZSH_TMUX_FIXTERM="true"
+ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
+ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
 ZSH_TMUX_AUTOCONNECT="false"
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -137,15 +139,7 @@ then
 	export TERM=rxvt-unicode
 fi
 
-if [[ ! -z $KITTY_WINDOW_ID ]];
-then
-	export TERM=xterm-kitty
-fi
-
-if [[ ! -z "${TMUX}" ]]
-then
-	export TERM=tmux-256color
-fi
+export GOOGLE_CLOUD_KEYFILE_JSON=~/.gcp/CLIENT-test-60ab6bfacaef.json
 
 CD(){
 	cd $@

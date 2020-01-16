@@ -31,7 +31,7 @@ font pango:SauceCodePro Nerd Font Mono 9
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty #i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -310,13 +310,15 @@ exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
 exec --no-startup-id "safeeyes &"
 exec --no-startup-id "scratch &"
 exec --no-startup-id "udiskie -t &"
+exec --no-startup-id urxvtd
 exec --no-startup-id keynav daemonize
 exec --no-startup-id unclutter --fork --exclude-root --jitter 20 --ignore-scrolling --timeout 5
 exec --no-startup-id xss-lock -- betterlockscreen -l dim
 
 bindsym $mod+End [urgent=latest] focus
 
-bindsym $mod+Shift+Return exec env NOTMUX=1 i3-sensible-terminal
+bindsym $mod+Shift+Return exec urxvtc
+bindsym $mod+Shift+t exec env NOTMUX=1 i3-sensible-terminal
 
 #bindsym $mod+Mod1+l move workspace to output right
 #bindsym $mod+Mod1+h move workspace to output left
@@ -359,6 +361,7 @@ for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable
 for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
 for_window [title="Open File"] focus
 for_window [title="Save File"] focus
+for_window [title="rofi-btctl"] floating enable
 for_window [class="feh"] floating enable
 for_window [class="^Mailspring$" instance="^mailspring$"] move to workspace $ws6
 
@@ -375,16 +378,17 @@ assign [title="vifm"] → $ws5
 
 # class                 border  backgr. text    indicator child_border
 #client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
-client.focused		#000000 #000000 #FFFFFF #2e9ef4   #285577
+#client.focused		#000000 #000000 #FFFFFF #2e9ef4   #285577 # Blue
+client.focused #689d6a #689d6a #282828 #282828
 
 #client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #888888
+client.focused_inactive #1d2021 #1d2021 #928374 #282828
 
 #client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.unfocused #32302f #32302f #928374 #282828
 
 #client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.urgent #cc241d #cc241d #ebdbb2 #282828
 
 #client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
@@ -408,6 +412,8 @@ bindsym $mod+F5 exec todotxt-sync.sh
 bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
 bindsym $mod+F7 exec /home/manuel/.config/rofi/rofi-emoji.sh
 bindsym $mod+F9 sticky toggle
+bindsym $mod+F10 exec /home/manuel/.config/i3/bluetooth-connect.sh
+
 
 #bindsym $mod+apostrophe  [AVAILABLE]
 bindsym --release $mod+period exec wmfocus
@@ -433,7 +439,7 @@ workspace_auto_back_and_forth no
 # Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 1
 # Smart Gaps
-#smart_gaps on
+smart_gaps on
 # Smart Borders
 smart_borders on
 # Set inner/outer gaps

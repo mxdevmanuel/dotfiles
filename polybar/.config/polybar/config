@@ -17,11 +17,11 @@
 ;==========================================================
 
 [colors]
-background = ${xrdb:color0:#272727}
-;background = #222
+;background = ${xrdb:color0:#272727}
+background = #282828
 background-alt = #444
-foreground = ${xrdb:color7:#222}
-;foreground = #dfdfdf
+;foreground = ${xrdb:color7:#222}
+foreground = #ebddb2
 foreground-alt = #555
 ;primary = #ffb52a
 primary = #2e9ef4
@@ -33,7 +33,7 @@ focused = #00cdcd
 ;monitor = ${env:MONITOR:LVDS-1}
 ;monitor = ${env:MONITOR:HDMI1}
 width = 100%
-height = 27
+height = 20
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 0.0
@@ -58,7 +58,8 @@ module-margin-right = 1
 
 font-0 = SF Mono:style=Regular:pixelsize=12;1
 font-1 = FontAwesome:style=Regular:pixelsize=10;0
-font-2 = SauceCodePro Nerd Font:style=Regular:pixelsize=12;1
+font-2 = Hack:style=Regular:pixelsize=12;1
+font-3 = FuraCode Nerd Font Mono:style=Regular:pixelsize=12;1
 
 modules-left = i3 tasks 
 ;modules-center =

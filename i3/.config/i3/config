@@ -31,7 +31,7 @@ font pango:SauceCodePro Nerd Font Mono 9
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty #i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -299,15 +299,15 @@ mode "$mode_gaps_left" {
 exec --no-startup-id "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 exec --no-startup-id mate-power-manager
 exec --no-startup-id /home/manuel/.screenlayout/i3.sh
-exec --no-startup-id "compton --config /home/manuel/.config/compton/compton.conf &"
+exec --no-startup-id "picom --config /home/manuel/.config/compton/compton.conf &"
 exec_always --no-startup-id $HOME/.config/i3/polybar.sh
 exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
 exec --no-startup-id "conky &"
 exec --no-startup-id "copyq &"
 exec --no-startup-id "flameshot &"
-exec --no-startup-id "nm-applet &" 
+#exec --no-startup-id "nm-applet &" 
 exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
-exec --no-startup-id "safeeyes &"
+#exec --no-startup-id "safeeyes &"
 exec --no-startup-id "scratch &"
 exec --no-startup-id "udiskie -t &"
 exec --no-startup-id urxvtd
@@ -351,7 +351,7 @@ bindsym Pause exec --no-startup-id betterlockscreen -l
 bindsym $mod+t exec termite -e bash
 
 for_window [class="copyq" window_type="normal"] floating enable
-for_window [title="Android"] floating enable
+for_window [title="mulator"] floating enable
 for_window [class="Gpick"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [class="scratch"] floating enable
@@ -378,16 +378,17 @@ assign [title="vifm"] → $ws5
 
 # class                 border  backgr. text    indicator child_border
 #client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
-client.focused		#000000 #000000 #FFFFFF #2e9ef4   #285577
+#client.focused		#000000 #000000 #FFFFFF #2e9ef4   #285577 # Blue
+client.focused #689d6a #689d6a #282828 #282828
 
 #client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #888888
+client.focused_inactive #1d2021 #1d2021 #928374 #282828
 
 #client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.unfocused #32302f #32302f #928374 #282828
 
 #client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.urgent #cc241d #cc241d #ebdbb2 #282828
 
 #client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
@@ -438,11 +439,11 @@ workspace_auto_back_and_forth yes
 # Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 1
 # Smart Gaps
-#smart_gaps on
+smart_gaps on
 # Smart Borders
 smart_borders on
 # Set inner/outer gaps
-gaps inner 0
+gaps inner 5
 gaps outer 0
 
 new_float none
