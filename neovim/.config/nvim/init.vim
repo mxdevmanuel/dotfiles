@@ -72,6 +72,7 @@ noremap <Leader>E :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 nnoremap <silent> <leader>sh :call SplitTerm()<CR>
 nnoremap <leader>. :lcd %:p:h<CR>
+tnoremap <C-w>n <C-\><C-n>
 
 nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>f :GFiles<CR>
@@ -221,7 +222,6 @@ function! LightlineFilename()
   return expand('%')
 endfunction
 
-"autocmd BufEnter * lcd %:p:h
 
 if &t_Co == 8 && $TERM !~# '^Eterm'
   set t_Co=16
@@ -283,6 +283,7 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 autocmd FileType json let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
+"autocmd FileType terraform lcd %:p:h
 
 autocmd FileType typescript,javascript nnoremap <buffer> K :!zeal "<cword>"&<CR><CR>
 autocmd FileType typescript,javascript nnoremap <buffer> <silent> <F9> :call <SID>show_documentation()<CR>
