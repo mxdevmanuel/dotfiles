@@ -81,7 +81,7 @@ Xft.lcdfilter : lcddefault
 ! URxvt
 ! ------------------------------------------------------------
 
-URxvt*termName       : screen-256color
+URxvt*termName       : tmux-256color
 !
 ! Terminus italics are ugly, so I do not use them.
 !

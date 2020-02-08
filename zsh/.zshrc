@@ -139,7 +139,9 @@ then
 	export TERM=rxvt-unicode
 fi
 
-export GOOGLE_CLOUD_KEYFILE_JSON=~/.gcp/CLIENT-test-60ab6bfacaef.json
+export TF_CLIENT_CREDS=~/.gcp/google-terraform-admin-client.json
+
+export GOOGLE_CLOUD_KEYFILE_JSON=$TF_CLIENT_CREDS
 
 CD(){
 	cd $@
@@ -161,6 +163,8 @@ vimf(){
 
 alias vimh='vimf .'
 
+function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
+
 load-nvm() {
 	# if nvm command is present nvm is ready no need to load
 	if [[ $(command -v nvm) == "nvm" ]]; then
@@ -175,6 +179,8 @@ load-nvm() {
 		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 	fi
 }
+
+export LOCAL_IP="192.168.1.67"
 
 diffancy(){
  git diff $@ --color | diff-so-fancy | less

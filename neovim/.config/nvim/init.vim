@@ -1,6 +1,24 @@
+set nocompatible              " be iMproved, required
 " Manuel
 filetype indent plugin on
-call plug#begin()
+
+" Install vim plug if not insalled
+let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+
+if !filereadable(vimplug_exists)
+  if !executable("curl")
+    echoerr "You have to install curl or first install vim-plug yourself!"
+    execute "q!"
+  endif
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent exec "!\curl -fLo " . vimplug_exists . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  let g:not_finish_vimplug = "yes"
+
+  autocmd VimEnter * PlugInstall
+endif
+
+call plug#begin(expand('~/.config/nvim/plugged'))
 
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
@@ -34,6 +52,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 
 " Syntax
 Plug 'pangloss/vim-javascript'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'jparise/vim-graphql'
@@ -48,6 +67,12 @@ map <C-k><C-b> :NERDTreeToggle<CR>
 map <C-k><C-o> :NERDTreeFind<CR>
 map <bs> <Plug>(easymotion-prefix)
 
+noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+noremap <Leader>E :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+nnoremap <silent> <leader>sh :call SplitTerm()<CR>
+nnoremap <leader>. :lcd %:p:h<CR>
+
 nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>F :Files<CR>
@@ -57,12 +82,31 @@ nnoremap <Leader>l :BLines<CR>
 nnoremap <Leader>L :Lines<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>w :Windows<CR>
-nnoremap <Leader>q :bd<CR>
-nnoremap <Leader>hh :nohl<CR>
-nnoremap <Leader>rr :set rnu!<CR>
+nnoremap <Leader>h :History<CR>
 nnoremap <Leader>/ :Rg<space>
 nnoremap <Leader>? :Help<CR>
 
+nnoremap <Leader>rr :set rnu!<CR>
+nnoremap <Leader>q :bd<CR>
+
+"" Buffer nav
+noremap <leader>p :bp<CR>
+noremap <leader>n :bn<CR>
+
+
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
@@ -96,13 +140,11 @@ set tags^=./.git/tags;
 set smarttab
 set pastetoggle=<F11>
 set formatoptions+=j
-set encoding=UTF-8
+set encoding=utf-8
+set fileencodings=utf-8
 set cursorline
 set lazyredraw
 set ruler
-
-set t_ZH=^[[3m
-set t_ZR=^[[23m
 
 syntax on
 
@@ -213,6 +255,7 @@ com! GitRootTags call s:SetGitRootTags()
 
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
 command! W write
+command! Bufonly %bd | e#
 
 " enable mouse
 set mouse=a
@@ -220,6 +263,7 @@ if has('mouse_sgr')
     " sgr mouse is better but not every term supports it
     set ttymouse=sgr
 endif
+set mousemodel=popup
 
 " change cursor shape for different editing modes, neovim does this by default
 if !has('nvim')
@@ -330,3 +374,7 @@ endfunction
 
 nnoremap <silent> <F10> :call SelectNpmScript()<CR>
 
+function! SplitTerm()
+        split
+        ter
+endfunction

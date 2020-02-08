@@ -307,7 +307,7 @@ exec --no-startup-id "copyq &"
 exec --no-startup-id "flameshot &"
 #exec --no-startup-id "nm-applet &" 
 exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
-#exec --no-startup-id "safeeyes &"
+exec --no-startup-id "safeeyes &"
 exec --no-startup-id "scratch &"
 exec --no-startup-id "udiskie -t &"
 exec --no-startup-id urxvtd

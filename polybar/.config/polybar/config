@@ -59,7 +59,7 @@ module-margin-right = 1
 font-0 = SF Mono:style=Regular:pixelsize=12;1
 font-1 = FontAwesome:style=Regular:pixelsize=10;0
 font-2 = Hack:style=Regular:pixelsize=12;1
-font-3 = FuraCode Nerd Font Mono:style=Regular:pixelsize=12;1
+font-3 = FuraCode Nerd Font Mono:style=Regular:pixelsize=14;1
 
 modules-left = i3 tasks 
 ;modules-center =
@@ -175,7 +175,7 @@ label-urgent-padding = 1
 ; label-separator = |
 ws-icon-0 = 1;
 ws-icon-1 = 2;
-ws-icon-2 = 3;
+ws-icon-2 = 3;
 ws-icon-3 = 4;
 ws-icon-4 = 5;
 ws-icon-5 = 6;

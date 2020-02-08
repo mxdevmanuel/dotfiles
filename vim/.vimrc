@@ -1,14 +1,33 @@
+" Manuel
 set nocompatible              " be iMproved, required
-filetype off                  " required
 
-call plug#begin()
+" Install vim plug if not installed
+let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
-Plug 'junegunn/fzf.vim'
+if !filereadable(vimplug_exists)
+  if !executable("curl")
+    echoerr "You have to install curl or first install vim-plug yourself!"
+    execute "q!"
+  endif
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent exec "!\curl -fLo " . vimplug_exists . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  let g:not_finish_vimplug = "yes"
+
+  autocmd VimEnter * PlugInstall
+endif
+
+filetype indent plugin on
+
+call plug#begin(expand('~/.config/nvim/plugged'))
+
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 Plug 'junegunn/vim-peekaboo'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
@@ -16,14 +35,14 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'Yggdroot/indentLine'
 Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'vifm/vifm.vim'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'lifepillar/vim-solarized8'
+Plug 'arcticicestudio/nord-vim'
 Plug 'NLKNguyen/papercolor-theme'
 
 " Wanna get rid of
-Plug 'terryma/vim-multiple-cursors'
 Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/lightline.vim'
 
@@ -37,11 +56,11 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 Plug 'pangloss/vim-javascript'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'jparise/vim-graphql'
+Plug 'hashivim/vim-terraform'
 
 call plug#end()
-
-" Manuel
 
 " Maps
 let mapleader = " "
@@ -50,20 +69,34 @@ map <C-k><C-b> :NERDTreeToggle<CR>
 map <C-k><C-o> :NERDTreeFind<CR>
 map <bs> <Plug>(easymotion-prefix)
 
-nnoremap <C-p> :GFiles<CR>
-nnoremap <Leader>f :GFiles<CR>
-nnoremap <Leader>F :Files<CR>
+nnoremap <C-p> :Clap git_files<CR>
+nnoremap <Leader>f :Clap git_files<CR>
+nnoremap <Leader>F :Clap files<CR>
 nnoremap <Leader>t :Tags<CR>
-nnoremap <Leader>T :BTags<CR>
-nnoremap <Leader>l :BLines<CR>
-nnoremap <Leader>L :Lines<CR>
-nnoremap <Leader>w :Windows<CR>
-nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>T :Clap tags<CR>
+nnoremap <Leader>l :Clap blines<CR>
+nnoremap <Leader>L :Clap lines<CR>
+nnoremap <Leader>b :Clap buffers<CR>
+nnoremap <Leader>w :Clap windows<CR>
 nnoremap <Leader>q :bd<CR>
 nnoremap <Leader>hh :nohl<CR>
 nnoremap <Leader>rr :set rnu!<CR>
-nnoremap <Leader>/ :Rg<space>
-nnoremap <Leader>? :Help<space>
+nnoremap <Leader>/ :Clap grep<space>
+nnoremap <Leader>? :Help<CR>
+
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
 
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
@@ -85,7 +118,8 @@ set updatetime=300
 set backspace=indent,eol,start
 set display+=lastline
 set wildmenu
-set ttyfast
+set wildoptions-=pum
+set background=dark
 set incsearch
 set hlsearch
 set visualbell
@@ -97,15 +131,35 @@ set tags^=./.git/tags;
 set smarttab
 set pastetoggle=<F11>
 set formatoptions+=j
-set encoding=UTF-8
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
+set fileformats=unix,dos,mac
 set cursorline
 set lazyredraw
-set shortmess+=I
-set background=dark
+set ruler
 
 syntax on
 
-" Colors
+let hr = (strftime('%H'))
+if hr >= 18
+        set background=dark
+elseif hr >= 8
+        set background=light
+elseif hr >= 0
+        set background=dark
+endif
+
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.light': {
+  \     'allow_bold': 1,
+  \     'allow_italic': 1,
+  \     }
+  \   }
+  \ }
+
+let g:gruvbox_italic=1
 let is_dark=(&background == 'dark')
 if is_dark 
         colorscheme gruvbox
@@ -115,26 +169,7 @@ else
         let lltheme='PaperColor'
 endif
 
-let g:lightline = {
-      \ 'colorscheme': lltheme,
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-
-function! LightlineFilename()
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
-  let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return path[len(root)+1:]
-  endif
-  return expand('%')
-endfunction
+"let g:gruvbox_contrast_dark='hard'
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -157,6 +192,27 @@ highlight GitGutterChangeDelete ctermfg=4
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
+
+let g:lightline = {
+      \ 'colorscheme': lltheme,
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
 
 "autocmd BufEnter * lcd %:p:h
 
@@ -191,7 +247,7 @@ endfunction
 com! GitRootTags call s:SetGitRootTags()
 
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
-command! W write
+command! Bufonly %bd | e#
 
 " enable mouse
 set mouse=a
@@ -199,6 +255,7 @@ if has('mouse_sgr')
     " sgr mouse is better but not every term supports it
     set ttymouse=sgr
 endif
+set mousemodel=popup
 
 " change cursor shape for different editing modes, neovim does this by default
 if !has('nvim')
@@ -218,6 +275,17 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 autocmd FileType json let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
+
+autocmd FileType typescript,javascript nnoremap <buffer> K :!zeal "<cword>"&<CR><CR>
+autocmd FileType typescript,javascript nnoremap <buffer> <silent> <F9> :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
