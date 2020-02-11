@@ -51,12 +51,7 @@ Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 
 " Syntax
-Plug 'pangloss/vim-javascript'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'leafgarland/typescript-vim'
-Plug 'jparise/vim-graphql'
-Plug 'hashivim/vim-terraform'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -91,7 +86,7 @@ nnoremap <Leader>rr :set rnu!<CR>
 nnoremap <Leader>q :bd<CR>
 
 "" Buffer nav
-noremap <leader>p :bp<CR>
+noremap <leader>N :bp<CR>
 noremap <leader>n :bn<CR>
 
 
@@ -254,7 +249,6 @@ endfunction
 com! GitRootTags call s:SetGitRootTags()
 
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
-command! W write
 command! Bufonly %bd | e#
 
 " enable mouse
