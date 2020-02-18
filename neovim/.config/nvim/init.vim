@@ -1,5 +1,23 @@
+" Manuel
 filetype indent plugin on
-call plug#begin()
+
+" Install vim plug if not insalled
+let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+
+if !filereadable(vimplug_exists)
+  if !executable("curl")
+    echoerr "You have to install curl or first install vim-plug yourself!"
+    execute "q!"
+  endif
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent exec "!\curl -fLo " . vimplug_exists . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  let g:not_finish_vimplug = "yes"
+
+  autocmd VimEnter * PlugInstall
+endif
+
+call plug#begin(expand('~/.config/nvim/plugged'))
 
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
@@ -18,12 +36,11 @@ Plug 'jiangmiao/auto-pairs'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'lifepillar/vim-solarized8'
 Plug 'arcticicestudio/nord-vim'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'lifepillar/vim-solarized8'
 
 " Wanna get rid of
-Plug 'terryma/vim-multiple-cursors'
 Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/lightline.vim'
 
@@ -34,15 +51,9 @@ Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 
 " Syntax
-Plug 'pangloss/vim-javascript'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'leafgarland/typescript-vim'
-Plug 'jparise/vim-graphql'
-Plug 'hashivim/vim-terraform'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
-
-" Manuel
 
 " Maps
 let mapleader = " "
@@ -50,6 +61,13 @@ let mapleader = " "
 map <C-k><C-b> :NERDTreeToggle<CR>
 map <C-k><C-o> :NERDTreeFind<CR>
 map <bs> <Plug>(easymotion-prefix)
+
+noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+noremap <Leader>E :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+nnoremap <silent> <leader>sh :call SplitTerm()<CR>
+nnoremap <leader>. :lcd %:p:h<CR>
+tnoremap <C-w>n <C-\><C-n>
 
 nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>f :GFiles<CR>
@@ -60,12 +78,31 @@ nnoremap <Leader>l :BLines<CR>
 nnoremap <Leader>L :Lines<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>w :Windows<CR>
-nnoremap <Leader>q :bd<CR>
-nnoremap <Leader>hh :nohl<CR>
-nnoremap <Leader>rr :set rnu!<CR>
+nnoremap <Leader>h :History<CR>
 nnoremap <Leader>/ :Rg<space>
-nnoremap <Leader>? :Help<space>
+nnoremap <Leader>? :Help<CR>
 
+nnoremap <Leader>rr :set rnu!<CR>
+nnoremap <Leader>q :bd<CR>
+
+"" Buffer nav
+noremap <leader>N :bp<CR>
+noremap <leader>n :bn<CR>
+
+
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
@@ -99,22 +136,13 @@ set tags^=./.git/tags;
 set smarttab
 set pastetoggle=<F11>
 set formatoptions+=j
-set encoding=UTF-8
+set encoding=utf-8
+set fileencodings=utf-8
 set cursorline
 set lazyredraw
 set ruler
 
 syntax on
-
-let g:gruvbox_italic=1
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default': {
-  \       'allow_italic': 1,
-  \       'allow_bold': 1
-  \     }
-  \   }
-  \ }
 
 let hr = (strftime('%H'))
 if hr >= 18
@@ -130,6 +158,16 @@ if !empty(force_dark)
         set background=dark
 endif
 
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.light': {
+  \     'allow_bold': 1,
+  \     'allow_italic': 1,
+  \     }
+  \   }
+  \ }
+
+let g:gruvbox_italic=1
 let is_dark=(&background == 'dark')
 if is_dark 
         colorscheme gruvbox
@@ -139,6 +177,7 @@ else
         let lltheme='PaperColor'
 endif
 
+"let g:gruvbox_contrast_dark='hard'
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -161,6 +200,7 @@ highlight GitGutterChangeDelete ctermfg=4
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
+
 let g:lightline = {
       \ 'colorscheme': lltheme,
       \ 'active': {
@@ -182,7 +222,6 @@ function! LightlineFilename()
   return expand('%')
 endfunction
 
-"autocmd BufEnter * lcd %:p:h
 
 if &t_Co == 8 && $TERM !~# '^Eterm'
   set t_Co=16
@@ -215,7 +254,7 @@ endfunction
 com! GitRootTags call s:SetGitRootTags()
 
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
-command! W write
+command! Bufonly %bd | e#
 
 " enable mouse
 set mouse=a
@@ -223,6 +262,7 @@ if has('mouse_sgr')
     " sgr mouse is better but not every term supports it
     set ttymouse=sgr
 endif
+set mousemodel=popup
 
 " change cursor shape for different editing modes, neovim does this by default
 if !has('nvim')
@@ -242,9 +282,9 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 autocmd FileType json let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
+"autocmd FileType terraform lcd %:p:h
 
-autocmd FileType typescript,javascript nnoremap <buffer> K :!zeal "<cword>"&<CR><CR>
-autocmd FileType typescript,javascript nnoremap <buffer> <silent> <F9> :call <SID>show_documentation()<CR>
+autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -267,9 +307,9 @@ let g:peekaboo_ins_prefix="<F12>"
 command! -bang -nargs=? -complete=dir PFiles
     \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 
-
 " Using floating windows of Neovim to start fzf
 let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
+
 function! CreateCenteredFloatingWindow()
     let width = float2nr(&columns * 0.6)
     let height = float2nr(&lines * 0.6)
@@ -307,20 +347,20 @@ function! OnTermExit(job_id, code, event) dict
     endif
 endfunction
 
+command! Wuzz call OpenTerm('wuzz')
+
 autocmd TermOpen * startinsert
 " Turn off line numbers etc
 autocmd TermOpen * setlocal listchars= nonumber norelativenumber
 
 " npm run menu
-let s:fzf_flat=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:5,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,1'
-
 function! SelectNpmScript()
         if filereadable("./package.json")
                 let st = readfile("./package.json")
                 let package = json_decode(join(st, " "))
                 if has_key(package, "scripts")
                         let b:ks = keys(package.scripts)
-                        call fzf#run(fzf#wrap( {'source': b:ks, 'sink': function('RunNpmScript'), 'options': s:fzf_flat} ))
+                        call fzf#run(fzf#wrap( {'source': b:ks, 'sink': function('RunNpmScript')} ))
                 endif
         else
                 echo "No package.json found"
@@ -332,4 +372,8 @@ function! RunNpmScript(result)
 endfunction
 
 nnoremap <silent> <F10> :call SelectNpmScript()<CR>
-command! Wuzz call OpenTerm('wuzz')
+
+function! SplitTerm()
+        split
+        ter
+endfunction

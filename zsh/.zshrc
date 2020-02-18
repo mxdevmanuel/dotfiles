@@ -79,11 +79,11 @@ ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
 if [ ! -z "$NOTMUX"  ]
 then
         plugins=(
-          git ssh-agent vi-mode k docker z
+          git ssh-agent vi-mode docker k z
         )
 else
         plugins=(
-          git ssh-agent tmux vi-mode k docker z
+          git ssh-agent tmux vi-mode docker k z
         )
 fi
 
@@ -120,11 +120,7 @@ source $ZSH/oh-my-zsh.sh
 #
 alias open="xdg-open"
 alias ssh="TERM=xterm-256color ssh"
-
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-bindkey "${terminfo[khome]}" beginning-of-line
-bindkey "${terminfo[kend]}" end-of-line
+alias btctl="bluetoothctl"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -178,6 +174,7 @@ load-nvm() {
 alias nvm="load-nvm && nvm"
 alias npm="load-nvm ; npm"
 alias node="load-nvm ; node"
+
 alias vimc="nvim ~/.config/nvim/init.vim"
 alias vimd="env FORCE_DARK='true' nvim"
 
@@ -185,6 +182,7 @@ diffancy(){
  git diff $@ --color | diff-so-fancy | less
 }
 
+function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
 # Some tmux-related shell aliases
 
 # Attaches tmux to the last session; creates a new session if none exists.
@@ -201,3 +199,4 @@ compinit
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+eval "$(direnv hook zsh)"

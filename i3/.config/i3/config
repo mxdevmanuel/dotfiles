@@ -433,7 +433,7 @@ bindsym $mod+plus exec /home/manuel/.config/rofi/rofi-fb.sh /home/manuel
 bindsym $mod+Shift+Menu exec blezz
 bindsym Control+$mod+Shift+Menu exec rofi -show blezz -modi blezz  -plugin-path /usr/local/lib/rofi -auto-select -matching normal
 
-focus_follows_mouse no
+focus_follows_mouse yes
 workspace_auto_back_and_forth yes
 
 bindsym $mod+Shift+Return exec urxvtc

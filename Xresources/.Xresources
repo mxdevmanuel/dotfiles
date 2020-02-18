@@ -121,7 +121,7 @@ URxvt*font           : xft:FuraCode Nerd Font Mono:size=12
 ! Terminus italics are ugly, so I do not use them.
 !
 ! URxvt*boldFont       : xft:Terminus:size=12:bold
-URxvt*italicFont     : xft:MesloLGL Nerd Font:size=12:italic
+URxvt*italicFont     : xft:FuraCode Nerd Font Mono:size=12:italic
 ! URxvt*boldItalicFont : xft:Terminus:size=12:bold:italic
 !
 URxvt.keysym.C-M-8 : command:\033]710;xft:DejaVu Sans Mono for Powerline:size=11\007

@@ -39,7 +39,7 @@ height = 25
 radius = 0.0
 fixed-center = false
 
-bottom = false
+bottom = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}

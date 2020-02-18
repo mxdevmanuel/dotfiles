@@ -4,11 +4,11 @@
 'b
 	/home/manuel/bin/
 	..
-1570596616
+1579975255
 'h
 	/home/manuel/
 	..
-1570596616
+1579975255
 
 # Bookmarks:
 
@@ -23,6 +23,48 @@ r2
 
 # Left window history (oldest to newest):
 d/home/manuel
+	..
+0
+d/home
+	manuel
+3
+d/
+	home
+4
+d/home
+	..
+0
+d/
+	home
+4
+d/home
+	..
+0
+d/
+	media
+8
+d/media
+	wd500
+1
+d/
+	home
+4
+d/home
+	etc
+1
+d/home/etc
+	..
+0
+d/home
+	manuel
+3
+d/home/manuel
+	Share
+15
+d/home/manuel/Share
+	..
+0
+d/home/manuel
 	Imágenes
 10
 d/home/manuel/Imágenes
@@ -32,104 +74,83 @@ d/home/manuel/Imágenes/Wallpapers
 	Architecture
 1
 d/home/manuel/Imágenes/Wallpapers/Architecture
-	20191011.jpg
-9
-d/home/manuel/Imágenes/Wallpapers
-	Universe
-17
-d/home/manuel/Imágenes/Wallpapers/Universe
-	20191013.jpg
-17
-d/home/manuel/Imágenes/Wallpapers
-	Unsplash
-18
-d/home/manuel/Imágenes/Wallpapers/Unsplash
-	20191016.jpg
-28
-d/home/manuel/Imágenes/Wallpapers
-	Universe
-18
-d/home/manuel/Imágenes/Wallpapers/Universe
-	20191016.jpg
-19
-d/home/manuel/Imágenes/Wallpapers
-	Textures
-17
-d/home/manuel/Imágenes/Wallpapers/Textures
-	..
-0
-d/home/manuel/Imágenes/Wallpapers
-	Architecture
-1
-d/home/manuel/Imágenes/Wallpapers/Architecture
-	201908131700.jpg
-25
-d/home/manuel/Imágenes/Wallpapers
-	Gruvbox
-8
-d/home/manuel/Imágenes/Wallpapers/Gruvbox
-	IwzTykJ.jpg
-1
-d/home/manuel/Imágenes/Wallpapers
-	Unsplash
-19
-d/home/manuel/Imágenes/Wallpapers/Unsplash
-	20191019.jpg
-28
-d/home/manuel/Imágenes/Wallpapers
-	Universe
-18
-d/home/manuel/Imágenes/Wallpapers/Universe
-	20191019.jpg
-21
-d/home/manuel/Imágenes/Wallpapers
-	Architecture
-1
-d/home/manuel/Imágenes/Wallpapers/Architecture
-	..
-0
-d/home/manuel/Imágenes/Wallpapers
-	Gruvbox
-8
-d/home/manuel/Imágenes/Wallpapers/Gruvbox
-	paint.jpg
-4
-d/home/manuel/Imágenes/Wallpapers
-	Cars
-2
-d/home/manuel/Imágenes/Wallpapers/Cars
-	red-toyota-gr-supra-wallpaper-66765-69051-hd-wallpapers.jpg
-28
-d/home/manuel/Imágenes/Wallpapers
-	StarWars
-16
-d/home/manuel/Imágenes/Wallpapers/StarWars
-	44775.jpg
-5
-d/home/manuel/Imágenes/Wallpapers
-	Marvel-JM
-11
-d/home/manuel/Imágenes/Wallpapers/Marvel-JM
-	WP_Wallcrawler-2560x1440_00000.jpg
-15
-d/home/manuel/Imágenes/Wallpapers
-	OnePiece
+	20190912.jpg
 13
-d/home/manuel/Imágenes/Wallpapers/OnePiece
-	one-piece-wallpaper-29.png
-4
 d/home/manuel/Imágenes/Wallpapers
-	Gruvbox
-8
-d/home/manuel/Imágenes/Wallpapers/Gruvbox
-	PJbX0MG.png
+	Architecture
+1
+d/home/manuel/Imágenes
+	Wallpapers
 2
-d/home/manuel/Imágenes/Wallpapers
-	Geometry
-7
-d/home/manuel/Imágenes/Wallpapers/Geometry
-	flat-hexagon-widescreen-wallpaper-60187-61983-hd-wallpapers.jpg
-25
+d/home/manuel
+	Descargas
+6
+d/home/manuel/Descargas
+	IMG-20190715-WA0009.jpeg
+29
+d/home/manuel
+	Descargas
+6
+d/home
+	manuel
+3
+d/home/manuel
+	Todo
+16
+d/home/manuel/Code/client-backend
+	build
+1
+d/home/manuel/Code/client-backend/build
+	server.js
+20
+d/home/manuel/Code/client-backend
+	development
+5
+d/home/manuel/Code/client-backend/development
+	..
+0
+d/home/manuel/Code/client-backend
+	deployment
+4
+d/home/manuel/Code/client-backend/deployment
+	stack
+2
+d/home/manuel/Code/client-backend/deployment/stack
+	..
+0
+d/home/manuel/Code/client-backend/deployment
+	stack
+2
+d/home/manuel/Code/client-backend
+	deployment
+4
+d/home/manuel/Code/client-backend/deployment
+	k8s
+1
+d/home/manuel/Code/client-backend/deployment/k8s
+	..
+0
+d/home/manuel/Code/client-backend/deployment
+	k8s
+1
+d/home/manuel/Code/client-backend
+	deployment
+4
+d/home/manuel/Code
+	Typescript
+17
+d/home/manuel/Code/Typescript
+	main.js
+1
+d/home/manuel/Code
+	k8s-intro
+30
+d/home/manuel/Code/k8s-intro
+	k8s
+1
+d/home/manuel/Code/k8s-intro/k8s
+	ingress.yaml
+2
 d
 
 # Right window history (oldest to newest):
@@ -139,10 +160,8 @@ D/home/manuel
 D
 
 # Command line history (oldest to newest):
+:show
 :view
-:set nu
-:copy 
-:!gimp
 :q
 
 # Search history (oldest to newest):
@@ -152,11 +171,13 @@ D
 # Local filter history (oldest to newest):
 
 # Registers:
-""/home/manuel/Imágenes/Wallpapers/OnePiece/one-piece-wallpaper-29.png
+""/home/manuel/.local/share/vifm/Trash/000_prueba.pdf
 
 # Directory stack (oldest to newest):
 
 # Trash content:
+t/home/manuel/.local/share/vifm/Trash/000_prueba.pdf
+	/home/manuel/Code/client-backend/build/prueba.pdf
 
 # State:
 f
