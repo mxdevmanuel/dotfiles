@@ -126,6 +126,7 @@ set wildmenu
 set wildoptions-=pum
 set background=dark
 set incsearch
+set inccommand=nosplit
 set hlsearch
 set visualbell
 set scrolloff=3
