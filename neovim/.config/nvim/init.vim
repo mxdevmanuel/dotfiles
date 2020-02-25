@@ -38,7 +38,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'lifepillar/vim-solarized8'
+Plug 'crusoexia/vim-monokai'
 
 " Wanna get rid of
 Plug 'easymotion/vim-easymotion'
@@ -66,6 +66,7 @@ noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 noremap <Leader>E :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 nnoremap <silent> <leader>sh :call SplitTerm()<CR>
+nnoremap <silent> <leader>vsh :call VSplitTerm()<CR>
 nnoremap <leader>. :lcd %:p:h<CR>
 tnoremap <C-w>n <C-\><C-n>
 
@@ -142,6 +143,7 @@ set fileencodings=utf-8
 set cursorline
 set lazyredraw
 set ruler
+set guifont=SF\ Mono:h12
 
 syntax on
 
@@ -168,6 +170,8 @@ let g:PaperColor_Theme_Options = {
   \   }
   \ }
 
+let g:monokai_term_italic = 1
+let g:monokai_gui_italic = 1
 let g:gruvbox_italic=1
 let is_dark=(&background == 'dark')
 if is_dark 
@@ -176,6 +180,16 @@ if is_dark
 else
         colorscheme PaperColor
         let lltheme='PaperColor'
+endif
+
+
+let want_monokai = $MONOKAI
+if has('nvim') && !empty(want_monokai)
+        set t_Co=256
+        set termguicolors
+        set background=dark
+        colorscheme monokai
+        let lltheme='molokai'
 endif
 
 "let g:gruvbox_contrast_dark='hard'
@@ -287,6 +301,9 @@ autocmd FileType typescript set makeprg=make
 
 autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
 
+autocmd VimEnter * silent !tmux set status off
+autocmd VimLeave * silent !tmux set status on
+
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -376,5 +393,10 @@ nnoremap <silent> <F10> :call SelectNpmScript()<CR>
 
 function! SplitTerm()
         split
+        ter
+endfunction
+
+function! VSplitTerm()
+        vsplit
         ter
 endfunction

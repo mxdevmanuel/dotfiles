@@ -149,8 +149,8 @@ d/home/manuel/Code/k8s-intro
 	k8s
 1
 d/home/manuel/Code/k8s-intro/k8s
-	ingress.yaml
-2
+	..
+0
 d
 
 # Right window history (oldest to newest):
@@ -162,6 +162,7 @@ D
 # Command line history (oldest to newest):
 :show
 :view
+:colorscheme Default
 :q
 
 # Search history (oldest to newest):

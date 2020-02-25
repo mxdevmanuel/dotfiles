@@ -18,7 +18,7 @@ ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
 ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
 
 plugins=(
-  git ssh-agent tmux vi-mode docker k z
+  git ssh-agent vi-mode docker k z
 )
 
 source $ZSH/oh-my-zsh.sh
