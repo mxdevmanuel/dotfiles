@@ -1,4 +1,3 @@
-set nocompatible              " be iMproved, required
 " Manuel
 filetype indent plugin on
 
@@ -39,6 +38,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'crusoexia/vim-monokai'
 
 " Wanna get rid of
 Plug 'easymotion/vim-easymotion'
@@ -66,6 +66,7 @@ noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 noremap <Leader>E :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 nnoremap <silent> <leader>sh :call SplitTerm()<CR>
+nnoremap <silent> <leader>vsh :call VSplitTerm()<CR>
 nnoremap <leader>. :lcd %:p:h<CR>
 tnoremap <C-w>n <C-\><C-n>
 
@@ -126,6 +127,7 @@ set wildmenu
 set wildoptions-=pum
 set background=dark
 set incsearch
+set inccommand=nosplit
 set hlsearch
 set visualbell
 set scrolloff=3
@@ -141,6 +143,7 @@ set fileencodings=utf-8
 set cursorline
 set lazyredraw
 set ruler
+set guifont=SF\ Mono:h12
 
 syntax on
 
@@ -153,6 +156,11 @@ elseif hr >= 0
         set background=dark
 endif
 
+let force_dark = $FORCE_DARK
+if !empty(force_dark)
+        set background=dark
+endif
+
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.light': {
@@ -162,6 +170,8 @@ let g:PaperColor_Theme_Options = {
   \   }
   \ }
 
+let g:monokai_term_italic = 1
+let g:monokai_gui_italic = 1
 let g:gruvbox_italic=1
 let is_dark=(&background == 'dark')
 if is_dark 
@@ -170,6 +180,16 @@ if is_dark
 else
         colorscheme PaperColor
         let lltheme='PaperColor'
+endif
+
+
+let want_monokai = $MONOKAI
+if has('nvim') && !empty(want_monokai)
+        set t_Co=256
+        set termguicolors
+        set background=dark
+        colorscheme monokai
+        let lltheme='molokai'
 endif
 
 "let g:gruvbox_contrast_dark='hard'
@@ -279,8 +299,10 @@ autocmd FileType json let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
 "autocmd FileType terraform lcd %:p:h
 
-autocmd FileType typescript,javascript nnoremap <buffer> K :!zeal "<cword>"&<CR><CR>
-autocmd FileType typescript,javascript nnoremap <buffer> <silent> <F9> :call <SID>show_documentation()<CR>
+autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
+
+autocmd VimEnter * silent !tmux set status off
+autocmd VimLeave * silent !tmux set status on
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -371,5 +393,10 @@ nnoremap <silent> <F10> :call SelectNpmScript()<CR>
 
 function! SplitTerm()
         split
+        ter
+endfunction
+
+function! VSplitTerm()
+        vsplit
         ter
 endfunction

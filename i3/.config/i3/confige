@@ -299,13 +299,13 @@ mode "$mode_gaps_left" {
 exec --no-startup-id "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 exec --no-startup-id mate-power-manager
 exec --no-startup-id /home/manuel/.screenlayout/i3.sh
-exec --no-startup-id "compton --config /home/manuel/.config/compton/compton.conf &"
+exec --no-startup-id "picom --config /home/manuel/.config/compton/compton.conf &"
 exec_always --no-startup-id $HOME/.config/i3/polybar.sh
 exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
 exec --no-startup-id "conky &"
 exec --no-startup-id "copyq &"
 exec --no-startup-id "flameshot &"
-exec --no-startup-id "nm-applet &" 
+#exec --no-startup-id "nm-applet &" 
 exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
 exec --no-startup-id "safeeyes &"
 exec --no-startup-id "scratch &"
@@ -351,7 +351,7 @@ bindsym Pause exec --no-startup-id betterlockscreen -l
 bindsym $mod+t exec termite -e bash
 
 for_window [class="copyq" window_type="normal"] floating enable
-for_window [title="Android"] floating enable
+for_window [title="mulator"] floating enable
 for_window [class="Gpick"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [class="scratch"] floating enable
