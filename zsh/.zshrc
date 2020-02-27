@@ -18,7 +18,7 @@ ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
 ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
 
 plugins=(
-  git ssh-agent vi-mode docker k z
+  git ssh-agent vi-mode tmux kubectl docker z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -38,6 +38,8 @@ alias node="load-nvm ; node"
 alias vimh="vimf ."
 alias vimc="nvim ~/.config/nvim/init.vim"
 alias vimd="env FORCE_DARK='true' nvim"
+alias vimm="env MONOKAI='true' nvim"
+alias vimq="env MONOKAI='true' nvim-qt"
 
 # Config variables
 export DEFAULT_USER="manuel"

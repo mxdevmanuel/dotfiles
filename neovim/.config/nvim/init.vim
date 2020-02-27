@@ -33,6 +33,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'Yggdroot/indentLine'
 Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
@@ -70,7 +71,6 @@ nnoremap <silent> <leader>vsh :call VSplitTerm()<CR>
 nnoremap <leader>. :lcd %:p:h<CR>
 tnoremap <C-w>n <C-\><C-n>
 
-nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>t :Tags<CR>
@@ -156,8 +156,7 @@ elseif hr >= 0
         set background=dark
 endif
 
-let force_dark = $FORCE_DARK
-if !empty(force_dark)
+if !empty($FORCE_DARK)
         set background=dark
 endif
 
@@ -189,7 +188,7 @@ if has('nvim') && !empty(want_monokai)
         set termguicolors
         set background=dark
         colorscheme monokai
-        let lltheme='molokai'
+        let lltheme='monokai'
 endif
 
 "let g:gruvbox_contrast_dark='hard'
@@ -301,8 +300,8 @@ autocmd FileType typescript set makeprg=make
 
 autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
 
-autocmd VimEnter * silent !tmux set status off
-autocmd VimLeave * silent !tmux set status on
+"autocmd VimEnter * silent !tmux set status off
+"autocmd VimLeave * silent !tmux set status on
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -400,3 +399,7 @@ function! VSplitTerm()
         vsplit
         ter
 endfunction
+
+" Markdown preview
+let g:mkdp_auto_start = !empty($NOTES)
+let g:mkdp_browser = 'vimb'
