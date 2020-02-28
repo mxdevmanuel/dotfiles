@@ -24,12 +24,12 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
-Plug 'scrooloose/nerdcommenter'
 Plug 'Yggdroot/indentLine'
 Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
@@ -147,6 +147,7 @@ set guifont=SF\ Mono:h12
 
 syntax on
 
+
 let hr = (strftime('%H'))
 if hr >= 18
         set background=dark
@@ -182,8 +183,12 @@ else
 endif
 
 
-let want_monokai = $MONOKAI
-if has('nvim') && !empty(want_monokai)
+if has('nvim') && !empty($MONOKAI)
+        let llmonokai = expand('~/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/monokai.vim')
+        if !filereadable(llmonokai)
+                let cpm = ':!cp ' . expand('~/.config/nvim/monokai.vim') . ' ' . llmonokai
+                exec cpm
+        endif
         set t_Co=256
         set termguicolors
         set background=dark
