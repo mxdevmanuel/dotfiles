@@ -89,7 +89,8 @@ nnoremap <Leader>q :bd<CR>
 "" Buffer nav
 noremap <leader>N :bp<CR>
 noremap <leader>n :bn<CR>
-
+nnoremap [l :cprev<CR>
+nnoremap ]l :cnext<CR>
 
 nnoremap n nzzzv
 nnoremap N Nzzzv
