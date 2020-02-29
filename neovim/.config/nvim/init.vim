@@ -24,15 +24,16 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
-Plug 'scrooloose/nerdcommenter'
 Plug 'Yggdroot/indentLine'
 Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
@@ -70,7 +71,6 @@ nnoremap <silent> <leader>vsh :call VSplitTerm()<CR>
 nnoremap <leader>. :lcd %:p:h<CR>
 tnoremap <C-w>n <C-\><C-n>
 
-nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>t :Tags<CR>
@@ -89,7 +89,8 @@ nnoremap <Leader>q :bd<CR>
 "" Buffer nav
 noremap <leader>N :bp<CR>
 noremap <leader>n :bn<CR>
-
+nnoremap [l :cprev<CR>
+nnoremap ]l :cnext<CR>
 
 nnoremap n nzzzv
 nnoremap N Nzzzv
@@ -147,6 +148,7 @@ set guifont=SF\ Mono:h12
 
 syntax on
 
+
 let hr = (strftime('%H'))
 if hr >= 18
         set background=dark
@@ -156,8 +158,7 @@ elseif hr >= 0
         set background=dark
 endif
 
-let force_dark = $FORCE_DARK
-if !empty(force_dark)
+if !empty($FORCE_DARK)
         set background=dark
 endif
 
@@ -183,13 +184,17 @@ else
 endif
 
 
-let want_monokai = $MONOKAI
-if has('nvim') && !empty(want_monokai)
+if has('nvim') && !empty($MONOKAI)
+        let llmonokai = expand('~/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/monokai.vim')
+        if !filereadable(llmonokai)
+                let cpm = ':!cp ' . expand('~/.config/nvim/monokai.vim') . ' ' . llmonokai
+                exec cpm
+        endif
         set t_Co=256
         set termguicolors
         set background=dark
         colorscheme monokai
-        let lltheme='molokai'
+        let lltheme='monokai'
 endif
 
 "let g:gruvbox_contrast_dark='hard'
@@ -301,8 +306,8 @@ autocmd FileType typescript set makeprg=make
 
 autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
 
-autocmd VimEnter * silent !tmux set status off
-autocmd VimLeave * silent !tmux set status on
+"autocmd VimEnter * silent !tmux set status off
+"autocmd VimLeave * silent !tmux set status on
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -400,3 +405,7 @@ function! VSplitTerm()
         vsplit
         ter
 endfunction
+
+" Markdown preview
+let g:mkdp_auto_start = !empty($NOTES)
+let g:mkdp_browser = 'vimb'
