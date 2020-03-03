@@ -226,11 +226,15 @@ let g:lightline = {
       \ 'colorscheme': lltheme,
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch',  'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'cocstatus','fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
       \   'filename': 'LightlineFilename',
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'fugitive#head',
+      \   'cocstatus': 'coc#status'
       \ },
       \ }
 

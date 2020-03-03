@@ -58,8 +58,7 @@ module-margin-right = 1
 
 font-0 = SF Mono:style=Regular:pixelsize=12;1
 font-1 = FontAwesome:style=Regular:pixelsize=10;0
-font-2 = Hack:style=Regular:pixelsize=12;1
-font-3 = FuraCode Nerd Font:style=Regular:pixelsize=12;0
+font-2 = Knack Nerd Font:style=Regular:pixelsize=12;1
 
 modules-left = i3 tasks
 ;modules-center = 
