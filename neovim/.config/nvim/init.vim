@@ -34,6 +34,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'kkoomen/vim-doge'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
@@ -235,12 +236,16 @@ let g:lightline = {
       \ 'colorscheme': lltheme,
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],                                                  
+      \              [ 'cocstatus','fileformat', 'fileencoding', 'filetype' ] ],
       \ },
       \ 'component_function': {
       \   'filename': 'LightlineFilename',
-      \   'gitbranch': 'fugitive#head'
-      \ },
+      \   'gitbranch': 'fugitive#head',
+      \   'cocstatus': 'coc#status',
+      \         },
       \ }
 
 function! LightlineFilename()
@@ -329,6 +334,8 @@ endfunction
 
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+autocmd BufWritePre *.rs RustFmt
+autocmd BufWritePre *.tf TerraformFmt
 
 let javaScript_fold=1
 let g:netrw_banner=0
@@ -404,6 +411,7 @@ function! RunNpmScript(result)
         call OpenTerm("npm run " . a:result)
 endfunction
 
+nnoremap <silent> <Leader><F9> :DogeGenerate<CR>
 nnoremap <silent> <F10> :call SelectNpmScript()<CR>
 
 function! SplitTerm()
