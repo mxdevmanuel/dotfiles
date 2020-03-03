@@ -54,6 +54,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 " Syntax
 Plug 'sheerun/vim-polyglot'
 
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on': []}
+Plug 'ryanoasis/vim-devicons', {'on': []}
 call plug#end()
 
 " Maps
@@ -176,15 +178,6 @@ let g:monokai_gui_italic = 1
 let g:gruvbox_italic=1
 let is_dark=(&background == 'dark')
 if is_dark 
-        colorscheme gruvbox
-        let lltheme='gruvbox'
-else
-        colorscheme PaperColor
-        let lltheme='PaperColor'
-endif
-
-
-if has('nvim') && !empty($MONOKAI)
         let llmonokai = expand('~/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/monokai.vim')
         if !filereadable(llmonokai)
                 let cpm = ':!cp ' . expand('~/.config/nvim/monokai.vim') . ' ' . llmonokai
@@ -195,6 +188,23 @@ if has('nvim') && !empty($MONOKAI)
         set background=dark
         colorscheme monokai
         let lltheme='monokai'
+else
+        colorscheme PaperColor
+        let lltheme='PaperColor'
+endif
+
+if has('nvim') && !empty($NORD)
+        set t_Co=256
+        set termguicolors
+        set background=dark
+        colorscheme nord
+        let lltheme='nord'
+endif
+
+if has('nvim') && !empty($GRUVBOX)
+        set background=dark
+        colorscheme gruvbox
+        let lltheme='gruvbox'
 endif
 
 "let g:gruvbox_contrast_dark='hard'

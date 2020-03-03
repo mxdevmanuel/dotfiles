@@ -35,11 +35,10 @@ alias nvm="load-nvm && nvm"
 alias npm="load-nvm ; npm"
 alias node="load-nvm ; node"
 
-alias vimh="vimf ."
 alias vimc="nvim ~/.config/nvim/init.vim"
 alias vimd="env FORCE_DARK='true' nvim"
-alias vimm="env MONOKAI='true' nvim"
-alias vimq="env MONOKAI='true' nvim-qt"
+alias vimg="env GRUVBOX='true' nvim"
+alias vimq="env FORCE_DARK='true' nvim-qt"
 
 # Config variables
 export DEFAULT_USER="manuel"
@@ -48,20 +47,6 @@ export VIRTUAL_ENV_DISABLE_PROMPT="Y"
 # Functions
 function CD(){
 	cd $@
-}
-
-function vimf(){
-        if [ -z "$1" ]
-        then
-                FILE=$(rg --files | fzf)
-        else
-                FILE=$(rg --files --hidden | fzf)
-        fi
-
-        if [ ! -z "$FILE" ]
-        then
-                vim "$FILE"
-        fi
 }
 
 function load-nvm() {
