@@ -34,6 +34,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'kkoomen/vim-doge'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
@@ -302,12 +303,8 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 autocmd FileType json let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
-"autocmd FileType terraform lcd %:p:h
 
 autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
-
-"autocmd VimEnter * silent !tmux set status off
-"autocmd VimLeave * silent !tmux set status on
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -319,6 +316,8 @@ endfunction
 
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+autocmd BufWritePre *.rs RustFmt
+autocmd BufWritePre *.tf TerraformFmt
 
 let javaScript_fold=1
 let g:netrw_banner=0
@@ -394,6 +393,7 @@ function! RunNpmScript(result)
         call OpenTerm("npm run " . a:result)
 endfunction
 
+nnoremap <silent> <Leader><F9> :DogeGenerate<CR>
 nnoremap <silent> <F10> :call SelectNpmScript()<CR>
 
 function! SplitTerm()
