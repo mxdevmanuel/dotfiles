@@ -416,6 +416,8 @@ bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
 bindsym $mod+F7 exec /home/manuel/.config/rofi/rofi-emoji.sh
 
 bindsym $mod+apostrophe exec /home/manuel/.config/i3/show_battery.sh
+bindsym $mod+p exec /home/manuel/.local/bin/project-list.sh
+bindsym $mod+Shift+p exec env NVIMGUI=1 /home/manuel/.local/bin/project-list.sh
 bindsym --release $mod+period exec wmfocus
 
 bindsym $mod+Escape exec /home/manuel/.config/i3/i3-exit.py

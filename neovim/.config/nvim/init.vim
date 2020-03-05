@@ -48,6 +48,7 @@ Plug 'itchyny/lightline.vim'
 
 " VCS
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
@@ -55,6 +56,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 " Syntax
 Plug 'sheerun/vim-polyglot'
 
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on': []}
+Plug 'ryanoasis/vim-devicons', {'on': []}
 call plug#end()
 
 " Maps
@@ -72,6 +75,7 @@ nnoremap <silent> <leader>vsh :call VSplitTerm()<CR>
 nnoremap <leader>. :lcd %:p:h<CR>
 tnoremap <C-w>n <C-\><C-n>
 
+nnoremap <localleader>f :GFiles --others --exclude-standard<CR>
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>t :Tags<CR>
@@ -87,6 +91,8 @@ nnoremap <Leader>? :Help<CR>
 nnoremap <Leader>rr :set rnu!<CR>
 nnoremap <Leader>q :bd<CR>
 
+nnoremap <silent><Leader>% :norm V$%<CR>
+
 "" Buffer nav
 noremap <leader>N :bp<CR>
 noremap <leader>n :bn<CR>
@@ -96,6 +102,7 @@ nnoremap ]l :cnext<CR>
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+cnoremap <C-l> <C-r>=expand("%:p:h") . "/" <CR>
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
@@ -192,8 +199,16 @@ else
         let lltheme='PaperColor'
 endif
 
+if has('nvim') && !empty($NORD)
+        set t_Co=256
+        set termguicolors
+        set background=dark
+        colorscheme nord
+        let lltheme='nord'
+endif
 
 if has('nvim') && !empty($GRUVBOX)
+        set background=dark
         colorscheme gruvbox
         let lltheme='gruvbox'
 endif
@@ -226,16 +241,16 @@ let g:lightline = {
       \ 'colorscheme': lltheme,
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch',  'readonly', 'filename', 'modified' ] ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'cocstatus','fileformat', 'fileencoding', 'filetype' ] ]
+      \              [ 'percent' ],                                                  
+      \              [ 'cocstatus','fileformat', 'fileencoding', 'filetype' ] ],
       \ },
       \ 'component_function': {
       \   'filename': 'LightlineFilename',
       \   'gitbranch': 'fugitive#head',
-      \   'cocstatus': 'coc#status'
-      \ },
+      \   'cocstatus': 'coc#status',
+      \         },
       \ }
 
 function! LightlineFilename()
@@ -272,12 +287,6 @@ if has('langmap') && exists('+langremap')
   set nolangremap
 endif
 
-function! s:SetGitRootTags()
-	let root=system("git rev-parse --show-toplevel | tr -d '\\n'") . '/tags'
-	exe "set tags+=" . root
-endfunction
-com! GitRootTags call s:SetGitRootTags()
-
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
 command! Bufonly %bd | e#
 
@@ -307,7 +316,6 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 autocmd FileType json let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
-
 autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
