@@ -318,7 +318,7 @@ exec --no-startup-id xss-lock -- betterlockscreen -l dim
 bindsym $mod+End [urgent=latest] focus
 
 bindsym $mod+Shift+Return exec urxvtc
-bindsym $mod+Shift+t exec env NOTMUX=1 i3-sensible-terminal
+bindsym $mod+Shift+t exec env NOTMUX=1 kitty
 
 #bindsym $mod+Mod1+l move workspace to output right
 #bindsym $mod+Mod1+h move workspace to output left
@@ -375,6 +375,7 @@ assign [class="^Chromium" instance="^chromium"] → $ws2
 assign [instance="insomnia" class="Insomnia"] → $ws10
 assign [floating] border pixel none 
 assign [title="vifm"] → $ws5 
+assign [class="^nvim-qt$" instance="^nvim-qt$"] → $ws3
 
 # class                 border  backgr. text    indicator child_border
 #client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
@@ -415,7 +416,8 @@ bindsym $mod+F9 sticky toggle
 bindsym $mod+F10 exec /home/manuel/.config/i3/bluetooth-connect.sh
 
 
-#bindsym $mod+apostrophe  [AVAILABLE]
+# bindsym $mod+apostrophe exec /home/manuel/.local/bin/project-list.sh 
+bindsym $mod+p exec /home/manuel/.local/bin/project-list.sh 
 bindsym --release $mod+period exec wmfocus
 
 bindsym $mod+Escape exec clearine

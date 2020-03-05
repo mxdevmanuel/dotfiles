@@ -48,6 +48,7 @@ Plug 'itchyny/lightline.vim'
 
 " VCS
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
@@ -74,6 +75,7 @@ nnoremap <silent> <leader>vsh :call VSplitTerm()<CR>
 nnoremap <leader>. :lcd %:p:h<CR>
 tnoremap <C-w>n <C-\><C-n>
 
+nnoremap <localleader>f :GFiles --others --exclude-standard<CR>
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>t :Tags<CR>
@@ -89,6 +91,8 @@ nnoremap <Leader>? :Help<CR>
 nnoremap <Leader>rr :set rnu!<CR>
 nnoremap <Leader>q :bd<CR>
 
+nnoremap <silent><Leader>% :norm V$%<CR>
+
 "" Buffer nav
 noremap <leader>N :bp<CR>
 noremap <leader>n :bn<CR>
@@ -98,6 +102,7 @@ nnoremap ]l :cnext<CR>
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+cnoremap <C-l> <C-r>=expand("%:p:h") . "/" <CR>
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
