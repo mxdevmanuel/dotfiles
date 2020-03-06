@@ -385,7 +385,7 @@ command! Wuzz call OpenTerm('wuzz')
 
 autocmd TermOpen * startinsert
 " Turn off line numbers etc
-autocmd TermOpen * setlocal listchars= nonumber norelativenumber
+autocmd TermOpen * setlocal listchars= nonumber norelativenumber signcolumn=no
 
 " npm run menu
 function! SelectNpmScript()
