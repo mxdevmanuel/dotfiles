@@ -417,7 +417,8 @@ bindsym $mod+F10 exec /home/manuel/.config/i3/bluetooth-connect.sh
 
 
 # bindsym $mod+apostrophe exec /home/manuel/.local/bin/project-list.sh 
-bindsym $mod+p exec /home/manuel/.local/bin/project-list.sh 
+bindsym $mod+p exec env NVIMGUI=1 /home/manuel/.local/bin/project-list.sh 
+bindsym $mod+Shift+p exec /home/manuel/.local/bin/project-list.sh 
 bindsym --release $mod+period exec wmfocus
 
 bindsym $mod+Escape exec clearine

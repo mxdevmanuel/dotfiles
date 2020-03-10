@@ -287,12 +287,6 @@ if has('langmap') && exists('+langremap')
   set nolangremap
 endif
 
-function! s:SetGitRootTags()
-	let root=system("git rev-parse --show-toplevel | tr -d '\\n'") . '/tags'
-	exe "set tags+=" . root
-endfunction
-com! GitRootTags call s:SetGitRootTags()
-
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
 command! Bufonly %bd | e#
 
@@ -322,12 +316,7 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 autocmd FileType json let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
-"autocmd FileType terraform lcd %:p:h
-
 autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
-
-"autocmd VimEnter * silent !tmux set status off
-"autocmd VimLeave * silent !tmux set status on
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -396,7 +385,7 @@ command! Wuzz call OpenTerm('wuzz')
 
 autocmd TermOpen * startinsert
 " Turn off line numbers etc
-autocmd TermOpen * setlocal listchars= nonumber norelativenumber
+autocmd TermOpen * setlocal listchars= nonumber norelativenumber signcolumn=no
 
 " npm run menu
 function! SelectNpmScript()
