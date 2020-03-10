@@ -102,6 +102,11 @@ nnoremap ]l :cnext<CR>
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+
+" Vim config 
+nnoremap <S-F5> :e  <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
+nnoremap <F5> :source <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
+
 cnoremap <C-l> <C-r>=expand("%:p:h") . "/" <CR>
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -314,8 +319,9 @@ endif
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-autocmd FileType json let g:indentLine_enabled=0
+autocmd FileType json,markdown let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
+" autocmd FileType typescript,javascript,yaml,css,html,graphql set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -421,3 +427,4 @@ endfunction
 " Markdown preview
 let g:mkdp_auto_start = !empty($NOTES)
 let g:mkdp_browser = 'vimb'
+

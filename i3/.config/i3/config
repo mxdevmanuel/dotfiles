@@ -444,7 +444,7 @@ bindsym $mod+Shift+Return exec urxvtc
 bindsym $mod+t exec kitty -e bash
 bindsym $mod+Shift+t exec env NOTMUX=1 kitty
 # Necessary for i3-gaps to work properly (pixel can be any value)
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 2
 # Smart Gaps
 smart_gaps on
 # Smart Borders
