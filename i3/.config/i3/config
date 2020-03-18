@@ -464,3 +464,5 @@ bindsym $mod+Mod2+KP_Subtract exec xbacklight -dec 10 # decrease screen brightne
 
 #bindsym $mod+m  AVAILABLE
 #bindsym $mod+Shift+m AVAILABLE
+bindsym Control+$mod+n exec --no-startup-id xdotool key Down
+bindsym Control+$mod+p exec --no-startup-id xdotool key Up

@@ -19,6 +19,7 @@ endif
 
 call plug#begin(expand('~/.config/nvim/plugged'))
 
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'prettier/vim-prettier', {
@@ -39,8 +40,8 @@ Plug 'kkoomen/vim-doge'
 " Colorschemes
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'crusoexia/vim-monokai'
+Plug 'rakr/vim-one'
 
 " Wanna get rid of
 Plug 'easymotion/vim-easymotion'
@@ -76,6 +77,7 @@ nnoremap <leader>. :lcd %:p:h<CR>
 tnoremap <C-w>n <C-\><C-n>
 
 nnoremap <localleader>f :GFiles --others --exclude-standard<CR>
+nnoremap <localleader>F :GFiles?<CR>
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>t :Tags<CR>
@@ -89,7 +91,7 @@ nnoremap <Leader>/ :Rg<space>
 nnoremap <Leader>? :Help<CR>
 
 nnoremap <Leader>rr :set rnu!<CR>
-nnoremap <Leader>q :bd<CR>
+nnoremap <silent><Leader>q :bd<CR>
 
 nnoremap <silent><Leader>% :norm V$%<CR>
 
@@ -159,8 +161,12 @@ set lazyredraw
 set ruler
 set guifont=SF\ Mono:h12
 
-syntax on
-
+" Colorscheme config
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 let hr = (strftime('%H'))
 if hr >= 18
@@ -175,18 +181,15 @@ if !empty($FORCE_DARK)
         set background=dark
 endif
 
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default.light': {
-  \     'allow_bold': 1,
-  \     'allow_italic': 1,
-  \     }
-  \   }
-  \ }
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 let g:monokai_term_italic = 1
 let g:monokai_gui_italic = 1
+
 let g:gruvbox_italic=1
+
+let g:one_allow_italics = 1
+
 let is_dark=(&background == 'dark')
 if is_dark 
         let llmonokai = expand('~/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/monokai.vim')
@@ -195,30 +198,28 @@ if is_dark
                 exec cpm
         endif
         set t_Co=256
-        set termguicolors
         set background=dark
         colorscheme monokai
         let lltheme='monokai'
 else
-        colorscheme PaperColor
-        let lltheme='PaperColor'
+        set t_Co=256
+        colorscheme one
+        let lltheme='one'
 endif
 
 if has('nvim') && !empty($NORD)
         set t_Co=256
-        set termguicolors
         set background=dark
         colorscheme nord
         let lltheme='nord'
 endif
 
 if has('nvim') && !empty($GRUVBOX)
+        set termguicolors!
         set background=dark
         colorscheme gruvbox
         let lltheme='gruvbox'
 endif
-
-"let g:gruvbox_contrast_dark='hard'
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -373,7 +374,7 @@ function! CreateCenteredFloatingWindow()
     au BufWipeout <buffer> exe 'bw '.s:buf
 endfunction
 
-let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
 
 " Open Floating terminal
 function! OpenTerm(cmd)
@@ -428,3 +429,4 @@ endfunction
 let g:mkdp_auto_start = !empty($NOTES)
 let g:mkdp_browser = 'vimb'
 
+hi CocUnderLine cterm=undercurl gui=undercurl

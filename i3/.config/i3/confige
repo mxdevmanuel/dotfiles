@@ -377,6 +377,7 @@ assign [class="^Chromium" instance="^chromium"] → $ws2
 assign [instance="insomnia" class="Insomnia"] → $ws10
 assign [floating] border pixel none 
 assign [title="vifm"] → $ws5 
+assign [class="^nvim-qt$" instance="^nvim-qt$"] → $ws3
 
 # class                 border  backgr. text    indicator child_border
 #client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
@@ -415,6 +416,8 @@ bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
 bindsym $mod+F7 exec /home/manuel/.config/rofi/rofi-emoji.sh
 
 bindsym $mod+apostrophe exec /home/manuel/.config/i3/show_battery.sh
+bindsym $mod+p exec /home/manuel/.local/bin/project-list.sh
+bindsym $mod+Shift+p exec env NVIMGUI=1 /home/manuel/.local/bin/project-list.sh
 bindsym --release $mod+period exec wmfocus
 
 bindsym $mod+Escape exec /home/manuel/.config/i3/i3-exit.py
@@ -441,7 +444,7 @@ bindsym $mod+Shift+Return exec urxvtc
 bindsym $mod+t exec kitty -e bash
 bindsym $mod+Shift+t exec env NOTMUX=1 kitty
 # Necessary for i3-gaps to work properly (pixel can be any value)
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 2
 # Smart Gaps
 smart_gaps on
 # Smart Borders
@@ -461,3 +464,5 @@ bindsym $mod+Mod2+KP_Subtract exec xbacklight -dec 10 # decrease screen brightne
 
 #bindsym $mod+m  AVAILABLE
 #bindsym $mod+Shift+m AVAILABLE
+bindsym Control+$mod+n exec --no-startup-id xdotool key Down
+bindsym Control+$mod+p exec --no-startup-id xdotool key Up

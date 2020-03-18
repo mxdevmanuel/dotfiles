@@ -3,6 +3,7 @@ filetype off                  " required
 
 call plug#begin()
 
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'prettier/vim-prettier', {
@@ -217,3 +218,6 @@ let g:peekaboo_prefix="<F12>"
 let g:peekaboo_ins_prefix="<F12>"
 
 let g:gruvbox_italic=1
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
