@@ -348,7 +348,8 @@ bindsym --release $mod+Shift+o  exec --no-startup-id mate-power-preferences
 
 bindsym Pause exec --no-startup-id betterlockscreen -l  
 
-bindsym $mod+t exec termite -e bash
+bindsym $mod+t exec env NOTMUX=1 st
+bindsym $mod+Pause exec termite -e bash
 
 for_window [class="copyq" window_type="normal"] floating enable
 for_window [title="mulator"] floating enable
@@ -440,7 +441,7 @@ focus_follows_mouse yes
 workspace_auto_back_and_forth yes
 
 # Necessary for i3-gaps to work properly (pixel can be any value)
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 2
 # Smart Gaps
 smart_gaps on
 # Smart Borders

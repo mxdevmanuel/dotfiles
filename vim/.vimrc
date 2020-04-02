@@ -1,7 +1,7 @@
 " Manuel
-set nocompatible              " be iMproved, required
+filetype indent plugin on
 
-" Install vim plug if not installed
+" Install vim plug if not insalled
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
 if !filereadable(vimplug_exists)
@@ -17,30 +17,31 @@ if !filereadable(vimplug_exists)
   autocmd VimEnter * PlugInstall
 endif
 
-filetype indent plugin on
-
 call plug#begin(expand('~/.config/nvim/plugged'))
 
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
-Plug 'scrooloose/nerdcommenter'
 Plug 'Yggdroot/indentLine'
 Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'vifm/vifm.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'kkoomen/vim-doge'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'crusoexia/vim-monokai'
 
 " Wanna get rid of
 Plug 'easymotion/vim-easymotion'
@@ -48,18 +49,16 @@ Plug 'itchyny/lightline.vim'
 
 " VCS
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 
 " Syntax
-Plug 'pangloss/vim-javascript'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'leafgarland/typescript-vim'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'jparise/vim-graphql'
-Plug 'hashivim/vim-terraform'
+Plug 'sheerun/vim-polyglot'
 
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on': []}
+Plug 'ryanoasis/vim-devicons', {'on': []}
 call plug#end()
 
 " Maps
@@ -69,24 +68,47 @@ map <C-k><C-b> :NERDTreeToggle<CR>
 map <C-k><C-o> :NERDTreeFind<CR>
 map <bs> <Plug>(easymotion-prefix)
 
-nnoremap <C-p> :Clap git_files<CR>
-nnoremap <Leader>f :Clap git_files<CR>
-nnoremap <Leader>F :Clap files<CR>
+noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+noremap <Leader>E :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+nnoremap <silent> <leader>sh :call SplitTerm()<CR>
+nnoremap <silent> <leader>vsh :call VSplitTerm()<CR>
+nnoremap <leader>. :lcd %:p:h<CR>
+tnoremap <C-w>n <C-\><C-n>
+
+nnoremap <localleader>f :GFiles --others --exclude-standard<CR>
+nnoremap <Leader>f :GFiles<CR>
+nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>t :Tags<CR>
-nnoremap <Leader>T :Clap tags<CR>
-nnoremap <Leader>l :Clap blines<CR>
-nnoremap <Leader>L :Clap lines<CR>
-nnoremap <Leader>b :Clap buffers<CR>
-nnoremap <Leader>w :Clap windows<CR>
-nnoremap <Leader>q :bd<CR>
-nnoremap <Leader>hh :nohl<CR>
-nnoremap <Leader>rr :set rnu!<CR>
-nnoremap <Leader>/ :Clap grep<space>
+nnoremap <Leader>T :BTags<CR>
+nnoremap <Leader>l :BLines<CR>
+nnoremap <Leader>L :Lines<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>w :Windows<CR>
+nnoremap <Leader>h :History<CR>
+nnoremap <Leader>/ :Rg<space>
 nnoremap <Leader>? :Help<CR>
+
+nnoremap <Leader>rr :set rnu!<CR>
+nnoremap <Leader>q :bd<CR>
+
+nnoremap <silent><Leader>% :norm V$%<CR>
+
+"" Buffer nav
+noremap <leader>N :bp<CR>
+noremap <leader>n :bn<CR>
+nnoremap [l :cprev<CR>
+nnoremap ]l :cnext<CR>
 
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+
+" Vim config 
+nnoremap <S-F5> :e  <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
+nnoremap <F5> :source <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
+
+cnoremap <C-l> <C-r>=expand("%:p:h") . "/" <CR>
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
@@ -97,7 +119,6 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
-
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
@@ -132,14 +153,14 @@ set smarttab
 set pastetoggle=<F11>
 set formatoptions+=j
 set encoding=utf-8
-set fileencoding=utf-8
 set fileencodings=utf-8
-set fileformats=unix,dos,mac
 set cursorline
 set lazyredraw
 set ruler
+set guifont=SF\ Mono\ 12
 
 syntax on
+
 
 let hr = (strftime('%H'))
 if hr >= 18
@@ -147,6 +168,10 @@ if hr >= 18
 elseif hr >= 8
         set background=light
 elseif hr >= 0
+        set background=dark
+endif
+
+if !empty($FORCE_DARK)
         set background=dark
 endif
 
@@ -159,14 +184,36 @@ let g:PaperColor_Theme_Options = {
   \   }
   \ }
 
+let g:monokai_term_italic = 1
+let g:monokai_gui_italic = 1
 let g:gruvbox_italic=1
 let is_dark=(&background == 'dark')
 if is_dark 
+        set background=dark
         colorscheme gruvbox
         let lltheme='gruvbox'
 else
         colorscheme PaperColor
         let lltheme='PaperColor'
+endif
+
+if has('nvim') && !empty($NORD)
+        set t_Co=256
+        set background=dark
+        colorscheme nord
+        let lltheme='nord'
+endif
+
+if has('nvim') && !empty($MONOKAI)
+        let llmonokai = expand('~/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/monokai.vim')
+        if !filereadable(llmonokai)
+                let cpm = ':!cp ' . expand('~/.config/nvim/monokai.vim') . ' ' . llmonokai
+                exec cpm
+        endif
+        set t_Co=256
+        set background=dark
+        colorscheme monokai
+        let lltheme='monokai'
 endif
 
 "let g:gruvbox_contrast_dark='hard'
@@ -197,12 +244,16 @@ let g:lightline = {
       \ 'colorscheme': lltheme,
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],                                                  
+      \              [ 'cocstatus','fileformat', 'fileencoding', 'filetype' ] ],
       \ },
       \ 'component_function': {
       \   'filename': 'LightlineFilename',
-      \   'gitbranch': 'fugitive#head'
-      \ },
+      \   'gitbranch': 'fugitive#head',
+      \   'cocstatus': 'coc#status',
+      \         },
       \ }
 
 function! LightlineFilename()
@@ -214,7 +265,6 @@ function! LightlineFilename()
   return expand('%')
 endfunction
 
-"autocmd BufEnter * lcd %:p:h
 
 if &t_Co == 8 && $TERM !~# '^Eterm'
   set t_Co=16
@@ -239,12 +289,6 @@ if has('langmap') && exists('+langremap')
   " compatible).
   set nolangremap
 endif
-
-function! s:SetGitRootTags()
-	let root=system("git rev-parse --show-toplevel | tr -d '\\n'") . '/tags'
-	exe "set tags+=" . root
-endfunction
-com! GitRootTags call s:SetGitRootTags()
 
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
 command! Bufonly %bd | e#
@@ -273,11 +317,10 @@ endif
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-autocmd FileType json let g:indentLine_enabled=0
+autocmd FileType json,markdown let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
-
-autocmd FileType typescript,javascript nnoremap <buffer> K :!zeal "<cword>"&<CR><CR>
-autocmd FileType typescript,javascript nnoremap <buffer> <silent> <F9> :call <SID>show_documentation()<CR>
+" autocmd FileType typescript,javascript,yaml,css,html,graphql set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
+autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -289,6 +332,8 @@ endfunction
 
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+autocmd BufWritePre *.rs RustFmt
+autocmd BufWritePre *.tf TerraformFmt
 
 let javaScript_fold=1
 let g:netrw_banner=0
@@ -297,7 +342,15 @@ let g:peekaboo_window="vert abo 30new"
 let g:peekaboo_prefix="<F12>"
 let g:peekaboo_ins_prefix="<F12>"
 
-func NpmSelected(id, result)
+command! -bang -nargs=? -complete=dir PFiles
+    \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
+
+" Using floating windows of Neovim to start fzf
+let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
+func! NpmSelected(id, result)
         echo ""
         if a:result > 0
                 let cmd = "npm run " . b:ks[a:result - 1]
@@ -318,4 +371,20 @@ function! RunNpm()
         endif
 endfunction
 
-nnoremap <F10> :call RunNpm()<CR>
+nnoremap <silent> <Leader><F9> :DogeGenerate<CR>
+nnoremap <silent> <F10> :call RunNpm()<CR>
+
+function! SplitTerm()
+        split
+        ter
+endfunction
+
+function! VSplitTerm()
+        vsplit
+        ter
+endfunction
+
+" Markdown preview
+let g:mkdp_auto_start = !empty($NOTES)
+let g:mkdp_browser = 'vimb'
+

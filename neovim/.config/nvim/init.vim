@@ -19,6 +19,7 @@ endif
 
 call plug#begin(expand('~/.config/nvim/plugged'))
 
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'prettier/vim-prettier', {
@@ -27,6 +28,7 @@ Plug 'prettier/vim-prettier', {
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-eunuch'
 Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
@@ -39,8 +41,8 @@ Plug 'kkoomen/vim-doge'
 " Colorschemes
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'crusoexia/vim-monokai'
+Plug 'rakr/vim-one'
 
 " Wanna get rid of
 Plug 'easymotion/vim-easymotion'
@@ -76,6 +78,7 @@ nnoremap <leader>. :lcd %:p:h<CR>
 tnoremap <C-w>n <C-\><C-n>
 
 nnoremap <localleader>f :GFiles --others --exclude-standard<CR>
+nnoremap <localleader>F :GFiles?<CR>
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>t :Tags<CR>
@@ -86,10 +89,12 @@ nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>w :Windows<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>/ :Rg<space>
+nnoremap <Leader>* :Rg<space><C-R>=expand("<cword>")<CR><CR>
 nnoremap <Leader>? :Help<CR>
 
+nnoremap <silent><localleader>c :set cursorcolumn!<CR>
 nnoremap <Leader>rr :set rnu!<CR>
-nnoremap <Leader>q :bd<CR>
+nnoremap <silent><Leader>q :bd<CR>
 
 nnoremap <silent><Leader>% :norm V$%<CR>
 
@@ -101,6 +106,10 @@ nnoremap ]l :cnext<CR>
 
 nnoremap n nzzzv
 nnoremap N Nzzzv
+
+" Vim config 
+nnoremap <S-F5> :e  <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
+nnoremap <F5> :source <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
 
 cnoremap <C-l> <C-r>=expand("%:p:h") . "/" <CR>
 cnoreabbrev W! w!
@@ -153,9 +162,14 @@ set cursorline
 set lazyredraw
 set ruler
 set guifont=SF\ Mono:h12
+set t_Co=256
 
-syntax on
-
+" Colorscheme config
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 let hr = (strftime('%H'))
 if hr >= 18
@@ -170,18 +184,15 @@ if !empty($FORCE_DARK)
         set background=dark
 endif
 
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default.light': {
-  \     'allow_bold': 1,
-  \     'allow_italic': 1,
-  \     }
-  \   }
-  \ }
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 let g:monokai_term_italic = 1
 let g:monokai_gui_italic = 1
+
 let g:gruvbox_italic=1
+
+let g:one_allow_italics = 1
+
 let is_dark=(&background == 'dark')
 if is_dark 
         let llmonokai = expand('~/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/monokai.vim')
@@ -189,31 +200,34 @@ if is_dark
                 let cpm = ':!cp ' . expand('~/.config/nvim/monokai.vim') . ' ' . llmonokai
                 exec cpm
         endif
-        set t_Co=256
-        set termguicolors
         set background=dark
         colorscheme monokai
         let lltheme='monokai'
 else
-        colorscheme PaperColor
-        let lltheme='PaperColor'
+	highlight Cursor guifg=white guibg=magenta
+	highlight iCursor guifg=magenta guibg=grey
+        colorscheme one
+        let lltheme='one'
 endif
 
 if has('nvim') && !empty($NORD)
-        set t_Co=256
-        set termguicolors
         set background=dark
         colorscheme nord
         let lltheme='nord'
 endif
 
 if has('nvim') && !empty($GRUVBOX)
+        set termguicolors!
         set background=dark
         colorscheme gruvbox
         let lltheme='gruvbox'
 endif
 
-"let g:gruvbox_contrast_dark='hard'
+if has('nvim') && !empty($ONE)
+        colorscheme one
+        set background=dark
+        let lltheme='one'
+endif
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -241,28 +255,30 @@ let g:lightline = {
       \ 'colorscheme': lltheme,
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \             [ 'gitinfo', 'readonly', 'filename', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],                                                  
       \              [ 'cocstatus','fileformat', 'fileencoding', 'filetype' ] ],
       \ },
       \ 'component_function': {
-      \   'filename': 'LightlineFilename',
       \   'gitbranch': 'fugitive#head',
+      \   'gitinfo': 'GitStatus',
       \   'cocstatus': 'coc#status',
       \         },
       \ }
 
-function! LightlineFilename()
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
-  let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return path[len(root)+1:]
-  endif
-  return expand('%')
+function! GitStatus()
+        let head = fugitive#head()
+        if !empty(head)
+                if !empty(expand('%:p'))
+                        let [a,m,r] = GitGutterGetHunkSummary()
+                        let head = head . printf(' +%d ~%d -%d', a, m, r)
+                endif
+        endif
+
+        return head
 endfunction
-
-
+    
 if &t_Co == 8 && $TERM !~# '^Eterm'
   set t_Co=16
 endif
@@ -314,8 +330,9 @@ endif
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-autocmd FileType json let g:indentLine_enabled=0
+autocmd FileType json,markdown let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
+" autocmd FileType typescript,javascript,yaml,css,html,graphql set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -327,6 +344,7 @@ function! s:show_documentation()
 endfunction
 
 let g:prettier#autoformat = 0
+autocmd BufWritePre *.tsx exec "%s/class=/className=/eg"
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 autocmd BufWritePre *.rs RustFmt
 autocmd BufWritePre *.tf TerraformFmt
@@ -339,7 +357,7 @@ let g:peekaboo_prefix="<F12>"
 let g:peekaboo_ins_prefix="<F12>"
 
 command! -bang -nargs=? -complete=dir PFiles
-    \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
+    \ call fzf#vim#gitfiles(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 
 " Using floating windows of Neovim to start fzf
 let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
@@ -367,7 +385,7 @@ function! CreateCenteredFloatingWindow()
     au BufWipeout <buffer> exe 'bw '.s:buf
 endfunction
 
-let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
 
 " Open Floating terminal
 function! OpenTerm(cmd)
