@@ -321,7 +321,7 @@ exec --no-startup-id keynav daemonize
 
 exec_always --no-startup-id $HOME/.config/i3/polybar.sh
 
-bindsym $mod+End [urgent=latest] focus
+bindsym $mod+apostrophe [urgent=latest] focus
 
 #bindsym $mod+Mod1+l move workspace to output right
 #bindsym $mod+Mod1+h move workspace to output left
@@ -415,7 +415,7 @@ bindsym $mod+F5 exec todotxt-sync.sh
 bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
 bindsym $mod+F7 exec /home/manuel/.config/rofi/rofi-emoji.sh
 
-bindsym $mod+apostrophe exec /home/manuel/.config/i3/show_battery.sh
+# bindsym $mod+apostrophe exec /home/manuel/.config/i3/show_battery.sh
 bindsym $mod+p exec /home/manuel/.local/bin/project-list.sh
 bindsym $mod+Shift+p exec env NVIMGUI=1 /home/manuel/.local/bin/project-list.sh
 bindsym --release $mod+period exec wmfocus
@@ -440,6 +440,7 @@ focus_follows_mouse yes
 workspace_auto_back_and_forth yes
 
 bindsym $mod+Shift+Return exec urxvtc
+bindsym $mod+bracketleft exec unipicker --command "rofi -dmenu" --copy
 
 bindsym $mod+t exec kitty -e bash
 bindsym $mod+Shift+t exec env NOTMUX=1 kitty
@@ -466,3 +467,4 @@ bindsym $mod+Mod2+KP_Subtract exec xbacklight -dec 10 # decrease screen brightne
 #bindsym $mod+Shift+m AVAILABLE
 bindsym Control+$mod+n exec --no-startup-id xdotool key Down
 bindsym Control+$mod+p exec --no-startup-id xdotool key Up
+

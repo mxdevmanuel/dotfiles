@@ -28,6 +28,7 @@ Plug 'prettier/vim-prettier', {
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-eunuch'
 Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
@@ -88,8 +89,10 @@ nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>w :Windows<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>/ :Rg<space>
+nnoremap <Leader>* :Rg<space><C-R>=expand("<cword>")<CR><CR>
 nnoremap <Leader>? :Help<CR>
 
+nnoremap <silent><localleader>c :set cursorcolumn!<CR>
 nnoremap <Leader>rr :set rnu!<CR>
 nnoremap <silent><Leader>q :bd<CR>
 
@@ -103,7 +106,6 @@ nnoremap ]l :cnext<CR>
 
 nnoremap n nzzzv
 nnoremap N Nzzzv
-
 
 " Vim config 
 nnoremap <S-F5> :e  <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
@@ -160,6 +162,7 @@ set cursorline
 set lazyredraw
 set ruler
 set guifont=SF\ Mono:h12
+set t_Co=256
 
 " Colorscheme config
 if exists('+termguicolors')
@@ -197,18 +200,17 @@ if is_dark
                 let cpm = ':!cp ' . expand('~/.config/nvim/monokai.vim') . ' ' . llmonokai
                 exec cpm
         endif
-        set t_Co=256
         set background=dark
         colorscheme monokai
         let lltheme='monokai'
 else
-        set t_Co=256
+	highlight Cursor guifg=white guibg=magenta
+	highlight iCursor guifg=magenta guibg=grey
         colorscheme one
         let lltheme='one'
 endif
 
 if has('nvim') && !empty($NORD)
-        set t_Co=256
         set background=dark
         colorscheme nord
         let lltheme='nord'
@@ -219,6 +221,12 @@ if has('nvim') && !empty($GRUVBOX)
         set background=dark
         colorscheme gruvbox
         let lltheme='gruvbox'
+endif
+
+if has('nvim') && !empty($ONE)
+        colorscheme one
+        set background=dark
+        let lltheme='one'
 endif
 
 " Use persistent history.
@@ -247,28 +255,30 @@ let g:lightline = {
       \ 'colorscheme': lltheme,
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \             [ 'gitinfo', 'readonly', 'filename', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],                                                  
       \              [ 'cocstatus','fileformat', 'fileencoding', 'filetype' ] ],
       \ },
       \ 'component_function': {
-      \   'filename': 'LightlineFilename',
       \   'gitbranch': 'fugitive#head',
+      \   'gitinfo': 'GitStatus',
       \   'cocstatus': 'coc#status',
       \         },
       \ }
 
-function! LightlineFilename()
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
-  let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return path[len(root)+1:]
-  endif
-  return expand('%')
+function! GitStatus()
+        let head = fugitive#head()
+        if !empty(head)
+                if !empty(expand('%:p'))
+                        let [a,m,r] = GitGutterGetHunkSummary()
+                        let head = head . printf(' +%d ~%d -%d', a, m, r)
+                endif
+        endif
+
+        return head
 endfunction
-
-
+    
 if &t_Co == 8 && $TERM !~# '^Eterm'
   set t_Co=16
 endif
@@ -334,6 +344,7 @@ function! s:show_documentation()
 endfunction
 
 let g:prettier#autoformat = 0
+autocmd BufWritePre *.tsx exec "%s/class=/className=/eg"
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 autocmd BufWritePre *.rs RustFmt
 autocmd BufWritePre *.tf TerraformFmt
@@ -346,7 +357,7 @@ let g:peekaboo_prefix="<F12>"
 let g:peekaboo_ins_prefix="<F12>"
 
 command! -bang -nargs=? -complete=dir PFiles
-    \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
+    \ call fzf#vim#gitfiles(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 
 " Using floating windows of Neovim to start fzf
 let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
@@ -428,5 +439,3 @@ endfunction
 " Markdown preview
 let g:mkdp_auto_start = !empty($NOTES)
 let g:mkdp_browser = 'vimb'
-
-hi CocUnderLine cterm=undercurl gui=undercurl
