@@ -255,10 +255,10 @@ let g:lightline = {
       \ 'colorscheme': lltheme,
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitinfo', 'readonly', 'filename', 'modified' ] ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],                                                  
-      \              [ 'cocstatus','fileformat', 'fileencoding', 'filetype' ] ],
+      \              [ 'cocstatus', 'gitinfo', 'fileformat', 'fileencoding', 'filetype' ] ],
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head',
@@ -269,14 +269,12 @@ let g:lightline = {
 
 function! GitStatus()
         let head = fugitive#head()
-        if !empty(head)
-                if !empty(expand('%:p'))
-                        let [a,m,r] = GitGutterGetHunkSummary()
-                        let head = head . printf(' +%d ~%d -%d', a, m, r)
-                endif
+        if !empty(expand('%:p')) && !empty(head)
+                let [a,m,r] = GitGutterGetHunkSummary()
+                return printf('+%d ~%d -%d', a, m, r)
+        else
+                return ''
         endif
-
-        return head
 endfunction
     
 if &t_Co == 8 && $TERM !~# '^Eterm'

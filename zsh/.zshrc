@@ -101,6 +101,9 @@ eval "$(direnv hook zsh)"
 
 source /home/manuel/.config/broot/launcher/bash/br
 
+export FORGIT_NO_ALIASES=1
+source /home/manuel/.config/forgit/forgit.plugin.zsh
+
 # For powerlevel10k, to customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 prompt_context(){}
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
