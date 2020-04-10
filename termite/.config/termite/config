@@ -11,7 +11,7 @@ cursor_blink = system
 cursor_shape = block
 dynamic_title = true
 filter_unmatched_urls = true
-font = FuraCode Nerd Font 12
+font = SF Mono 11
 geometry = 480x280
 icon_name = terminal
 modify_other_keys = false
@@ -25,7 +25,7 @@ urgent_on_bell = true
 highlight = #30343e
 
 [colors]
-background= rgba(29,32,33, 0.97)
+background= rgba(29,32,33, 0.9)
 #background= #1d2021
 foreground= #ebdbb2
 
