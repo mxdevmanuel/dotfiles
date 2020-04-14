@@ -315,7 +315,7 @@ exec --no-startup-id keynav daemonize
 exec --no-startup-id unclutter --fork --exclude-root --jitter 20 --ignore-scrolling --timeout 5
 exec --no-startup-id xss-lock -- betterlockscreen -l dim
 
-bindsym $mod+End [urgent=latest] focus
+bindsym $mod+apostrophe [urgent=latest] focus
 
 bindsym $mod+Shift+Return exec urxvtc
 bindsym $mod+Shift+t exec env NOTMUX=1 kitty
@@ -413,11 +413,13 @@ bindsym $mod+F4 exec /home/manuel/.config/i3/hdmi.sh
 bindsym $mod+F5 exec todotxt-sync.sh
 bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
 bindsym $mod+F7 exec /home/manuel/.config/rofi/rofi-emoji.sh
+bindsym $mod+F8 exec unipicker --copy
 bindsym $mod+F9 sticky toggle
 bindsym $mod+F10 exec /home/manuel/.config/i3/bluetooth-connect.sh
 
 
-# bindsym $mod+apostrophe exec /home/manuel/.local/bin/project-list.sh 
+bindsym $mod+Home exec --no-startup-id videoshot.sh
+bindsym $mod+End exec --no-startup-id pkill ffmpeg
 bindsym $mod+p exec env NVIMGUI=1 /home/manuel/.local/bin/project-list.sh 
 bindsym $mod+Shift+p exec /home/manuel/.local/bin/project-list.sh 
 bindsym --release $mod+period exec wmfocus
@@ -432,7 +434,7 @@ bindsym $mod+z exec --no-startup-id /home/manuel/.config/i3/tmux-session-selecto
 bindsym $mod+v exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
 
 bindsym $mod+Shift+f exec pcmanfm
-bindcode $mod+Shift+59 exec termite -e "vifm"
+bindcode $mod+Shift+59 exec termite -e /home/manuel/.config/i3/open_vifm.sh &
 bindsym $mod+plus exec /home/manuel/.config/rofi/rofi-fb.sh /home/manuel
 bindsym $mod+Shift+Menu exec blezz
 bindsym Control+$mod+Shift+Menu exec rofi -show blezz -modi blezz  -plugin-path /usr/local/lib/rofi -auto-select -matching normal

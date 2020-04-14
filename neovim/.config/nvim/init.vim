@@ -164,6 +164,7 @@ set lazyredraw
 set ruler
 set guifont=SF\ Mono:h12
 set t_Co=256
+set shortmess-=I
 
 " Colorscheme config
 if exists('+termguicolors')
@@ -244,10 +245,10 @@ let g:lightline = {
       \ 'colorscheme': lltheme,
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'shortname', 'modified' ] ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],                                                  
-      \              [ 'cocstatus', 'gitinfo', 'fileformat', 'fileencoding', 'filetype' ] ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ],
       \ },
       \ 'component': {
       \   'lineinfo': '%3l:%-2v%<',
