@@ -40,7 +40,6 @@ Plug 'kkoomen/vim-doge'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'arcticicestudio/nord-vim'
 Plug 'crusoexia/vim-monokai'
 Plug 'rakr/vim-one'
 
@@ -58,8 +57,10 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 " Syntax
 Plug 'sheerun/vim-polyglot'
 
+" Gui
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on': []}
 Plug 'ryanoasis/vim-devicons', {'on': []}
+
 call plug#end()
 
 " Maps
@@ -73,7 +74,7 @@ noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 noremap <Leader>E :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 nnoremap <silent> <leader>sh :call SplitTerm()<CR>
-nnoremap <silent> <leader>vsh :call VSplitTerm()<CR>
+nnoremap <silent> <leader>vsh :call SplitTerm("y")<CR>
 nnoremap <leader>. :lcd %:p:h<CR>
 tnoremap <C-w>n <C-\><C-n>
 
@@ -127,6 +128,11 @@ if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 endif
 
+" Use <C-L> in insert mode for go left
+if maparg('<C-L>', 'i') ==# ''
+  inoremap <silent> <C-L> <Right>
+endif
+
 " Settings
 set laststatus=2
 set noshowmode
@@ -152,8 +158,8 @@ set scrolloff=3
 set autoread
 set foldmethod=syntax
 set foldlevelstart=20
-set tags^=./.git/tags;
 set smarttab
+set smartindent
 set pastetoggle=<F11>
 set formatoptions+=j
 set encoding=utf-8
@@ -163,6 +169,7 @@ set lazyredraw
 set ruler
 set guifont=SF\ Mono:h12
 set t_Co=256
+set shortmess-=I
 
 " Colorscheme config
 if exists('+termguicolors')
@@ -193,40 +200,28 @@ let g:gruvbox_italic=1
 
 let g:one_allow_italics = 1
 
-let is_dark=(&background == 'dark')
-if is_dark 
+colorscheme gruvbox
+let lltheme='gruvbox'
+
+if has('nvim') && !empty($MONOKAI)
         let llmonokai = expand('~/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/monokai.vim')
         if !filereadable(llmonokai)
                 let cpm = ':!cp ' . expand('~/.config/nvim/monokai.vim') . ' ' . llmonokai
                 exec cpm
         endif
-        set background=dark
         colorscheme monokai
+        set background=dark
         let lltheme='monokai'
-else
-	highlight Cursor guifg=white guibg=magenta
-	highlight iCursor guifg=magenta guibg=grey
-        colorscheme one
-        let lltheme='one'
-endif
-
-if has('nvim') && !empty($NORD)
-        set background=dark
-        colorscheme nord
-        let lltheme='nord'
-endif
-
-if has('nvim') && !empty($GRUVBOX)
-        set termguicolors!
-        set background=dark
-        colorscheme gruvbox
-        let lltheme='gruvbox'
 endif
 
 if has('nvim') && !empty($ONE)
         colorscheme one
-        set background=dark
         let lltheme='one'
+        let is_dark=(&background == 'dark')
+        if !is_dark 
+                highlight Cursor guifg=white guibg=magenta
+                highlight iCursor guifg=magenta guibg=grey
+        endif
 endif
 
 " Use persistent history.
@@ -255,13 +250,17 @@ let g:lightline = {
       \ 'colorscheme': lltheme,
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitinfo', 'readonly', 'filename', 'modified' ] ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],                                                  
-      \              [ 'cocstatus','fileformat', 'fileencoding', 'filetype' ] ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ],
       \ },
+      \ 'component': {
+      \   'lineinfo': '%3l:%-2v%<',
+      \},
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head',
+      \   'shortname': 'ShortPathname',
       \   'gitinfo': 'GitStatus',
       \   'cocstatus': 'coc#status',
       \         },
@@ -269,16 +268,18 @@ let g:lightline = {
 
 function! GitStatus()
         let head = fugitive#head()
-        if !empty(head)
-                if !empty(expand('%:p'))
-                        let [a,m,r] = GitGutterGetHunkSummary()
-                        let head = head . printf(' +%d ~%d -%d', a, m, r)
-                endif
+        if !empty(expand('%:p')) && !empty(head)
+                let [a,m,r] = GitGutterGetHunkSummary()
+                return printf('+%d ~%d -%d', a, m, r)
+        else
+                return ''
         endif
-
-        return head
 endfunction
     
+function! ShortPathname()
+        return pathshorten(expand('%'))
+endfunction
+
 if &t_Co == 8 && $TERM !~# '^Eterm'
   set t_Co=16
 endif
@@ -356,9 +357,6 @@ let g:peekaboo_window="vert abo 30new"
 let g:peekaboo_prefix="<F12>"
 let g:peekaboo_ins_prefix="<F12>"
 
-command! -bang -nargs=? -complete=dir PFiles
-    \ call fzf#vim#gitfiles(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
-
 " Using floating windows of Neovim to start fzf
 let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
 
@@ -390,7 +388,7 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
 " Open Floating terminal
 function! OpenTerm(cmd)
     call CreateCenteredFloatingWindow()
-    call termopen(a:cmd, { 'on_exit': function('OnTermExit') })
+    call terklmopen(a:cmd, { 'on_exit': function('OnTermExit') })
 endfunction
 
 function! OnTermExit(job_id, code, event) dict
@@ -412,27 +410,22 @@ function! SelectNpmScript()
                 let package = json_decode(join(st, " "))
                 if has_key(package, "scripts")
                         let b:ks = keys(package.scripts)
-                        call fzf#run(fzf#wrap( {'source': b:ks, 'sink': function('RunNpmScript')} ))
+                        call fzf#run(fzf#wrap( {'source': b:ks, 'sink': {result -> execute("call OpenTerm(\"npm run \" . result)")}} ))
                 endif
         else
                 echo "No package.json found"
 	endif
 endfunction
 
-function! RunNpmScript(result)
-        call OpenTerm("npm run " . a:result)
-endfunction
-
 nnoremap <silent> <Leader><F9> :DogeGenerate<CR>
 nnoremap <silent> <F10> :call SelectNpmScript()<CR>
 
-function! SplitTerm()
-        split
-        ter
-endfunction
-
-function! VSplitTerm()
-        vsplit
+function! SplitTerm(...)
+        if empty(a:0)
+                split
+        else
+                vsplit
+        endif
         ter
 endfunction
 

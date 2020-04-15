@@ -307,15 +307,17 @@ exec --no-startup-id "nm-applet &"
 exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
 #exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
 exec --no-startup-id feh --bg-fill --no-fehbg /home/manuel/Imágenes/Wallpapers/Gruvbox/IwzTykJ.jpg
+exec --no-startup-id /home/manuel/.config/i3/remove_pomo_dubree.sh
 exec --no-startup-id urxvtd
 exec --no-startup-id "/home/manuel/.conky/conky-startup.sh &"
 exec --no-startup-id "scratch &"
 exec --no-startup-id "safeeyes &"
 exec --no-startup-id "udiskie -t &"
-exec --no-startup-id "picom --config /home/manuel/.config/compton/compton.conf &"
+exec --no-startup-id "compton --config /home/manuel/.config/compton/compton.conf &"
 exec --no-startup-id "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 exec --no-startup-id xss-lock -- betterlockscreen -l dim
 exec --no-startup-id unclutter --fork --exclude-root --jitter 20 --ignore-scrolling --timeout 5
+exec --no-startup-id keynav daemonize
 
 exec_always --no-startup-id $HOME/.config/i3/polybar.sh
 
@@ -345,6 +347,8 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+bindsym XF86Mail exec 'i3-msg workspace 6; exec mailspring; nop'
+
 bindsym --release $mod+Shift+o  exec --no-startup-id mate-power-preferences
 
 bindsym Control+$mod+l exec --no-startup-id betterlockscreen -l  
@@ -371,7 +375,7 @@ assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
 assign [class="^Google-chrome" instance="^google-chrome"] → $ws2
 assign [class="^Chromium" instance="^chromium"] → $ws2
 assign [instance="insomnia" class="Insomnia"] → $ws10
-assign [floating] border pixel 0
+assign [floating] border pixel none 
 assign [title="vifm"] → $ws5 
 assign [class="^nvim-qt$" instance="^nvim-qt$"] → $ws3
 
