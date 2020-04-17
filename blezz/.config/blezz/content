@@ -9,6 +9,7 @@ Config:
 dir(s,Screenlock)
 
 Info:
+act(i, IP, iplist.sh)
 act(w,Weather, termite -e 'curl wttr.in' --hold)
 
 Troubleshoot:

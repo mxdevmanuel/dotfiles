@@ -37,6 +37,7 @@ Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'kkoomen/vim-doge'
+Plug 'honza/vim-snippets'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
@@ -128,11 +129,6 @@ if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 endif
 
-" Use <C-L> in insert mode for go left
-if maparg('<C-L>', 'i') ==# ''
-  inoremap <silent> <C-L> <Right>
-endif
-
 " Settings
 set laststatus=2
 set noshowmode
@@ -168,7 +164,6 @@ set cursorline
 set lazyredraw
 set ruler
 set guifont=SF\ Mono:h12
-set t_Co=256
 set shortmess-=I
 
 " Colorscheme config
@@ -179,9 +174,9 @@ if exists('+termguicolors')
 endif
 
 let hr = (strftime('%H'))
-if hr >= 18
+if hr >= 19
         set background=dark
-elseif hr >= 8
+elseif hr >= 9
         set background=light
 elseif hr >= 0
         set background=dark
@@ -265,20 +260,6 @@ let g:lightline = {
       \   'cocstatus': 'coc#status',
       \         },
       \ }
-
-function! GitStatus()
-        let head = fugitive#head()
-        if !empty(expand('%:p')) && !empty(head)
-                let [a,m,r] = GitGutterGetHunkSummary()
-                return printf('+%d ~%d -%d', a, m, r)
-        else
-                return ''
-        endif
-endfunction
-    
-function! ShortPathname()
-        return pathshorten(expand('%'))
-endfunction
 
 if &t_Co == 8 && $TERM !~# '^Eterm'
   set t_Co=16
