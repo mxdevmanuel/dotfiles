@@ -1,9 +1,11 @@
 #!/bin/env bash
 
+TOOL=dmenu
 if [[ -t 1 ]]; then
-        ip -oneline -4 addr | awk '{print $2, $4}'| fzf | awk '{print $2}' | perl -pe 's/\/\d+//' | tee /dev/tty | xclip -i 
-else
-        ip -oneline -4 addr | awk '{print $2, $4}'| dmenu | awk '{print $2}' | perl -pe 's/\/\d+//' | xclip -i 
+        TOOL=fzf
 fi
 
+ADDR=$(ip -oneline -4 addr | awk '{print $2, $4}'| $TOOL | awk '{print $2}' | perl -pe 's/\/\d+//')
 
+echo $ADDR | xclip -i -selection clipboard
+xdotool type --clearmodifiers "$ADDR"

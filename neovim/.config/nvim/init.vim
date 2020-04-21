@@ -369,7 +369,7 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
 " Open Floating terminal
 function! OpenTerm(cmd)
     call CreateCenteredFloatingWindow()
-    call terklmopen(a:cmd, { 'on_exit': function('OnTermExit') })
+    call termopen(a:cmd, { 'on_exit': function('OnTermExit') })
 endfunction
 
 function! OnTermExit(job_id, code, event) dict
@@ -379,6 +379,7 @@ function! OnTermExit(job_id, code, event) dict
 endfunction
 
 command! Wuzz call OpenTerm('wuzz')
+command! IPList call OpenTerm('iplist.sh')
 
 autocmd TermOpen * startinsert
 " Turn off line numbers etc
