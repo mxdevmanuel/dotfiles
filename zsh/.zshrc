@@ -37,7 +37,7 @@ alias node="load-nvm ; node"
 
 alias vimc="nvim ~/.config/nvim/init.vim"
 alias vimd="env FORCE_DARK='true' nvim"
-alias vimg="env GRUVBOX='true' nvim"
+alias vimm="env MONOKAI='true' nvim"
 alias vimq="env FORCE_DARK='true' nvim-qt"
 
 # Config variables
@@ -98,8 +98,6 @@ autoload -Uz compinit
 compinit
 
 eval "$(direnv hook zsh)"
-
-source /home/manuel/.config/broot/launcher/bash/br
 
 export FORGIT_NO_ALIASES=1
 source /home/manuel/.config/forgit/forgit.plugin.zsh

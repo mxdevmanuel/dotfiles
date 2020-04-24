@@ -18,7 +18,7 @@ set $mod Mod1
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).title_aligntitle_align
 #font pango:DejaVu Sans Mono 8
-font pango:SauceCodePro Nerd Font Mono 9
+font pango:San Francisco Text 8
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -154,10 +154,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym ntilde resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -298,10 +298,8 @@ mode "$mode_gaps_left" {
 #exec --no-startup-id "redshift-gtk -l 19:-98.1 -t 5000:3500 &"
 exec --no-startup-id "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 exec --no-startup-id mate-power-manager
-exec --no-startup-id /home/manuel/.screenlayout/i3.sh
-exec --no-startup-id "picom --config /home/manuel/.config/compton/compton.conf &"
-exec_always --no-startup-id $HOME/.config/i3/polybar.sh
-exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
+exec --no-startup-id $HOME/.screenlayout/i3.sh
+exec --no-startup-id $HOME/.config/i3/random_feh.sh
 exec --no-startup-id "conky &"
 exec --no-startup-id "copyq &"
 exec --no-startup-id "flameshot &"
@@ -311,14 +309,16 @@ exec --no-startup-id "safeeyes &"
 exec --no-startup-id "scratch &"
 exec --no-startup-id "udiskie -t &"
 exec --no-startup-id urxvtd
-exec --no-startup-id keynav daemonize
 exec --no-startup-id unclutter --fork --exclude-root --jitter 20 --ignore-scrolling --timeout 5
 exec --no-startup-id xss-lock -- betterlockscreen -l dim
+
+exec_always --no-startup-id $HOME/.config/i3/compton.sh
+exec_always --no-startup-id $HOME/.config/i3/polybar.sh
 
 bindsym $mod+apostrophe [urgent=latest] focus
 
 bindsym $mod+Shift+Return exec urxvtc
-bindsym $mod+Shift+t exec env NOTMUX=1 kitty
+bindsym $mod+t exec $HOME/.config/i3/terms.sh
 
 #bindsym $mod+Mod1+l move workspace to output right
 #bindsym $mod+Mod1+h move workspace to output left
@@ -327,16 +327,16 @@ bindsym $mod+Shift+t exec env NOTMUX=1 kitty
 #bindsym $mod+Mod1+Left move workspace to output left
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id /home/manuel/.config/i3/sink-smart-selector.sh +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id  /home/manuel/.config/i3/sink-smart-selector.sh -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id /home/manuel/.config/i3/sink-smart-selector.sh mute # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/.config/i3/sink-smart-selector.sh +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id  $HOME/.config/i3/sink-smart-selector.sh -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id $HOME/.config/i3/sink-smart-selector.sh mute # mute sound
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
 
 # Touchpad controls
-bindsym XF86TouchpadToggle exec /home/manuel/.config/i3/toggletouchpad.sh # toggle touchpad
+bindsym XF86TouchpadToggle exec $HOME/.config/i3/toggletouchpad.sh # toggle touchpad
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -348,7 +348,7 @@ bindsym --release $mod+Shift+o  exec --no-startup-id mate-power-preferences
 
 bindsym Pause exec --no-startup-id betterlockscreen -l  
 
-bindsym $mod+t exec env NOTMUX=1 st
+# bindsym $mod+t available
 bindsym $mod+Pause exec termite -e bash
 
 for_window [class="copyq" window_type="normal"] floating enable
@@ -402,40 +402,40 @@ bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -plugin-p
 
 bindsym Print exec flameshot gui
 bindsym $mod+Print exec flameshot full
-bindsym $mod+Shift+e exec --no-startup-id /home/manuel/.config/i3/random_feh.sh
+bindsym $mod+Shift+e exec --no-startup-id $HOME/.config/i3/random_feh.sh
 
 bindsym $mod+F1 exec todotxt-show.sh
 bindsym $mod+F2 exec rofi -show run
 bindsym $mod+Shift+F2 exec dmenu_run 
-bindsym $mod+F3 exec /home/manuel/.config/i3/workspace_auto_bf.sh
-bindsym $mod+Shift+F3 exec /home/manuel/.config/i3/follow_focus_fly.sh
-bindsym $mod+F4 exec /home/manuel/.config/i3/hdmi.sh
+bindsym $mod+F3 exec $HOME/.config/i3/workspace_auto_bf.sh
+bindsym $mod+Shift+F3 exec $HOME/.config/i3/follow_focus_fly.sh
+bindsym $mod+F4 exec $HOME/.config/i3/hdmi.sh
 bindsym $mod+F5 exec todotxt-sync.sh
-bindsym $mod+F6 exec /home/manuel/.config/i3/wallpaper_selector.sh
-bindsym $mod+F7 exec /home/manuel/.config/rofi/rofi-emoji.sh
+bindsym $mod+F6 exec $HOME/.config/i3/wallpaper_selector.sh
+bindsym $mod+F7 exec $HOME/.config/rofi/rofi-emoji.sh
 bindsym $mod+F8 exec unipicker --copy
 bindsym $mod+F9 sticky toggle
-bindsym $mod+F10 exec /home/manuel/.config/i3/bluetooth-connect.sh
+bindsym $mod+F10 exec $HOME/.config/i3/bluetooth-connect.sh
 
 
 bindsym $mod+Home exec --no-startup-id videoshot.sh
 bindsym $mod+End exec --no-startup-id pkill ffmpeg
-bindsym $mod+p exec env NVIMGUI=1 /home/manuel/.local/bin/project-list.sh 
-bindsym $mod+Shift+p exec /home/manuel/.local/bin/project-list.sh 
+bindsym $mod+p exec env NVIMGUI=1 $HOME/.local/bin/project-list.sh 
+bindsym $mod+Shift+p exec $HOME/.local/bin/project-list.sh 
 bindsym --release $mod+period exec wmfocus
 
 bindsym $mod+Escape exec clearine
-bindsym $mod+Shift+Escape exec /home/manuel/.config/i3/i3-exit.py
+bindsym $mod+Shift+Escape exec $HOME/.config/i3/i3-exit.py
 
 bindsym $mod+Shift+bar move scratchpad
 bindsym $mod+bar scratchpad show
 
-bindsym $mod+z exec --no-startup-id /home/manuel/.config/i3/tmux-session-selector.sh
-bindsym $mod+v exec --no-startup-id /home/manuel/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
+bindsym $mod+z exec --no-startup-id $HOME/.config/i3/tmux-session-selector.sh
+bindsym $mod+v exec --no-startup-id $HOME/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
 
 bindsym $mod+Shift+f exec pcmanfm
-bindcode $mod+Shift+59 exec termite -e /home/manuel/.config/i3/open_vifm.sh &
-bindsym $mod+plus exec /home/manuel/.config/rofi/rofi-fb.sh /home/manuel
+bindcode $mod+Shift+59 exec termite -e $HOME/.config/i3/open_vifm.sh &
+bindsym $mod+plus exec $HOME/.config/rofi/rofi-fb.sh $HOME
 bindsym $mod+Shift+Menu exec blezz
 bindsym Control+$mod+Shift+Menu exec rofi -show blezz -modi blezz  -plugin-path /usr/local/lib/rofi -auto-select -matching normal
 
@@ -454,10 +454,8 @@ gaps outer 0
 
 new_float none
 
-bindsym $mod+m exec termite -e /home/manuel/.config/i3/cmus.sh
-bindsym $mod+Shift+m exec termite -e /home/manuel/.config/i3/ncspot.sh
-
-#for_window [class="Termite" title="mocp"] floating enable
+bindsym $mod+m exec termite -e $HOME/.config/i3/cmus.sh
+bindsym $mod+Shift+m exec termite -e $HOME/.config/i3/ncspot.sh
 
 bindsym --release $mod+b workspace prev
 bindsym --release $mod+n workspace next

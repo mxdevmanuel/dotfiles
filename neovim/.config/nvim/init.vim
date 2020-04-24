@@ -37,6 +37,7 @@ Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'kkoomen/vim-doge'
+Plug 'honza/vim-snippets'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
@@ -69,6 +70,9 @@ let mapleader = " "
 map <C-k><C-b> :NERDTreeToggle<CR>
 map <C-k><C-o> :NERDTreeFind<CR>
 map <bs> <Plug>(easymotion-prefix)
+
+imap <C-space> <Plug>(coc-snippets-expand-jump)
+
 
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 noremap <Leader>E :tabe <C-R>=expand("%:p:h") . "/" <CR>
@@ -163,7 +167,6 @@ set cursorline
 set lazyredraw
 set ruler
 set guifont=SF\ Mono:h12
-set t_Co=256
 set shortmess-=I
 
 " Colorscheme config
@@ -174,9 +177,9 @@ if exists('+termguicolors')
 endif
 
 let hr = (strftime('%H'))
-if hr >= 18
+if hr >= 19
         set background=dark
-elseif hr >= 8
+elseif hr >= 9
         set background=light
 elseif hr >= 0
         set background=dark
@@ -260,20 +263,6 @@ let g:lightline = {
       \   'cocstatus': 'coc#status',
       \         },
       \ }
-
-function! GitStatus()
-        let head = fugitive#head()
-        if !empty(expand('%:p')) && !empty(head)
-                let [a,m,r] = GitGutterGetHunkSummary()
-                return printf('+%d ~%d -%d', a, m, r)
-        else
-                return ''
-        endif
-endfunction
-    
-function! ShortPathname()
-        return pathshorten(expand('%'))
-endfunction
 
 if &t_Co == 8 && $TERM !~# '^Eterm'
   set t_Co=16
@@ -383,7 +372,7 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
 " Open Floating terminal
 function! OpenTerm(cmd)
     call CreateCenteredFloatingWindow()
-    call terklmopen(a:cmd, { 'on_exit': function('OnTermExit') })
+    call termopen(a:cmd, { 'on_exit': function('OnTermExit') })
 endfunction
 
 function! OnTermExit(job_id, code, event) dict
@@ -427,3 +416,4 @@ endfunction
 " Markdown preview
 let g:mkdp_auto_start = !empty($NOTES)
 let g:mkdp_browser = 'vimb'
+let g:mkdp_refresh_slow = 1
