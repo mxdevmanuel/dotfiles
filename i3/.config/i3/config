@@ -312,11 +312,11 @@ exec --no-startup-id "/home/manuel/.conky/conky-startup.sh &"
 exec --no-startup-id "scratch &"
 exec --no-startup-id "safeeyes &"
 exec --no-startup-id "udiskie -t &"
-exec --no-startup-id "picom --config /home/manuel/.config/compton/compton.conf &"
 exec --no-startup-id "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 exec --no-startup-id xss-lock -- betterlockscreen -l dim
 exec --no-startup-id unclutter --fork --exclude-root --jitter 20 --ignore-scrolling --timeout 5
 
+exec_always --no-startup-id $HOME/.config/i3/compton.sh
 exec_always --no-startup-id $HOME/.config/i3/polybar.sh
 
 bindsym $mod+apostrophe [urgent=latest] focus

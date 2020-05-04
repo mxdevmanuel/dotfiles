@@ -165,6 +165,13 @@ set lazyredraw
 set ruler
 set guifont=SF\ Mono:h12
 set shortmess-=I
+set completeopt+=menuone
+
+
+if executable("rg")
+        set grepprg=rg\ --vimgrep\ --no-heading
+        set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 
 " Colorscheme config
 if exists('+termguicolors')
@@ -188,17 +195,14 @@ endif
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-let g:monokai_term_italic = 1
-let g:monokai_gui_italic = 1
 
 let g:gruvbox_italic=1
-
-let g:one_allow_italics = 1
-
 colorscheme gruvbox
 let lltheme='gruvbox'
 
-if has('nvim') && !empty($MONOKAI)
+if !empty($MONOKAI)
+        let g:monokai_term_italic = 1
+        let g:monokai_gui_italic = 1
         let llmonokai = expand('~/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/monokai.vim')
         if !filereadable(llmonokai)
                 let cpm = ':!cp ' . expand('~/.config/nvim/monokai.vim') . ' ' . llmonokai
@@ -209,7 +213,8 @@ if has('nvim') && !empty($MONOKAI)
         let lltheme='monokai'
 endif
 
-if has('nvim') && !empty($ONE)
+if !empty($ONE)
+        let g:one_allow_italics = 1
         colorscheme one
         let lltheme='one'
         let is_dark=(&background == 'dark')
@@ -239,7 +244,6 @@ highlight GitGutterDelete ctermfg=1
 highlight GitGutterChangeDelete ctermfg=4
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
-
 
 let g:lightline = {
       \ 'colorscheme': lltheme,
@@ -334,7 +338,7 @@ autocmd BufWritePre *.tf TerraformFmt
 let javaScript_fold=1
 let g:netrw_banner=0
 
-let g:peekaboo_window="vert abo 30new"
+let g:peekaboo_window="call CreateCenteredFloatingWindow()"
 let g:peekaboo_prefix="<F12>"
 let g:peekaboo_ins_prefix="<F12>"
 
@@ -342,8 +346,8 @@ let g:peekaboo_ins_prefix="<F12>"
 let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
 
 function! CreateCenteredFloatingWindow()
-    let width = float2nr(&columns * 0.6)
-    let height = float2nr(&lines * 0.6)
+    let width = float2nr(&columns * 0.7)
+    let height = float2nr(&lines * 0.7)
     let top = ((&lines - height) / 2) - 1
     let left = (&columns - width) / 2
     let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
