@@ -28,6 +28,7 @@ Plug 'prettier/vim-prettier', {
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-eunuch'
 Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
@@ -36,12 +37,12 @@ Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'kkoomen/vim-doge'
+Plug 'honza/vim-snippets'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'arcticicestudio/nord-vim'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'crusoexia/vim-monokai'
+Plug 'rakr/vim-one'
 
 " Wanna get rid of
 Plug 'easymotion/vim-easymotion'
@@ -57,8 +58,10 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 " Syntax
 Plug 'sheerun/vim-polyglot'
 
+" Gui
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on': []}
 Plug 'ryanoasis/vim-devicons', {'on': []}
+
 call plug#end()
 
 " Maps
@@ -68,15 +71,19 @@ map <C-k><C-b> :NERDTreeToggle<CR>
 map <C-k><C-o> :NERDTreeFind<CR>
 map <bs> <Plug>(easymotion-prefix)
 
+imap <C-space> <Plug>(coc-snippets-expand-jump)
+
+
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 noremap <Leader>E :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 nnoremap <silent> <leader>sh :call SplitTerm()<CR>
-nnoremap <silent> <leader>vsh :call VSplitTerm()<CR>
+nnoremap <silent> <leader>vsh :call SplitTerm("y")<CR>
 nnoremap <leader>. :lcd %:p:h<CR>
 tnoremap <C-w>n <C-\><C-n>
 
 nnoremap <localleader>f :GFiles --others --exclude-standard<CR>
+nnoremap <localleader>F :GFiles?<CR>
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>t :Tags<CR>
@@ -87,10 +94,12 @@ nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>w :Windows<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>/ :Rg<space>
+nnoremap <Leader>* :Rg<space><C-R>=expand("<cword>")<CR><CR>
 nnoremap <Leader>? :Help<CR>
 
+nnoremap <silent><localleader>c :set cursorcolumn!<CR>
 nnoremap <Leader>rr :set rnu!<CR>
-nnoremap <Leader>q :bd<CR>
+nnoremap <silent><Leader>q :bd<CR>
 
 nnoremap <silent><Leader>% :norm V$%<CR>
 
@@ -102,7 +111,6 @@ nnoremap ]l :cnext<CR>
 
 nnoremap n nzzzv
 nnoremap N Nzzzv
-
 
 " Vim config 
 nnoremap <S-F5> :e  <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
@@ -148,8 +156,8 @@ set scrolloff=3
 set autoread
 set foldmethod=syntax
 set foldlevelstart=20
-set tags^=./.git/tags;
 set smarttab
+set smartindent
 set pastetoggle=<F11>
 set formatoptions+=j
 set encoding=utf-8
@@ -157,15 +165,25 @@ set fileencodings=utf-8
 set cursorline
 set lazyredraw
 set ruler
-set guifont=SF\ Mono\ 12
+set guifont=SF\ Mono:h12
+set shortmess-=I
 
-syntax on
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading\ --hidden\ --glob='!.git/'
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 
+" " Colorscheme config
+" if exists('+termguicolors')
+"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"   set termguicolors
+" endif
 
 let hr = (strftime('%H'))
-if hr >= 18
+if hr >= 19
         set background=dark
-elseif hr >= 8
+elseif hr >= 9
         set background=light
 elseif hr >= 0
         set background=dark
@@ -175,48 +193,36 @@ if !empty($FORCE_DARK)
         set background=dark
 endif
 
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default.light': {
-  \     'allow_bold': 1,
-  \     'allow_italic': 1,
-  \     }
-  \   }
-  \ }
-
 let g:monokai_term_italic = 1
 let g:monokai_gui_italic = 1
+
 let g:gruvbox_italic=1
-let is_dark=(&background == 'dark')
-if is_dark 
-        set background=dark
-        colorscheme gruvbox
-        let lltheme='gruvbox'
-else
-        colorscheme PaperColor
-        let lltheme='PaperColor'
-endif
 
-if has('nvim') && !empty($NORD)
-        set t_Co=256
-        set background=dark
-        colorscheme nord
-        let lltheme='nord'
-endif
+let g:one_allow_italics = 1
 
-if has('nvim') && !empty($MONOKAI)
+colorscheme gruvbox
+let lltheme='gruvbox'
+
+if !empty($MONOKAI)
         let llmonokai = expand('~/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/monokai.vim')
         if !filereadable(llmonokai)
                 let cpm = ':!cp ' . expand('~/.config/nvim/monokai.vim') . ' ' . llmonokai
                 exec cpm
         endif
-        set t_Co=256
-        set background=dark
         colorscheme monokai
+        set background=dark
         let lltheme='monokai'
 endif
 
-"let g:gruvbox_contrast_dark='hard'
+if !empty($ONE)
+        colorscheme one
+        let lltheme='one'
+        let is_dark=(&background == 'dark')
+        if !is_dark 
+                highlight Cursor guifg=white guibg=magenta
+                highlight iCursor guifg=magenta guibg=grey
+        endif
+endif
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -247,24 +253,18 @@ let g:lightline = {
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],                                                  
-      \              [ 'cocstatus','fileformat', 'fileencoding', 'filetype' ] ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ],
       \ },
+      \ 'component': {
+      \   'lineinfo': '%3l:%-2v%<',
+      \},
       \ 'component_function': {
-      \   'filename': 'LightlineFilename',
       \   'gitbranch': 'fugitive#head',
+      \   'shortname': 'ShortPathname',
+      \   'gitinfo': 'GitStatus',
       \   'cocstatus': 'coc#status',
       \         },
       \ }
-
-function! LightlineFilename()
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
-  let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return path[len(root)+1:]
-  endif
-  return expand('%')
-endfunction
-
 
 if &t_Co == 8 && $TERM !~# '^Eterm'
   set t_Co=16
@@ -320,7 +320,7 @@ autocmd QuickFixCmdPost    l* nested lwindow
 autocmd FileType json,markdown let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
 " autocmd FileType typescript,javascript,yaml,css,html,graphql set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
-autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
+autocmd FileType typescript,javascript,javascriptreact,typescriptreact,dart nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -331,6 +331,7 @@ function! s:show_documentation()
 endfunction
 
 let g:prettier#autoformat = 0
+autocmd BufWritePre *.tsx exec "%s/class=/className=/eg"
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 autocmd BufWritePre *.rs RustFmt
 autocmd BufWritePre *.tf TerraformFmt
@@ -342,49 +343,42 @@ let g:peekaboo_window="vert abo 30new"
 let g:peekaboo_prefix="<F12>"
 let g:peekaboo_ins_prefix="<F12>"
 
-command! -bang -nargs=? -complete=dir PFiles
-    \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
-
 " Using floating windows of Neovim to start fzf
 let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
 
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
 
-func! NpmSelected(id, result)
-        echo ""
-        if a:result > 0
-                let cmd = "npm run " . b:ks[a:result - 1]
-                exec "terminal " . cmd
-        endif
-endfunc
+" autocmd TerminalOpen * startinsert
+" Turn off line numbers etc
+" autocmd TerminalOpen * setlocal listchars= nonumber norelativenumber signcolumn=no
 
-function! RunNpm()
+" npm run menu
+function! SelectNpmScript()
         if filereadable("./package.json")
                 let st = readfile("./package.json")
                 let package = json_decode(join(st, " "))
                 if has_key(package, "scripts")
                         let b:ks = keys(package.scripts)
-                        call popup_menu(b:ks, #{callback: 'NpmSelected'})
+                        call fzf#run(fzf#wrap( {'source': b:ks, 'sink': {result -> execute("call OpenTerm(\"npm run \" . result)")}} ))
                 endif
         else
                 echo "No package.json found"
-        endif
+	endif
 endfunction
 
 nnoremap <silent> <Leader><F9> :DogeGenerate<CR>
-nnoremap <silent> <F10> :call RunNpm()<CR>
+nnoremap <silent> <F10> :call SelectNpmScript()<CR>
 
-function! SplitTerm()
-        split
-        ter
-endfunction
-
-function! VSplitTerm()
-        vsplit
+function! SplitTerm(...)
+        if empty(a:0)
+                split
+        else
+                vsplit
+        endif
         ter
 endfunction
 
 " Markdown preview
 let g:mkdp_auto_start = !empty($NOTES)
 let g:mkdp_browser = 'vimb'
-
+let g:mkdp_refresh_slow = 1

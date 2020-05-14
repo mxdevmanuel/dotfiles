@@ -300,7 +300,7 @@ exec --no-startup-id "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 
 exec --no-startup-id mate-power-manager
 exec --no-startup-id $HOME/.screenlayout/i3.sh
 exec --no-startup-id $HOME/.config/i3/random_feh.sh
-exec --no-startup-id "conky &"
+exec --no-startup-id "conky -c $HOME/.config/conky/conky.lua &"
 exec --no-startup-id "copyq &"
 exec --no-startup-id "flameshot &"
 #exec --no-startup-id "nm-applet &" 

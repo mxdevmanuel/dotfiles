@@ -16,61 +16,90 @@ Xft.lcdfilter : lcddefault
 ! Variables
 ! ------------------------------------------------------------
 ! Original
-!#define base1 #141A1F
-!#define acr50 #EC5252
-!#define acg50 #5DA713
-!#define aco50 #C97016
-!#define acb50 #3890E9
-!#define acv50 #A359ED
-!#define acc50 #13AFAF
-!#define base3 #6B859E
-!#define base2 #1A2128
-!#define acr70 #FF9191
-!#define acg70 #9ACD68
-!#define aco70 #EDA55D
-!#define acb70 #7DBEFF
-!#define acv70 #CB96FF
-!#define acc70 #6ECFCF
-!#define base4 #A6B5C5
+#define base1 #141A1F
+#define acr50 #EC5252
+#define acg50 #5DA713
+#define aco50 #C97016
+#define acb50 #3890E9
+#define acv50 #A359ED
+#define acc50 #13AFAF
+#define base3 #6B859E
+#define base2 #1A2128
+#define acr70 #FF9191
+#define acg70 #9ACD68
+#define aco70 #EDA55D
+#define acb70 #7DBEFF
+#define acv70 #CB96FF
+#define acc70 #6ECFCF
+#define base4 #A6B5C5
 
 
-#define base1 #272822
-#define acr50 #f92672
-#define acg50 #a6e22e
-#define aco50 #f4bf75
-#define acb50 #66d9ef
-#define acv50 #ae81ff
-#define acc50 #a1efe4
-#define base3 #f8f8f2
-#define base2 #75715e
-#define acr70 #f92672
-#define acg70 #a6e22e
-#define aco70 #f4bf75
-#define acb70 #66d9ef
-#define acv70 #ae81ff
-#define acc70 #a1efe4
-#define base4 #f9f8f5
+!#define base1 #272822
+!#define acr50 #f92672
+!#define acg50 #a6e22e
+!#define aco50 #f4bf75
+!#define acb50 #66d9ef
+!#define acv50 #ae81ff
+!#define acc50 #a1efe4
+!#define base3 #f8f8f2
+!#define base2 #75715e
+!#define acr70 #f92672
+!#define acg70 #a6e22e
+!#define aco70 #f4bf75
+!#define acb70 #66d9ef
+!#define acv70 #ae81ff
+!#define acc70 #a1efe4
+!#define base4 #f9f8f5
 
-*.foreground  : base4
-*.background  : base1
-*.cursorColor : base4
+/* *.foreground  : base4 */
+/* *.background  : base1 */
+/* *.cursorColor : base4 */
 
-*.color0  : base1
-*.color1  : acr50
-*.color2  : acg50
-*.color3  : aco50
-*.color4  : acb50
-*.color5  : acv50
-*.color6  : acc50
-*.color7  : base3
-*.color8  : base2
-*.color9  : acr70
-*.color10 : acg70
-*.color11 : aco70
-*.color12 : acb70
-*.color13 : acv70
-*.color14 : acc70
-*.color15 : base4
+/* *.color0  : base1 */
+/* *.color1  : acr50 */
+/* *.color2  : acg50 */
+/* *.color3  : aco50 */
+/* *.color4  : acb50 */
+/* *.color5  : acv50 */
+/* *.color6  : acc50 */
+/* *.color7  : base3 */
+/* *.color8  : base2 */
+/* *.color9  : acr70 */
+/* *.color10 : acg70 */
+/* *.color11 : aco70 */
+/* *.color12 : acb70 */
+/* *.color13 : acv70 */
+/* *.color14 : acc70 */
+/* *.color15 : base4 */
+
+! hard contrast: *background: #1d2021
+*background: #282828
+! soft contrast: *background: #32302f
+*foreground: #ebdbb2
+! Black + DarkGrey
+*color0:  #282828
+*color8:  #928374
+! DarkRed + Red
+*color1:  #cc241d
+*color9:  #fb4934
+! DarkGreen + Green
+*color2:  #98971a
+*color10: #b8bb26
+! DarkYellow + Yellow
+*color3:  #d79921
+*color11: #fabd2f
+! DarkBlue + Blue
+*color4:  #458588
+*color12: #83a598
+! DarkMagenta + Magenta
+*color5:  #b16286
+*color13: #d3869b
+! DarkCyan + Cyan
+*color6:  #689d6a
+*color14: #8ec07c
+! LightGrey + White
+*color7:  #a89984
+*color15: #ebdbb2
 
 ! Manpage colors
 *.colorIT : acr70

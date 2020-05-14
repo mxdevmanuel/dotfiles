@@ -1,4 +1,6 @@
-" Manuel
+"vi: foldmethod=marker
+
+" Setup {{{
 filetype indent plugin on
 
 " Install vim plug if not insalled
@@ -16,7 +18,9 @@ if !filereadable(vimplug_exists)
 
   autocmd VimEnter * PlugInstall
 endif
+" }}}
 
+" Plugins {{{
 call plug#begin(expand('~/.config/nvim/plugged'))
 
 Plug 'junegunn/fzf'
@@ -45,7 +49,7 @@ Plug 'crusoexia/vim-monokai'
 Plug 'rakr/vim-one'
 
 " Wanna get rid of
-Plug 'easymotion/vim-easymotion'
+Plug 'justinmk/vim-sneak'
 Plug 'itchyny/lightline.vim'
 
 " VCS
@@ -64,7 +68,12 @@ Plug 'ryanoasis/vim-devicons', {'on': []}
 
 call plug#end()
 
-" Maps
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+" }}}
+
+" Maps {{{ 
 let mapleader = " "
 
 map <C-k><C-b> :NERDTreeToggle<CR>
@@ -112,9 +121,13 @@ nnoremap ]l :cnext<CR>
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+nnoremap gQ gggqG<C-o><C-o>
+
 " Vim config 
 nnoremap <S-F5> :e  <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
 nnoremap <F5> :source <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
+nnoremap <silent> <Leader><F9> :DogeGenerate<CR>
+nnoremap <silent> <F10> :call SelectNpmScript()<CR>
 
 cnoremap <C-l> <C-r>=expand("%:p:h") . "/" <CR>
 cnoreabbrev W! w!
@@ -131,8 +144,9 @@ cnoreabbrev Qall qall
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 endif
+" }}} "
 
-" Settings
+" Settings {{{
 set laststatus=2
 set noshowmode
 set showcmd
@@ -168,8 +182,36 @@ set lazyredraw
 set ruler
 set guifont=SF\ Mono:h12
 set shortmess-=I
+set completeopt+=menuone
 
-" Colorscheme config
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading\ --hidden\ --glob='!.git/'
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+" Use persistent history.
+if !isdirectory("/tmp/.vim-undo-dir")
+    call mkdir("/tmp/.vim-undo-dir", "", 0700)
+endif
+set undodir=/tmp/.vim-undo-dir
+set undofile
+
+if !isdirectory("/tmp/.vim-swap-dir")
+    call mkdir("/tmp/.vim-swap-dir", "", 0700)
+endif
+set directory=/tmp/.vim-swap-dir
+
+" enable mouse
+set mouse=a
+if has('mouse_sgr')
+    " sgr mouse is better but not every term supports it
+    set ttymouse=sgr
+endif
+set mousemodel=popup
+
+" }}}
+
+" Colorscheme config {{{
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -189,19 +231,13 @@ if !empty($FORCE_DARK)
         set background=dark
 endif
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-let g:monokai_term_italic = 1
-let g:monokai_gui_italic = 1
-
 let g:gruvbox_italic=1
-
-let g:one_allow_italics = 1
-
 colorscheme gruvbox
 let lltheme='gruvbox'
 
-if has('nvim') && !empty($MONOKAI)
+if !empty($MONOKAI)
+        let g:monokai_term_italic = 1
+        let g:monokai_gui_italic = 1
         let llmonokai = expand('~/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/monokai.vim')
         if !filereadable(llmonokai)
                 let cpm = ':!cp ' . expand('~/.config/nvim/monokai.vim') . ' ' . llmonokai
@@ -212,7 +248,8 @@ if has('nvim') && !empty($MONOKAI)
         let lltheme='monokai'
 endif
 
-if has('nvim') && !empty($ONE)
+if !empty($ONE)
+        let g:one_allow_italics = 1
         colorscheme one
         let lltheme='one'
         let is_dark=(&background == 'dark')
@@ -222,17 +259,6 @@ if has('nvim') && !empty($ONE)
         endif
 endif
 
-" Use persistent history.
-if !isdirectory("/tmp/.vim-undo-dir")
-    call mkdir("/tmp/.vim-undo-dir", "", 0700)
-endif
-set undodir=/tmp/.vim-undo-dir
-set undofile
-
-if !isdirectory("/tmp/.vim-swap-dir")
-    call mkdir("/tmp/.vim-swap-dir", "", 0700)
-endif
-set directory=/tmp/.vim-swap-dir
 
 let g:gitgutter_override_sign_column_highlight = 0
 highlight clear SignColumn
@@ -267,18 +293,16 @@ let g:lightline = {
 if &t_Co == 8 && $TERM !~# '^Eterm'
   set t_Co=16
 endif
+ " }}}
 
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-  runtime! macros/matchit.vim
-endif
 
 function! s:DiffWithSaved()
 	let filetype=&ft
 	diffthis
 	vnew | r # | normal! 1Gdd
         diffthis
-  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-  endfunction
+        exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
 com! DiffSaved call s:DiffWithSaved()
 
 if has('langmap') && exists('+langremap')
@@ -291,13 +315,6 @@ endif
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
 command! Bufonly %bd | e#
 
-" enable mouse
-set mouse=a
-if has('mouse_sgr')
-    " sgr mouse is better but not every term supports it
-    set ttymouse=sgr
-endif
-set mousemodel=popup
 
 " change cursor shape for different editing modes, neovim does this by default
 if !has('nvim')
@@ -318,7 +335,8 @@ autocmd QuickFixCmdPost    l* nested lwindow
 autocmd FileType json,markdown let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
 " autocmd FileType typescript,javascript,yaml,css,html,graphql set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
-autocmd FileType typescript,javascript nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
+autocmd FileType typescript,javascript,javascriptreact,typescriptreact,dart,python nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
+autocmd FileType c,cpp set formatprg=clang-format
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -337,7 +355,7 @@ autocmd BufWritePre *.tf TerraformFmt
 let javaScript_fold=1
 let g:netrw_banner=0
 
-let g:peekaboo_window="vert abo 30new"
+let g:peekaboo_window="call CreateCenteredFloatingWindow()"
 let g:peekaboo_prefix="<F12>"
 let g:peekaboo_ins_prefix="<F12>"
 
@@ -345,8 +363,8 @@ let g:peekaboo_ins_prefix="<F12>"
 let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
 
 function! CreateCenteredFloatingWindow()
-    let width = float2nr(&columns * 0.6)
-    let height = float2nr(&lines * 0.6)
+    let width = float2nr(&columns * 0.7)
+    let height = float2nr(&lines * 0.7)
     let top = ((&lines - height) / 2) - 1
     let left = (&columns - width) / 2
     let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
@@ -367,8 +385,6 @@ function! CreateCenteredFloatingWindow()
     au BufWipeout <buffer> exe 'bw '.s:buf
 endfunction
 
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
-
 " Open Floating terminal
 function! OpenTerm(cmd)
     call CreateCenteredFloatingWindow()
@@ -387,6 +403,8 @@ autocmd TermOpen * startinsert
 " Turn off line numbers etc
 autocmd TermOpen * setlocal listchars= nonumber norelativenumber signcolumn=no
 
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
+
 " npm run menu
 function! SelectNpmScript()
         if filereadable("./package.json")
@@ -401,8 +419,6 @@ function! SelectNpmScript()
 	endif
 endfunction
 
-nnoremap <silent> <Leader><F9> :DogeGenerate<CR>
-nnoremap <silent> <F10> :call SelectNpmScript()<CR>
 
 function! SplitTerm(...)
         if empty(a:0)
@@ -417,3 +433,4 @@ endfunction
 let g:mkdp_auto_start = !empty($NOTES)
 let g:mkdp_browser = 'vimb'
 let g:mkdp_refresh_slow = 1
+let g:sneak#label = 1
