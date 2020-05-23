@@ -46,7 +46,6 @@ Plug 'rakr/vim-one'
 
 " Wanna get rid of
 Plug 'easymotion/vim-easymotion'
-Plug 'itchyny/lightline.vim'
 
 " VCS
 Plug 'tpope/vim-fugitive'
@@ -106,8 +105,8 @@ noremap <leader>n :bn<CR>
 nnoremap [l :cprev<CR>
 nnoremap ]l :cnext<CR>
 
-nnoremap n nzzzv
-nnoremap N Nzzzv
+" nnoremap n nzzzv
+" nnoremap N Nzzzv
 
 " Vim config 
 nnoremap <S-F5> :e  <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
@@ -131,7 +130,7 @@ endif
 
 " Settings
 set laststatus=2
-set noshowmode
+set showmode
 set showcmd
 set expandtab
 set number
@@ -198,25 +197,17 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 let g:gruvbox_italic=1
 colorscheme gruvbox
-let lltheme='gruvbox'
 
 if !empty($MONOKAI)
         let g:monokai_term_italic = 1
         let g:monokai_gui_italic = 1
-        let llmonokai = expand('~/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/monokai.vim')
-        if !filereadable(llmonokai)
-                let cpm = ':!cp ' . expand('~/.config/nvim/monokai.vim') . ' ' . llmonokai
-                exec cpm
-        endif
         colorscheme monokai
         set background=dark
-        let lltheme='monokai'
 endif
 
 if !empty($ONE)
         let g:one_allow_italics = 1
         colorscheme one
-        let lltheme='one'
         let is_dark=(&background == 'dark')
         if !is_dark 
                 highlight Cursor guifg=white guibg=magenta
@@ -244,26 +235,6 @@ highlight GitGutterDelete ctermfg=1
 highlight GitGutterChangeDelete ctermfg=4
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
-
-let g:lightline = {
-      \ 'colorscheme': lltheme,
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],                                                  
-      \              [ 'fileformat', 'fileencoding', 'filetype' ] ],
-      \ },
-      \ 'component': {
-      \   'lineinfo': '%3l:%-2v%<',
-      \},
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \   'shortname': 'ShortPathname',
-      \   'gitinfo': 'GitStatus',
-      \   'cocstatus': 'coc#status',
-      \         },
-      \ }
 
 if &t_Co == 8 && $TERM !~# '^Eterm'
   set t_Co=16
@@ -403,9 +374,6 @@ function! SelectNpmScript()
 	endif
 endfunction
 
-nnoremap <silent> <Leader><F9> :DogeGenerate<CR>
-nnoremap <silent> <F10> :call SelectNpmScript()<CR>
-
 function! SplitTerm(...)
         if empty(a:0)
                 split
@@ -415,6 +383,13 @@ function! SplitTerm(...)
         ter
 endfunction
 
+function! ShowInfo()
+        echo join([FugitiveStatusline(), &fileformat, &fileencoding, &filetype], " ")
+endfunction
+
+nnoremap <F8> :call ShowInfo()<CR>
+nnoremap <silent> <Leader><F9> :DogeGenerate<CR>
+nnoremap <silent> <F10> :call SelectNpmScript()<CR>
 " Markdown preview
 let g:mkdp_auto_start = !empty($NOTES)
 let g:mkdp_browser = 'vimb'
