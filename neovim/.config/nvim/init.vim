@@ -1,4 +1,4 @@
-"vi: foldmethod=marker
+" vi: foldmethod=marker
 
 " Setup {{{
 filetype indent plugin on
@@ -41,16 +41,16 @@ Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'kkoomen/vim-doge'
-Plug 'honza/vim-snippets'
+Plug 'justinmk/vim-sneak'
+
+" Thinking of throwing away
+Plug 'honza/vim-snippets' " along with coc-snippets
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
 Plug 'crusoexia/vim-monokai'
 Plug 'rakr/vim-one'
 
-" Wanna get rid of
-Plug 'justinmk/vim-sneak'
-Plug 'itchyny/lightline.vim'
 
 " VCS
 Plug 'tpope/vim-fugitive'
@@ -61,10 +61,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 
 " Syntax
 Plug 'sheerun/vim-polyglot'
-
-" Gui
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on': []}
-Plug 'ryanoasis/vim-devicons', {'on': []}
 
 call plug#end()
 
@@ -81,7 +77,7 @@ map <C-k><C-o> :NERDTreeFind<CR>
 map <bs> <Plug>(easymotion-prefix)
 
 imap <C-space> <Plug>(coc-snippets-expand-jump)
-
+nnoremap <Leader>gd <Plug>(coc-definition)
 
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 noremap <Leader>E :tabe <C-R>=expand("%:p:h") . "/" <CR>
@@ -118,14 +114,12 @@ noremap <leader>n :bn<CR>
 nnoremap [l :cprev<CR>
 nnoremap ]l :cnext<CR>
 
-nnoremap n nzzzv
-nnoremap N Nzzzv
-
 nnoremap gQ gggqG<C-o><C-o>
 
 " Vim config 
-nnoremap <S-F5> :e  <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
-nnoremap <F5> :source <C-r>=expand('~/.config/nvim/init.vim')<CR><CR>
+nnoremap <F5> :e $MYVIMRC<CR>
+nnoremap <S-F5> :source $MYVIMRC<CR>
+nnoremap <F8> :call ShowBufferInfo()<CR>
 nnoremap <silent> <Leader><F9> :DogeGenerate<CR>
 nnoremap <silent> <F10> :call SelectNpmScript()<CR>
 
@@ -148,7 +142,7 @@ endif
 
 " Settings {{{
 set laststatus=2
-set noshowmode
+set showmode
 set showcmd
 set expandtab
 set number
@@ -183,6 +177,7 @@ set ruler
 set guifont=SF\ Mono:h12
 set shortmess-=I
 set completeopt+=menuone
+set statusline=%<%{FugitiveStatusline()}\ %f\ %h%m%r%=%-14.(%l,%c%V%)%y\ %P
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading\ --hidden\ --glob='!.git/'
@@ -233,25 +228,17 @@ endif
 
 let g:gruvbox_italic=1
 colorscheme gruvbox
-let lltheme='gruvbox'
 
 if !empty($MONOKAI)
         let g:monokai_term_italic = 1
         let g:monokai_gui_italic = 1
-        let llmonokai = expand('~/.config/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/monokai.vim')
-        if !filereadable(llmonokai)
-                let cpm = ':!cp ' . expand('~/.config/nvim/monokai.vim') . ' ' . llmonokai
-                exec cpm
-        endif
         colorscheme monokai
         set background=dark
-        let lltheme='monokai'
 endif
 
 if !empty($ONE)
         let g:one_allow_italics = 1
         colorscheme one
-        let lltheme='one'
         let is_dark=(&background == 'dark')
         if !is_dark 
                 highlight Cursor guifg=white guibg=magenta
@@ -269,32 +256,10 @@ highlight GitGutterChangeDelete ctermfg=4
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
-
-let g:lightline = {
-      \ 'colorscheme': lltheme,
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],                                                  
-      \              [ 'fileformat', 'fileencoding', 'filetype' ] ],
-      \ },
-      \ 'component': {
-      \   'lineinfo': '%3l:%-2v%<',
-      \},
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \   'shortname': 'ShortPathname',
-      \   'gitinfo': 'GitStatus',
-      \   'cocstatus': 'coc#status',
-      \         },
-      \ }
-
 if &t_Co == 8 && $TERM !~# '^Eterm'
   set t_Co=16
 endif
  " }}}
-
 
 function! s:DiffWithSaved()
 	let filetype=&ft
@@ -314,7 +279,6 @@ endif
 
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
 command! Bufonly %bd | e#
-
 
 " change cursor shape for different editing modes, neovim does this by default
 if !has('nvim')
@@ -429,8 +393,13 @@ function! SplitTerm(...)
         ter
 endfunction
 
+function! ShowBufferInfo()
+        echo join([FugitiveStatusline(), &fileformat, &fileencoding, &filetype], " ")
+endfunction
+
 " Markdown preview
 let g:mkdp_auto_start = !empty($NOTES)
 let g:mkdp_browser = 'vimb'
 let g:mkdp_refresh_slow = 1
 let g:sneak#label = 1
+

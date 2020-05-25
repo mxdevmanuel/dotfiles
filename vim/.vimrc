@@ -339,7 +339,26 @@ autocmd BufWritePre *.tf TerraformFmt
 let javaScript_fold=1
 let g:netrw_banner=0
 
-let g:peekaboo_window="vert abo 30new"
+
+fun! LuisMiguel() abort
+        let width = float2nr(&columns * 0.7)
+        let height = float2nr(&lines * 0.7)
+        let top = ((&lines - height) / 2) - 1
+        let left = (&columns - width) / 2
+
+        let buf = bufnr('peekabo', 1)
+        let id = popup_create(buf, #{
+                                \ line: top,
+                                \ col: left,
+                                \ minwidth: width,
+                                \ minheight: height,
+                                \ zindex: 50 ,
+                                \ })
+
+        return winbufnr(id)
+endfunction
+
+let g:peekaboo_window="call LuisMiguel()"
 let g:peekaboo_prefix="<F12>"
 let g:peekaboo_ins_prefix="<F12>"
 

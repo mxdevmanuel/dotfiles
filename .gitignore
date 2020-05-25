@@ -144,3 +144,4 @@ Session.vim
 *.nocommit.*
 vifm/.config/vifm/vifminfo
 account.com.*
+bin/.local/bin/ncspot
