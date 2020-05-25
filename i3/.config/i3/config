@@ -316,8 +316,8 @@ exec --no-startup-id "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 
 exec --no-startup-id xss-lock -- betterlockscreen -l dim
 exec --no-startup-id unclutter --fork --exclude-root --jitter 20 --ignore-scrolling --timeout 5
 
-exec_always --no-startup-id $HOME/.config/i3/compton.sh
-exec_always --no-startup-id $HOME/.config/i3/polybar.sh
+exec_always --no-startup-id $HOME/.local/bin/compton.sh
+exec_always --no-startup-id $HOME/.local/bin/polybar.sh
 
 bindsym $mod+apostrophe [urgent=latest] focus
 
@@ -328,16 +328,16 @@ bindsym $mod+apostrophe [urgent=latest] focus
 #bindsym $mod+Mod1+Left move workspace to output left
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id /home/manuel/.config/i3/sink-smart-selector.sh +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id  /home/manuel/.config/i3/sink-smart-selector.sh -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id /home/manuel/.config/i3/sink-smart-selector.sh mute # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/.local/bin/sink-smart-selector.sh +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id  $HOME/.local/bin/sink-smart-selector.sh -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id $HOME/.local/bin/sink-smart-selector.sh mute # mute sound
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
 
 # Touchpad controls
-bindsym XF86TouchpadToggle exec /home/manuel/.config/i3/toggletouchpad.sh # toggle touchpad
+bindsym XF86TouchpadToggle exec $HOME/.local/bin/toggletouchpad.sh # toggle touchpad
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
