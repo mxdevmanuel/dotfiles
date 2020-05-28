@@ -177,7 +177,7 @@ set ruler
 set guifont=SF\ Mono:h12
 set shortmess-=I
 set completeopt+=menuone
-set statusline=%<%{FugitiveStatusline()}\ %f\ %h%m%r%=%-14.(%l,%c%V%)%y\ %P
+set statusline=%#GruvboxGreenSign#%<%{FugitiveStatusline()}%#StatusLine#\ %f\ %h%m%r%=%y\ %-14.(%l,%c%V%)\ %P
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading\ --hidden\ --glob='!.git/'
@@ -253,6 +253,9 @@ highlight GitGutterAdd ctermfg=2
 highlight GitGutterChange ctermfg=3
 highlight GitGutterDelete ctermfg=1
 highlight GitGutterChangeDelete ctermfg=4
+
+highlight TabLineSel guibg=Olive guifg=White
+highlight Title guifg=#fbf1c7
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
@@ -394,7 +397,7 @@ function! SplitTerm(...)
 endfunction
 
 function! ShowBufferInfo()
-        echo join([FugitiveStatusline(), &fileformat, &fileencoding, &filetype], " ")
+        echo join([ &fileformat, &fileencoding, &filetype], " ")
 endfunction
 
 " Markdown preview
