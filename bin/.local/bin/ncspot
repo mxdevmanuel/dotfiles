@@ -1,0 +1,18 @@
+#!/bin/env bash
+
+currenttime=$(date +%H:%M)
+configdir="$HOME/.config/ncspot"
+
+if [[ "$currenttime" > "09:00" ]] && [[ "$currenttime" < "19:00" ]] && [[ -z "$FORCE_DARK" ]]
+then
+        cat $configdir/light.toml > $configdir/config.toml
+else
+        cat $configdir/dark.toml > $configdir/config.toml
+fi
+
+if [[ ! -z "$TMUX" ]]
+then
+        tmux rename-window "spotify"
+fi
+
+_ncspot

@@ -1,0 +1,21 @@
+
+[theme]
+
+# Gruvbox Light
+# background = "#fbf1c7"
+primary = "#3c3836"
+secondary = "magenta"
+title = "cyan"
+playing = "#504945"
+playing_selected = "#d79921"
+playing_bg = "#bdae93"
+highlight = "#fbf1c7"
+highlight_bg = "light green"
+error = "light white"
+error_bg = "red"
+statusbar = "#504945"
+statusbar_progress = "#7c6f64"
+statusbar_bg = "#bdae93"
+cmdline = "light white"
+cmdline_bg = "black"
+# Gruvbox Light End
