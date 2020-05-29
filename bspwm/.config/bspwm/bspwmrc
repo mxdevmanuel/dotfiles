@@ -1,9 +1,9 @@
 #! /bin/sh
 
-setxkbmap -option "ctrl:nocaps"
 xsetroot -solid "#282828"
 sxhkd &
 polybar example &
+clipmenud &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 

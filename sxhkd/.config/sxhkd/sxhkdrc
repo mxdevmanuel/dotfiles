@@ -11,6 +11,9 @@ alt + Return
 alt + d
 	rofi -show drun
 
+alt + F2
+        rofi -show run
+
 # make sxhkd reload its configuration files:
 alt + Escape
 	pkill -USR1 -x sxhkd
@@ -121,8 +124,32 @@ ctrl + alt + shift + {h,j,k,l}
 alt + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
+alt + Menu
+        clipmenu
+
+alt + v
+        /home/manuel/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
+alt + z
+        tmux-session-selector.sh
 
 XF86MonBrightnessUp 
         xbacklight -inc 10 # increase screen brightness
 XF86MonBrightnessDown 
         xbacklight -dec 10 # decrease screen brightness
+XF86TouchpadToggle
+        toggletouchpad.sh
+XF86AudioPlay
+        playerctl play-pause
+#XF86AudioPause
+#        playerctl pause
+XF86AudioNext
+        playerctl next
+XF86AudioPrev
+        playerctl previous
+XF86AudioRaiseVolume 
+	sink-smart-selector.sh +5% #increase sound volume
+XF86AudioLowerVolume 
+	sink-smart-selector.sh -5% #decrease sound volume
+XF86AudioMute 
+	sink-smart-selector.sh mute # mute sound
+
