@@ -153,3 +153,5 @@ XF86AudioLowerVolume
 XF86AudioMute 
 	sink-smart-selector.sh mute # mute sound
 
+Print
+        flameshot gui

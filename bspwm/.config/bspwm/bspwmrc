@@ -2,7 +2,7 @@
 
 xsetroot -solid "#282828"
 sxhkd &
-polybar.sh &
+flameshot &
 
 # Autostart granular handling
 $HOME/.config/bspwm/autostart.sh &
@@ -19,10 +19,12 @@ fi
 if [ "$MACHINE_ENV" == "laptop" ]
 then
         # 
-        bspc monitor -d 1 2 3 4
+        bspc monitor -d 1 2 3 4 5
         clipmenud &
 fi
 
+# Start polybar after setting workspaces
+polybar.sh &
 
 bspc config border_width         1
 bspc config window_gap           0
@@ -32,6 +34,7 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 bspc config single_monocle      true
 
-bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Gimp desktop='^5'
 bspc rule -a Chromium desktop='^2'
+bspc rule -a Insomnia desktop='^4'
 bspc rule -a Google-chrome desktop='^2'

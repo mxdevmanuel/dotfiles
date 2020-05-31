@@ -37,8 +37,15 @@ alias node="load-nvm ; node"
 
 alias vimc="nvim ~/.config/nvim/init.vim"
 alias vimd="env FORCE_DARK='true' nvim"
-alias vimg="env GRUVBOX='true' nvim"
 alias vimq="env FORCE_DARK='true' nvim-qt"
+
+alias ls='exa'
+alias la='exa -a'
+alias ll='exa -l'
+alias lll='exa -l | less'
+alias lla='exa -la'
+alias llt='exa -T'
+alias llfu='exa -bghHliS --git'
 
 # Config variables
 export DEFAULT_USER="manuel"
@@ -75,6 +82,8 @@ function diffancy(){
 }
 
 function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
+
+function unexa() { unalias ls }
 
 # Init 
 [ ! -f /tmp/firstrun ] && clear && neofetch && touch /tmp/firstrun
