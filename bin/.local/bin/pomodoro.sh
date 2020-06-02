@@ -64,7 +64,7 @@ while sleep 1;do
                                 # Beep computer speaker
                                 echo -ne '\007'
                                 # Play wav sound
-                                aplay ~/.local/bin/gong.wav > /dev/null 2>&1
+                                cvlc ~/.local/share/sounds/bell.mp3 --play-and-exit > /dev/null 2>&1
                         fi
 
                         IDLE=$(xprintidle)
@@ -86,14 +86,13 @@ while sleep 1;do
                         CURRENT=$(($CURRENT + 1))
                         ;;
                 2|4|6)
-                        [ ! -z "$POMOLOCK" ] && betterlockscreen -l dim -t "take a short break" & 
+                        [ ! -z "$POMOLOCK" ] && i3lock -c '#282828' -k --timecolor='#ebdbb2' --datecolor='#98971a' --greetertext="Take a break" --greetercolor="#ebdbb2"
                         counter "B" $SHORTBREAK
                         [ ! -z "$POMOLOCK" ] && pkill i3lock
                         CURRENT=$(($CURRENT + 1))
                         ;;
                 8)
-                        [ ! -z "$POMOLOCK" ] && betterlockscreen -l dim -t "time for a longer break" & 
-                        counter "LB" $LONGBREAK
+                        [ ! -z "$POMOLOCK" ] && i3lock -c '#282828' -k --timecolor='#ebdbb2' --datecolor='#98971a' --greetertext="Rest for a while" --greetercolor="#ebdbb2"                        counter "LB" $LONGBREAK
                         [ ! -z "$POMOLOCK" ] && pkill i3lock
                         CURRENT=1
         esac

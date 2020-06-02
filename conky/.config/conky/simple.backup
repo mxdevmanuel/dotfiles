@@ -49,12 +49,9 @@ maximum_width 290
 
 # Create own window instead of using desktop (required in nautilus)
 own_window yes
-own_window_type dock
-own_window_transparent yes
-own_window_argb_visual yes
-own_window_argb_visual no
-own_window_colour 000000
-own_window_argb_value 0
+own_window_type override
+own_window_transparent no
+own_window_colour #282828
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 
 # Text alignment, other possible values are commented

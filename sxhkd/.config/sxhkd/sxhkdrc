@@ -125,12 +125,16 @@ alt + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 alt + Menu
-        clipmenu
+        copyq toggle
 
 alt + v
-        /home/manuel/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
+        $HOME/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
 alt + z
         tmux-session-selector.sh
+alt + less
+        unipicker --copy
+alt + greater
+        $HOME/.config/rofi/rofi-emoji.sh
 
 XF86MonBrightnessUp 
         xbacklight -inc 10 # increase screen brightness

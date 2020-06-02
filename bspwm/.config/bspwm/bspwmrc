@@ -1,11 +1,17 @@
 #!/bin/sh
 
-xsetroot -solid "#282828"
-sxhkd &
-flameshot &
+# shell utils
+source $HOME/.config/bspwm/utils.sh
 
-# Autostart granular handling
-$HOME/.config/bspwm/autostart.sh &
+xsetroot -solid "#282828"
+
+# Executable, background flag, parameters, signal to send
+exec_once_or_signal sxhkd 0 "" -USR1
+exec_once_or_signal conky 1
+exec_once_or_signal flameshot 0
+exec_once_or_signal copyq 0
+exec_once_or_signal safeeyes 0
+exec_once_or_signal udiskie 0 "-t"
 
 # Desktop specifics
 if [ "$MACHINE_ENV" == "desktop" ]
@@ -34,7 +40,10 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 bspc config single_monocle      true
 
+bspc config focus_follows_pointer true
+
 bspc rule -a Gimp desktop='^5'
+bspc rule -a copyq follow=on state=floating
 bspc rule -a Chromium desktop='^2'
 bspc rule -a Insomnia desktop='^4'
 bspc rule -a Google-chrome desktop='^2'

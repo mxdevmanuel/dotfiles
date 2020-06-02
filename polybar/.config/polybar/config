@@ -60,7 +60,7 @@ font-0 = FuraCode Nerd Font:style=Regular:pixelsize=12;1
 
 modules-left = bspwm 
 ;modules-center = 
-modules-right =  xbacklight pulseaudio cpu memory battery temperature xkeyboard date
+modules-right = pomo xbacklight pulseaudio cpu memory battery temperature xkeyboard date
 
 tray-position = right
 tray-padding = 1
