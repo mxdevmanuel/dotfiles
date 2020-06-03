@@ -130,7 +130,7 @@ bindsym $mod+F2 exec rofi -show run
 bindsym $mod+F3 exec $HOME/.config/i3/workspace_auto_bf.sh
 bindsym $mod+F4 exec $HOME/.local/bin/check_hdmi.sh
 bindsym $mod+F5 exec todotxt-sync.sh
-bindsym $mod+F6 exec $HOME/.config/i3/wallpaper_selector.sh
+bindsym $mod+F6 exec $HOME/.local/bin/wallpaper_selector.sh
 
 bindsym $mod+Shift+F2 exec dmenu_run 
 bindsym $mod+Shift+F3 exec $HOME/.config/i3/follow_focus_fly.sh
@@ -162,15 +162,14 @@ bindsym $mod+Shift+a focus parent
 bindsym $mod+s layout stacking 
 bindsym $mod+d exec rofi -show drun 
 bindsym $mod+f fullscreen toggle 
-bindsym Control+$mod+l exec --no-startup-id betterlockscreen -l  
 bindsym $mod+Shift+f exec pcmanfm
 bindsym $mod+semicolon exec wmfocus
 bindsym $mod+apostrophe [urgent=latest] focus
 bindsym $mod+Return exec kitty # start a terminal
-bindsym $mod+Shift+Return exec urxvtc
+# bindsym $mod+Shift+Return AVAILABLE
 
 #Shift row
-bindsym $mod+z exec --no-startup-id $HOME/.config/i3/tmux-session-selector.sh
+bindsym $mod+z exec --no-startup-id $HOME/.local/bin/tmux-session-selector.sh
 bindsym $mod+x split toggle 
 bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort
 bindsym $mod+Shift+c reload 
