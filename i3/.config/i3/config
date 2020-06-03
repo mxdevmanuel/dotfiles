@@ -1,4 +1,4 @@
-# vi: foldmethod=marker foldlevelstart=99
+# vi: foldmethod=marker foldlevel=0
 
 #Settings {{{
 set $mod Mod1
@@ -221,13 +221,10 @@ for_window [class="scratch"] floating enable
 for_window [window_role="GtkFileChooserDialog"] fullscreen 
 for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
 
-for_window [class="^Spotify$" instance="^spotify$"] move to workspace $ws4
 for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable
 for_window [title="Open File"] focus
 for_window [title="Save File"] focus
 #for_window [class="URxvt" instance="urxvt"] floating enable
-for_window [class="^Mailspring$" instance="^mailspring$"] move to workspace $ws6
-assign [class="^Mailspring$" instance="^mailspring$"] → $ws6
 assign [instance="^libreoffice$"] → $ws8
 assign [class="^Pcmanfm$" instance="^pcmanfm$"] → $ws5
 assign [class="^Sublime_text$" instance="^sublime_text$"] → $ws3

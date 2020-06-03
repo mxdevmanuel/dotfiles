@@ -17,17 +17,32 @@
 ;==========================================================
 
 [colors]
-;background = ${xrdb:color0:#222}
-background = #272727
+background = #282828
 background-alt = #3c3836
-;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
-foreground-alt = #555
-;primary = #ffb52a
-primary = #2e9ef4
-secondary = #e60053
-alert = #bd2c40
-focused = #00cdcd
+foreground = #ebdbb2
+foreground-alt = #a89984
+primary = ${colors.green}
+secondary = ${colors.yellow}
+alert = #{colors.red}
+focused = ${colors.green}
+
+;Gruvbox
+red = #cc241d
+red-alt = #fb4934
+green = #98971a
+green-alt = #b8bb26
+yellow = #d79921
+yellow-alt = #fabd3f
+blue = #458588
+blue-alt = #83a598
+purple = #b16286
+purple-alt = #d3869b
+aqua = #689d6a
+aqua-alt = #8ec07c
+orange = #d65d0e
+orange-alt = #fe8019
+gray = a89984
+gray-alt = #928374
 
 [bar/example]
 ;monitor = ${env:MONITOR:LVDS-1}
@@ -44,8 +59,8 @@ bottom = true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 0
-line-color = #f00
+line-size = 2
+line-color = ${colors.green}
 
 border-size = 0
 border-color = #00000000
@@ -66,7 +81,7 @@ tray-position = right
 tray-padding = 1
 ;tray-background = #0063ff
 
-wm-restack = bspwm
+; wm-restack = bspwm
 ; wm-restack = i3
 
 ;override-redirect = true
@@ -110,7 +125,7 @@ mount-1 = /home
 format-mounted-underline = #ffffff
 label-mounted = %{F#555}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
+label-unmounted-foreground = ${colors.foreground-inv}
 
 [module/bspwm]
 type = internal/bspwm
@@ -205,7 +220,7 @@ type = internal/xbacklight
 
 format = <label>
 format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-foreground = ${colors.foreground-inv}
 format-underline = #edc810
 
 label = %percentage%%
@@ -232,7 +247,7 @@ type = internal/cpu
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #00FF00
+format-underline = ${colors.background-alt}
 label = %percentage:2%%
 
 [module/memory]
@@ -240,7 +255,7 @@ type = internal/memory
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = ${colors.focused}
+format-underline = ${colors.background-alt}
 label = %mb_used%
 
 [module/wlan]
@@ -293,7 +308,7 @@ time-alt = %H:%M:%S
 
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #099999
+format-underline = ${colors.background-alt}
 
 label = %date% %time%
 
@@ -302,7 +317,7 @@ label = %date% %time%
 type = internal/pulseaudio
 
 format-volume = <ramp-volume> <label-volume>
-format-volume-underline = #777
+format-volume-underline = ${colors.background-alt}
 
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
@@ -403,7 +418,7 @@ thermal-zone = 0
 warn-temperature = 60
 
 format = <ramp> <label>
-format-underline = #f50a4d
+format-underline = ${colors.background-alt}
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
@@ -472,7 +487,7 @@ tail = true
 
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #dd0000
+format-underline = ${colors.background-alt}
 
 [settings]
 screenchange-reload = true

@@ -1,0 +1,57 @@
+-- vi: ft=lua
+conky.config = {
+	alignment = 'tl',
+	background = true, -- P
+	border_width = 0,
+	cpu_avg_samples = 2,
+	default_color = 'ebdbb2',
+	color1 = '98971a', -- green
+	color2 = '458588', -- blue
+	default_outline_color = 'ebdbb2',
+	default_shade_color = '98971a',
+	draw_borders = true,
+	draw_graph_borders = true,
+	draw_shades = false,
+	use_xft = true,
+	font = 'FuraCode Nerd Font:style=Regular:pixelsize=14',
+	gap_x = 0,
+	gap_y = 5,
+	minimum_height = 5,
+	net_avg_samples = 2,
+	no_buffers = true,
+	out_to_console = false,
+	out_to_stderr = false,
+	extra_newline = false,
+	own_window = true,
+	own_window_transparent = false,
+	own_window_class = 'Conky',
+	own_window_type = 'override',
+	own_window_hints = 'below',
+	own_window_colour = '282828',
+	update_interval = 2.0,
+	uppercase = false,
+	use_spacer = 'none',
+	show_graph_scale = true,
+	show_graph_range = false,
+	double_buffer = true
+}
+
+conky.text = [[
+${font size=16:style=Bold}${color1}Processor${goto 600}Network
+${font}${color gray}──────────────────────────────${goto 600}──────────────────────────────
+${font :style=Bold}${color1}CPU 1 ${font}${color white}${cpu cpu1}%${goto 600}${font :style=Bold}${color1}Upspeed
+${color white}${cpugraph cpu1 50,250 859900 DC322F scale -t}${goto 600}${font :style=Bold}${color1}${upspeedgraph enp1s0 50,250 F2AA198 DC322F scale -t}
+${font :style=Bold}${color1}CPU 2 ${font}${color white}${cpu cpu2}%${goto 600}${font :style=Bold}${color1}Downspeed
+${color white}${cpugraph cpu2 50,250 859900 DC322F scale -t}${goto 600}${font :style=Bold}${color1}${downspeedgraph enp1s0 50,250 F2AA198 DC322F scale -t}
+${font :style=Bold}${color1}CPU 3 ${font}${color white}${cpu cpu3}%${goto 600}${color1}Total up: ${color}${totalup enp1s0}${color1} Total down ${color}${totaldown enp1s0}
+${color white}${cpugraph cpu3 50,250 859900 DC322F scale -t}
+${font :style=Bold}${color1}CPU 4 ${font}${color white}${cpu cpu4}%
+${color white}${cpugraph cpu4 50,250 859900 DC322F scale -t}
+${font :style=Bold}${color1}Pid Name ${goto 200}CPU MEM RES VIRT TIME${font}
+${top pid 1} ${color2}${top name 1}$color ${top cpu 1} ${top mem 1} ${top mem_res 1} ${top mem_vsize 1} ${top time 1}
+${top pid 2} ${color2}${top name 2}$color ${top cpu 2} ${top mem 2} ${top mem_res 2} ${top mem_vsize 2} ${top time 2}
+${top pid 3} ${color2}${top name 3}$color ${top cpu 3} ${top mem 3} ${top mem_res 3} ${top mem_vsize 3} ${top time 3}
+${top pid 4} ${color2}${top name 4}$color ${top cpu 4} ${top mem 4} ${top mem_res 4} ${top mem_vsize 4} ${top time 4}
+${top pid 5} ${color2}${top name 5}$color ${top cpu 5} ${top mem 5} ${top mem_res 5} ${top mem_vsize 5} ${top time 5}
+]] 
+
