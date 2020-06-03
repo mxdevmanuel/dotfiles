@@ -58,7 +58,7 @@ module-margin-right = 1
 
 font-0 = FuraCode Nerd Font:style=Regular:pixelsize=12;1
 
-modules-left = bspwm 
+modules-left = i3 bspwm 
 ;modules-center = 
 modules-right = pomo xbacklight pulseaudio cpu memory battery temperature xkeyboard date
 

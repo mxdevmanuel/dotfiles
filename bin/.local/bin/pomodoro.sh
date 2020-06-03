@@ -86,13 +86,14 @@ while sleep 1;do
                         CURRENT=$(($CURRENT + 1))
                         ;;
                 2|4|6)
-                        [ ! -z "$POMOLOCK" ] && i3lock -c '#282828' -k --timecolor='#ebdbb2' --datecolor='#98971a' --greetertext="Take a break" --greetercolor="#ebdbb2"
+                        [ ! -z "$POMOLOCK" ] && i3lock -c '#282828' -k --timecolor='#ebdbb2' --datecolor='#98971a' --greetertext="Take a break" --greetercolor="#ebdbb2" --pass-media-keys
                         counter "B" $SHORTBREAK
                         [ ! -z "$POMOLOCK" ] && pkill i3lock
                         CURRENT=$(($CURRENT + 1))
                         ;;
                 8)
-                        [ ! -z "$POMOLOCK" ] && i3lock -c '#282828' -k --timecolor='#ebdbb2' --datecolor='#98971a' --greetertext="Rest for a while" --greetercolor="#ebdbb2"                        counter "LB" $LONGBREAK
+                        [ ! -z "$POMOLOCK" ] && i3lock -c '#282828' -k --timecolor='#ebdbb2' --datecolor='#98971a' --greetertext="Rest for a while" --greetercolor="#ebdbb2" --pass-media-keys
+                        counter "LB" $LONGBREAK
                         [ ! -z "$POMOLOCK" ] && pkill i3lock
                         CURRENT=1
         esac

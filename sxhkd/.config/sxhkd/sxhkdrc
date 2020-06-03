@@ -135,6 +135,10 @@ alt + less
         unipicker --copy
 alt + greater
         $HOME/.config/rofi/rofi-emoji.sh
+alt + Home
+        videoshot.sh
+alt + End
+        pkill ffmpeg
 
 XF86MonBrightnessUp 
         xbacklight -inc 10 # increase screen brightness

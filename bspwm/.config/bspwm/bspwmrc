@@ -3,7 +3,7 @@
 # shell utils
 source $HOME/.config/bspwm/utils.sh
 
-xsetroot -solid "#282828"
+feh --bg-fill $HOME/Pictures/arch.png
 
 # Executable, background flag, parameters, signal to send
 exec_once_or_signal sxhkd 0 "" -USR1
