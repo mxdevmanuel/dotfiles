@@ -23,7 +23,7 @@ foreground = #ebdbb2
 foreground-alt = #a89984
 primary = ${colors.green}
 secondary = ${colors.yellow}
-alert = #{colors.red}
+alert = ${colors.red}
 focused = ${colors.green}
 
 ;Gruvbox
