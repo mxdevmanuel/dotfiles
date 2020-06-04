@@ -220,8 +220,8 @@ type = internal/xbacklight
 
 format = <label>
 format-prefix = " "
-format-prefix-foreground = ${colors.foreground-inv}
-format-underline = #edc810
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = ${colors.background-alt}
 
 label = %percentage%%
 
