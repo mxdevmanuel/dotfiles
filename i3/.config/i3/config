@@ -54,7 +54,7 @@ exec --no-startup-id "safeeyes &"
 exec --no-startup-id "udiskie -t &"
 
 # misc
-exec --no-startup-id xss-lock -- i3lock -c '#282828' -k --timecolor='#ebdbb2' --datecolor='#98971a' --pass-media-keys
+exec --no-startup-id xss-lock -- lock.sh
 exec --no-startup-id unclutter --fork --exclude-root --jitter 20 --ignore-scrolling --timeout 5
 # }}}
 
