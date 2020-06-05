@@ -126,6 +126,9 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bindsym $mod+Escape exec $HOME/.local/bin/exit-menu.py
 bindsym $mod+plus exec $HOME/.config/rofi/rofi-fb.sh $HOME
 
+bindsym Mod4+F1 exec --no-startup-id foot-controller.sh
+bindsym Mod4+Shift+F1 exec --no-startup-id notify-send "con shift"
+bindsym $mod+Mod4+F1 exec --no-startup-id notify-send "con alt"
 bindsym $mod+F2 exec rofi -show run
 bindsym $mod+F3 exec $HOME/.config/i3/workspace_auto_bf.sh
 bindsym $mod+F4 exec $HOME/.local/bin/check_hdmi.sh
