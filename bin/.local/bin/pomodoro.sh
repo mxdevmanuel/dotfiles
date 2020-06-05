@@ -86,13 +86,13 @@ while sleep 1;do
                         CURRENT=$(($CURRENT + 1))
                         ;;
                 2|4|6)
-                        [ ! -z "$POMOLOCK" ] && lock.sh --greetertext="Take a break" --greetercolor="#ebdbb2"
+                        [ ! -z "$POMOLOCK" ] && lock.sh --greetertext="Take a break" --greetercolor="#ebdbb2" &
                         counter "B" $SHORTBREAK
                         [ ! -z "$POMOLOCK" ] && pkill i3lock
                         CURRENT=$(($CURRENT + 1))
                         ;;
                 8)
-                        [ ! -z "$POMOLOCK" ] && lock.sh --greetertext="Rest for a while" --greetercolor="#ebdbb2"
+                        [ ! -z "$POMOLOCK" ] && lock.sh --greetertext="Rest for a while" --greetercolor="#ebdbb2" &
                         counter "LB" $LONGBREAK
                         [ ! -z "$POMOLOCK" ] && pkill i3lock
                         CURRENT=1
