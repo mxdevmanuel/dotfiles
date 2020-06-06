@@ -228,7 +228,7 @@ for_window [title="Open File"] focus
 for_window [title="Save File"] focus
 #for_window [class="URxvt" instance="urxvt"] floating enable
 assign [instance="^libreoffice$"] → $ws8
-assign [class="^Pcmanfm$" instance="^pcmanfm$"] → $ws5
+assign [class="^Thunar$" instance="^thunar$"] → $ws5
 assign [class="^Sublime_text$" instance="^sublime_text$"] → $ws3
 assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
 assign [class="^Google-chrome" instance="^google-chrome"] → $ws2
