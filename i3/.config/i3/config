@@ -125,6 +125,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 #Top row
 bindsym $mod+Shift+Escape exec $HOME/.local/bin/exit-menu.py
 bindsym $mod+plus exec $HOME/.config/rofi/rofi-fb.sh $HOME
+bindsym $mod+grave exec rofi -show window
 
 bindsym Mod4+F1 exec --no-startup-id foot-controller.sh
 bindsym Mod4+Shift+F1 exec --no-startup-id notify-send "con shift"
@@ -132,7 +133,7 @@ bindsym $mod+Mod4+F1 exec --no-startup-id notify-send "con alt"
 bindsym $mod+F2 exec rofi -show run
 bindsym $mod+F3 exec $HOME/.config/i3/workspace_auto_bf.sh
 bindsym $mod+F4 exec $HOME/.local/bin/check_hdmi.sh
-bindsym $mod+F5 exec todotxt-sync.sh
+# bindsym $mod+F5  AVAILABLE
 bindsym $mod+F6 exec $HOME/.local/bin/wallpaper_selector.sh
 
 bindsym $mod+Shift+F2 exec dmenu_run 
@@ -154,7 +155,6 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+r restart 
 bindsym $mod+t exec kitty -e bash
 bindsym $mod+Shift+t exec env NOTMUX=1 kitty
-bindsym $mod+y exec rofi -show window
 # bindsym $mod+p AVAILABLE
 bindsym $mod+braceleft move workspace to output left
 bindsym $mod+braceright move workspace to output right
