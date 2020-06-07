@@ -4,7 +4,7 @@
 set $mod Mod1
 
 # title font
-font pango:SauceCodePro Nerd Font Mono 9
+font pango: monospace 8
 
 # Smart Gaps
 smart_gaps on
@@ -123,7 +123,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # Keybindings{{{
 
 #Top row
-bindsym $mod+Escape exec $HOME/.local/bin/exit-menu.py
+bindsym $mod+Shift+Escape exec $HOME/.local/bin/exit-menu.py
 bindsym $mod+plus exec $HOME/.config/rofi/rofi-fb.sh $HOME
 
 bindsym Mod4+F1 exec --no-startup-id foot-controller.sh
@@ -142,6 +142,8 @@ bindsym Print exec flameshot gui
 bindsym Shift+Print exec flameshot full
 bindsym --release $mod+Next workspace next
 bindsym --release $mod+Prior workspace prev
+bindsym $mod+Home exec videoshot.sh
+bindsym $mod+End exec pkill ffmpeg
 
 # Second row
 bindsym $mod+Tab workspace back_and_forth
@@ -181,6 +183,7 @@ bindsym $mod+v exec --no-startup-id $HOME/.dotfiles/rofi/.local/share/scripts/pu
 #bindsym $mod+Shift+m AVAILABLE
 bindsym $mod+less exec unipicker --command "rofi -dmenu" --copy
 bindsym $mod+greater exec $HOME/.config/rofi/rofi-emoji.sh
+bindsym $mod+Shift+greater exec rofi -modi rnf -show rnf
 
 #Bottom row
 bindsym $mod+space focus mode_toggle 
@@ -215,28 +218,27 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # Rules{{{
 
-for_window [class="^.*"] border pixel 2
-for_window [class="copyq" window_type="normal"] floating enable
-for_window [class="Gpick"] floating enable
-for_window [window_role="pop-up"] floating enable
-for_window [class="scratch"] floating enable
-for_window [window_role="GtkFileChooserDialog"] fullscreen 
-for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
+assign [class="^Chromium" instance="^chromium"] → $ws2
+assign [class="^Google-chrome" instance="^google-chrome"] → $ws2
+assign [class="^Thunar$" instance="^thunar$"] → $ws5
+assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
+assign [class="^nvim-qt$" instance="^nvim-qt$"] → $ws3
+assign [floating] border pixel 0
+assign [instance="^libreoffice$"] → $ws8
+assign [instance="insomnia" class="Insomnia"] → $ws10
+assign [title="vifm"] → $ws5 
 
+for_window [class="Gpick"] floating enable
+for_window [class="^.*"] border pixel 2
 for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable
+for_window [class="copyq" window_type="normal"] floating enable
+for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
+for_window [class="scratch"] floating enable
 for_window [title="Open File"] focus
 for_window [title="Save File"] focus
-#for_window [class="URxvt" instance="urxvt"] floating enable
-assign [instance="^libreoffice$"] → $ws8
-assign [class="^Thunar$" instance="^thunar$"] → $ws5
-assign [class="^Sublime_text$" instance="^sublime_text$"] → $ws3
-assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
-assign [class="^Google-chrome" instance="^google-chrome"] → $ws2
-assign [class="^Chromium" instance="^chromium"] → $ws2
-assign [instance="insomnia" class="Insomnia"] → $ws10
-assign [floating] border pixel 0
-assign [title="vifm"] → $ws5 
-assign [class="^nvim-qt$" instance="^nvim-qt$"] → $ws3
+for_window [window_role="GtkFileChooserDialog"] fullscreen 
+for_window [window_role="pop-up"] floating enable
+
 # }}}
 
 # Theme{{{
