@@ -7,7 +7,7 @@ rofi.modi:                           drun,window,run
 ! "Number of columns" Set from: Default
 ! rofi.columns:                        1
 ! "Font to use" Set from: Default
-rofi.font:                           "SF Mono Regular" 13
+rofi.font:                           "FiraCode Nerd Font Mono" 13
 ! "Border width" Set from: Default
 ! rofi.bw:                             1
 ! "Location on screen" Set from: Default

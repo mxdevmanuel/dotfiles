@@ -124,6 +124,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 #Top row
 bindsym $mod+Shift+Escape exec $HOME/.local/bin/exit-menu.py
+bindsym $mod+minus exec --no-startup-id pkill -USR1 pomodoro.sh
 bindsym $mod+plus exec $HOME/.config/rofi/rofi-fb.sh $HOME
 bindsym $mod+grave exec rofi -show window
 

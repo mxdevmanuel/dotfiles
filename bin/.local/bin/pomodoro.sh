@@ -8,22 +8,25 @@ CURRENT=1
 FILE=/tmp/pomodoro.run 
 DISPLAY=:0
 WAIT=1
+LEVER=0
 
 notify(){
-        if [ "$1" == "W" ]
-        then
+        case $1 in
+                "W")
                 notify-send Pomodoro "time to take a break in 10s" -t 5000 -i ~/.pomo/icon.png 
-        fi
+                ;;
+        esac
 }
 
 counter(){
        COUNTER=$2
-       STATE=$CURRENT
        while sleep 1;do
-               if [[ "$STATE" != "$CURRENT"]]
+               if [[ $LEVER == 1 ]]
                then
+                       LEVER=0
                        break
                fi
+
                MIN=$(($COUNTER/60))
                SEC=$(($COUNTER%60))
 
@@ -47,8 +50,66 @@ counter(){
        done
 }
 
-trap "touch $FILE" SIGUSR1
-trap "rm $FILE" SIGUSR2
+select-mode(){
+        SELECTION=$(echo -e "work\nbreak\nrest\ntoggle\nrestart\nadvance" | dmenu)
+        case $SELECTION in
+                "work")
+                        if [[ $CURRENT == 1 ]] || [[ $CURRENT == 3 ]] || [[ $CURRENT == 5 ]] || [[ $CURRENT == 7 ]]
+                        then
+                                break
+                        elif [[ $CURRENT == 8 ]]
+                        then
+                                CURRENT=0
+                                LEVER=1
+                        else
+                                LEVER=1
+                        fi
+                        ;;
+                "break")
+                        if [[ $CURRENT == 2 ]] || [[ $CURRENT == 4 ]] || [[ $CURRENT == 6 ]]
+                        then
+                                break
+                        else
+                                LEVER=1
+                        fi
+                        ;;
+                "rest")
+                        if [[ $CURRENT == 8 ]]
+                        then
+                                break
+                        else
+                                CURRENT=7
+                                LEVER=1
+                        fi
+                        ;;
+                "toggle")
+                        notify-send Pomodoro "Paused timer" -t 5000 -i ~/.pomo/icon.png 
+                        toggle-timer
+                        ;;
+                "restart")
+                        notify-send Pomodoro "Restarted timer" -t 5000 -i ~/.pomo/icon.png 
+                        CURRENT=$(($CURRENT - 1))
+                        LEVER=1
+                        ;;
+                "advance")
+                        notify-send Pomodoro "Advanced timer" -t 5000 -i ~/.pomo/icon.png 
+                        LEVER=1
+                        ;;
+        esac
+}
+
+
+toggle-timer() {
+        if [[ -f $FILE ]]
+        then
+                rm $FILE
+        else
+                touch $FILE
+        fi
+}
+
+trap "select-mode" SIGUSR1
+trap "toggle-timer" SIGUSR2
 
 while sleep 1;do
         if [ -e "$FILE" ]

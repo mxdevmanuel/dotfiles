@@ -481,8 +481,8 @@ interval = 15
 type = custom/script
 interval = 1
 exec = pomodoro.sh
-click-left = pkill pomodoro.sh -USR1
-click-right = pkill pomodoro.sh -USR2 
+click-left = pkill pomodoro.sh -USR2
+click-right = pkill pomodoro.sh -USR1 
 tail = true
 
 format-prefix = " "
