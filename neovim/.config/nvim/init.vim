@@ -304,6 +304,7 @@ autocmd FileType typescript set makeprg=make
 " autocmd FileType typescript,javascript,yaml,css,html,graphql set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 autocmd FileType typescript,javascript,javascriptreact,typescriptreact,dart,python nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
 autocmd FileType c,cpp set formatprg=clang-format
+autocmd FileType go set formatprg=gofmt
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)

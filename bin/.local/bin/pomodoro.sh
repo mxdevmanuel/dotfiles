@@ -18,7 +18,12 @@ notify(){
 
 counter(){
        COUNTER=$2
+       STATE=$CURRENT
        while sleep 1;do
+               if [[ "$STATE" != "$CURRENT"]]
+               then
+                       break
+               fi
                MIN=$(($COUNTER/60))
                SEC=$(($COUNTER%60))
 
