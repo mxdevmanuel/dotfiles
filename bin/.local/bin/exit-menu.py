@@ -12,12 +12,15 @@ para_stdin = [
 
 entrada = subprocess.run(
     [
-        'rofi',
-        '-dmenu',
-        '-markup-rows',
+        # 'rofi',
+        # '-dmenu',
+        # '-markup-rows',
+        # '-p',
+        # 'power',
+        # '-i',
+        'dmenu',
         '-p',
-        'Power',
-        '-i',
+        'power',
     ],
     input='\n'.join(para_stdin), encoding="utf-8", stdout=subprocess.PIPE)
 

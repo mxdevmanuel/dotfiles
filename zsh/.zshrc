@@ -1,4 +1,5 @@
 # ZSH and Oh-my-zsh config
+ # zmodload zsh/zprof #enable zsh profiling
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/manuel/.oh-my-zsh"
@@ -18,7 +19,7 @@ ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
 ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
 
 plugins=(
-  git ssh-agent vi-mode tmux kubectl docker z
+  git ssh-agent vi-mode zsh-syntax-highlighting tmux docker z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -103,11 +104,9 @@ fi
 add-zsh-hook chpwd autoload-nvm
 autoload-nvm
 
-autoload -Uz compinit
-compinit
-
 eval "$(direnv hook zsh)"
 
 # For powerlevel10k, to customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 prompt_context(){}
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+# zprof # start zsh profiling

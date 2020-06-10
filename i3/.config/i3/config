@@ -168,7 +168,7 @@ bindsym $mod+Shift+a focus parent
 bindsym $mod+s layout stacking 
 bindsym $mod+d exec rofi -show drun 
 bindsym $mod+f fullscreen toggle 
-bindsym $mod+Shift+f exec pcmanfm
+bindsym $mod+Shift+f exec thunar
 bindsym $mod+semicolon exec wmfocus
 bindsym $mod+apostrophe [urgent=latest] focus
 bindsym $mod+Return exec kitty # start a terminal

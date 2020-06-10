@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SESSION=$(tmux ls | perl -pe 's/:.*$//' | dmenu)
+SESSION=$(tmux ls | perl -pe 's/:.*$//' | dmenu -p "sessions")
 
 status=$?
 

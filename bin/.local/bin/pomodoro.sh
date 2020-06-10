@@ -51,7 +51,7 @@ counter(){
 }
 
 select-mode(){
-        SELECTION=$(echo -e "work\nbreak\nrest\ntoggle\nrestart\nadvance" | dmenu)
+        SELECTION=$(echo -e "work\nbreak\nrest\ntoggle\npause\nresume\nrestart\nadvance" | dmenu -p timer)
         case $SELECTION in
                 "work")
                         if [[ $CURRENT == 1 ]] || [[ $CURRENT == 3 ]] || [[ $CURRENT == 5 ]] || [[ $CURRENT == 7 ]]
@@ -82,8 +82,8 @@ select-mode(){
                                 LEVER=1
                         fi
                         ;;
-                "toggle")
-                        notify-send Pomodoro "Paused timer" -t 5000 -i ~/.pomo/icon.png 
+                "toggle" | "resume" | "pause")
+                        notify-send Pomodoro "${SELECTION^} timer" -t 5000 -i ~/.pomo/icon.png 
                         toggle-timer
                         ;;
                 "restart")
