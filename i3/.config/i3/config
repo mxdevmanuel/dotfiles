@@ -42,7 +42,7 @@ set $ws11 "11"
 # Screen
 exec --no-startup-id $HOME/.screenlayout/variable.sh
 exec --no-startup-id feh --no-fehbg --bg-fill $HOME/Pictures/arch.png
-exec --no-startup-id conky
+exec --no-startup-id conky; sleep 1; pkill -USR1 conky
 
 exec_always --no-startup-id $HOME/.local/bin/polybar.sh
 
@@ -156,6 +156,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+r restart 
 bindsym $mod+t exec kitty -e bash
 bindsym $mod+Shift+t exec env NOTMUX=1 kitty
+bindsym $mod+i exec stask.sh add
 # bindsym $mod+p AVAILABLE
 bindsym $mod+braceleft move workspace to output left
 bindsym $mod+braceright move workspace to output right
@@ -167,6 +168,7 @@ bindsym $mod+a focus child
 bindsym $mod+Shift+a focus parent 
 bindsym $mod+s layout stacking 
 bindsym $mod+d exec rofi -show drun 
+bindsym $mod+Shift+d exec stask.sh delete
 bindsym $mod+f fullscreen toggle 
 bindsym $mod+Shift+f exec thunar
 bindsym $mod+semicolon exec wmfocus
@@ -185,6 +187,7 @@ bindsym $mod+v exec --no-startup-id $HOME/.dotfiles/rofi/.local/share/scripts/pu
 bindsym $mod+less exec unipicker --command "rofi -dmenu" --copy
 bindsym $mod+greater exec $HOME/.config/rofi/rofi-emoji.sh
 bindsym $mod+Shift+greater exec rofi -modi rnf -show rnf
+bindsym $mod+slash exec stask.sh view
 
 #Bottom row
 bindsym $mod+space focus mode_toggle 
@@ -232,6 +235,7 @@ assign [title="vifm"] → $ws5
 for_window [class="Gpick"] floating enable
 for_window [class="^.*"] border pixel 2
 for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable
+for_window [class="^Yad$" instance="^yad$"] floating enable
 for_window [class="copyq" window_type="normal"] floating enable
 for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
 for_window [class="scratch"] floating enable

@@ -21,7 +21,7 @@ set new_mail_command="notify-send --icon='/usr/share/icons/Papirus/64x64/apps/ma
 # folder-hook imaps://mail.client.mx:993 'source ~/.config/neomutt/account.com.client.manuelm'
 
 ## ACCOUNT2
-# source "~/.config/neomutt/account.com.outlook.d"
+source "~/.config/neomutt/account.com.outlook.d"
 folder-hook imaps://imap-mail.outlook.com:993 'source ~/.config/neomutt/account.com.outlook.d'
 
 ## ACCOUNT1

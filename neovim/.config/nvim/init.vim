@@ -88,9 +88,9 @@ nnoremap <leader>. :lcd %:p:h<CR>
 tnoremap <C-w>n <C-\><C-n>
 
 nnoremap <localleader>f :GFiles --others --exclude-standard<CR>
-nnoremap <localleader>F :GFiles?<CR>
+nnoremap <localleader>F :Files<CR>
 nnoremap <Leader>f :GFiles<CR>
-nnoremap <Leader>F :Files<CR>
+nnoremap <Leader>F :GFiles?<CR>
 nnoremap <Leader>t :Tags<CR>
 nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>l :BLines<CR>
