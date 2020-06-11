@@ -16,10 +16,6 @@ auto_view text/html
 set new_mail_command="notify-send --icon='/usr/share/icons/Papirus/64x64/apps/mailspring.svg' \
 'New Email in %f' '%n new messages, %u unread.' &"
 
-## ACCOUNT3
-# source "~/.config/neomutt/account.com.client.manuelm"
-# folder-hook imaps://mail.client.mx:993 'source ~/.config/neomutt/account.com.client.manuelm'
-
 ## ACCOUNT2
 # source "~/.config/neomutt/account.com.outlook.d"
 folder-hook imaps://imap-mail.outlook.com:993 'source ~/.config/neomutt/account.com.outlook.d'
@@ -33,9 +29,19 @@ folder-hook imaps://imap.gmail.com:993 'source ~/.config/neomutt/account.com.gma
 # Shortcuts
 macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/account.com.gmail.p<enter><change-folder>!<enter>'
 macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/account.com.outlook.d<enter><change-folder>!<enter>'
-# macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.config/neomutt/account.com.client.manuelm<enter><change-folder>!<enter>'
+
 macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 | vimb -<enter>"
+
 bind index 'I' imap-fetch-mail
-bind index,pager 'B' sidebar-toggle-visible
+
+bind pager j next-line
+bind pager k previous-line
+bind pager H display-toggle-weed
+bind attach,index,pager \CD next-page
+bind attach,index,pager \CU previous-page
+bind pager g top
+bind pager G bottom
+bind attach,index g first-entry
+bind attach,index G last-entry
 
 source ~/.config/neomutt/gruvbox.muttrc
