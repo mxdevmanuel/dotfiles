@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FILE=$HOME/.lines
+FILE=$HOME/.lines/.lines
 
 function delete_line(){
         sed -i -n "/$1/!p" $FILE
