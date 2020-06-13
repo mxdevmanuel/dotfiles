@@ -1,6 +1,7 @@
 ## General options
 set header_cache = "~/.cache/neomutt"
 set imap_check_subscribed
+set imap_list_subscribed
 set imap_keepalive = 300
 unset imap_passive
 set mail_check = 60

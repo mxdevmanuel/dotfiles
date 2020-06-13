@@ -1,3 +1,4 @@
 text/html; /usr/bin/vimb - > /dev/null 2>&1; needsterminal;
-text/html; w3m -I %{charset} -T text/html; copiousoutput;
-application/pdf; zathura %s > /dev/null 2>&1; needsterminal;
+text/html; /usr/bin/w3m -I %{charset} -T text/html; copiousoutput;
+application/pdf; /usr/bin/zathura %s > /dev/null 2>&1; needsterminal;
+image/*;/usr/bin/sxiv %s;copiousoutput

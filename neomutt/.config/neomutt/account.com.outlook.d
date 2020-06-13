@@ -21,4 +21,6 @@ set smtp_pass = $imap_pass
 set move = no
 set imap_keepalive = 900
 set record="+Sent"
+
+unset imap_passive
 # mailboxes = +INBOX
