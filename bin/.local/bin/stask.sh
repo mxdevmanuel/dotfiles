@@ -14,9 +14,13 @@ case "$1" in
                 ;;
         "view")
                 selection=$(rofi -dmenu -p "🤔" < $FILE)
-                if [[ $? -eq 10 ]]
+                ecode=$?
+                if [[ $ecode -eq 10 ]]
                 then
                         delete_line $selection
+                elif [[ $ecode -eq 11 ]]
+                then
+                        kitty -e "/usr/bin/vim" -- $FILE
                 fi
                 ;;
         "delete")

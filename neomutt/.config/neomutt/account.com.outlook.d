@@ -10,7 +10,7 @@ set hostname = "outlook.com"
 set use_from=yes
 set realname='Manuel Morales'
 set folder = imaps://outlook.office365.com:993
-set spoolfile = =INBOX
+set spoolfile = +INBOX
 set postponed="+[hotmail]/Drafts"
 set mail_check = 100
 set header_cache = "~/.cache/neomutt/"
