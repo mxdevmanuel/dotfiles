@@ -142,6 +142,7 @@ bindsym $mod+Shift+F2 exec dmenu_run
 bindsym $mod+Shift+F3 exec $HOME/.config/i3/follow_focus_fly.sh
 
 bindsym Print exec flameshot gui
+bindsym Control+Print exec --no-startup-id $HOME/.local/bin/timed_screenshot.sh
 bindsym Shift+Print exec flameshot full
 bindsym --release $mod+Next workspace next
 bindsym --release $mod+Prior workspace prev
