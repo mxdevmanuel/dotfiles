@@ -61,6 +61,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 
 " Syntax
 Plug 'sheerun/vim-polyglot'
+Plug 'norcalli/nvim-colorizer.lua'
 
 call plug#end()
 
@@ -208,10 +209,12 @@ set mousemodel=popup
 
 " Colorscheme config {{{
 if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+        set termguicolors
+        lua require'colorizer'.setup()
 endif
+
 
 let hr = (strftime('%H'))
 if hr >= 19

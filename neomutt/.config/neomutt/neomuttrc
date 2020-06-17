@@ -10,6 +10,7 @@ set sleep_time=0
 set sort=reverse-date
 set mailcap_path=~/.mailcap
 set pager_stop=yes
+set sidebar_visible=yes
 
 alternative_order text/plain text/html
 auto_view text/html
@@ -18,11 +19,11 @@ set new_mail_command="notify-send --icon='/usr/share/icons/Papirus/64x64/apps/ma
 'New Email in %f' '%n new messages, %u unread.' &"
 
 ## ACCOUNT2
-# source "~/.config/neomutt/account.com.outlook.d"
+source "~/.config/neomutt/account.com.outlook.d"
 folder-hook imaps://imap-mail.outlook.com:993 'source ~/.config/neomutt/account.com.outlook.d'
 
 ## ACCOUNT1
-source "~/.config/neomutt/account.com.gmail.p"
+# source "~/.config/neomutt/account.com.gmail.p"
 # Here we use the $folder variable that has just been set in the sourced file.
 # We must set it right now otherwise the 'folder' variable will change in the next sourced file.
 folder-hook imaps://imap.gmail.com:993 'source ~/.config/neomutt/account.com.gmail.p'
@@ -30,6 +31,7 @@ folder-hook imaps://imap.gmail.com:993 'source ~/.config/neomutt/account.com.gma
 # Shortcuts
 macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/account.com.gmail.p<enter><change-folder>!<enter>'
 macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/account.com.outlook.d<enter><change-folder>!<enter>'
+macro attach,index,pager <f10> '<enter-command>source ~/.config/neomutt/gruvbox-light.muttrc<enter>'
 
 macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 | vimb -<enter>"
 
@@ -44,5 +46,6 @@ bind pager g top
 bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
+bind index,pager 'B' sidebar-toggle-visible
 
 source ~/.config/neomutt/gruvbox.muttrc
