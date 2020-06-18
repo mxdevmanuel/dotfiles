@@ -14,6 +14,5 @@ set from= $imap_user
 set hostname = "outlook.com"
 set folder = imaps://outlook.office365.com:993
 set spoolfile = +INBOX
-#named-mailboxes = "Outlook" +INBOX "Work" +Luzoft 
 mailboxes = +INBOX +Luzoft
-set postponed="+[hotmail]/Drafts"
+set postponed="+Drafts"

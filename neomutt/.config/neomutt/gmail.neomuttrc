@@ -14,7 +14,6 @@ set from = $my_guser
 set hostname="gmail.com"
 set folder      = imaps://imap.gmail.com:993
 set spoolfile   = +INBOX
-#named-mailboxes = "Gmail" +INBOX 
 mailboxes = +INBOX
 set postponed = +[Gmail]/Drafts
 
