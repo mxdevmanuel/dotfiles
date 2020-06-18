@@ -16,6 +16,8 @@ set sleep_time=0
 set sort=reverse-date
 set mailcap_path=~/.mailcap
 set pager_stop=yes
+set fast_reply = yes
+set include = no
 
 set sidebar_visible=yes
 set sidebar_new_mail_only=no
