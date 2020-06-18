@@ -48,6 +48,8 @@ alias lla='exa -la'
 alias llt='exa -T'
 alias llfu='exa -bghHliS --git'
 
+alias tig='vim -c GV'
+
 # Config variables
 export DEFAULT_USER="manuel"
 export VIRTUAL_ENV_DISABLE_PROMPT="Y"
