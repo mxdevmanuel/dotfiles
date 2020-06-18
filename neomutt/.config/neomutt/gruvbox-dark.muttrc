@@ -8,7 +8,7 @@
 # 
 # gray   = 245
 # 
-# fg0    = 230
+# fg0    = 223
 # fg1    = 223
 # fg2    = 250
 # fg3    = 248
@@ -26,7 +26,7 @@
 # See http://www.mutt.org/doc/manual/#color
 
 color attachment  color109 color235
-color bold        color230 color235
+color bold        color223 color235
 color error       color167 color235
 color hdrdefault  color246 color235
 color indicator   color223 color237
@@ -67,7 +67,7 @@ color body color142 color235 "[a-z]{3,256}://[-a-zA-Z0-9@:%._\\+~#=/?&,]+"
 color body color208 color235 "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
 color body color208 color235 "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
 color body color235 color214 "[;:]-*[)>(<lt;|]"
-color body color230 color235 "\\*[- A-Za-z]+\\*"
+color body color223 color235 "\\*[- A-Za-z]+\\*"
 
 color body color214 color235 "^-.*PGP.*-*"
 color body color142 color235 "^gpg: Good signature from"

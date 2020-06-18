@@ -49,6 +49,7 @@ folder-hook imaps://imap-mail.outlook.com:993 'source ~/.config/neomutt/outlook.
 macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/gmail.neomuttrc<enter><change-folder>!<enter>'
 macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/outlook.neomuttrc<enter><change-folder>!<enter>'
 macro attach,index,pager <f10> '<enter-command>source ~/.config/neomutt/gruvbox-light.muttrc<enter>'
+macro attach,index,pager <f9> '<enter-command>source ~/.config/neomutt/gruvbox-dark.muttrc<enter>'
 
 macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 | vimb -<enter>"
 
@@ -65,4 +66,4 @@ bind attach,index g first-entry
 bind attach,index G last-entry
 bind index,pager 'B' sidebar-toggle-visible
 
-source ~/.config/neomutt/gruvbox.muttrc
+source ~/.config/neomutt/gruvbox-dark.muttrc
