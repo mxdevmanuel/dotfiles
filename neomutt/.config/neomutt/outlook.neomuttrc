@@ -1,0 +1,19 @@
+# vi: ft=neomuttrc
+
+# Outlook specific
+set ssl_starttls=yes
+set ssl_force_tls=yes
+# Credentials
+set imap_user = $my_ouser
+set imap_pass = $my_opass
+set smtp_url = "smtp://$imap_user@smtp.office365.com:587"
+set smtp_pass = $imap_pass
+set from= $imap_user
+
+# Mail settings
+set hostname = "outlook.com"
+set folder = imaps://outlook.office365.com:993
+set spoolfile = +INBOX
+#named-mailboxes = "Outlook" +INBOX "Work" +Luzoft 
+mailboxes = +INBOX +Luzoft
+set postponed="+[hotmail]/Drafts"

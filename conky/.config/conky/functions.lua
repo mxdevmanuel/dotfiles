@@ -11,3 +11,14 @@ function conky_variable_processors()
                 return first_second_core
         end
 end
+
+function conky_is_wireless()
+        wirless_info = "\n${color}${font}直 ${wireless_essid ${gw_iface}} ${wireless_link_bar 12,100 ${gw_iface}} ${wireless_link_qual_perc ${gw_iface}}%"
+        menv = os.getenv('MACHINE_ENV')
+        if menv == 'laptop' then
+                return wirless_info
+        else
+                return ""
+        end
+end
+

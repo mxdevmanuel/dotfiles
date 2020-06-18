@@ -1,17 +1,29 @@
 ## General options
 set header_cache = "~/.cache/neomutt"
+set message_cachedir = "~/.cache/neomutt/"
+set certificate_file = "~/.cache/neomutt/"
+
 set imap_check_subscribed
 set imap_list_subscribed
 set imap_keepalive = 300
-unset imap_passive
 set mail_check = 60
+set move = no
+unset imap_passive
+unset record
+
 set mbox_type=Maildir
 set sleep_time=0
 set sort=reverse-date
 set mailcap_path=~/.mailcap
 set pager_stop=yes
+
 set sidebar_visible=yes
-set sidebar_new_mail_only=yes
+set sidebar_new_mail_only=no
+
+set realname='Manuel Morales'
+set signature="Manuel Morales"
+set use_from=yes
+source "gpg -dq $HOME/.creds.gpg |"
 
 alternative_order text/plain text/html
 auto_view text/html
@@ -19,19 +31,21 @@ auto_view text/html
 set new_mail_command="notify-send --icon='/usr/share/icons/Papirus/64x64/apps/mailspring.svg' \
 'New Email in %f' '%n new messages, %u unread.' &"
 
+
+folder-hook . 'unmailboxes *'
 ## ACCOUNT2
-source "~/.config/neomutt/account.com.gmail.p"
+# source "~/.config/neomutt/gmail.neomuttrc"
 # Here we use the $folder variable that has just been set in the sourced file.
 # We must set it right now otherwise the 'folder' variable will change in the next sourced file.
-folder-hook imaps://imap.gmail.com:993 'source ~/.config/neomutt/account.com.gmail.p'
+folder-hook imaps://imap.gmail.com:993 'source ~/.config/neomutt/gmail.neomuttrc'
 
 ## ACCOUNT1
-source "~/.config/neomutt/account.com.outlook.d"
-folder-hook imaps://imap-mail.outlook.com:993 'source ~/.config/neomutt/account.com.outlook.d'
+source "~/.config/neomutt/outlook.neomuttrc"
+folder-hook imaps://imap-mail.outlook.com:993 'source ~/.config/neomutt/outlook.neomuttrc'
 
 # Shortcuts
-macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/account.com.gmail.p<enter><change-folder>!<enter>'
-macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/account.com.outlook.d<enter><change-folder>!<enter>'
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/gmail.neomuttrc<enter><change-folder>!<enter>'
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/outlook.neomuttrc<enter><change-folder>!<enter>'
 macro attach,index,pager <f10> '<enter-command>source ~/.config/neomutt/gruvbox-light.muttrc<enter>'
 
 macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 | vimb -<enter>"
