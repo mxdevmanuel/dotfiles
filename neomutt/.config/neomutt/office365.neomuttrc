@@ -1,0 +1,18 @@
+# vi: ft=neomuttrc
+
+# Office365 specific
+set ssl_starttls=yes
+set ssl_force_tls=yes
+set smtp_authenticators = "login"
+# Credentials
+set imap_user = $my_xuser
+set imap_pass = $my_xpass
+set smtp_url = "smtp://$imap_user@outlook.office365.com:587/"
+set smtp_pass = $imap_pass
+set from= $imap_user
+
+# Mail settings
+set folder = imaps://outlook.office365.com
+set spoolfile = =INBOX
+# mailboxes = +INBOX
+set postponed="+Drafts"

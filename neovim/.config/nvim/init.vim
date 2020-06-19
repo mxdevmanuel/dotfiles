@@ -78,7 +78,7 @@ map <C-k><C-o> :NERDTreeFind<CR>
 map <bs> <Plug>(easymotion-prefix)
 
 imap <C-space> <Plug>(coc-snippets-expand-jump)
-nnoremap <Leader>gd <Plug>(coc-definition)
+nmap <silent> <Leader>gd <Plug>(coc-definition)
 
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 noremap <Leader>E :tabe <C-R>=expand("%:p:h") . "/" <CR>

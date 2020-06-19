@@ -31,23 +31,30 @@ alternative_order text/plain text/html
 auto_view text/html
 
 set new_mail_command="notify-send --icon='/usr/share/icons/Papirus/64x64/apps/mailspring.svg' \
-'New Email in %f' '%n new messages, %u unread.' &"
+'New Email in %f at %h' '%n new messages, %u unread.' &"
 
 
 folder-hook . 'unmailboxes *'
+
+## ACCOUNT1
+# source "~/.config/neomutt/office365.neomuttrc"
+# folder-hook imaps://outlook.office365.com 'source ~/.config/neomutt/office365.neomuttrc'
+
 ## ACCOUNT2
 # source "~/.config/neomutt/gmail.neomuttrc"
 # Here we use the $folder variable that has just been set in the sourced file.
 # We must set it right now otherwise the 'folder' variable will change in the next sourced file.
-folder-hook imaps://imap.gmail.com:993 'source ~/.config/neomutt/gmail.neomuttrc'
+# folder-hook imaps://imap.gmail.com:993 'source ~/.config/neomutt/gmail.neomuttrc'
 
 ## ACCOUNT1
 source "~/.config/neomutt/outlook.neomuttrc"
-folder-hook imaps://imap-mail.outlook.com:993 'source ~/.config/neomutt/outlook.neomuttrc'
+# folder-hook imaps://imap-mail.outlook.com:993 'source ~/.config/neomutt/outlook.neomuttrc'
+
 
 # Shortcuts
 macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/gmail.neomuttrc<enter><change-folder>!<enter>'
 macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/outlook.neomuttrc<enter><change-folder>!<enter>'
+macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.config/neomutt/office365.neomuttrc<enter><change-folder>!<enter>'
 macro attach,index,pager <f10> '<enter-command>source ~/.config/neomutt/gruvbox-light.muttrc<enter>'
 macro attach,index,pager <f9> '<enter-command>source ~/.config/neomutt/gruvbox-dark.muttrc<enter>'
 

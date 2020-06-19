@@ -1,3 +1,4 @@
 {
-        "tsserver.npm": "/usr/bin/npm"
+        "tsserver.npm": "/usr/bin/npm",
+        "python.jediEnabled": false
 }
