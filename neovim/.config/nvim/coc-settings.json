@@ -1,4 +1,5 @@
 {
         "tsserver.npm": "/usr/bin/npm",
-        "python.jediEnabled": false
+        "python.jediEnabled": false,
+        "python.formating.enabled": true
 }

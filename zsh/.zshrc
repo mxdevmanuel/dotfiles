@@ -1,5 +1,5 @@
 # ZSH and Oh-my-zsh config
- # zmodload zsh/zprof #enable zsh profiling
+# zmodload zsh/zprof #enable zsh profiling
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/manuel/.oh-my-zsh"
@@ -19,7 +19,7 @@ ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
 ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
 
 plugins=(
-  git ssh-agent vi-mode zsh-syntax-highlighting tmux docker z
+        git ssh-agent vi-mode zsh-syntax-highlighting tmux docker z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -56,22 +56,22 @@ export VIRTUAL_ENV_DISABLE_PROMPT="Y"
 
 # Functions
 function CD(){
-	cd $@
+        cd $@
 }
 
 function load-nvm() {
-	# if nvm command is present nvm is ready no need to load
-	if [[ $(command -v nvm) == "nvm" ]]; then
-		#echo "nvm is ready"
-	else
-		# unalias nvm if alias exists
-		[ `alias | grep nvm | wc -l` != 0 ] && unalias nvm
+        # if nvm command is present nvm is ready no need to load
+        if [[ $(command -v nvm) == "nvm" ]]; then
+                #echo "nvm is ready"
+        else
+                # unalias nvm if alias exists
+                [ `alias | grep nvm | wc -l` != 0 ] && unalias nvm
 
-		echo "loading nvm..."
-		export NVM_DIR="$HOME/.nvm"
-		[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-	fi
+                echo "loading nvm..."
+                export NVM_DIR="$HOME/.nvm"
+                [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+                [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+        fi
 }
 
 function autoload-nvm(){
@@ -81,12 +81,32 @@ function autoload-nvm(){
 }
 
 function diffancy(){
- git diff $@ --color | diff-so-fancy | less
+        git diff $@ --color | diff-so-fancy | less
 }
 
 function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
 
 function unexa() { unalias ls }
+
+function venv-select(){
+        RED='\033[0;31m'
+        NC='\033[0m' # No Color
+
+        envs=$(find ~/Envs -maxdepth 1 -mindepth 1 -type d)
+        selected=$(echo $envs | awk '{n=split($0,a,"/"); print a[n]}' | fzf)
+
+        if [[ $? != 130 ]]
+        then
+                if [[ ! -z "$VIRTUAL_ENV" ]] 
+                then
+                        echo -e "${RED}unsetting $VIRTUAL_ENV${NC}" 
+                        deactivate 
+                fi
+                complete=$(echo $envs | grep $selected)
+                echo "sourcing $complete"
+                source $complete/bin/activate
+        fi
+}
 
 # Init 
 [ ! -f /tmp/firstrun ] && clear && neofetch && touch /tmp/firstrun
@@ -94,13 +114,13 @@ function unexa() { unalias ls }
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [[ $TERM == xterm-termite ]]; then
-  . /etc/profile.d/vte.sh 
-  __vte_osc7
+        . /etc/profile.d/vte.sh 
+        __vte_osc7
 fi
 
 if [[ $TERM == rxvt ]];
 then
-	export TERM=rxvt-unicode
+        export TERM=rxvt-unicode
 fi
 
 add-zsh-hook chpwd autoload-nvm
