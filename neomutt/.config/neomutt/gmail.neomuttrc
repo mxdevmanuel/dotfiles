@@ -7,7 +7,7 @@
 set imap_user   = $my_guser
 set imap_pass   = $my_gpass
 set smtp_url = "smtp://$imap_user@smtp.gmail.com:587"
-set smtp_pass = $imap_gpass
+set smtp_pass = $imap_pass
 set from = $my_guser
 
 # Mail settings
