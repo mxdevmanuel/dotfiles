@@ -7,7 +7,7 @@ set imap_check_subscribed
 set imap_list_subscribed
 set imap_keepalive = 300
 set mail_check = 60
-set move = no
+set move = yes
 unset imap_passive
 unset record
 
@@ -34,21 +34,21 @@ set new_mail_command="notify-send --icon='/usr/share/icons/Papirus/64x64/apps/ma
 'New Email in %f at %h' '%n new messages, %u unread.' &"
 
 
-folder-hook . 'unmailboxes *'
+account-hook . 'unmailboxes *'
 
 ## ACCOUNT1
 # source "~/.config/neomutt/office365.neomuttrc"
-# folder-hook imaps://outlook.office365.com 'source ~/.config/neomutt/office365.neomuttrc'
+folder-hook 'office365.neomuttrc' 'source ~/.config/neomutt/office365.neomuttrc'
 
 ## ACCOUNT2
 # source "~/.config/neomutt/gmail.neomuttrc"
-# Here we use the $folder variable that has just been set in the sourced file.
-# We must set it right now otherwise the 'folder' variable will change in the next sourced file.
-# folder-hook imaps://imap.gmail.com:993 'source ~/.config/neomutt/gmail.neomuttrc'
+# Here we use the $account variable that has just been set in the sourced file.
+# We must set it right now otherwise the 'account' variable will change in the next sourced file.
+folder-hook 'gmail.neomuttrc' 'source ~/.config/neomutt/gmail.neomuttrc'
 
 ## ACCOUNT1
-source "~/.config/neomutt/outlook.neomuttrc"
-# folder-hook imaps://imap-mail.outlook.com:993 'source ~/.config/neomutt/outlook.neomuttrc'
+# source "~/.config/neomutt/outlook.neomuttrc"
+folder-hook 'outlook.neomuttrc' 'source ~/.config/neomutt/outlook.neomuttrc'
 
 
 # Shortcuts

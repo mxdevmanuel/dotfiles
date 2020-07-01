@@ -6,7 +6,7 @@ set ssl_force_tls=yes
 # Credentials
 set imap_user = $my_xuser
 set imap_pass = $my_xpass
-set smtp_url = "smtp://$imap_user@outlook.office365.com:587/"
+set smtp_url = "smtp://$imap_user@outlook.office365.com:587"
 set smtp_pass = $imap_pass
 set from= $imap_user
 

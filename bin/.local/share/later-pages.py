@@ -37,6 +37,11 @@ def generate(url):
     return entry
 
 
+def expire(entry):
+    expireTime = datetime.strptime(entry["expire"], "%Y-%m-%d")
+    return expireTime < datetime.now()
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("operation", choices=["add", "get", "list", "remove"])
@@ -45,7 +50,7 @@ def main():
 
     args = parser.parse_args()
 
-    if args.operation not in ["list"] and not (args.url or args.id):
+    if args.operation not in ["list", "expire"] and not (args.url or args.id):
         print("No url or id provided", file=sys.stderr)
         sys.exit(1)
 
@@ -80,6 +85,9 @@ def main():
         else:
             print("Something is not working on initial check", file=sys.stderr)
         data = [x for x in data]
+
+    if args.operation == "expire":
+        data = [x for x in filter(expire, data)]
 
     save_file(data)
 

@@ -172,7 +172,7 @@ bindsym $mod+s layout stacking
 bindsym $mod+d exec rofi -show drun 
 bindsym $mod+Shift+d exec stask.sh delete
 bindsym $mod+f fullscreen toggle 
-bindsym $mod+Shift+f exec thunar
+bindsym $mod+Shift+f workspace $ws5; exec thunar
 bindsym $mod+semicolon exec wmfocus
 bindsym $mod+apostrophe [urgent=latest] focus
 bindsym $mod+Return exec kitty # start a terminal
@@ -226,13 +226,16 @@ bindsym XF86AudioPrev exec playerctl previous
 
 assign [class="^Chromium" instance="^chromium"] → $ws2
 assign [class="^Google-chrome" instance="^google-chrome"] → $ws2
-assign [class="^Thunar$" instance="^thunar$"] → $ws5
-assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
 assign [class="^nvim-qt$" instance="^nvim-qt$"] → $ws3
-assign [floating] border pixel 0
+assign [instance="mailspring" class="Mailspring"] → $ws3
+assign [instance="slack" class="Slack"] → $ws3
+assign [instance="clickup desktop" class="ClickUp Desktop"] → $ws3
+assign [class="^Thunar$" instance="^thunar$"] → $ws5
+assign [title="vifm"] → $ws5 
+assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
 assign [instance="^libreoffice$"] → $ws8
 assign [instance="insomnia" class="Insomnia"] → $ws10
-assign [title="vifm"] → $ws5 
+assign [floating] border pixel 0
 
 for_window [class="Gpick"] floating enable
 for_window [class="^.*"] border pixel 2
