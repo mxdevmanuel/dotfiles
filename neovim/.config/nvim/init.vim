@@ -319,7 +319,7 @@ endfunction
 
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.tsx exec "%s/class=/className=/eg"
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 autocmd BufWritePre *.rs RustFmt
 autocmd BufWritePre *.tf TerraformFmt
 

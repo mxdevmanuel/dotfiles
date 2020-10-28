@@ -1,7 +1,7 @@
 # vi: foldmethod=marker foldlevel=0
 
 #Settings {{{
-set $mod Mod1
+set $mod Mod4
 
 # title font
 font pango: monospace 8
@@ -54,6 +54,7 @@ exec --no-startup-id "safeeyes &"
 exec --no-startup-id "udiskie -t &"
 
 # misc
+exec --no-startup-id "picom &"
 exec --no-startup-id xss-lock -- lock.sh
 exec --no-startup-id unclutter --fork --exclude-root --jitter 20 --ignore-scrolling --timeout 5
 # }}}
@@ -128,14 +129,15 @@ bindsym $mod+minus exec --no-startup-id pkill -USR1 pomodoro.sh
 bindsym $mod+plus exec $HOME/.config/rofi/rofi-fb.sh $HOME
 bindsym $mod+grave exec rofi -show window
 
-bindsym Mod4+F1 exec --no-startup-id foot-controller.sh
-bindsym Mod4+Shift+F1 exec --no-startup-id notify-send "con shift"
-bindsym $mod+Mod4+F1 exec --no-startup-id notify-send "con alt"
+# bindsym Mod4+F1 exec --no-startup-id foot-controller.sh
+# bindsym Mod4+Shift+F1 exec --no-startup-id notify-send "con shift"
+# bindsym $mod+Mod4+F1 exec --no-startup-id notify-send "con alt"
 bindsym $mod+F2 exec rofi -show run
 bindsym $mod+F3 exec $HOME/.config/i3/workspace_auto_bf.sh
 bindsym $mod+F4 exec $HOME/.local/bin/check_hdmi.sh
 # bindsym $mod+F5  AVAILABLE
 bindsym $mod+F6 exec $HOME/.local/bin/wallpaper_selector.sh
+bindsym $mod+F9 sticky toggle
 bindsym $mod+F10 exec $HOME/.local/bin/bluetooth-connect.sh
 
 bindsym $mod+Shift+F2 exec dmenu_run 
@@ -235,11 +237,13 @@ assign [title="vifm"] → $ws5
 assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
 assign [instance="^libreoffice$"] → $ws8
 assign [instance="insomnia" class="Insomnia"] → $ws10
+assign [instance="mockoon" class="Mockoon"] → $ws10
 assign [floating] border pixel 0
 
 for_window [class="Gpick"] floating enable
 for_window [class="^.*"] border pixel 2
 for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable
+for_window [class="^QjackCtl$" instance="^qjackctl$"] floating enable
 for_window [class="^Yad$" instance="^yad$"] floating enable
 for_window [class="copyq" window_type="normal"] floating enable
 for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0

@@ -41,7 +41,7 @@ account-hook . 'unmailboxes *'
 folder-hook 'office365.neomuttrc' 'source ~/.config/neomutt/office365.neomuttrc'
 
 ## ACCOUNT2
-# source "~/.config/neomutt/gmail.neomuttrc"
+source "~/.config/neomutt/gmail.neomuttrc"
 # Here we use the $account variable that has just been set in the sourced file.
 # We must set it right now otherwise the 'account' variable will change in the next sourced file.
 folder-hook 'gmail.neomuttrc' 'source ~/.config/neomutt/gmail.neomuttrc'
