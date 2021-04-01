@@ -37,27 +37,23 @@ Plug 'mattn/emmet-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
 Plug 'Yggdroot/indentLine'
-Plug 'freitass/todo.txt-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'kkoomen/vim-doge'
 Plug 'justinmk/vim-sneak'
-
-" Thinking of throwing away
-Plug 'honza/vim-snippets' " along with coc-snippets
+Plug 'mhinz/vim-startify'
+Plug 'voldikss/vim-skylight'
+Plug 'vim-syntastic/syntastic'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'crusoexia/vim-monokai'
+Plug 'sainnhe/gruvbox-material'
 Plug 'rakr/vim-one'
-
 
 " VCS
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
-Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle' ,'NERDTreeFind']}
 
 " Syntax
 Plug 'sheerun/vim-polyglot'
@@ -75,9 +71,7 @@ let mapleader = " "
 
 map <C-k><C-b> :NERDTreeToggle<CR>
 map <C-k><C-o> :NERDTreeFind<CR>
-map <bs> <Plug>(easymotion-prefix)
 
-imap <C-space> <Plug>(coc-snippets-expand-jump)
 nmap <silent> <Leader>gd <Plug>(coc-definition)
 
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -217,7 +211,7 @@ endif
 
 
 let hr = (strftime('%H'))
-if hr >= 19
+if hr >= 18
         set background=dark
 elseif hr >= 9
         set background=light
@@ -231,13 +225,6 @@ endif
 
 let g:gruvbox_italic=1
 colorscheme gruvbox
-
-if !empty($MONOKAI)
-        let g:monokai_term_italic = 1
-        let g:monokai_gui_italic = 1
-        colorscheme monokai
-        set background=dark
-endif
 
 if !empty($ONE)
         let g:one_allow_italics = 1
@@ -306,8 +293,11 @@ autocmd FileType json,markdown let g:indentLine_enabled=0
 autocmd FileType typescript set makeprg=make
 " autocmd FileType typescript,javascript,yaml,css,html,graphql set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 autocmd FileType typescript,javascript,javascriptreact,typescriptreact,dart,python nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
+autocmd FileType typescript,javascript,javascriptreact,typescriptreact,dart,python nnoremap <buffer> <silent> <leader>p :SkylightPreview<CR>
 autocmd FileType c,cpp set formatprg=clang-format
 autocmd FileType go set formatprg=gofmt
+autocmd FileType python setlocal formatprg=autopep8\ -
+autocmd BufRead,BufNewFile .envrc set filetype=sh
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -319,9 +309,13 @@ endfunction
 
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.tsx exec "%s/class=/className=/eg"
-" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 autocmd BufWritePre *.rs RustFmt
+" autocmd BufWritePre *.dart !flutter format %
 autocmd BufWritePre *.tf TerraformFmt
+
+if exists('$AUTOFORMAT')
+  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+endif
 
 let javaScript_fold=1
 let g:netrw_banner=0
@@ -409,4 +403,13 @@ let g:mkdp_auto_start = !empty($NOTES)
 let g:mkdp_browser = 'vimb'
 let g:mkdp_refresh_slow = 1
 let g:sneak#label = 1
+let $NOTMUX=1
 
+let g:startify_bookmarks = ['~/Code/Client/client-backend', '~/Code/Client', '~/Code/Luzoft', '~/Code', '~/.dotfiles']
+let g:startify_change_to_vcs_root = 1
+let g:startify_custom_header = startify#fortune#boxed()
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0

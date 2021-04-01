@@ -1,6 +1,6 @@
 {
         "tsserver.npm": "/usr/bin/npm",
-        "python.jediEnabled": false,
+        "python.jediEnabled": true,
         "python.formating.enabled": true,
         "python.venvPath": "~/Envs"
 }

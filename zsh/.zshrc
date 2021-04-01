@@ -118,6 +118,11 @@ if [[ $TERM == xterm-termite ]]; then
         __vte_osc7
 fi
 
+if [[ ! -z "$VENV" ]]
+then
+        source $VENV/bin/activate
+fi
+
 if [[ $TERM == rxvt ]];
 then
         export TERM=rxvt-unicode
