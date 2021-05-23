@@ -3,64 +3,74 @@
 " Setup {{{
 filetype indent plugin on
 
-" Install vim plug if not insalled
-let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+lua << EOF
 
-if !filereadable(vimplug_exists)
-  if !executable("curl")
-    echoerr "You have to install curl or first install vim-plug yourself!"
-    execute "q!"
-  endif
-  echo "Installing Vim-Plug..."
-  echo ""
-  silent exec "!\curl -fLo " . vimplug_exists . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-  let g:not_finish_vimplug = "yes"
+local execute = vim.api.nvim_command
+local fn = vim.fn
 
-  autocmd VimEnter * PlugInstall
-endif
-" }}}
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
-" Plugins {{{
-call plug#begin(expand('~/.config/nvim/plugged'))
+if fn.empty(fn.glob(install_path)) > 0 then
+  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+  execute 'packadd packer.nvim'
+end
 
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-peekaboo'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-eunuch'
-Plug 'mattn/emmet-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'editorconfig/editorconfig-vim'
-Plug 'Yggdroot/indentLine'
-Plug 'jiangmiao/auto-pairs'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-Plug 'kkoomen/vim-doge'
-Plug 'justinmk/vim-sneak'
-Plug 'mhinz/vim-startify'
-Plug 'voldikss/vim-skylight'
-Plug 'vim-syntastic/syntastic'
+return require('packer').startup(function()
+  -- Packer can manage itself
+  use 'wbthomason/packer.nvim'
 
-" Colorschemes
-Plug 'morhetz/gruvbox'
-Plug 'sainnhe/gruvbox-material'
-Plug 'rakr/vim-one'
+  use 'nvim-lua/popup.nvim'
+  use 'nvim-lua/plenary.nvim'
+  use 'nvim-telescope/telescope.nvim'
 
-" VCS
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
-Plug 'airblade/vim-gitgutter'
+  use 'junegunn/fzf'
+  use 'junegunn/fzf.vim'
+  use 'junegunn/vim-peekaboo'
+  use 'tpope/vim-commentary'
+  use 'tpope/vim-surround'
+  use 'tpope/vim-repeat'
+  use 'tpope/vim-eunuch'
+  use 'mattn/emmet-vim'
+  use 'editorconfig/editorconfig-vim'
+  use 'Yggdroot/indentLine'
+  use 'jiangmiao/auto-pairs'
+  use 'justinmk/vim-sneak'
+  use 'mhinz/vim-startify'
+  use 'voldikss/vim-skylight'
 
-" Syntax
-Plug 'sheerun/vim-polyglot'
-Plug 'norcalli/nvim-colorizer.lua'
+  -- Snippets
+  use 'hrsh7th/vim-vsnip' 
+  use 'hrsh7th/vim-vsnip-integ'
+  use 'cstrap/python-snippets' 
+  use 'ylcnfrht/vscode-python-snippet-pack' 
+  use 'xabikos/vscode-javascript' 
+  use 'Nash0x7E2/awesome-flutter-snippets'
 
-call plug#end()
+  -- Documentation generator
+  use 'kkoomen/vim-doge'
 
+  -- LSP
+  use 'neovim/nvim-lspconfig'
+  use 'nvim-lua/completion-nvim'
+  use 'kabouzeid/nvim-lspinstall'
+
+  -- Colorschemes
+  use 'morhetz/gruvbox'
+  use 'tanvirtin/monokai.nvim'
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+
+  -- VCS
+  use 'tpope/vim-fugitive'
+  use 'junegunn/gv.vim'
+  use 'airblade/vim-gitgutter'
+
+  -- Syntax
+  use 'sheerun/vim-polyglot'
+  use 'norcalli/nvim-colorizer.lua'
+
+  use 'kyazdani42/nvim-web-devicons'
+end)
+EOF
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
@@ -68,11 +78,6 @@ endif
 
 " Maps {{{ 
 let mapleader = " "
-
-map <C-k><C-b> :NERDTreeToggle<CR>
-map <C-k><C-o> :NERDTreeFind<CR>
-
-nmap <silent> <Leader>gd <Plug>(coc-definition)
 
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 noremap <Leader>E :tabe <C-R>=expand("%:p:h") . "/" <CR>
@@ -84,18 +89,18 @@ tnoremap <C-w>n <C-\><C-n>
 
 nnoremap <localleader>f :GFiles --others --exclude-standard<CR>
 nnoremap <localleader>F :Files<CR>
-nnoremap <Leader>f :GFiles<CR>
+nnoremap <Leader>f <cmd>Telescope git_files<CR>
 nnoremap <Leader>F :GFiles?<CR>
-nnoremap <Leader>t :Tags<CR>
+nnoremap <Leader>t <cmd>Telescope tags<CR>
 nnoremap <Leader>T :BTags<CR>
 nnoremap <Leader>l :BLines<CR>
 nnoremap <Leader>L :Lines<CR>
-nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>b <cmd>Telescope buffers<CR>
 nnoremap <Leader>w :Windows<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>/ :Rg<space>
-nnoremap <Leader>* :Rg<space><C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>? :Help<CR>
+nnoremap <Leader>* <cmd>Telescope grep_string<CR>
+nnoremap <Leader>? <cmd>Telescope help_tags<CR>
 
 nnoremap <silent><localleader>c :set cursorcolumn!<CR>
 nnoremap <Leader>rr :set rnu!<CR>
@@ -109,7 +114,7 @@ noremap <leader>n :bn<CR>
 nnoremap [l :cprev<CR>
 nnoremap ]l :cnext<CR>
 
-nnoremap gQ gggqG<C-o><C-o>
+nnoremap gQ mmgggqG'm
 
 " Vim config 
 nnoremap <F5> :e $MYVIMRC<CR>
@@ -171,8 +176,10 @@ set lazyredraw
 set ruler
 set guifont=SF\ Mono:h12
 set shortmess-=I
-set completeopt+=menuone
-set statusline=%#GruvboxGreenSign#%<%{FugitiveStatusline()}%#StatusLine#\ %f\ %h%m%r%=%y\ %-14.(%l,%c%V%)\ %P
+set shortmess+=c
+set completeopt+=menuone,noinsert,noselect
+set completeopt-=preview
+set statusline=%#DiffAdd#%<%{FugitiveStatusline()}%#StatusLine#\ %f\ %h%m%r%=%y\ %-14.(%l,%c%V%)\ %P
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading\ --hidden\ --glob='!.git/'
@@ -224,7 +231,12 @@ if !empty($FORCE_DARK)
 endif
 
 let g:gruvbox_italic=1
-colorscheme gruvbox
+
+if &background == 'dark'
+  colorscheme monokai
+else
+  colorscheme gruvbox
+endif
 
 if !empty($ONE)
         let g:one_allow_italics = 1
@@ -290,31 +302,20 @@ autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
 autocmd FileType json,markdown let g:indentLine_enabled=0
-autocmd FileType typescript set makeprg=make
-" autocmd FileType typescript,javascript,yaml,css,html,graphql set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
-autocmd FileType typescript,javascript,javascriptreact,typescriptreact,dart,python nnoremap <buffer> <silent> K :call <SID>show_documentation()<CR>
-autocmd FileType typescript,javascript,javascriptreact,typescriptreact,dart,python nnoremap <buffer> <silent> <leader>p :SkylightPreview<CR>
+autocmd FileType typescript,javascript,javascriptreact,typescriptreact,dart,python nnoremap <buffer> <silent> <leader>p :Skylight<CR>
 autocmd FileType c,cpp set formatprg=clang-format
 autocmd FileType go set formatprg=gofmt
 autocmd FileType python setlocal formatprg=autopep8\ -
 autocmd BufRead,BufNewFile .envrc set filetype=sh
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
 
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.tsx exec "%s/class=/className=/eg"
 autocmd BufWritePre *.rs RustFmt
-" autocmd BufWritePre *.dart !flutter format %
 autocmd BufWritePre *.tf TerraformFmt
 
 if exists('$AUTOFORMAT')
-  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+  " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 endif
 
 let javaScript_fold=1
@@ -398,18 +399,90 @@ function! ShowBufferInfo()
         echo join([ &fileformat, &fileencoding, &filetype], " ")
 endfunction
 
-" Markdown preview
-let g:mkdp_auto_start = !empty($NOTES)
-let g:mkdp_browser = 'vimb'
-let g:mkdp_refresh_slow = 1
 let g:sneak#label = 1
+
 let $NOTMUX=1
 
 let g:startify_bookmarks = ['~/Code/Client/client-backend', '~/Code/Client', '~/Code/Luzoft', '~/Code', '~/.dotfiles']
 let g:startify_change_to_vcs_root = 1
 let g:startify_custom_header = startify#fortune#boxed()
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_matching_smart_case = 1
+
+let g:completion_enable_snippet = 'vim-vsnip'
+
+lua << EOF
+--require('lualine').setup{options = {theme = 'gruvbox'} }
+require'lspinstall'.setup()
+local nvim_lsp = require('lspconfig')
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  require'completion'.on_attach()
+
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=false }
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<space>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<space>gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<space>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  end
+  if client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap("v", "<space>gq", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+  end
+
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    vim.api.nvim_exec([[
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]], false)
+  end
+end
+
+-- Use a loop to conveniently both setup defined servers 
+-- and map buffer local keybindings when the language server attaches
+ local servers = { "dartls" }
+ for _, lsp in ipairs(servers) do
+   nvim_lsp[lsp].setup { on_attach = on_attach }
+ end
+local servers = require'lspinstall'.installed_servers()
+for _, server in pairs(servers) do
+  require'lspconfig'[server].setup{ on_attach = on_attach }
+end
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    -- disable = { "c", "rust" },  -- list of language that will be disabled
+  },
+}
+EOF

@@ -113,11 +113,6 @@ function venv-select(){
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [[ $TERM == xterm-termite ]]; then
-        . /etc/profile.d/vte.sh 
-        __vte_osc7
-fi
-
 if [[ ! -z "$VENV" ]]
 then
         source $VENV/bin/activate

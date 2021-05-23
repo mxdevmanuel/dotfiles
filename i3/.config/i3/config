@@ -185,7 +185,8 @@ bindsym $mod+z exec --no-startup-id $HOME/.local/bin/tmux-session-selector.sh
 bindsym $mod+x split toggle 
 bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort
 bindsym $mod+Shift+c reload 
-bindsym $mod+v exec --no-startup-id $HOME/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
+# bindsym $mod+v exec --no-startup-id $HOME/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
+bindsym $mod+v exec --no-startup-id pavucontrol
 #bindsym $mod+m  AVAILABLE
 #bindsym $mod+Shift+m AVAILABLE
 bindsym $mod+less exec unipicker --command "rofi -dmenu" --copy
