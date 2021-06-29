@@ -130,7 +130,7 @@ while sleep 1;do
                                 # Beep computer speaker
                                 echo -ne '\007'
                                 # Play wav sound
-                                cvlc ~/.local/share/sounds/bell.mp3 --play-and-exit > /dev/null 2>&1
+                                # cvlc ~/.local/share/sounds/bell.mp3 --play-and-exit > /dev/null 2>&1
                         fi
 
                         IDLE=$(xprintidle)

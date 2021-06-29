@@ -1,4 +1,4 @@
-" vi: foldmethod=marker
+" vi: foldmethod=marker ft=vim
 
 " Setup {{{
 filetype indent plugin on
@@ -51,11 +51,14 @@ return require('packer').startup(function()
 
   -- LSP
   use 'neovim/nvim-lspconfig'
-  use 'nvim-lua/completion-nvim'
+  use 'hrsh7th/nvim-compe'
+  use {'tzachar/compe-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-compe'}
   use 'kabouzeid/nvim-lspinstall'
 
   -- Colorschemes
-  use 'morhetz/gruvbox'
+  -- use 'morhetz/gruvbox'
+  use 'glepnir/zephyr-nvim'
+  use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
   use 'tanvirtin/monokai.nvim'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
@@ -69,6 +72,10 @@ return require('packer').startup(function()
   use 'norcalli/nvim-colorizer.lua'
 
   use 'kyazdani42/nvim-web-devicons'
+
+  -- Debugger
+ use 'mfussenegger/nvim-dap'
+ use 'Pocco81/DAPInstall.nvim' 
 end)
 EOF
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
@@ -122,6 +129,9 @@ nnoremap <S-F5> :source $MYVIMRC<CR>
 nnoremap <F8> :call ShowBufferInfo()<CR>
 nnoremap <silent> <Leader><F9> :DogeGenerate<CR>
 nnoremap <silent> <F10> :call SelectNpmScript()<CR>
+nnoremap <silent> <F11> <cmd>Test<CR>
+
+inoremap <silent><expr> <CR> compe#confirm('<CR>')
 
 cnoremap <C-l> <C-r>=expand("%:p:h") . "/" <CR>
 cnoreabbrev W! w!
@@ -134,6 +144,7 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
+cnoreabbrev wc WriteToClipboard
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
@@ -153,7 +164,6 @@ set hidden
 set signcolumn=yes
 set updatetime=300
 set backspace=indent,eol,start
-set display+=lastline
 set wildmenu
 set wildoptions-=pum
 set background=dark
@@ -177,9 +187,9 @@ set ruler
 set guifont=SF\ Mono:h12
 set shortmess-=I
 set shortmess+=c
-set completeopt+=menuone,noinsert,noselect
-set completeopt-=preview
-set statusline=%#DiffAdd#%<%{FugitiveStatusline()}%#StatusLine#\ %f\ %h%m%r%=%y\ %-14.(%l,%c%V%)\ %P
+set completeopt+=menuone,noselect
+" set completeopt-=preview
+set statusline=%#DiffText#%<%{FugitiveStatusline()}%#StatusLine#\ %f\ %h%m%r%=%y\ %-14.(%l,%c%V%)\ %P
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading\ --hidden\ --glob='!.git/'
@@ -256,8 +266,8 @@ highlight GitGutterChange ctermfg=3
 highlight GitGutterDelete ctermfg=1
 highlight GitGutterChangeDelete ctermfg=4
 
-highlight TabLineSel guibg=Olive guifg=White
-highlight Title guifg=#fbf1c7
+highlight TabLineSel cterm=bold ctermbg=9 guifg=#000000 guibg=#66d9ef
+highlight link Title SpecialKey
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
@@ -283,7 +293,15 @@ if has('langmap') && exists('+langremap')
 endif
 
 command! Sw execute 'silent w !sudo tee % >/dev/null' | edit!
+
+if exists('$TESTCOMMAND')
+  command! Test execute 'new | terminal ' . $TESTCOMMAND . ' ' . expand('%')
+end
+
 command! Bufonly %bd | e#
+command! IPython new | terminal ipython
+command! -nargs=0 WriteToClipboard execute 'silent w !xclip -selection clipboard -i > /dev/null' | w
+command! -nargs=0 RunPy call OpenTerm('python ' . expand('%'))
 
 " change cursor shape for different editing modes, neovim does this by default
 if !has('nvim')
@@ -403,14 +421,9 @@ let g:sneak#label = 1
 
 let $NOTMUX=1
 
-let g:startify_bookmarks = ['~/Code/Client/client-backend', '~/Code/Client', '~/Code/Luzoft', '~/Code', '~/.dotfiles']
+let g:startify_bookmarks = ['~/Code/Luzoft', '~/Code', '~/.dotfiles']
 let g:startify_change_to_vcs_root = 1
 let g:startify_custom_header = startify#fortune#boxed()
-
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-let g:completion_matching_smart_case = 1
-
-let g:completion_enable_snippet = 'vim-vsnip'
 
 lua << EOF
 --require('lualine').setup{options = {theme = 'gruvbox'} }
@@ -420,9 +433,34 @@ local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-  require'completion'.on_attach()
 
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = true;
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = true;
+    ultisnips = false;
+    tabnine = true;
+  };
+}
 
   -- Mappings.
   local opts = { noremap=true, silent=false }
@@ -430,7 +468,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<space>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<space>i', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '<space>gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -454,9 +492,9 @@ local on_attach = function(client, bufnr)
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_exec([[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      hi link LspReferenceRead DiffDelete
+      hi link LspReferenceText DiffDelete
+      hi link LspReferenceWrite DiffDelete
       augroup lsp_document_highlight
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
@@ -466,23 +504,48 @@ local on_attach = function(client, bufnr)
   end
 end
 
+local function make_config()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  return {
+    -- enable snippet support
+    capabilities = capabilities,
+    -- map buffer local keybindings when the language server attaches
+    on_attach = on_attach,
+  }
+end
+
 -- Use a loop to conveniently both setup defined servers 
 -- and map buffer local keybindings when the language server attaches
  local servers = { "dartls" }
  for _, lsp in ipairs(servers) do
    nvim_lsp[lsp].setup { on_attach = on_attach }
  end
+
 local servers = require'lspinstall'.installed_servers()
 for _, server in pairs(servers) do
-  require'lspconfig'[server].setup{ on_attach = on_attach }
+  local config = make_config()
+
+    -- language specific config
+    if server == "typescript-language-server" then
+      config.filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }; -- we don't want c and cpp!
+    end
+    if server == "clangd" then
+      config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
+    end
+
+    require'lspconfig'[server].setup(config)
 end
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
     enable = true,              -- false will disable the whole extension
     -- disable = { "c", "rust" },  -- list of language that will be disabled
   },
+incremental_selection = {
+  enable = true
+  }
 }
 EOF

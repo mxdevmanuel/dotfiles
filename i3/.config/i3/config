@@ -243,6 +243,7 @@ assign [instance="postman" class="Postman"] → $ws10
 assign [instance="mockoon" class="Mockoon"] → $ws10
 assign [floating] border pixel 0
 
+for_window [instance="matplotlib"] floating enable
 for_window [class="Gpick"] floating enable
 for_window [class="^.*"] border pixel 2
 for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable
