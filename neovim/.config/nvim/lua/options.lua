@@ -53,13 +53,13 @@ end
 if fn.has('mouse_sgr') ~= 0 then o.ttymouse = 'sgr' end
 
 if fn.isdirectory("/tmp/.vim-undo-dir") == 0 then
-    fn.mkdir("/tmp/.vim-undo-dir", "", 0700)
+    fn.mkdir("/tmp/.vim-undo-dir", "", 0755)
 end
 o.undodir = '/tmp/.vim-undo-dir'
 o.undofile = true
 
 if fn.isdirectory("/tmp/.vim-swap-dir") == 0 then
-    fn.mkdir("/tmp/.vim-swap-dir", "", 0700)
+    fn.mkdir("/tmp/.vim-swap-dir", "", 0755)
 end
 o.directory = '/tmp/.vim-swap-dir'
 

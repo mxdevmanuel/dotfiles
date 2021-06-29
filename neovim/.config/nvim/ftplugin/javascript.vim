@@ -1,3 +1,4 @@
+set shiftwidth=2
 if !executable('prettier')
 	finish
 end

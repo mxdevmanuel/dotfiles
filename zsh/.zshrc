@@ -84,6 +84,10 @@ function diffancy(){
         git diff $@ --color | diff-so-fancy | less
 }
 
+function flocate(){
+        locate -i $@ | fzf | xargs -I% vim %
+}
+
 function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
 
 function unexa() { unalias ls }
