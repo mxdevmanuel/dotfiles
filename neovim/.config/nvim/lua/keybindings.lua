@@ -11,7 +11,7 @@ g.mapleader = " "
 map('n', '<M-f>', '<cmd>Files<CR>', { noremap = true, silent = true })
 map('n', '<leader>[', '<cmd>cprev<CR>', { noremap = true })
 map('n', '<leader>]', '<cmd>cnext<CR>', { noremap = true })
-map('n', '<leader>/', ':RG<space>', { noremap = true })
+map('n', '<leader>/', ':Rg<space>', { noremap = true })
 map('n', '<leader>?', '<cmd>Helptags<CR>', { noremap = true, silent = true })
 map('n', '<leader>F', '<cmd>GFiles --others --exclude-standard<CR>', { noremap = true, silent = true })
 map('n', '<leader>L', '<cmd>Lines<CR>', { noremap = true, silent = true })
@@ -42,6 +42,10 @@ end
 map('i', '<CR>', 'compe#confirm("<CR>")', { silent = true, expr = true, noremap = true})
 
 map('t', '<C-W>n', '<C-\\><C-n>', { noremap = true })
+map('t', '<M-h>', '<C-\\><C-n><C-w>h', { noremap = true })
+map('t', '<M-j>', '<C-\\><C-n><C-w>j', { noremap = true })
+map('t', '<M-k>', '<C-\\><C-n><C-w>k', { noremap = true })
+map('t', '<M-l>', '<C-\\><C-n><C-w>l', { noremap = true })
 
 map('c', '<C-L>', '<C-R>=expand("%:p:h") . "/"<CR>', { noremap = true })
 

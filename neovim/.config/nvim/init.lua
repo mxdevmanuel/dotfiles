@@ -10,10 +10,6 @@ require('options')
 -- LSP
 require('lsp')
 
--- Colorscheme
-require('monokai')
-vim.cmd('colorscheme monokai')
-
 -- Vimscript statements
 require('viml')
 

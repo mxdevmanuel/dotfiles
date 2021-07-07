@@ -26,5 +26,14 @@ vim.api.nvim_exec([[
 	autocmd TermOpen * setlocal listchars= nonumber norelativenumber signcolumn=no
 
 	autocmd BufRead,BufNewFile .envrc set filetype=sh
+
+	augroup StatusLineChange
+		autocmd!
+		 set statusline<
+		autocmd BufWinEnter,WinEnter,BufEnter * lua vim.wo.statusline = "%<%#StatusLineGit#%<%{FugitiveStatusline()}%#StatusLineFn# %f %#StatusLine#%h%m%r%=%#StatusLineFt#%y%#StatusLine# %-14.(%l,%c%V%) %P"
+		autocmd WinLeave,BufLeave * set statusline<
+		autocmd VimResized * redrawstatus
+	augroup END
+
 ]], false)
 

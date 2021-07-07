@@ -18,10 +18,13 @@ w.relativenumber = true
 w.signcolumn = 'yes:1'
 w.foldmethod = 'syntax'
 w.cursorline = true
+w.statusline =
+    "%<%#StatusLineGit#%<%{FugitiveStatusline()}%#StatusLineFn# %f %#StatusLine#%h%m%r%=%#StatusLineFt#%y%#StatusLine# %-14.(%l,%c%V%) %P"
 
 o.autoread = true
 o.background = 'dark'
 o.foldlevelstart = 20
+o.guifont ="SF Mono:h16"
 o.hidden = true
 o.hlsearch = true
 o.inccommand = 'nosplit'
@@ -42,8 +45,6 @@ o.splitright = true
 o.syntax = 'enable'
 o.termguicolors = true
 o.updatetime = 300
-o.statusline =
-    "%#DiffText#%<%{FugitiveStatusline()}%#StatusLine# %f %h%m%r%=%y %-14.(%l,%c%V%) %P"
 
 if fn.executable("rg") == 1 then
     o.grepprg = 'rg --vimgrep --no-heading --hidden --glob="!.git/"'
@@ -81,12 +82,20 @@ end
 
 -- plugins variables
 env.NOTMUX = 1
-env.FZF_DEFAULT_OPTS =  ( vim.env.FZF_DEFAULT_OPTS == nil and ' --layout=reverse' or vim.env.FZF_DEFAULT_OPTS .. ' --layout=reverse' ) 
+env.FZF_DEFAULT_OPTS =
+    (vim.env.FZF_DEFAULT_OPTS == nil and ' --layout=reverse' or
+        vim.env.FZF_DEFAULT_OPTS .. ' --layout=reverse')
 
 g.fzf_layout = {window = {width = 0.9, height = 0.6}}
 
-g.startify_bookmarks = { '~/Code/Client/client-backend', '~/Code/Client', '~/Code/Luzoft', '~/Code', '~/.dotfiles' }
+g.startify_bookmarks = {
+    '~/Code/Client/client-backend', '~/Code/Client', '~/Code/Luzoft', '~/Code',
+    '~/.dotfiles'
+}
 g.startify_change_to_vcs_root = 1
 g.startify_custom_header = 'startify#fortune#boxed()'
 
-g.netrw_banner=0
+g.netrw_banner = 0
+
+g.indent_blankline_char = "┆"
+g.indent_blankline_show_first_indent_level = false

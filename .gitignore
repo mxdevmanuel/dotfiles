@@ -145,3 +145,4 @@ Session.vim
 neovim/.config/nvim/plugged/
 vifminfo
 neovim/.config/nvim/autoload
+neovim/.config/nvim/plugin/packer_compiled.lua
