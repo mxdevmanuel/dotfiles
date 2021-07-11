@@ -7,6 +7,13 @@ setlocal formatprg=prettier\ --parser\ babel
 if exists('$NOAUTOFORMAT')
 	finish
 end
+
+function! Prettier()
+	:mark p
+	execute '%!prettier --parser babel'
+	:norm g'pzz
+endfunction
+
 augroup javascript
-	autocmd! BufWritePre <buffer> execute '%!prettier --parser babel'
+	autocmd! BufWritePre <buffer> call Prettier()
 augroup END

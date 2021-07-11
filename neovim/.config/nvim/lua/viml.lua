@@ -35,5 +35,8 @@ vim.api.nvim_exec([[
 		autocmd VimResized * redrawstatus
 	augroup END
 
+	augroup Packer
+	    autocmd!
+	    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+	  augroup end
 ]], false)
-

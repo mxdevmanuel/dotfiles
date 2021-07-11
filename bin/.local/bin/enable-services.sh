@@ -9,39 +9,58 @@ parameter=$1
 
 # if in  terminal se fzf instead of dmenu
 TOOL=dmenu\ -p\ "services"
+DO=pkexec
+
 if [[ -t 1 ]]; then
         TOOL=fzf
+        DO=sudo
 fi
+
 # Select a service
 option=$(echo -e "ssh\nsamba" | $TOOL)
+
+FILE="/tmp/enabler.sh"
+
+if [[  -f "$FILE" ]]
+then
+        truncate -s 0 $FILE
+else
+        touch $FILE
+fi
+
+echo "#!/usr/bin/env bash" >> $FILE
 
 case $option in
         "ssh")
                 if [[ "$parameter" == "start" ]]
                 then
-                        ufw limit from 192.168.100.0/24 to any port 22
-                        systemctl start sshd
+                        echo "ufw limit from 192.168.100.0/24 to any port 22" >> $FILE
+                        echo "systemctl start sshd" >> $FILE
                 elif [[ "$parameter" == "stop" ]]
                 then
-                        ufw delete limit from 192.168.100.0/24 to any port 22
-                        systemctl disable sshd
+                        echo "ufw delete limit from 192.168.100.0/24 to any port 22" >> $FILE
+                        echo "systemctl disable sshd" >> $FILE
                 fi
                 ;;
         "samba")
                 if [[ "$parameter" == "start" ]]
                 then
-                        ufw allow samba
-                        systemctl start smb.service
-                        systemctl start nmb.service
+                        echo "ufw allow samba" >> $FILE
+                        echo "systemctl start smb.service" >> $FILE
+                        echo "systemctl start nmb.service" >> $FILE
                 elif [[ "$parameter" == "stop" ]]
                 then
-                        ufw delete allow samba
-                        systemctl disable smb.service
-                        systemctl disable nmb.service
+                        echo "ufw delete allow samba" >> $FILE
+                        echo "systemctl disable smb.service" >> $FILE
+                        echo "systemctl disable nmb.service" >> $FILE
                 fi
                 ;;
 esac
 
+chmod a+x $FILE
 
+$DO $FILE
+
+rm $FILE
 
 

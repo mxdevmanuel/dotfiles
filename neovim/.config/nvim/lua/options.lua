@@ -19,10 +19,9 @@ w.signcolumn = 'yes:1'
 w.foldmethod = 'syntax'
 w.cursorline = true
 w.statusline =
-    "%<%#StatusLineGit#%<%{FugitiveStatusline()}%#StatusLineFn# %f %#StatusLine#%h%m%r%=%#StatusLineFt#%y%#StatusLine# %-14.(%l,%c%V%) %P"
+    "%<%#StatusLineGit#%<%{FugitiveStatusline()} %f %#StatusLine#%h%m%r%=%#StatusLineFt#%y%#StatusLine# %-14.(%l,%c%V%) %P"
 
 o.autoread = true
-o.background = 'dark'
 o.foldlevelstart = 20
 o.guifont ="SF Mono:h16"
 o.hidden = true
@@ -96,6 +95,8 @@ g.startify_change_to_vcs_root = 1
 g.startify_custom_header = 'startify#fortune#boxed()'
 
 g.netrw_banner = 0
+g.startify_custom_header = {}
+g.loaded_matchit = 1
 
-g.indent_blankline_char = "┆"
-g.indent_blankline_show_first_indent_level = false
+-- g.indent_blankline_char = "┆"
+-- g.indent_blankline_show_first_indent_level = false

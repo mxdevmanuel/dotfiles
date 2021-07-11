@@ -15,3 +15,4 @@ require('viml')
 
 -- Plugin initialization
 require('setup')
+

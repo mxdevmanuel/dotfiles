@@ -21,30 +21,54 @@ return require('packer').startup(function()
 
     -- tbaggery
     use 'tpope/vim-commentary'
-    use {  'tpope/vim-eunuch', opt = true }
+    use {
+        'tpope/vim-eunuch',
+        opt = true,
+        cmd = {'Move', 'Delete', 'Mkdir', 'Clocate'}
+    }
     use 'tpope/vim-fugitive'
     use 'tpope/vim-repeat'
     use 'tpope/vim-surround'
 
     -- Colorscheme
     use {
-        'mxdevmanuel/monokai.nvim',
-        config = function()
-            vim.cmd [[colorscheme monokai]]
-            require'hicolors'.setup()
-        end
+        "npxbr/gruvbox.nvim",
+        requires = {{"rktjmp/lush.nvim", opt = true}},
+        opt = true,
+        event = "VimEnter",
+        config = function() require('hicolors'):setup() end
     }
 
     -- Treesitter
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
     -- Appeareance
-    use "lukas-reineke/indent-blankline.nvim"
-    use 'norcalli/nvim-colorizer.lua'
     use {
-        'hoob3rt/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true}
+        "lukas-reineke/indent-blankline.nvim",
+        opt = true,
+        ft = {
+            'html', 'javascriptreact', 'typescriptreact', 'htmldjango', 'xml',
+            'json'
+        },
+        config = function()
+            vim.g.indent_blankline_char = "┆"
+            vim.g.indent_blankline_filetype_exclude = {
+                "help", "defx", "vimwiki", "man", "gitmessengerpopup",
+                "diagnosticpopup"
+            }
+            vim.g.indent_blankline_buftype_exclude = {"terminal"}
+            vim.g.indent_blankline_space_char_blankline = " "
+            vim.g.indent_blankline_strict_tabs = true
+            -- vim.g.indent_blankline_debug = true
+            vim.g.indent_blankline_show_current_context = true
+            vim.g.indent_blankline_context_patterns = {
+                "class", "function", "method", "^if", "while", "for", "with",
+                "func_literal", "block", "try", "except", "argument_list",
+                "object", "dictionary"
+            }
+        end
     }
+    use 'norcalli/nvim-colorizer.lua'
 
     -- Magic
     use 'mhinz/vim-startify'
@@ -57,6 +81,7 @@ return require('packer').startup(function()
         }
     }
     use 'windwp/nvim-autopairs'
+    use 'andymass/vim-matchup'
 
     -- LSP
     use 'neovim/nvim-lspconfig'
