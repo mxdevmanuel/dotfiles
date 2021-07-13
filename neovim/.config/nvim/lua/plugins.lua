@@ -26,7 +26,7 @@ return require('packer').startup(function()
         opt = true,
         cmd = {
             'Move', 'Delete', 'Mkdir', 'Clocate', 'SudoWrite', 'SudoEdit',
-            'Cfind', 'Lfind', 'Llocate'
+            'Cfind', 'Lfind', 'Llocate', 'Chmod'
         }
     }
     use 'tpope/vim-fugitive'
@@ -72,6 +72,18 @@ return require('packer').startup(function()
         end
     }
     use 'norcalli/nvim-colorizer.lua'
+    use { -- It is more complicated making a custom tabline than a statusline, this one's lean
+        'mxdevmanuel/luatab.nvim', -- Own fork with upstream PRs merged
+        branch = 'temporal', -- will eventually move to upstream when PRs are merged
+        opt = true,
+        event = "VimEnter",
+        requires = {
+            {'kyazdani42/nvim-web-devicons', opt = true, event = "VimEnter"}
+        },
+        config = function()
+            vim.o.tabline = '%!v:lua.require\'luatab\'.tabline()'
+        end
+    }
 
     -- Magic
     use 'mhinz/vim-startify'
