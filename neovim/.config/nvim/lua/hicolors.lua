@@ -13,7 +13,7 @@ function h.gruvbox(self)
     local slgui = ""
     if (base.StatusLine.gui) then slgui = "," .. base.StatusLine.gui end
     vim.api.nvim_command("highlight StatusLineGit ctermbg=5 guifg=" ..
-                             colors.faded_blue.hex .. " gui=bold" .. slgui ..
+                             colors.faded_aqua.hex .. " gui=bold" .. slgui ..
                              " guibg=" .. base.StatusLine.bg.hex)
     vim.api.nvim_command("highlight StatusLineFt ctermbg=5 guifg=" ..
                              colors.neutral_purple.hex .. " gui=bold" .. slgui ..

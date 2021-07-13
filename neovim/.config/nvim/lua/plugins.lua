@@ -24,7 +24,10 @@ return require('packer').startup(function()
     use {
         'tpope/vim-eunuch',
         opt = true,
-        cmd = {'Move', 'Delete', 'Mkdir', 'Clocate'}
+        cmd = {
+            'Move', 'Delete', 'Mkdir', 'Clocate', 'SudoWrite', 'SudoEdit',
+            'Cfind', 'Lfind', 'Llocate'
+        }
     }
     use 'tpope/vim-fugitive'
     use 'tpope/vim-repeat'

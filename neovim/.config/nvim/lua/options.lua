@@ -23,7 +23,6 @@ w.statusline =
 
 o.autoread = true
 o.foldlevelstart = 20
-o.guifont ="SF Mono:h16"
 o.hidden = true
 o.hlsearch = true
 o.inccommand = 'nosplit'
@@ -100,3 +99,10 @@ g.loaded_matchit = 1
 
 -- g.indent_blankline_char = "┆"
 -- g.indent_blankline_show_first_indent_level = false
+-- GUI Options
+
+if (vim.g.neovide ~= nil) then
+	o.guifont ="SF Mono:h16"
+else
+	o.guifont ="SF Mono:h12"
+end

@@ -7,6 +7,12 @@
 # Get command line [parameter]
 parameter=$1
 
+if [[ -z "$parameter" ]]
+then
+	echo "Missing operand start|stop"
+	exit 2
+fi
+
 # if in  terminal se fzf instead of dmenu
 TOOL=dmenu\ -p\ "services"
 DO=pkexec
