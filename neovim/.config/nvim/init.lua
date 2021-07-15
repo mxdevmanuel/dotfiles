@@ -10,9 +10,5 @@ require('options')
 -- LSP
 require('lsp')
 
--- Vimscript statements
-require('viml')
-
--- Plugin initialization
-require('setup')
-
+-- Custom commands/functions
+require('commands')

@@ -18,6 +18,15 @@ return require('packer').startup(function()
     -- Fuzzy search
     use 'junegunn/fzf'
     use 'junegunn/fzf.vim'
+    use {
+        'nvim-telescope/telescope.nvim',
+        opt = true,
+        event = "VimEnter",
+        requires = {
+            {'nvim-lua/popup.nvim', event = "VimEnter"},
+            {'nvim-lua/plenary.nvim'}
+        }
+    }
 
     -- tbaggery
     use 'tpope/vim-commentary'
@@ -43,7 +52,21 @@ return require('packer').startup(function()
     }
 
     -- Treesitter
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate',
+        config = function()
+            require'nvim-treesitter.configs'.setup {
+                ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+                -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
+                highlight = {
+                    enable = true -- false will disable the whole extension
+                    -- disable = { "c", "rust" },  -- list of language that will be disabled
+                }
+            }
+
+        end
+    }
 
     -- Appeareance
     use {
@@ -71,10 +94,14 @@ return require('packer').startup(function()
             }
         end
     }
-    use 'norcalli/nvim-colorizer.lua'
+    use {
+        'norcalli/nvim-colorizer.lua',
+        opt = true,
+        event = "VimEnter",
+        config = function() require('colorizer').setup() end
+    }
     use { -- It is more complicated making a custom tabline than a statusline, this one's lean
-        'mxdevmanuel/luatab.nvim', -- Own fork with upstream PRs merged
-        branch = 'temporal', -- will eventually move to upstream when PRs are merged
+        'alvarosevilla95/luatab.nvim',
         opt = true,
         event = "VimEnter",
         requires = {
@@ -85,7 +112,8 @@ return require('packer').startup(function()
         end
     }
 
-    -- Magic
+    -- Misc
+    use 'nvim-lua/plenary.nvim'
     use 'mhinz/vim-startify'
     use {
         'mattn/emmet-vim',
@@ -95,8 +123,28 @@ return require('packer').startup(function()
             'typescriptreact'
         }
     }
-    use 'windwp/nvim-autopairs'
-    use 'andymass/vim-matchup'
+    use {
+        'windwp/nvim-autopairs',
+        config = function()
+            require('nvim-autopairs').setup({check_ts = true})
+        end
+    }
+    use {'andymass/vim-matchup', opt = true, event = "VimEnter"}
+    use {
+        'phaazon/hop.nvim',
+        as = 'hop',
+        opt = true,
+        event = "VimEnter",
+        config = function()
+            require'hop'.setup {keys = 'etovxqpdygfblzhckisuran'}
+        end
+    }
+    use {
+        'folke/which-key.nvim',
+        opt = true,
+        cmd = {'WhichKey'},
+        config = function() require'which-key'.setup() end
+    }
 
     -- LSP
     use 'neovim/nvim-lspconfig'
@@ -110,7 +158,71 @@ return require('packer').startup(function()
     use 'glepnir/lspsaga.nvim'
 
     -- VCS
-    use 'junegunn/gv.vim'
-    use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
+    use {'junegunn/gv.vim', opt = true, cmd = {'GV'}}
+    use {
+        'lewis6991/gitsigns.nvim',
+        opt = true,
+        event = "VimEnter",
+        requires = {'nvim-lua/plenary.nvim'},
+        config = function()
+            if packer_plugins["plenary.nvim"] and
+                not packer_plugins["plenary.nvim"].loaded then
+                vim.api.nvim_command('PackerLoad plenary.nvim')
+            end
+            require('gitsigns').setup({
+                signs = {
+                    add = {
+                        -- hl = 'CustomGitSignsAdd',
+                        hl = 'GitSignsAdd',
+                        text = '+',
+                        numhl = 'GitSignsAddNr',
+                        linehl = 'GitSignsAddLn'
+                    },
+                    change = {
+                        -- hl = 'CustomGitSignsChange',
+                        hl = 'GitSignsChange',
+                        text = '•',
+                        numhl = 'GitSignsChangeNr',
+                        linehl = 'GitSignsChangeLn'
+                    },
+                    delete = {
+                        -- hl = 'CustomGitSignsDelete',
+                        hl = 'GitSignsDelete',
+                        text = '-',
+                        numhl = 'GitSignsDeleteNr',
+                        linehl = 'GitSignsDeleteLn'
+                    },
+                    topdelete = {
+                        -- hl = 'CustomGitSignsDelete',
+                        hl = 'GitSignsDelete',
+                        text = '‾',
+                        numhl = 'GitSignsDeleteNr',
+                        linehl = 'GitSignsDeleteLn'
+                    },
+                    changedelete = {
+                        -- hl = 'CustomGitSignsDelete',
+                        hl = 'GitSignsChange',
+                        text = '~',
+                        numhl = 'GitSignsChangeNr',
+                        linehl = 'GitSignsChangeLn'
+                    }
+                },
+                numhl = false
+            })
+        end
+    }
 
+    -- Debug
+    use {
+        'mfussenegger/nvim-dap',
+        opt = true,
+        config = function()
+            local dap = require('dap')
+            dap.adapters.python = {
+                type = 'executable',
+                command = os.getenv('VIRTUAL_ENV') .. '/bin/python',
+                args = {'-m', 'debugpy.adapter'}
+            }
+        end
+    }
 end)

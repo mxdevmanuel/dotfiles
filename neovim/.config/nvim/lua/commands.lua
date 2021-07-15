@@ -62,6 +62,8 @@ vim.api.nvim_exec([[
 		autocmd VimResized * redrawstatus
 	augroup END
 
+	au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
+
 	augroup Packer
 	    autocmd!
 	    autocmd BufWritePost plugins.lua source <afile> | PackerCompile

@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # ZSH and Oh-my-zsh config
 # zmodload zsh/zprof #enable zsh profiling
 
@@ -95,7 +88,7 @@ function flocate(){
         locate -i $@ | fzf | xargs -I% vim %
 }
 
-function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
+function gi() { curl -sLw "\n" https://www.gitignore.io/api/$@ ;}
 
 function unexa() { unalias ls }
 
