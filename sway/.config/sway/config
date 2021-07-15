@@ -1,0 +1,330 @@
+# vi: foldmethod=marker foldlevel=0
+
+#Settings {{{
+set $mod Mod4
+
+# title font
+font pango: monospace 8
+
+# Smart Gaps
+smart_gaps on
+# Smart Borders
+smart_borders on
+
+# Set inner/outer gaps
+gaps inner 0
+gaps outer 0
+
+default_floating_border none
+default_border none
+
+
+focus_follows_mouse yes
+workspace_auto_back_and_forth yes
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+set $ws11 "11"
+# }}}
+
+# Autostart {{{
+
+exec_always --no-startup-id pkill waybar ; waybar
+
+# tray
+# exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
+# exec --no-startup-id "udiskie -t &"
+
+# }}}
+
+# Navigation{{{
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+bindcode $mod+87 workspace $ws1
+bindcode $mod+88 workspace $ws2
+bindcode $mod+89 workspace $ws3
+bindcode $mod+83 workspace $ws4
+bindcode $mod+84 workspace $ws5
+bindcode $mod+85 workspace $ws6
+bindcode $mod+79 workspace $ws7
+bindcode $mod+80 workspace $ws8
+bindcode $mod+81 workspace $ws9
+bindcode $mod+90 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+# }}}
+
+# Keybindings{{{
+
+#Top row
+bindsym $mod+Shift+Escape exec $HOME/.local/bin/exit-menu.py
+bindsym $mod+minus exec --no-startup-id pkill -USR1 pomodoro.sh
+bindsym $mod+plus exec $HOME/.config/rofi/rofi-fb.sh $HOME
+bindsym $mod+grave exec rofi -show window
+
+# bindsym Mod4+F1 exec --no-startup-id foot-controller.sh
+# bindsym Mod4+Shift+F1 exec --no-startup-id notify-send "con shift"
+# bindsym $mod+Mod4+F1 exec --no-startup-id notify-send "con alt"
+bindsym $mod+F2 exec rofi -show run
+bindsym $mod+F3 exec $HOME/.config/i3/workspace_auto_bf.sh
+bindsym $mod+F4 exec $HOME/.local/bin/check_hdmi.sh
+# bindsym $mod+F5  AVAILABLE
+bindsym $mod+F6 exec $HOME/.local/bin/wallpaper_selector.sh
+bindsym $mod+F9 sticky toggle
+bindsym $mod+F10 exec $HOME/.local/bin/bluetooth-connect.sh
+
+bindsym $mod+Shift+F2 exec dmenu_run 
+bindsym $mod+Shift+F3 exec $HOME/.config/i3/follow_focus_fly.sh
+
+bindsym Print exec flameshot gui
+bindsym Control+Print exec --no-startup-id $HOME/.local/bin/timed_screenshot.sh
+bindsym Shift+Print exec flameshot full
+bindsym --release $mod+Next workspace next
+bindsym --release $mod+Prior workspace prev
+bindsym $mod+Home exec videoshot.sh
+bindsym $mod+End exec pkill ffmpeg
+
+# Second row
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Shift+q kill 
+bindsym $mod+w layout tabbed 
+bindsym $mod+e layout toggle split 
+# bindsym $mod+Shift+e exec --no-startup-id $HOME/.config/i3/random_feh.sh #reserved
+bindsym $mod+Shift+r restart 
+bindsym $mod+t exec kitty -e bash
+bindsym $mod+Shift+t exec env NOTMUX=1 kitty
+bindsym $mod+i exec stask.sh add
+# bindsym $mod+p AVAILABLE
+bindsym $mod+braceleft move workspace to output left
+bindsym $mod+braceright move workspace to output right
+bindsym $mod+bar scratchpad show
+bindsym $mod+Shift+bar move scratchpad
+
+# Home row
+bindsym $mod+a focus child 
+bindsym $mod+Shift+a focus parent 
+bindsym $mod+s layout stacking 
+bindsym $mod+d exec wofi --show drun 
+bindsym $mod+Shift+d exec stask.sh delete
+bindsym $mod+f fullscreen toggle 
+bindsym $mod+Shift+f workspace $ws5; exec thunar
+bindsym $mod+semicolon exec wmfocus
+bindsym $mod+apostrophe [urgent=latest] focus
+bindsym $mod+Return exec alacritty # start a terminal
+# bindsym $mod+Shift+Return AVAILABLE
+
+#Shift row
+bindsym $mod+z exec --no-startup-id $HOME/.local/bin/tmux-session-selector.sh
+bindsym $mod+x split toggle 
+bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort
+bindsym $mod+Shift+c reload 
+# bindsym $mod+v exec --no-startup-id $HOME/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
+bindsym $mod+v exec --no-startup-id pavucontrol
+#bindsym $mod+m  AVAILABLE
+bindsym $mod+n  exec kitty nvim
+#bindsym $mod+Shift+m AVAILABLE
+bindsym $mod+less exec unipicker --command "rofi -dmenu" --copy
+bindsym $mod+greater exec $HOME/.config/rofi/rofi-emoji.sh
+bindsym $mod+Shift+greater exec rofi -modi rnf -show rnf
+bindsym $mod+slash exec stask.sh view
+
+#Bottom row
+bindsym $mod+space focus mode_toggle 
+bindsym $mod+Shift+space floating toggle 
+bindsym $mod+Menu exec copyq toggle
+bindsym $mod+Shift+Menu exec blezz
+# }}}
+
+#  Audio volume controls{{{
+bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/.local/bin/sink-smart-selector.sh +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id  $HOME/.local/bin/sink-smart-selector.sh -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id $HOME/.local/bin/sink-smart-selector.sh mute # mute sound
+# }}}
+
+# Screen brightness controls{{{
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
+bindsym $mod+Mod2+KP_Add exec xbacklight -inc 10 # increase screen brightness
+bindsym $mod+Mod2+KP_Subtract exec xbacklight -dec 10 # decrease screen brightness
+#}}}
+
+# Touchpad controls{{{
+bindsym XF86TouchpadToggle exec $HOME/.local/bin/toggletouchpad.sh # toggle touchpad
+#}}}
+
+# Media player controls{{{
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+# }}}
+
+# Rules{{{
+
+assign [class="^Chromium" instance="^chromium"] → $ws2
+assign [class="^Google-chrome" instance="^google-chrome"] → $ws2
+assign [instance="mailspring" class="Mailspring"] → $ws3
+assign [instance="slack" class="Slack"] → $ws3
+assign [instance="clickup desktop" class="ClickUp Desktop"] → $ws3
+assign [class="^nvim-qt$" instance="^nvim-qt$"] → $ws4
+assign [class="^Thunar$" instance="^thunar$"] → $ws5
+assign [title="vifm"] → $ws5 
+assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
+assign [class="^Wps" instance="^wps"] → $ws8
+assign [instance="^libreoffice$"] → $ws8
+assign [instance="insomnia" class="Insomnia"] → $ws10
+assign [instance="postman" class="Postman"] → $ws10
+assign [instance="mockoon" class="Mockoon"] → $ws10
+assign [floating] border pixel 0
+
+for_window [instance="matplotlib"] floating enable
+for_window [class="Gpick"] floating enable
+for_window [class="^.*"] border pixel 2
+for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable
+for_window [class="^QjackCtl$" instance="^qjackctl$"] floating enable
+for_window [class="^Yad$" instance="^yad$"] floating enable
+for_window [class="copyq" window_type="normal"] floating enable
+for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
+for_window [class="scratch"] floating enable
+for_window [title="Open File"] focus
+for_window [title="Save File"] focus
+for_window [window_role="GtkFileChooserDialog"] fullscreen 
+for_window [window_role="pop-up"] floating enable
+
+# }}}
+
+# Theme{{{
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #689d6a #689d6a #282828 #282828
+
+client.focused_inactive #1d2021 #1d2021 #928374 #282828
+
+client.unfocused        #32302f #32302f #928374 #282828
+
+client.urgent           #cc241d #cc241d #ebdbb2 #282828
+
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+
+#}}}
+
+# Modes {{{
+# resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+
+#Gaps mode
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+
+bindsym $mod+Shift+g mode "$mode_gaps_outer"
+bindsym $mod+g mode "$mode_gaps_inner"
+
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+# }}}
