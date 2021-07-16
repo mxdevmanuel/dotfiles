@@ -177,7 +177,7 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+Shift+f workspace $ws5; exec thunar
 bindsym $mod+semicolon exec wmfocus
 bindsym $mod+apostrophe [urgent=latest] focus
-bindsym $mod+Return exec kitty # start a terminal
+bindsym $mod+Return exec kitty #start a terminal
 # bindsym $mod+Shift+Return AVAILABLE
 
 #Shift row

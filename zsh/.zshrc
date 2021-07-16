@@ -10,6 +10,37 @@ export VISUAL=vim
 
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+
+function setTheme(){
+        export BAT_THEME="$1"
+        export NCSPOT_CONFIG_FILE="$2"
+	export TIMETHEME=$3
+
+	if [[ ! -z "$KITTY_WINDOW_ID" ]] && xdotool key ctrl+shift+$4
+	
+	if [[ ! -z "$TMUX" ]]
+	then
+		tmux setenv BAT_THEME $1
+		tmux setenv NCSPOT_CONFIG_FILE $2
+		tmux setenv TIMETHEME $3
+		tmux setenv THEMED 1
+	fi
+}
+
+alias setdarktheme="setTheme gruvbox-dark dark.toml dark 2"
+alias setlighttheme="setTheme gruvbox-light light.toml light 1"
+
+if [[ -z "$THEMED" ]]
+then
+	hour=$(date +"%H")
+	if [[ $(echo "$hour > 9" | bc) == "1" ]] && [[ $(echo "$hour < 19 " | bc) == "1" ]]
+	then
+		setTheme gruvbox-light light.toml light 1
+	else
+		setTheme gruvbox-dark dark.toml dark 2
+	fi
+fi
+
 ZSH_THEME='powerlevel10k/powerlevel10k'
 
 [[ "$TERM" == "linux" ]] || [[ ! -z "$NOTMUX"  ]] && ZSH_TMUX_AUTOSTART="false" || ZSH_TMUX_AUTOSTART="true"

@@ -35,7 +35,7 @@ return require('packer').startup(function()
         opt = true,
         cmd = {
             'Move', 'Delete', 'Mkdir', 'Clocate', 'SudoWrite', 'SudoEdit',
-            'Cfind', 'Lfind', 'Llocate', 'Chmod'
+            'Cfind', 'Lfind', 'Llocate', 'Chmod', 'Rename'
         }
     }
     use 'tpope/vim-fugitive'

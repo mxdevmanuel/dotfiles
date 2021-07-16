@@ -6,7 +6,7 @@ status=$?
 
 if test $status -eq 0
 then
-        kitty /usr/bin/tmux a -t "$ssession" &
+        kitty --single-instance /usr/bin/tmux a -t "$ssession" &
         disown $!
 fi
 

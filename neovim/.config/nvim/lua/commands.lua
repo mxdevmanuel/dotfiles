@@ -3,9 +3,7 @@ local fn = vim.fn
 
 local nvm_extractor = 'extract_nvm.sh'
 
-function SetEnv(name, value) vim.env[name] = value end
-
-function LoadNVM()
+function loadNVM()
     if (fn.executable(nvm_extractor) == 1 and fn.empty(vim.env.NVM_DIR) == 1) then
         Job:new({
             command = nvm_extractor,

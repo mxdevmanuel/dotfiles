@@ -48,9 +48,9 @@ map('n', '<leader>vsh', '<cmd>vsplit <Bar> ter<CR>', {noremap = true})
 map('n', '<leader>w', '<cmd>Windows<CR>', {noremap = true, silent = true})
 map('n', '<leader>x', '<cmd>bd<CR>', {noremap = true})
 map('n', 'gQ', 'mmgggqG\'m', {noremap = true, silent = true})
-map('n', 'ghb', "<cmd>lua require'hop'.hint_char2()<cr>",
+map('n', 'g/', "<cmd>lua require'hop'.hint_char2()<cr>",
     {noremap = true, silent = true})
-map('n', 'ghl', "<cmd>lua require'hop'.hint_lines()<cr>",
+map('n', 'gh', "<cmd>lua require'hop'.hint_lines()<cr>",
     {noremap = true, silent = true})
 
 map('i', '<CR>', 'compe#confirm("<CR>")',
