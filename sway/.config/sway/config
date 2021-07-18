@@ -42,7 +42,6 @@ set $ws11 "11"
 
 # Autostart {{{
 
-exec_always --no-startup-id pkill waybar ; waybar
 
 # tray
 # exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
@@ -168,7 +167,7 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+Shift+f workspace $ws5; exec thunar
 bindsym $mod+semicolon exec wmfocus
 bindsym $mod+apostrophe [urgent=latest] focus
-bindsym $mod+Return exec alacritty # start a terminal
+bindsym $mod+Return exec kitty # start a terminal
 # bindsym $mod+Shift+Return AVAILABLE
 
 #Shift row
@@ -181,7 +180,7 @@ bindsym $mod+v exec --no-startup-id pavucontrol
 #bindsym $mod+m  AVAILABLE
 bindsym $mod+n  exec kitty nvim
 #bindsym $mod+Shift+m AVAILABLE
-bindsym $mod+less exec unipicker --command "rofi -dmenu" --copy
+bindsym $mod+less exec unipicker --command "wofi -dmenu" --copy
 bindsym $mod+greater exec $HOME/.config/rofi/rofi-emoji.sh
 bindsym $mod+Shift+greater exec rofi -modi rnf -show rnf
 bindsym $mod+slash exec stask.sh view
@@ -200,11 +199,8 @@ bindsym XF86AudioMute exec --no-startup-id $HOME/.local/bin/sink-smart-selector.
 # }}}
 
 # Screen brightness controls{{{
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
-
-bindsym $mod+Mod2+KP_Add exec xbacklight -inc 10 # increase screen brightness
-bindsym $mod+Mod2+KP_Subtract exec xbacklight -dec 10 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
 #}}}
 
 # Touchpad controls{{{
@@ -326,5 +322,22 @@ mode "$mode_gaps_inner" {
 
         bindsym Return mode "$mode_gaps"
         bindsym Escape mode "default"
+}
+# }}}
+
+# Bar {{{
+bar {
+	swaybar_command waybar
+}
+#}}}
+
+# Inputs {{{
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+}
+
+input type:keyboard {
+    xkb_options "ctrl:nocaps"
 }
 # }}}
