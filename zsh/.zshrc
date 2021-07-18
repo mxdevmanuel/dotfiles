@@ -16,7 +16,14 @@ function setTheme(){
         export NCSPOT_CONFIG_FILE="$2"
 	export TIMETHEME=$3
 
-	if [[ ! -z "$KITTY_WINDOW_ID" ]] && xdotool key ctrl+shift+$4
+	if [[ -z "$WAYLAND_DISPLAY" ]]
+	then
+		AUTOTOOL_CMD="xdotool key ctrl+shift+$4"
+	else
+		AUTOTOOL_CMD="$(which wtype) -M ctrl -M shift $4"
+	fi
+
+	if [[ ! -z "$KITTY_WINDOW_ID" ]] && eval "$AUTOTOOL_CMD"
 	
 	if [[ ! -z "$TMUX" ]]
 	then
@@ -50,7 +57,7 @@ ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
 ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
 
 plugins=(
-        git ssh-agent vi-mode zsh-syntax-highlighting tmux docker z
+        git ssh-agent vi-mode tmux docker z
 )
 
 source $ZSH/oh-my-zsh.sh
