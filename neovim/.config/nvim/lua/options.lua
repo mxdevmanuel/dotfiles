@@ -1,6 +1,8 @@
 -----------------------------------------------------------
 -- Neovim API aliases
+--
 -----------------------------------------------------------
+
 local env = vim.env -- environment variables
 local exec = vim.api.nvim_exec -- execute Vimscript
 -- local map = vim.api.nvim_set_keymap  -- set global keymap
@@ -51,16 +53,15 @@ end
 
 if fn.has('mouse_sgr') ~= 0 then o.ttymouse = 'sgr' end
 
-if fn.isdirectory("/tmp/.vim-undo-dir") == 0 then
-    fn.mkdir("/tmp/.vim-undo-dir", "", 0755)
-end
-o.undodir = '/tmp/.vim-undo-dir'
+local undodir = "/tmp/.vim-undo-dir"
+if fn.isdirectory(undodir) == 0 then fn.mkdir(undodir, "", 0755) end
+o.undodir = undodir
 o.undofile = true
 
-if fn.isdirectory("/tmp/.vim-swap-dir") == 0 then
-    fn.mkdir("/tmp/.vim-swap-dir", "", 0755)
-end
-o.directory = '/tmp/.vim-swap-dir'
+-- correct
+local swapdir = "/tmp/.vim-swap-dir"
+if fn.isdirectory(swapdir) == 0 then fn.mkdir(swapdir, "", 0755) end
+o.directory = swapdir
 
 -- Table options
 opt.backspace = {"indent", "eol", "start"}
@@ -70,6 +71,7 @@ opt.completeopt = {'menuone', 'noselect'}
 
 opt.shortmess = opt.shortmess - 'I'
 opt.shortmess = opt.shortmess + 'c'
+
 
 if (fn.has('langmap') ~= 0 and fn.exists('+langremap') ~= 0) then
     -- Prevent that the langmap option applies to characters that result from a
@@ -102,7 +104,7 @@ g.loaded_matchit = 1
 -- GUI Options
 
 if (vim.g.neovide ~= nil) then
-	o.guifont ="SF Mono:h16"
+    o.guifont = "SF Mono:h16"
 else
-	o.guifont ="SF Mono:h12"
+    o.guifont = "SF Mono:h12"
 end

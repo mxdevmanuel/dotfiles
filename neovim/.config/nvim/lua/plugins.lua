@@ -29,7 +29,7 @@ return require('packer').startup(function()
     }
 
     -- tbaggery
-    use 'tpope/vim-commentary'
+    use 'tpope/vim-fugitive'
     use {
         'tpope/vim-eunuch',
         opt = true,
@@ -38,9 +38,9 @@ return require('packer').startup(function()
             'Cfind', 'Lfind', 'Llocate', 'Chmod', 'Rename'
         }
     }
-    use 'tpope/vim-fugitive'
-    use 'tpope/vim-repeat'
+    use 'tpope/vim-commentary'
     use 'tpope/vim-surround'
+    use 'tpope/vim-repeat'
 
     -- Colorscheme
     use {
@@ -57,12 +57,14 @@ return require('packer').startup(function()
         run = ':TSUpdate',
         config = function()
             require'nvim-treesitter.configs'.setup {
-                ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+		-- one of "all", "maintained", or a list of languages
+                ensure_installed = "maintained", 
                 -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
                 highlight = {
                     enable = true -- false will disable the whole extension
                     -- disable = { "c", "rust" },  -- list of language that will be disabled
-                }
+                },
+                incremental_selection = {enable = true}
             }
 
         end
@@ -117,7 +119,6 @@ return require('packer').startup(function()
     use 'mhinz/vim-startify'
     use {
         'mattn/emmet-vim',
-        event = 'InsertEnter',
         ft = {
             'html', 'css', 'javascript', 'javascriptreact', 'vue', 'typescript',
             'typescriptreact'
@@ -147,15 +148,22 @@ return require('packer').startup(function()
     }
 
     -- LSP
-    use 'neovim/nvim-lspconfig'
-    use 'hrsh7th/nvim-compe'
+    use {'kabouzeid/nvim-lspinstall', opt = true, event = "VimEnter"}
+    use {'hrsh7th/nvim-compe', opt = true, after = "nvim-lspinstall"}
+    use {
+        'neovim/nvim-lspconfig',
+        opt = true,
+        after = 'nvim-compe',
+        config = function() require'lsp'.setup() end
+    }
     use {
         'tzachar/compe-tabnine',
         run = './install.sh',
-        requires = 'hrsh7th/nvim-compe'
+        requires = 'hrsh7th/nvim-compe',
+        after = 'nvim-compe',
+        opt = true
     }
-    use 'kabouzeid/nvim-lspinstall'
-    use 'glepnir/lspsaga.nvim'
+    use {'glepnir/lspsaga.nvim', opt = true, after = "nvim-lspconfig"}
 
     -- VCS
     use {'junegunn/gv.vim', opt = true, cmd = {'GV'}}
