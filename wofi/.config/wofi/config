@@ -1,0 +1,14 @@
+allow_images=true
+columns=8
+halign=center
+hide_scroll=true
+hide_scroll=true
+image_size=16
+key_right=Control_L-n
+key_left=Control_L-p
+lines=1
+location=bottom
+matching=fuzzy
+orientation=horizontal
+term=kitty
+width=100%

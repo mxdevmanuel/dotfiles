@@ -116,13 +116,13 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 #Top row
 bindsym $mod+Shift+Escape exec $HOME/.local/bin/exit-menu.py
 bindsym $mod+minus exec --no-startup-id pkill -USR1 pomodoro.sh
-bindsym $mod+plus exec $HOME/.config/rofi/rofi-fb.sh $HOME
-bindsym $mod+grave exec rofi -show window
+bindsym $mod+plus exec $HOME/.config/wofi/wofi-fb.sh $HOME
+bindsym $mod+grave exec wofi --show window
 
 # bindsym Mod4+F1 exec --no-startup-id foot-controller.sh
 # bindsym Mod4+Shift+F1 exec --no-startup-id notify-send "con shift"
 # bindsym $mod+Mod4+F1 exec --no-startup-id notify-send "con alt"
-bindsym $mod+F2 exec rofi -show run
+bindsym $mod+F2 exec wofi --show run
 bindsym $mod+F3 exec $HOME/.config/i3/workspace_auto_bf.sh
 bindsym $mod+F4 exec $HOME/.local/bin/check_hdmi.sh
 # bindsym $mod+F5  AVAILABLE
@@ -173,16 +173,16 @@ bindsym $mod+Return exec kitty # start a terminal
 #Shift row
 bindsym $mod+z exec --no-startup-id $HOME/.local/bin/tmux-session-selector.sh
 bindsym $mod+x split toggle 
-bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort
+bindsym $mod+c exec wofi --show calc -modi calc -no-show-match -no-sort
 bindsym $mod+Shift+c reload 
-# bindsym $mod+v exec --no-startup-id $HOME/.dotfiles/rofi/.local/share/scripts/pulseaudio-rofi.sh --output
+# bindsym $mod+v exec --no-startup-id $HOME/.dotfiles/wofi/.local/share/scripts/pulseaudio-wofi.sh --output
 bindsym $mod+v exec --no-startup-id pavucontrol
 #bindsym $mod+m  AVAILABLE
 bindsym $mod+n  exec kitty nvim
 #bindsym $mod+Shift+m AVAILABLE
-bindsym $mod+less exec unipicker --command "wofi -dmenu" --copy
-bindsym $mod+greater exec $HOME/.config/rofi/rofi-emoji.sh
-bindsym $mod+Shift+greater exec rofi -modi rnf -show rnf
+bindsym $mod+less exec unipicker --command "wofi --dmenu" --copy
+bindsym $mod+greater exec $HOME/.config/wofi/wofi-emoji.sh
+bindsym $mod+Shift+greater exec wofi -modi rnf -show rnf
 bindsym $mod+slash exec stask.sh view
 
 #Bottom row
@@ -261,6 +261,8 @@ client.urgent           #cc241d #cc241d #ebdbb2 #282828
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
+
+output "*" bg $HOME/.wallpapers/99791.jpg fill
 
 #}}}
 

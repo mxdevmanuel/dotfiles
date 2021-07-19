@@ -37,16 +37,16 @@ function setTheme(){
 alias setdarktheme="setTheme gruvbox-dark dark.toml dark 2"
 alias setlighttheme="setTheme gruvbox-light light.toml light 1"
 
-if [[ -z "$THEMED" ]]
-then
-	hour=$(date +"%H")
-	if [[ $(echo "$hour > 9" | bc) == "1" ]] && [[ $(echo "$hour < 19 " | bc) == "1" ]]
-	then
-		setTheme gruvbox-light light.toml light 1
-	else
-		setTheme gruvbox-dark dark.toml dark 2
-	fi
-fi
+# if [[ -z "$THEMED" ]]
+# then
+# 	hour=$(date +"%H")
+# 	if [[ $(echo "$hour > 9" | bc) == "1" ]] && [[ $(echo "$hour < 19 " | bc) == "1" ]]
+# 	then
+# 		setTheme gruvbox-light light.toml light 1
+# 	else
+# 		setTheme gruvbox-dark dark.toml dark 2
+# 	fi
+# fi
 
 ZSH_THEME='powerlevel10k/powerlevel10k'
 
@@ -57,7 +57,7 @@ ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
 ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
 
 plugins=(
-        git ssh-agent vi-mode tmux docker z
+        git ssh-agent vi-mode tmux docker z zsh-autosuggestions zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh

@@ -70,6 +70,9 @@ return require('packer').startup(function()
         end
     }
 
+    -- Filetypes
+    use 'GutenYe/json5.vim'
+
     -- Appeareance
     use {
         "lukas-reineke/indent-blankline.nvim",

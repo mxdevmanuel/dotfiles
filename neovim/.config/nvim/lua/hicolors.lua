@@ -31,9 +31,8 @@ function h.setup(self)
         vim.o.background = 'dark'
     end
 
-    if (vim.o.background ~= vim.env.TIMETHEME) then
-	    vim.o.background = vim.env.TIMETHEME
-    end
+    if (vim.fn.empty(vim.env.TIMETHEME) == 0 and vim.o.background ~=
+        vim.env.TIMETHEME) then vim.o.background = vim.env.TIMETHEME end
 
     self.gruvbox()
 end
