@@ -1,0 +1,25 @@
+font=Cantarell 12
+
+[green]
+background=282828
+border=3c3836
+border-bottom=98971a
+button-background=282828
+button-text=98971a
+text=ebdbb2
+
+[warning]
+background=282828
+border=3c3836
+border-bottom=d65d0e
+button-background=282828
+button-text=d65d0e
+text=ebdbb2
+
+[error]
+background=282828
+border=3c3836
+border-bottom=cc241d
+button-background=282828
+button-text=cc241d
+text=ebdbb2

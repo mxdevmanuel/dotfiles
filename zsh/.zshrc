@@ -1,15 +1,12 @@
 # ZSH and Oh-my-zsh config
+
+# Profile start
 # zmodload zsh/zprof #enable zsh profiling
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/manuel/.oh-my-zsh"
 export EDITOR=vim
 export VISUAL=vim
-
-# COMPLETION_WAITING_DOTS="true"
-
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
 
 function setTheme(){
         export BAT_THEME="$1"
@@ -57,7 +54,7 @@ ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
 ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
 
 plugins=(
-        git ssh-agent vi-mode tmux docker z zsh-autosuggestions zsh-syntax-highlighting
+        git ssh-agent vi-mode tmux fzf docker direnv colored-man-pages z zsh-autosuggestions zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -153,7 +150,6 @@ function venv-select(){
 # Init 
 [ ! -f /tmp/firstrun ] && clear && neofetch && touch /tmp/firstrun
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [[ ! -z "$VENV" ]]
 then
@@ -168,9 +164,14 @@ fi
 add-zsh-hook chpwd autoload-nvm
 autoload-nvm
 
-eval "$(direnv hook zsh)"
 
 # For powerlevel10k, to customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 prompt_context(){}
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+# Old Commands
+# eval "$(direnv hook zsh)"
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Profile end
 # zprof # start zsh profiling

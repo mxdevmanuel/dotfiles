@@ -8,7 +8,8 @@
 /* } */
 
 *{
-    font-family: Noto Sans;
+    font-size: 13px;
+    font-family: Cantarell, Noto Sans, sans-serif;
 }
 
 window {

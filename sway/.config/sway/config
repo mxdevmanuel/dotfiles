@@ -146,7 +146,7 @@ bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Shift+q kill 
 bindsym $mod+w layout tabbed 
 bindsym $mod+e layout toggle split 
-# bindsym $mod+Shift+e exec --no-startup-id $HOME/.config/i3/random_feh.sh #reserved
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 bindsym $mod+Shift+r restart 
 bindsym $mod+t exec kitty -e bash
 bindsym $mod+Shift+t exec env NOTMUX=1 kitty
