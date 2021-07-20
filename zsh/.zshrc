@@ -54,7 +54,7 @@ ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
 ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
 
 plugins=(
-        git ssh-agent vi-mode tmux fzf docker direnv colored-man-pages z zsh-autosuggestions zsh-syntax-highlighting
+        git ssh-agent vi-mode tmux fzf docker direnv colored-man-pages z zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
