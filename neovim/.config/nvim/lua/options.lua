@@ -1,10 +1,7 @@
 -----------------------------------------------------------
 -- Neovim API aliases
---
 -----------------------------------------------------------
-
 local env = vim.env -- environment variables
-local exec = vim.api.nvim_exec -- execute Vimscript
 -- local map = vim.api.nvim_set_keymap  -- set global keymap
 local fn = vim.fn -- call Vim functions
 local g = vim.g -- global variables
@@ -68,10 +65,10 @@ opt.backspace = {"indent", "eol", "start"}
 opt.wildoptions = {"tagfile"}
 opt.fileencodings = {'utf-8'}
 opt.completeopt = {'menuone', 'noselect'}
+opt.virtualedit = {'block'}
 
 opt.shortmess = opt.shortmess - 'I'
 opt.shortmess = opt.shortmess + 'c'
-
 
 if (fn.has('langmap') ~= 0 and fn.exists('+langremap') ~= 0) then
     -- Prevent that the langmap option applies to characters that result from a

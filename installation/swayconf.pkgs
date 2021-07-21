@@ -9,7 +9,6 @@ bison
 bluez
 bluez-utils
 btrfs-progs
-chromium
 cmake
 diff-so-fancy
 efibootmgr
@@ -26,8 +25,6 @@ iwd
 kitty
 libtool
 light
-linux
-linux-firmware
 luarocks
 m4
 make
