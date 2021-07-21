@@ -29,7 +29,7 @@ return require('packer').startup(function()
     }
 
     -- tbaggery
-    use 'tpope/vim-fugitive'
+    use {'tpope/vim-fugitive', opt = true, event = "VimEnter"}
     use {
         'tpope/vim-eunuch',
         opt = true,
@@ -38,9 +38,9 @@ return require('packer').startup(function()
             'Cfind', 'Lfind', 'Llocate', 'Chmod', 'Rename'
         }
     }
-    use 'tpope/vim-commentary'
-    use 'tpope/vim-surround'
-    use 'tpope/vim-repeat'
+    use {'tpope/vim-commentary', opt = true, event = "BufRead"}
+    use {'tpope/vim-surround', opt = true, event = "BufRead"}
+    use {'tpope/vim-repeat', opt = true, event = "BufRead"}
 
     -- Colorscheme
     use {
@@ -57,8 +57,8 @@ return require('packer').startup(function()
         run = ':TSUpdate',
         config = function()
             require'nvim-treesitter.configs'.setup {
-		-- one of "all", "maintained", or a list of languages
-                ensure_installed = "maintained", 
+                -- one of "all", "maintained", or a list of languages
+                ensure_installed = "maintained",
                 -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
                 highlight = {
                     enable = true -- false will disable the whole extension
@@ -93,7 +93,7 @@ return require('packer').startup(function()
     }
 
     -- Misc
-    use 'nvim-lua/plenary.nvim'
+    use {'nvim-lua/plenary.nvim', config = function() require 'async' end}
     use 'mhinz/vim-startify'
     use {
         'mattn/emmet-vim',
