@@ -1,30 +1,3 @@
-local Job = require 'plenary.job'
-local fn = vim.fn
-
-local nvm_extractor = 'extract_nvm.sh'
-
-function loadNVM()
-    if (fn.executable(nvm_extractor) == 1 and fn.empty(vim.env.NVM_DIR) == 1) then
-        Job:new({
-            command = nvm_extractor,
-            -- args = { '--files' },
-            cwd = vim.env.HOME .. '/.local/bin',
-            -- env = { ['a'] = 'b' },
-            on_exit = vim.schedule_wrap(function(j, return_val)
-                print(return_val)
-                if (return_val == 2) then return end
-                local x = j:result()
-                for _, s in ipairs(x) do
-                    p, o = string.find(s, "=")
-                    local name = (string.sub(s, 0, p - 1))
-                    local value = (string.sub(s, p + 1))
-                    vim.env[name] = value
-                end
-            end)
-        }):sync() -- or start()
-    end
-end
-
 vim.api.nvim_exec([[
 	if exists('$TESTCOMMAND')
 	  command! Test execute 'new | terminal ' . $TESTCOMMAND . ' ' . expand('%')
@@ -44,13 +17,20 @@ vim.api.nvim_exec([[
 	endfunction
 	com! DiffSaved call DiffWithSaved()
 
-	autocmd QuickFixCmdPost [^l]* nested cwindow
-	autocmd QuickFixCmdPost    l* nested lwindow
+	augroup Qf
+		autocmd!
+		autocmd QuickFixCmdPost [^l]* nested cwindow
+		autocmd QuickFixCmdPost    l* nested lwindow
+	augroup END
 
-	autocmd TermOpen * startinsert
-	autocmd TermOpen * setlocal listchars= nonumber norelativenumber signcolumn=no
+	augroup Term
+		autocmd!
+		autocmd TermOpen * startinsert
+		autocmd TermOpen * setlocal listchars= nonumber norelativenumber signcolumn=no
+	augroup END
 
-	autocmd BufRead,BufNewFile .envrc set filetype=sh
+	au! BufRead,BufNewFile .envrc set filetype=sh
+	au! TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
 
 	augroup StatusLineChange
 		autocmd!
@@ -60,7 +40,6 @@ vim.api.nvim_exec([[
 		autocmd VimResized * redrawstatus
 	augroup END
 
-	au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
 
 	augroup Packer
 	    autocmd!
