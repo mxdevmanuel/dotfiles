@@ -1,6 +1,6 @@
 allow_images=true
 columns=5
-halign=center
+halign=left
 hide_scroll=true
 hide_scroll=true
 image_size=16

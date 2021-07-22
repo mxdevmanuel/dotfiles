@@ -46,6 +46,7 @@ set $ws11 "11"
 # tray
 # exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
 # exec --no-startup-id "udiskie -t &"
+exec --no-startup-id "mako &"
 
 # }}}
 
@@ -126,7 +127,7 @@ bindsym $mod+F2 exec wofi --show run
 bindsym $mod+F3 exec $HOME/.config/i3/workspace_auto_bf.sh
 bindsym $mod+F4 exec $HOME/.local/bin/check_hdmi.sh
 # bindsym $mod+F5  AVAILABLE
-bindsym $mod+F6 exec $HOME/.local/bin/wallpaper_selector.sh
+bindsym $mod+F6 exec kitty ssh $(cat ~/.zsh_history | grep "ssh" | grep -Eo "[a-z0-9]+?\@?([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)" | uniq | wofi --dmenu)
 bindsym $mod+F9 sticky toggle
 bindsym $mod+F10 exec $HOME/.local/bin/bluetooth-connect.sh
 
@@ -340,6 +341,6 @@ input type:touchpad {
 }
 
 input type:keyboard {
-    xkb_options "ctrl:nocaps"
+    xkb_options "ctrl:nocaps,altwin:swap_lalt_lwin,lv3:ralt_switch"
 }
 # }}}
