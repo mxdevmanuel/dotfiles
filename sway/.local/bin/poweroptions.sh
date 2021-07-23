@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-op=$( echo -e " Poweroff\n Reboot\n Suspend\n Lock\n Logout" | wofi --dmenu | awk '{print tolower($2)}' )
+op=$( echo -e " Poweroff\n Reboot\n Suspend\n Lock\n Logout" | wofi -i --dmenu | awk '{print tolower($2)}' )
 
 case $op in 
         poweroff)
@@ -11,6 +11,7 @@ case $op in
                 systemctl $op
                 ;;
         lock)
+		swaylock
                 ;;
         logout)
                 swaymsg exit

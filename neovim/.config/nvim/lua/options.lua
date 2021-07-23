@@ -15,8 +15,9 @@ b.expandtab = true
 w.number = true
 w.relativenumber = true
 w.signcolumn = 'yes:1'
-w.foldmethod = 'syntax'
 w.cursorline = true
+w.foldmethod = 'expr'
+w.foldexpr = 'nvim_tressiter#foldexpr()'
 w.statusline =
     "%<%#StatusLineGit#%<%{FugitiveStatusline()} %f %#StatusLine#%h%m%r%=%#StatusLineFt#%y%#StatusLine# %-14.(%l,%c%V%) %P"
 
