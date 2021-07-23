@@ -75,13 +75,24 @@ alias vimc="nvim ~/.config/nvim/init.vim"
 alias vimd="env FORCE_DARK='true' nvim"
 alias vimq="env FORCE_DARK='true' nvim-qt"
 
+unalias l
+alias l='exa -la'
 alias ls='exa'
 alias la='exa -a'
 alias ll='exa -l'
 alias lll='exa -l | less'
 alias lla='exa -la'
 alias llt='exa -T'
-alias llfu='exa -bghHliS --git'
+# alias llfu='exa -bghHliS --git'
+# alias l='exa -lbF --git'                                               # list, size, type, git
+# alias ll='exa -lbGF --git'                                             # long list
+# alias llm='exa -lbGF --git --sort=modified'                            # long list, modified date sort
+# alias lc='exa -lbhHigmuSa --time-style=long-iso --git --color-scale'  # all list
+# alias lx='exa -lbhHigmuSa@ --time-style=long-iso --git --color-scale' # all + extended list
+
+# # speciality views
+# alias lS='exa -1'			                                                  # one column, just names
+# alias lt='exa --tree --level=2'                                         # tree
 
 alias tig='vim -c GV'
 

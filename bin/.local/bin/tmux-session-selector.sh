@@ -9,9 +9,9 @@ fi
 
 SESSION=$(tmux ls | perl -pe 's/:.*$//' | $COMMAND -p "sessions")
 
-status=$?
+local exitcode=$?
 
-if test $status -eq 0
+if test $exitcode -eq 0
 then
         kitty /usr/bin/tmux a -t "$SESSION" &
         disown $!
