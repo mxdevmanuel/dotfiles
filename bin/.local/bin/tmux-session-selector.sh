@@ -1,6 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
-SESSION=$(tmux ls | perl -pe 's/:.*$//' | dmenu -p "sessions")
+if [[ -z "$SWAYSOCK" ]]
+then
+	COMMAND="dmenu"
+else
+	COMMAND="wofi --dmenu"
+fi
+
+SESSION=$(tmux ls | perl -pe 's/:.*$//' | $COMMAND -p "sessions")
 
 status=$?
 

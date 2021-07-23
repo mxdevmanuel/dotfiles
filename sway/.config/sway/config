@@ -115,7 +115,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # Keybindings{{{
 
 #Top row
-bindsym $mod+Shift+Escape exec $HOME/.local/bin/exit-menu.py
+bindsym $mod+Shift+Escape exec poweroptions.sh
 bindsym $mod+minus exec --no-startup-id pkill -USR1 pomodoro.sh
 bindsym $mod+plus exec $HOME/.config/wofi/wofi-fb.sh $HOME
 bindsym $mod+grave exec wofi --show window
@@ -124,7 +124,6 @@ bindsym $mod+grave exec wofi --show window
 # bindsym Mod4+Shift+F1 exec --no-startup-id notify-send "con shift"
 # bindsym $mod+Mod4+F1 exec --no-startup-id notify-send "con alt"
 bindsym $mod+F2 exec wofi --show run
-bindsym $mod+F3 exec $HOME/.config/i3/workspace_auto_bf.sh
 bindsym $mod+F4 exec $HOME/.local/bin/check_hdmi.sh
 # bindsym $mod+F5  AVAILABLE
 bindsym $mod+F6 exec kitty ssh $(cat ~/.zsh_history | grep "ssh" | grep -Eo "[a-z0-9]+?\@?([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)" | uniq | wofi --dmenu)
@@ -132,7 +131,6 @@ bindsym $mod+F9 sticky toggle
 bindsym $mod+F10 exec $HOME/.local/bin/bluetooth-connect.sh
 
 bindsym $mod+Shift+F2 exec dmenu_run 
-bindsym $mod+Shift+F3 exec $HOME/.config/i3/follow_focus_fly.sh
 
 bindsym Print exec flameshot gui
 bindsym Control+Print exec --no-startup-id $HOME/.local/bin/timed_screenshot.sh
@@ -147,7 +145,7 @@ bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Shift+q kill 
 bindsym $mod+w layout tabbed 
 bindsym $mod+e layout toggle split 
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+# bindsym $mod+Shift+e AVAILABLE
 bindsym $mod+Shift+r restart 
 bindsym $mod+t exec kitty -e bash
 bindsym $mod+Shift+t exec env NOTMUX=1 kitty
@@ -325,6 +323,28 @@ mode "$mode_gaps_inner" {
 
         bindsym Return mode "$mode_gaps"
         bindsym Escape mode "default"
+}
+
+set $mode_follow_focus Follow Focus y|n|q
+bindsym $mod+F3 mode $mode_follow_focus
+
+mode "$mode_follow_focus" {
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+	bindsym y exec --no-startup-id swaymsg focus_follows_mouse yes
+	bindsym n exec --no-startup-id swaymsg focus_follows_mouse no
+        bindsym q mode "default"
+}
+
+set $mode_back_forth Back And Forth y|n|q
+bindsym $mod+Shift+F3 mode $mode_back_forth
+
+mode "$mode_back_forth" {
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+	bindsym y exec --no-startup-id swaymsg workspace_auto_back_and_forth yes
+	bindsym n exec --no-startup-id swaymsg workspace_auto_back_and_forth no
+        bindsym q mode "default"
 }
 # }}}
 
