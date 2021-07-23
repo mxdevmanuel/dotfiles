@@ -1,0 +1,1 @@
+SUBSYSTEM=="drm", ACTION=="change", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/manuel/.Xauthority", RUN+="/bin/su manuel -c /home/manuel/.config/i3/hdmi.sh"
