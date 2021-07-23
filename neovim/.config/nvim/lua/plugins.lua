@@ -94,7 +94,7 @@ return require('packer').startup(function()
 
     -- Misc
     use {'nvim-lua/plenary.nvim', config = function() require 'async' end}
-    use 'mhinz/vim-startify'
+    use{  'glepnir/dashboard-nvim', opt = true, event = "VimEnter" }
     use {
         'mattn/emmet-vim',
         ft = {

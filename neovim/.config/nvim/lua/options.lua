@@ -67,8 +67,7 @@ opt.fileencodings = {'utf-8'}
 opt.completeopt = {'menuone', 'noselect'}
 opt.virtualedit = {'block'}
 
-opt.shortmess = opt.shortmess - 'I'
-opt.shortmess = opt.shortmess + 'c'
+opt.shortmess = opt.shortmess + 'Ic'
 
 if (fn.has('langmap') ~= 0 and fn.exists('+langremap') ~= 0) then
     -- Prevent that the langmap option applies to characters that result from a
@@ -85,15 +84,28 @@ env.FZF_DEFAULT_OPTS =
 
 g.fzf_layout = {window = {width = 0.9, height = 0.6}}
 
-g.startify_bookmarks = {
-    '~/Code/Client/client-backend', '~/Code/Client', '~/Code/Luzoft', '~/Code',
-    '~/.dotfiles'
+g.dashboard_default_executive = 'fzf'
+
+g.dashboard_custom_shortcut = {
+    last_session = '',
+    find_history = '',
+    find_file = '',
+    new_file = '',
+    change_colorscheme = '',
+    find_word = '',
+    book_marks = ''
 }
-g.startify_change_to_vcs_root = 1
-g.startify_custom_header = 'startify#fortune#boxed()'
+
+g.dashboard_custom_header = { 
+' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+ }
 
 g.netrw_banner = 0
-g.startify_custom_header = {}
 g.loaded_matchit = 1
 
 -- g.indent_blankline_char = "┆"
