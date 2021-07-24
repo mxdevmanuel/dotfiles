@@ -142,7 +142,11 @@ Session.vim
 *~
 
 *.nocommit.*
-neovim/.config/nvim/plugged/
-vifminfo
+neovim/.config/nvim/plugin/
 neovim/.config/nvim/autoload
 neovim/.config/nvim/plugin/packer_compiled.lua
+
+# Vifm
+**/vifm/scripts/README
+**/vifm/vifm-help.txt
+**/vifm/vifminfo.json
