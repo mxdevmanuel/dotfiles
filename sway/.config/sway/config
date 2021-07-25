@@ -163,7 +163,7 @@ bindsym $mod+s layout stacking
 bindsym $mod+d exec wofi --show drun 
 bindsym $mod+Shift+d exec stask.sh delete
 bindsym $mod+f fullscreen toggle 
-bindsym $mod+Shift+f workspace $ws5; exec thunar
+bindsym $mod+Shift+f workspace $ws5; exec kitty vifm
 bindsym $mod+semicolon exec wmfocus
 bindsym $mod+apostrophe [urgent=latest] focus
 bindsym $mod+Return exec kitty # start a terminal
