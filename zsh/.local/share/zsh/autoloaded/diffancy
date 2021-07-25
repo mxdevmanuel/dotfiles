@@ -1,0 +1,10 @@
+# vim: ft=zsh
+if [[ -x /usr/bin/diff-so-fancy ]]
+then
+	git diff $@ --color | diff-so-fancy | less
+elif [[ -x /usr/bin/delta ]]
+then
+	git diff $@ --color | delta
+else
+	echo "No fancy difftool found"
+fi

@@ -1,0 +1,18 @@
+# vim: ft=zsh
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+envs=$(find ~/Envs -maxdepth 1 -mindepth 1 -type d)
+selected=$(echo $envs | awk '{n=split($0,a,"/"); print a[n]}' | fzf)
+
+if [[ $? != 130 ]]
+then
+	if [[ ! -z "$VIRTUAL_ENV" ]] 
+	then
+		echo -e "${RED}unsetting $VIRTUAL_ENV${NC}" 
+		deactivate 
+	fi
+	complete=$(echo $envs | grep $selected)
+	echo "sourcing $complete"
+	source $complete/bin/activate
+fi

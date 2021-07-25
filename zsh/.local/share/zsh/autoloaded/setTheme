@@ -1,0 +1,23 @@
+# vim: ft=zsh
+export BAT_THEME="$1"
+export NCSPOT_CONFIG_FILE="$2"
+export TIMETHEME=$3
+
+if [[ ! -z "$KITTY_WINDOW_ID" ]] 
+then 
+	if [[ -z "$WAYLAND_DISPLAY" ]]
+	then
+		AUTOTOOL_CMD="xdotool key ctrl+shift+$4"
+	else
+		AUTOTOOL_CMD="$(which wtype) -M ctrl -M shift $4"
+	fi
+	eval "$AUTOTOOL_CMD"
+fi
+
+if [[ ! -z "$TMUX" ]]
+then
+	tmux setenv BAT_THEME $1
+	tmux setenv NCSPOT_CONFIG_FILE $2
+	tmux setenv TIMETHEME $3
+	tmux setenv THEMED 1
+fi

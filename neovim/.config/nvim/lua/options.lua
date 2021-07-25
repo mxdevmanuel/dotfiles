@@ -111,9 +111,12 @@ g.loaded_matchit = 1
 
 -- g.indent_blankline_char = "┆"
 -- g.indent_blankline_show_first_indent_level = false
+
 -- GUI Options
 
-if (vim.g.neovide ~= nil) then
+if (vim.g.neovide ~= nil and vim.env.SWAYSOCK ~= nil) then
+    o.guifont = "SF Mono:h14"
+elseif (vim.g.neovide ~= nil) then
     o.guifont = "SF Mono:h16"
 else
     o.guifont = "SF Mono:h12"

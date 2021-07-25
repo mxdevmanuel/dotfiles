@@ -7,6 +7,5 @@ require('keybindings')
 -- Options
 require('options')
 
-
 -- Custom commands/functions
 require('commands')
