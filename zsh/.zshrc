@@ -1,10 +1,10 @@
 # ZSH and Oh-my-zsh config
 
 # Profile start
-zmodload zsh/zprof #enable zsh profiling
+# zmodload zsh/zprof #enable zsh profiling
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/manuel/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export ZSHSHARE="$HOME/.local/share/zsh"
 export EDITOR=vim
 export VISUAL=vim
@@ -98,4 +98,4 @@ prompt_context(){}
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 # Profile end
-zprof # start zsh profiling
+# zprof # start zsh profiling
