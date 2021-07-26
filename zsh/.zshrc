@@ -91,7 +91,7 @@ autoload -Uz _nvm
 alias nvm="_nvm"
 
 # Init 
-[ ! -z "$FIRSTRUN" ] && [[ ! -f /tmp/firstrun ]] && clear && neofetch && touch /tmp/firstrun
+[ ! -z "$FIRSTRUN" ] && [[ ! -f /tmp/firstrun ]] && lolarch.zsh && touch /tmp/firstrun
 
 # For powerlevel10k, to customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 prompt_context(){}
