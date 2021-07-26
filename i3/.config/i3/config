@@ -41,7 +41,7 @@ set $ws11 "11"
 # Autostart {{{
 # Screen
 exec --no-startup-id $HOME/.screenlayout/variable.sh
-exec --no-startup-id feh --no-fehbg --bg-fill $HOME/.wallpapers/arch.png
+exec --no-startup-id sleep 1; feh --no-fehbg --bg-fill $HOME/.wallpapers/arch.png
 exec --no-startup-id conky; sleep 1; pkill -USR1 conky
 
 exec_always --no-startup-id $HOME/.local/bin/polybar.sh
