@@ -23,7 +23,7 @@ return require('packer').startup(function()
         opt = true,
         event = "VimEnter",
         requires = {
-            {'nvim-lua/popup.nvim', event = "VimEnter"},
+            {'nvim-lua/popup.nvim'},
             {'nvim-lua/plenary.nvim'}
         }
     }
@@ -94,7 +94,6 @@ return require('packer').startup(function()
     }
 
     -- Misc
-    use {'nvim-lua/plenary.nvim', config = function() require 'async' end}
     use{  'glepnir/dashboard-nvim', opt = true, event = "VimEnter" }
     use {
         'mattn/emmet-vim',

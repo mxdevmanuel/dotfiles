@@ -198,8 +198,8 @@ bindsym XF86AudioMute exec --no-startup-id $HOME/.local/bin/sink-smart-selector.
 # }}}
 
 # Screen brightness controls{{{
-bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 5 # decrease screen brightness
 #}}}
 
 # Touchpad controls{{{
@@ -214,28 +214,24 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # Rules{{{
 
-assign [app_id="^Chromium"] → $ws2
+assign [app_id="^Chromium"] → $ws3
 assign [app_id="^Google-chrome"] → $ws2
-assign [instance="slack" class="Slack"] → $ws3
-assign [instance="clickup desktop" class="ClickUp Desktop"] → $ws3
 assign [title="vifm"] → $ws5 
-assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
-assign [class="^Wps" instance="^wps"] → $ws8
-assign [instance="^libreoffice$"] → $ws8
-assign [instance="insomnia" class="Insomnia"] → $ws10
-assign [instance="postman" class="Postman"] → $ws10
-assign [instance="mockoon" class="Mockoon"] → $ws10
+assign [app_id="^Transmission-gtk"] → $ws7
+assign [app_id="^Wps"] → $ws8
+assign [app_id="Insomnia"] → $ws10
+assign [app_id="Postman"] → $ws10
+assign [app_id="Mockoon"] → $ws10
 assign [floating] border pixel 0
 
 for_window [instance="matplotlib"] floating enable
-for_window [class="Gpick"] floating enable
-for_window [class="^.*"] border pixel 2
-for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable
-for_window [class="^QjackCtl$" instance="^qjackctl$"] floating enable
-for_window [class="^Yad$" instance="^yad$"] floating enable
-for_window [class="copyq" window_type="normal"] floating enable
-for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
-for_window [class="scratch"] floating enable
+for_window [app_id="Gpick"] floating enable
+for_window [app_id="^.*"] border pixel 2
+for_window [app_id="^Pavucontrol$" instance="^pavucontrol$"] floating enable
+for_window [app_id="^QjackCtl$" instance="^qjackctl$"] floating enable
+for_window [app_id="copyq" window_type="normal"] floating enable
+for_window [app_id="flameshot" window_type="normal"] floating enable, border pixel 0
+for_window [app_id="scratch"] floating enable
 for_window [title="Open File"] focus
 for_window [title="Save File"] focus
 for_window [window_role="GtkFileChooserDialog"] fullscreen 
