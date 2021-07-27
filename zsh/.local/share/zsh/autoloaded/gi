@@ -1,0 +1,30 @@
+# vim: ft=zsh
+local gitignore='https://www.gitignore.io/api'
+local gitignorecachedir="$HOME/.local/share/gitignore"
+local gitignorecache="cache"
+
+if [[ ! -d $gitignorecachedir ]]
+then
+	mkdir -p $gitignorecachedir
+	touch ${gitignorecachedir}/${gitignorecache}
+fi
+
+
+case $# in
+	0)
+		curl -sLw "\n" ${gitignore}/list  | sed 's?,?\n?g' | fzf -m --height 40% --reverse | sed ':a;N;$!ba;s/\n/,/g' | tee -a ${gitignorecachedir}/${gitignorecache} | xargs -I% curl -sLw "\n" ${gitignore}/%
+		;;
+	1)
+		if [[ "$1" == "cache" ]]
+		then
+			 cat ${gitignorecachedir}/${gitignorecache} | fzf -m --height 40% --reverse |  xargs -I% curl -sLw "\n" ${gitignore}/%
+		else
+			curl -sLw "\n" ${gitignore}/$@
+		fi
+		;;
+	*)
+			echo $@ | sed 's/ /,/g' | xargs -I% curl -sLw "\n" ${gitignore}/%
+		;;
+esac
+	 
+

@@ -76,7 +76,7 @@ function unexa() { unalias ls }
 
 function flocate(){ locate -i $@ | fzf | xargs -I% vim % }
 
-function gi() { curl -sLw "\n" https://www.gitignore.io/api/$@ ;}
+autoload -Uz gi 
 
 autoload -Uz diffancy
 
