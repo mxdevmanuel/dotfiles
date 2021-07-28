@@ -1,3 +1,4 @@
+// vim: commentstring=\/\/\ %s
 // =============================================================================
 //
 // Waybar configuration
@@ -11,9 +12,9 @@
     // Global configuration
     // -------------------------------------------------------------------------
 
-    "layer": "top",
+    "layer": "bottom",
 
-    "position": "top",
+    "position": "bottom",
 
     // If height property would be not present, it'd be calculated dynamically
     "height": 28,
@@ -22,9 +23,9 @@
         "sway/workspaces",
         "sway/mode"
     ],
-    "modules-center": [
-        "sway/window"
-    ],
+    // "modules-center": [
+     //   "sway/window"
+    // ],
     "modules-right": [
         "network",
         "memory",
