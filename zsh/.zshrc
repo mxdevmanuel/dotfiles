@@ -9,7 +9,6 @@ export ZSHSHARE="$HOME/.local/share/zsh"
 export EDITOR=vim
 export VISUAL=vim
 
-
 ZSH_THEME='powerlevel10k/powerlevel10k'
 
 [[ "$TERM" == "linux" ]] || [[ ! -z "$NOTMUX"  ]] && ZSH_TMUX_AUTOSTART="false" || ZSH_TMUX_AUTOSTART="true"
@@ -41,23 +40,11 @@ alias la='exa -a'
 alias ll='exa -l'
 alias lll='exa -l | less'
 alias lla='exa -la'
-alias llt='exa -T'
-# alias llfu='exa -bghHliS --git'
-# alias l='exa -lbF --git'                                               # list, size, type, git
-# alias ll='exa -lbGF --git'                                             # long list
-# alias llm='exa -lbGF --git --sort=modified'                            # long list, modified date sort
-# alias lc='exa -lbhHigmuSa --time-style=long-iso --git --color-scale'  # all list
-# alias lx='exa -lbhHigmuSa@ --time-style=long-iso --git --color-scale' # all + extended list
-
-# # speciality views
-# alias lS='exa -1'			                                                  # one column, just names
-# alias lt='exa --tree --level=2'                                         # tree
+alias lt='exa -T'
+alias lta='exa -Ta'
+alias ltla='exa -Tla'
 
 alias tig='vim -c GV'
-
-# Config variables
-export DEFAULT_USER="manuel"
-export VIRTUAL_ENV_DISABLE_PROMPT="Y"
 
 # Functions
 
