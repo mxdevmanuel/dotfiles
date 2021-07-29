@@ -138,7 +138,7 @@ bindsym $mod+F4 exec $HOME/.local/bin/check_hdmi.sh
 # bindsym $mod+F5  AVAILABLE
 bindsym $mod+F6 exec $HOME/.local/bin/wallpaper_selector.sh
 bindsym $mod+F9 sticky toggle
-bindsym $mod+F10 exec $HOME/.local/bin/bluetooth-connect.sh
+bindsym $mod+F10 exec kitty -T "kbluectl" bluetoothctl
 
 bindsym $mod+Shift+F2 exec dmenu_run 
 bindsym $mod+Shift+F3 exec $HOME/.config/i3/follow_focus_fly.sh
@@ -249,7 +249,7 @@ for_window [class="Gpick"] floating enable
 for_window [class="^.*"] border pixel 2
 for_window [class="^Pavucontrol$" instance="^pavucontrol$"] floating enable
 for_window [class="^QjackCtl$" instance="^qjackctl$"] floating enable
-for_window [class="^Yad$" instance="^yad$"] floating enable
+for_window [title="kbluectl"] floating enable
 for_window [class="copyq" window_type="normal"] floating enable
 for_window [class="flameshot" window_type="normal"] floating enable, border pixel 0
 for_window [class="scratch"] floating enable
