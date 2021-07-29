@@ -10,10 +10,12 @@ DISPLAY=:0
 WAIT=1
 LEVER=0
 
+local icon=~/.local/share/pomo/icon.png 
+
 notify(){
         case $1 in
                 "W")
-                notify-send Pomodoro "time to take a break in 10s" -t 5000 -i ~/.pomo/icon.png 
+                notify-send Pomodoro "time to take a break in 10s" -t 5000 -i $icon
                 ;;
         esac
 }
@@ -83,16 +85,16 @@ select-mode(){
                         fi
                         ;;
                 "toggle" | "resume" | "pause")
-                        notify-send Pomodoro "${SELECTION^} timer" -t 5000 -i ~/.pomo/icon.png 
+                        notify-send Pomodoro "${SELECTION^} timer" -t 5000 -i $icon
                         toggle-timer
                         ;;
                 "restart")
-                        notify-send Pomodoro "Restarted timer" -t 5000 -i ~/.pomo/icon.png 
+                        notify-send Pomodoro "Restarted timer" -t 5000 -i $icon
                         CURRENT=$(($CURRENT - 1))
                         LEVER=1
                         ;;
                 "advance")
-                        notify-send Pomodoro "Advanced timer" -t 5000 -i ~/.pomo/icon.png 
+                        notify-send Pomodoro "Advanced timer" -t 5000 -i $icon
                         LEVER=1
                         ;;
         esac
@@ -120,7 +122,7 @@ while sleep 1;do
 
         case $CURRENT in
                 1)
-                        notify-send Pomodoro "Let's start to work" -t 5000 -i ~/.pomo/icon.png 
+                        notify-send Pomodoro "Let's start to work" -t 5000 -i $icon
                         counter "W" $WORK
                         CURRENT=$(($CURRENT + 1))
                         ;;
@@ -147,7 +149,7 @@ while sleep 1;do
                                 unset ISIDLE
                         fi
 
-                        notify-send Pomodoro "It's time to work" -t 5000 -i ~/.pomo/icon.png 
+                        notify-send Pomodoro "It's time to work" -t 5000 -i $icon
                         counter "W" $WORK
                         CURRENT=$(($CURRENT + 1))
                         ;;
