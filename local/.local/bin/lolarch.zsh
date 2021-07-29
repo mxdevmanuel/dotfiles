@@ -13,7 +13,7 @@ done
 
 if [[ -x $LOLPATH/lolcat ]]
 then
-	paste -d '\ ' <(cat $HOME/.ascii/arch.txt | $LOLPATH/lolcat ) <(neofetch --stdout | sed -e "s,:.*,$(tput sgr0)&," -e '$a'"$termcolors") | tr -d "%"
+	paste -d '\ ' <(cat $HOME/.local/share/ascii/arch.txt | $LOLPATH/lolcat ) <(neofetch --stdout | sed -e "s,:.*,$(tput sgr0)&," -e '$a'"$termcolors") | tr -d "%"
 else
 	neofetch
 fi
