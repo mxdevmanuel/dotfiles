@@ -1,0 +1,6 @@
+configuration {
+	modi: "drun,window,run";
+	font: ""FiraCode Nerd Font Mono" 13";
+	show-icons: true;
+	theme: "/home/manuel/.local/share/rofi/themes/gruvbox.rasi";
+}

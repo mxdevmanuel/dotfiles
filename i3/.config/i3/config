@@ -42,8 +42,7 @@ set $ws11 "11"
 # Screen
 exec --no-startup-id $HOME/.screenlayout/variable.sh
 exec --no-startup-id sleep 1; feh --no-fehbg --bg-fill $HOME/.local/share/wallpapers/arch.png
-exec --no-startup-id conky; sleep 1; pkill -USR1 conky
-
+# exec --no-startup-id conky; sleep 1; pkill -USR1 conky
 exec_always --no-startup-id $HOME/.local/bin/polybar.sh
 
 # tray
@@ -191,7 +190,7 @@ bindsym $mod+v exec --no-startup-id pavucontrol
 bindsym $mod+n  exec kitty nvim
 #bindsym $mod+Shift+m AVAILABLE
 bindsym $mod+less exec unipicker --command "rofi -dmenu" --copy
-bindsym $mod+greater exec $HOME/.config/rofi/rofi-emoji.sh
+bindsym $mod+greater exec emoji.sh
 bindsym $mod+Shift+greater exec rofi -modi rnf -show rnf
 bindsym $mod+slash exec stask.sh view
 
