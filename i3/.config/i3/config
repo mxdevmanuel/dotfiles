@@ -237,6 +237,7 @@ assign [class="^Thunar$" instance="^thunar$"] → $ws5
 assign [title="vifm"] → $ws5 
 assign [class="^Transmission-gtk" instance="^transmission-gtk$"] → $ws7
 assign [class="^Wps" instance="^wps"] → $ws8
+assign [class="^Et" instance="^et"] → $ws8
 assign [instance="^libreoffice$"] → $ws8
 assign [instance="insomnia" class="Insomnia"] → $ws10
 assign [instance="postman" class="Postman"] → $ws10
