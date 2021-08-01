@@ -114,7 +114,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 # Keybindings{{{
 
-#Top row
+# Top row {{{
 bindsym $mod+Shift+Escape exec poweroptions.sh
 bindsym $mod+minus exec --no-startup-id pkill -USR1 pomodoro.sh
 bindsym $mod+plus exec $HOME/.config/wofi/wofi-fb.sh $HOME
@@ -139,8 +139,9 @@ bindsym --release $mod+Next workspace next
 bindsym --release $mod+Prior workspace prev
 bindsym $mod+Home exec videoshot.sh
 bindsym $mod+End exec pkill ffmpeg
+# }}}
 
-# Second row
+# Second row {{{
 bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Shift+q kill 
 bindsym $mod+w layout tabbed 
@@ -155,8 +156,9 @@ bindsym $mod+braceleft move workspace to output left
 bindsym $mod+braceright move workspace to output right
 bindsym $mod+bar scratchpad show
 bindsym $mod+Shift+bar move scratchpad
+# }}}
 
-# Home row
+# Home row {{{
 bindsym $mod+a focus child 
 bindsym $mod+Shift+a focus parent 
 bindsym $mod+s layout stacking 
@@ -168,8 +170,9 @@ bindsym $mod+semicolon exec wmfocus
 bindsym $mod+apostrophe [urgent=latest] focus
 bindsym $mod+Return exec kitty # start a terminal
 # bindsym $mod+Shift+Return AVAILABLE
+# }}}
 
-#Shift row
+# Shift row {{{
 bindsym $mod+z exec --no-startup-id $HOME/.local/bin/tmux-session-selector.sh
 bindsym $mod+x split toggle 
 bindsym $mod+c exec wofi --show calc -modi calc -no-show-match -no-sort
@@ -179,16 +182,19 @@ bindsym $mod+v exec --no-startup-id pavucontrol
 #bindsym $mod+m  AVAILABLE
 bindsym $mod+n  exec kitty nvim
 #bindsym $mod+Shift+m AVAILABLE
-bindsym $mod+less exec unipicker --command "wofi --dmenu" --copy
-bindsym $mod+greater exec $HOME/.config/wofi/wofi-emoji.sh
-bindsym $mod+Shift+greater exec wofi -modi rnf -show rnf
-bindsym $mod+slash exec stask.sh view
+bindsym $mod+less exec kitty --class="unicodepicker" unicodepicker.sh
+bindsym $mod+greater exec emoji.sh
+# bindsym $mod+Shift+greater AVAILABLE
+# bindsym $mod+slash AVAILABLE
+# }}}
 
-#Bottom row
+# Bottom row {{{
 bindsym $mod+space focus mode_toggle 
 bindsym $mod+Shift+space floating toggle 
 bindsym $mod+Menu exec copyq toggle
 bindsym $mod+Shift+Menu exec blezz
+# }}}
+
 # }}}
 
 #  Audio volume controls{{{
@@ -234,6 +240,7 @@ for_window [app_id="flameshot" window_type="normal"] floating enable, border pix
 for_window [app_id="scratch"] floating enable
 for_window [title="Open File"] focus
 for_window [title="Save File"] focus
+for_window [app_id="unicodepicker"] floating enable
 for_window [window_role="GtkFileChooserDialog"] fullscreen 
 for_window [window_role="pop-up"] floating enable
 

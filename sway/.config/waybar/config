@@ -27,9 +27,9 @@
      //   "sway/window"
     // ],
     "modules-right": [
-        "network",
-        "memory",
         "cpu",
+        "memory",
+        "network",
         "temperature",
 //        "custom/keyboard-layout",
         "battery",
@@ -124,13 +124,18 @@
     "sway/workspaces": {
         "all-outputs": false,
         "disable-scroll": true,
-        "format": "{icon} {name}",
+        "format": "{icon}",
         "format-icons": {
-            "1:www": "龜", // Icon: firefox-browser
-            "2:mail": "", // Icon: mail
-            "3:editor": "", // Icon: code
-            "4:terminals": "", // Icon: terminal
-            "5:portal": "", // Icon: terminal
+            "1": "", // Icon: firefox-browser
+            "2": "", // Icon: mail
+            "3": "", // Icon: terminal
+            "4": "4", // Icon: mail
+            "5": "5", // Icon: mail
+            "6": "6", // Icon: mail
+            "7": "7", // Icon: mail
+            "8": "8", // Icon: mail
+            "9": "9", // Icon: mail
+            "10": "10", // Icon: mail
             "urgent": "",
             "focused": "",
             "default": ""
