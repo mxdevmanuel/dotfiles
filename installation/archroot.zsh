@@ -5,8 +5,6 @@ YELLOW='\033[0;33m'
 YELLOW_BG='\033[0;33m'
 NC='\033[0m' # No Color
 
-
-
 function log_error() {
 	echo -e "${RED}Error:${NC} ${1}"
 }
@@ -62,22 +60,24 @@ case $ucode in
 	;;
 esac
 
-echo -e "${GREEN}Creating Initramfs${NC}"
-mkinitcpio -P
-
-
 echo -e "${GREEN}Installing packages${NC}"
 
 pacman -Syu $(cat /root/packages.txt) --noconfirm
 
-dialog --title "Password" --stdout --passwordbox "Enter root password" 10 30 2 | awk -v v=$USER '{ print v":"$1 }' | chpasswd
+echo -e "${GREEN}Creating Initramfs${NC}"
+mkinitcpio -P
 
 echo -e "${GREEN}Installing bootloader${NC}"
 grub-install --target=x86_64-efi --efi-directory=efi --bootloader-id=GRUB
 
-# TODO: offer alternate  system detection
+# TODO: offer alternate system detection
 grub-mkconfig -o /boot/grub/grub.cfg
 
 vared -p "Enter username for primary user" -c puser
-useradd -m -G systemd-journal,video,uucp,lp,audio,wheel,realtime,sharedusers -s zsh $puser
-dialog --title "Password" --stdout --passwordbox "Enter $puser password" 10 30 2 | awk -v v=$puser '{ print v":"$1 }' | chpasswd
+
+useradd -m -G systemd-journal,video,uucp,lp,audio,wheel,optical -s zsh $puser
+
+# Passwd PSA
+echo -e "${YELLOW} ####IMPORTANT#### ${NC}"
+echo "Run 'passwd' with no arguments to set the root password"
+echo "and run 'passwd $puser' to set $puser's password"

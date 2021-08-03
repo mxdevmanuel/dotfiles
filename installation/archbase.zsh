@@ -34,7 +34,14 @@ function dformat(){
 	case $formopt in 
 		1)
 			mkfs.btrfs $2
-			log_success "Formatted" "Partition $2 formatted to btrfs" 
+			if [[ "$?" != "0" ]]
+			then
+				unset forceopt
+				vared -p "Existing btrfs found in device, wish to force formatting?Y/n: " -c forceopt
+				[[ "$forceopt" != "n" ]] && mkfs.btrfs -f $2
+			else
+				log_success "Formatted" "Partition $2 formatted to btrfs" 
+			fi
 			;;
 		2)
 			mkfs.ext4 $2
@@ -144,11 +151,14 @@ dformat "/" $rootpart
 dformat "/home" $homepart
 
 echo -e "${GREEN}Creating mounting points...${NC}"
+echo -e "${GREEN}Mounting devices...${NC}"
+
+#first mount root to create structure inside device
+mount $rootpart /mnt
+
 mkdir -p /mnt/efi
 mkdir -p /mnt/home
 
-echo -e "${GREEN}Mounting devices...${NC}"
-mount $rootpart /mnt
 mount $bootpart /mnt/efi
 mount $homepart /mnt/home
 
