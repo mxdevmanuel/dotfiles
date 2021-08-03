@@ -83,7 +83,8 @@
 }
 
 #battery.critical {
-  color: red;
+  color: #fb4934;
+  font-weight: bold;
 }
 
 #battery.warning.discharging {
@@ -98,6 +99,7 @@
 
 #clock {
   color: #ebdbb2;
+  background-color: #282828
 }
 
 #cpu {
@@ -137,7 +139,9 @@
 }
 
 #network {
-  color: #98971a;
+  color: #689d6a;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #network.disconnected {
@@ -157,7 +161,7 @@
 }
 
 #temperature {
-  color: #689d6a;
+  color: #cc241d;
 }
 
 #temperature.critical {
@@ -181,11 +185,18 @@
   color: #888888;
 }
 
+#workspaces button:hover {
+	background-color: #a89984;
+	color: #3c3836;
+}
+
 #workspaces button.focused {
+  border-color: #b8bb26;
+  color: #ebdbb2;
   font-weight: bold;
-  border-color: #83a598;
-  color: white;
-  background-color: #458588;
+}
+#workspaces button.focused:hover {
+	background-color: #98971a;
 }
 
 #workspaces button.urgent {

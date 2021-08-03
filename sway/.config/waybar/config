@@ -12,7 +12,7 @@
     // Global configuration
     // -------------------------------------------------------------------------
 
-    "layer": "bottom",
+    "layer": "top",
 
     "position": "bottom",
 
