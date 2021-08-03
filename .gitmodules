@@ -1,0 +1,3 @@
+[submodule "local/.fonts"]
+	path = local/.fonts
+	url = https://github.com/Twixes/SF-Mono-Powerline
