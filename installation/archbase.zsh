@@ -1,23 +1,8 @@
 #!/usr/bin/env zsh
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-YELLOW_BG='\033[0;33m'
-NC='\033[0m' # No Color
-BOLD='\u001b[1m'
-ND='\u001b[0m'
+# sources colors, log_*, run_reflector
+source ${0:h}/utils.zsh
 
-
-function log_error() {
-	echo -e "${RED}Error:${NC} ${1}"
-}
-function log_warning() {
-	echo -e "${YELLOW}Warning:${NC} ${1}"
-}
-function log_success() {
-	echo -e "${GREEN}${1}:${NC} ${2}"
-}
 function dformat(){
 	unset confi
 	vared -p "Wish to format partition $1:$2 : (Y/n)" -c confi
@@ -66,17 +51,12 @@ function prompt_swap(){
 
 timedatectl set-ntp true
 
-echo -e "${YELLOW_BG} Will begin installation if you are not connected to the internet,  please connect${NC}"
-vared -p "Wish to get a shell to connect to the internet(y/N)? " -c internetdrop
-if [[ "${internetdrop}" == "y" ]]
-then
-	zsh
-fi
+echo -e "${YELLOW_BG} Will begin installation, will need internet for installation and if you got these files without git please install git beforehand${NC}"
 
 # Check secondary scripts are present 
-if [[ ! -f archroot.zsh ]] || [[ ! -f packages.txt ]]
+if [[ ! -f utils.zsh ]]
 then
-	log_error "Ensure ${BOLD}archroot.zsh${ND}, ${BOLD}packages.txt${ND} and ${BOLD}archuser.zsh${ND} are present in the current directory"
+	log_error "Not found ${BOLD}utils.zsh${ND}. This script must be run from the ${BOLD}installation${NC} directory."
 	exit 1
 fi
 
@@ -100,12 +80,11 @@ then
 	exit 3
 fi
 
-
 log_warning "You will be dropped into cfdisk to perform custom partitioning. Minimum 3 partitions need to be created root, home and efi"
 
-vared -p "Continue?(y/N)" -c tmp
+vared -p "Continue?(Y/n)" -c tmp
 
-if [[ "${tmp}" != "y" ]]
+if [[ "${tmp}" == "n" ]]
 then
 	log_success "Finished" "Aborted by user"
 	exit 4
@@ -162,23 +141,26 @@ mkdir -p /mnt/home
 mount $bootpart /mnt/efi
 mount $homepart /mnt/home
 
-
-log_success "Reflector" "will attempt to get optimal mirrors"
-reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
-
-if [[ "$!" != "0" ]]
-then
-	log_error "Unable to run reflector, installation may proceed"
-fi
+run_reflector
 
 log_success "Pacstrap" "installing base system"
 pacstrap /mnt base linux linux-firmware btrfs-progs zsh
 
 log_success "Disks" "Generating fstab"
 
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -U /mnt > /mnt/etc/fstab
 
-cp archroot.zsh packages.txt /mnt/root
+log_success "Copying files to installation's root directory"
+cp -R $(git rev-parse --show-toplevel) /mnt/root
 
+log_success "After chroot do ${BOLD} cd ${NC} to go to root directory and  there run ${BOLD}archroot.zsh${NC} to continue installation."
 
-arch-chroot /mnt zsh < /root/archroot.zsh
+vared -p "Wish to chroot now: (Y/n)" -c cchroot
+
+if [[ "${cchroot}" == "n" ]]
+then
+	log_warning "Exiting" "bye"
+	exit 0 
+fi
+
+arch-chroot /mnt
