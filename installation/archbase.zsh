@@ -125,6 +125,7 @@ then
 	prompt_swap
 fi
 
+mkfs.fat -F32 $bootpart
 
 dformat "/" $rootpart
 dformat "/home" $homepart
