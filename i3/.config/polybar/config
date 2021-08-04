@@ -71,7 +71,8 @@ padding-right = 1
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = FuraCode Nerd Font:style=Regular:pixelsize=12;1
+font-0 = SF Mono:style=Bold:pixelsize=12;1
+font-1 = FontAwesome:style=Regular:pixelsize=11;2
 
 modules-left = i3 bspwm 
 ;modules-center = 
