@@ -361,7 +361,7 @@ input type:touchpad {
 }
 
 input type:keyboard {
-    xkb_options "ctrl:nocaps,altwin:swap_lalt_lwin,lv3:ralt_switch"
+    xkb_options "altwin:swap_lalt_lwin"
 }
 
 seat * {

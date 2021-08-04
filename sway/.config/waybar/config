@@ -96,7 +96,7 @@
 
     "memory": {
         "interval": 5,
-        "format": "  {}%", // Icon: bars
+        "format": "  {used:0.2f}GB", // Icon: bars
         "states": {
             "warning": 70,
             "critical": 90
@@ -105,9 +105,10 @@
 
     "network": {
         "interval": 5,
-        "format-wifi": "  {essid} ({signalStrength}%)", // Icon: wifi
+        // "format-wifi": "  {essid} ({signalStrength}%)", // Icon: wifi
+        "format-wifi": "  {signalStrength}%", // Icon: wifi
         "format-ethernet": "  {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
-        "format-disconnected": "⚠  Disconnected",
+        "format-disconnected": "  Disconnected",
         "tooltip-format": "{ifname}: {ipaddr}"
     },
 

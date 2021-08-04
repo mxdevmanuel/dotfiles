@@ -31,6 +31,41 @@ function select_timezone(){
 	ln -s /usr/share/zoneinfo/$timezone /etc/localtime
 }
 
+function configure_network_iface(){
+	local ifaces=$(ip addr show | grep -vi "loopback" | grep -wi "up" | awk '{ match($0, /^[0-9]+:\s(.*):/, arr); if(arr[1] != "") print arr[1] }'
+)
+	local count=$(echo $ifaces | wc -l)
+	if (( $count > 1 ))
+	then
+		iface=$(dialog --stdout --title "Areas" --menu "Select interface" 0 0 0 $(echo $ifaces | awk '{print $1,toupper($1)}' | paste -sd " " ))
+	elif (( $count > 0 ))
+		iface=$ifaces
+	then
+	else
+		echo "No interface is up"
+		return 21
+	fi
+
+	local netfile=/etc/systemd/network/20-wireless.network
+
+	if [[ -f $netfile ]]
+	then
+		truncate --size=0 $netfile
+	fi
+
+	echo "[Match]" >> $netfile
+	echo "Name=$iface" >> $netfile
+	echo "" >> $netfile
+	echo "[Network]" >> $netfile
+	echo "DHCP=yes" >> $netfile
+	echo "" >> $netfile
+	echo "[DHCP]" >> $netfile
+	echo "RouteMetric=20" >> $netfile
+		
+}
+
+vared -p "Is this a laptop?y/N " -c laptop
+
 select_timezone
 
 echo -e "${GREEN}Setting locale${NC}"
@@ -64,13 +99,47 @@ echo -e "${GREEN}Installing packages${NC}"
 
 pacman -Syu $(cat /root/packages.txt) --noconfirm
 
+systemctl enable systemd-networkd.service
+systemctl enable systemd-resolved.service
+
+if [[ ! -z "$laptop" ]]
+then
+	systemctl enable iwd.service
+fi
+
+echo "Added user to sudo/doas file"
+echo -n "permit $puser as root" > /etc/doas.conf
+
+echo "Setting useful symlinks"
+ln -s /usr/bin/nvim /usr/bin/vim
+ln -s /usr/bin/doas /usr/bin/sudo
+
+if [[ -d ../system/profile ]]
+then
+	echo "Adding profile scripts"
+	cp ../system/profile/* /etc/profile.d/
+fi
+
+vared -p "Wish to configure network interface (special for wireless)? Y/n: " -c ciface
+if [[ "$ciface" != "n" ]]
+then
+	configure_network_iface
+fi
+
 echo -e "${GREEN}Creating Initramfs${NC}"
 mkinitcpio -P
 
 echo -e "${GREEN}Installing bootloader${NC}"
 grub-install --target=x86_64-efi --efi-directory=efi --bootloader-id=GRUB
 
-# TODO: offer alternate system detection
+vared -p "Wish customize bootloader installation e.g enable os-prober? y/N: " -c custgrub
+if [[ "$custgrub" == "y" ]]
+then
+	# TODO: offer alternate system detection
+	echo "No automatic process available yet, will be prompt to zsh"
+	zsh
+fi
+
 grub-mkconfig -o /boot/grub/grub.cfg
 
 vared -p "Enter username for primary user" -c puser

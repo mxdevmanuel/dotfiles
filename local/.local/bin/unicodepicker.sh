@@ -7,6 +7,9 @@ COPY_TOOL=${EMOJI_COPY_TOOL:-xclip -selection clipboard -i}
 # Where to save the symbols file.
 SYMBOLS_FILE=$HOME/.local/share/unicode/symbols
 
+if [[ -t 1 ]]; then
+        SELECT_MENU=fzf
+fi
 
 function display() {
     symbols=$(cat "$SYMBOLS_FILE")
