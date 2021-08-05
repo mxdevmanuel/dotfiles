@@ -115,8 +115,6 @@ then
 	systemctl enable iwd.service
 fi
 
-echo "Added user to sudo/doas file"
-echo -n "permit $puser as root" > /etc/doas.conf
 
 echo "Setting useful symlinks"
 ln -s /usr/bin/nvim /usr/bin/vim
@@ -138,7 +136,7 @@ echo -e "${GREEN}Creating Initramfs${NC}"
 mkinitcpio -P
 
 echo -e "${GREEN}Installing bootloader${NC}"
-grub-install --target=x86_64-efi --efi-directory=efi --bootloader-id=GRUB
+grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 
 vared -p "Wish customize bootloader installation e.g enable os-prober? y/N: " -c custgrub
 if [[ "$custgrub" == "y" ]]
@@ -154,9 +152,13 @@ vared -p "Enter username for primary user" -c puser
 
 useradd -m -G systemd-journal,video,uucp,lp,audio,wheel,optical -s /usr/bin/zsh $puser
 
+echo "Added user to sudo/doas file"
+echo -n "permit persist $puser as root" > /etc/doas.conf
+
 log_success "Copying dotfiles" "if you are ${BOLD}me${ND} remember to set remote to SSH and install your SSH key ${BOLD}(${ND}do that part even if you are not me${BOLD})${ND}"
 
 cp -R $(git rev-parse --show-toplevel) /home/${puser}/.dotfiles
+chown -R ${puser}:${puser} /home/${puser}/.dotfiles
 
 echo "you will find these in ${GREEN}${BOLD}/home/$puser/.dotfiles${ND}${NC}"
 echo "you may remove this copy of dotfiles just run 'rm /root/dotfiles'"

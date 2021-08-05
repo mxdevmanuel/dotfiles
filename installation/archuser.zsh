@@ -20,7 +20,7 @@ function select_stow(){
 	pushd $(git rev-parse --show-toplevel)
 	log_success "Selecting stow targets" \
 		"Use ${BOLD}Tab${ND} to select multiple. Select only i3 or sway not both, depending on the package collection selected in root step"
-	local stows=$( ls --only-dirs | grep -Ev "archive|installation|system|local|zsh" | fzf --reverse -m )
+	local stows=$( ls --only-dirs | grep -Ev "archive|installation|system|local|zsh" | $HOME/.fzf/bin/fzf --reverse -m )
 
 	stow local zsh $(echo $stows | paste -s)
 	popd
@@ -32,7 +32,7 @@ then
 	pushd $installation_dir
 fi
 
-log_success "ZSH" "Installing Oh-my-zsh"
+log_success "Installing Oh-my-zsh" "This will launch a new zsh shell just  CTRL-D to continue"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 vared -p "Wish to configure git now: (Y/n)" -c cgitconfig
@@ -46,9 +46,6 @@ log_success "Downloading fonts" \
 	"Installing SF Mono"
 git submodule update --init
 
-log_success "Dotfiles" "Select dotfiles to be dispersed"
-select_stow
-
 log_success "Installing shell tools" "Installing..."
 gitbase=$(git rev-parse --show-toplevel)
 localbin=${gitbase}/local/.local/bin
@@ -56,8 +53,12 @@ localbin=${gitbase}/local/.local/bin
 bash ${localbin}/update_nvm.sh
 zsh ${localbin}/shells_update.zsh
 
+log_success "Dotfiles" "Select dotfiles to be dispersed"
+select_stow
+
+
 log_success "Nvim" "Installing nvim plugins"
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerInstall'
 
 log_success "Python" "Creating Envs"
 mkdir $HOME/Envs
