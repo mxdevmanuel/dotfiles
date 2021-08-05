@@ -53,11 +53,14 @@ log_success "Downloading fonts" \
 	"Installing SF Mono"
 git submodule update --init
 
-log_success "Installing shell tools" "Installing..."
 if [[ ! -d $HOME/.local/bin ]]
 then
 	mkdir -p $HOME/.local/bin
 fi
+log_success "Dotfiles" "dotfiles are about to be dispersed"
+select_stow
+
+log_success "Installing shell tools" "Installing..."
 export PATH=$PATH:$HOME/.local/bin
 gitbase=$(git rev-parse --show-toplevel)
 localbin=${gitbase}/local/.local/bin
@@ -65,11 +68,11 @@ localbin=${gitbase}/local/.local/bin
 bash ${localbin}/update_nvm.sh
 zsh ${localbin}/shells_update.zsh
 
-log_success "Dotfiles" "dotfiles are about to be dispersed"
-select_stow
-
 log_success "Nvim" "Installing nvim plugins"
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerInstall'
+p=$(mktemp)
+echo "Run :PackerInstall to install plugins" >> $p
+echo "the :q to exit"
+nvim $p
 
 log_success "Python" "Creating Envs"
 mkdir $HOME/Envs
