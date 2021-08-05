@@ -5,7 +5,7 @@ BASE=${0:h}
 
 source ${BASE}/utils.zsh
 
-pacman -Syu dialog jq archlinux-keyring --noconfirm
+pacman -Syu dialog jq archlinux-keyring reflector --noconfirm
 
 function select_timezone(){
 	r=$(timedatectl list-timezones | awk -F'/' '{ print $1, toupper(substr($1,0,2)) }' | uniq)

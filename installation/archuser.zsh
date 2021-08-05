@@ -17,11 +17,13 @@ function git_config(){
 }
 
 function select_stow(){
+	pushd $(git rev-parse --show-toplevel)
 	log_success "Selecting stow targets" \
 		"Use ${BOLD}Tab${ND} to select multiple. Select only i3 or sway not both, depending on the package collection selected in root step"
 	local stows=$( ls --only-dirs | grep -Ev "archive|installation|system|local|zsh" | fzf --reverse -m )
 
 	stow local zsh $(echo $stows | paste -s)
+	popd
 }
 
 installation_dir=$HOME/.dotfiles/installation
