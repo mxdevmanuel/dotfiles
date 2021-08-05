@@ -1,9 +1,11 @@
 #!/usr/bin/env zsh
 
 # sources colors, log_*, run_reflector
-source ${0:h}/utils.zsh
+BASE=${0:h}
 
-pacman -Syu dialog --noconfirm
+source ${BASE}/utils.zsh
+
+pacman -Syu dialog jq archlinux-keyring --noconfirm
 
 function select_timezone(){
 	r=$(timedatectl list-timezones | awk -F'/' '{ print $1, toupper(substr($1,0,2)) }' | uniq)
@@ -69,25 +71,41 @@ echo $hostname > /etc/hostname
 
 echo -e "127.0.0.1\tlocalhost\n::1\tlocalhost\n127.0.1.1\t$hostname.localdomain\t$hostname" > /etc/hosts
 
-vared -p "Select appropriate ucode(Use your CPU's brand) 1)intel 2)amd default)no ucode :" -c ucode
+run_reflector
 
-case $ucode in 
+vared -p "Select appropriate ucode(Use your CPU's brand) 1)intel 2)amd *)no ucode : " -c cucode
+
+case $cucode in 
 	1)
-		pacman -S intel-ucode --noconfirm
+		ucode=intel-ucode 
 		;;
 	2)
-		pacman -S amd-ucode --noconfirm
+		ucode=amd-ucode 
 		;;
 	*)
 		log_warning "No ucode will be installed"
 	;;
 esac
 
-run_reflector
 
 echo -e "${GREEN}Installing packages${NC}"
 
-pacman -Syu $(cat /root/packages.txt) --noconfirm
+
+
+echo "Configurations:"
+jq ".[].name" ${BASE}/pkconfig.json | tr -d "\"" |  awk '{print NR,$0}'
+vared -p "Select a configuration: (default=1) " -c cconf
+
+if [[ -z "$cconf" ]]
+then
+	cconf=0
+else
+	cconf=$(( $cconf - 1 ))
+fi
+
+pkgfile=$(jq -r ".[${cconf}].file" ${BASE}/pkconfig.json)
+
+pacman -Syu $(cat ${BASE}/${pkgfile}) $ucode --noconfirm
 
 systemctl enable systemd-networkd.service
 systemctl enable systemd-resolved.service
@@ -134,9 +152,18 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 vared -p "Enter username for primary user" -c puser
 
-useradd -m -G systemd-journal,video,uucp,lp,audio,wheel,optical -s zsh $puser
+useradd -m -G systemd-journal,video,uucp,lp,audio,wheel,optical -s /usr/bin/zsh $puser
+
+log_success "Copying dotfiles" "if you are ${BOLD}me${ND} remember to set remote to SSH and install your SSH key ${BOLD}(${ND}do that part even if you are not me${BOLD})${ND}"
+
+cp -R $(git rev-parse --show-toplevel) /home/${puser}/.dotfiles
+
+echo "you will find these in ${GREEN}${BOLD}/home/$puser/.dotfiles${ND}${NC}"
+echo "you may remove this copy of dotfiles just run 'rm /root/dotfiles'"
 
 # Passwd PSA
 echo -e "${YELLOW} ####IMPORTANT#### ${NC}"
 echo "Run 'passwd' with no arguments to set the root password"
 echo "and run 'passwd $puser' to set $puser's password"
+echo "then run 'su $puser' to access as $puser"
+echo "and if you want to continue run ${BOLD}archuser.zsh${ND}"

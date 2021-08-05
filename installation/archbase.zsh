@@ -56,7 +56,7 @@ echo -e "${YELLOW_BG} Will begin installation, will need internet for installati
 # Check secondary scripts are present 
 if [[ ! -f utils.zsh ]]
 then
-	log_error "Not found ${BOLD}utils.zsh${ND}. This script must be run from the ${BOLD}installation${NC} directory."
+	log_error "Not found ${BOLD}utils.zsh${ND}. This script must be run from the ${BOLD}installation${ND} directory."
 	exit 1
 fi
 
@@ -154,7 +154,7 @@ genfstab -U /mnt > /mnt/etc/fstab
 log_success "Copying files to installation's root directory"
 cp -R $(git rev-parse --show-toplevel) /mnt/root
 
-log_success "After chroot do ${BOLD} cd ${NC} to go to root directory and  there run ${BOLD}archroot.zsh${NC} to continue installation."
+log_success "After chroot do ${BOLD} cd ${ND} to go to root directory and  there run ${BOLD}archroot.zsh${ND} to continue installation."
 
 vared -p "Wish to chroot now: (Y/n)" -c cchroot
 
