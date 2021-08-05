@@ -80,22 +80,31 @@ then
 	exit 3
 fi
 
-log_warning "You will be dropped into cfdisk to perform custom partitioning. Minimum 3 partitions need to be created root, home and efi"
+log_warning "You will be dropped into partition tool to perform custom partitioning. Minimum 3 partitions need to be created root, home and efi"
 
 vared -p "Continue?(Y/n)" -c tmp
 
-if [[ "${tmp}" == "n" ]]
+if [[ "${tmp}" != "n" ]]
 then
-	log_success "Finished" "Aborted by user"
-	exit 4
+	# Backup partitions
+	sfdisk -d $device > /tmp/part.dump
+
+	# Drop into interactive disk partition utility
+	echo "Select partition tool"
+	vared -p "1) cfdisk 2) gdisk 3)zsh " -c cparttool
+	case $cparttool in
+		1)
+			cfdisk $device
+			;;
+		2)
+			sfdisk $device
+			;;
+		*)
+			zsh
+			;;
+	esac
+
 fi
-
-# Backup partitions
-sfdisk -d $device > /tmp/part.dump
-
-# Drop into interactive disk partition utility
-cfdisk $device
-
 # Extract partitions from device
 partstmp=$( fdisk -l $device | grep -E '^\/dev' | awk '{print $1, $5}'  ) 
 
