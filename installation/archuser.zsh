@@ -40,6 +40,8 @@ fi
 log_success "Installing Oh-my-zsh" "This will launch a new zsh shell just  CTRL-D to continue"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+[[ -f $HOME/.zshrc ]] && rm $HOME/.zshrc
+
 vared -p "Wish to configure git now: (Y/n)" -c cgitconfig
 
 if [[ "${cgitconfig}" != "n" ]]
