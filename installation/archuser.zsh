@@ -18,11 +18,16 @@ function git_config(){
 
 function select_stow(){
 	pushd $(git rev-parse --show-toplevel)
-	log_success "Selecting stow targets" \
-		"Use ${BOLD}Tab${ND} to select multiple. Select only i3 or sway not both, depending on the package collection selected in root step"
-	local stows=$( ls --only-dirs | grep -Ev "archive|installation|system|local|zsh" | $HOME/.fzf/bin/fzf --reverse -m )
+	log_success "Dispersing dotfiles" \
+		"Will disperse basic dotfiles (local,kitty,neovim,tmux,zsh) you can disperse other ones later with 'stow target'"
+	vared -p "Disperse sway or i3 files (default=sway)?: " -c cdesktop
 
-	stow local zsh $(echo $stows | paste -s)
+	if [[ -z "$cdesktop" ]]
+	then
+		cdesktop=sway
+	fi
+
+	stow local kitty neovim tmux zsh $cdesktop
 	popd
 }
 
@@ -47,15 +52,19 @@ log_success "Downloading fonts" \
 git submodule update --init
 
 log_success "Installing shell tools" "Installing..."
+if [[ ! -d $HOME/.local/bin ]]
+then
+	mkdir -p $HOME/.local/bin
+fi
+export PATH=$PATH:$HOME/.local/bin
 gitbase=$(git rev-parse --show-toplevel)
 localbin=${gitbase}/local/.local/bin
 
 bash ${localbin}/update_nvm.sh
 zsh ${localbin}/shells_update.zsh
 
-log_success "Dotfiles" "Select dotfiles to be dispersed"
+log_success "Dotfiles" "dotfiles are about to be dispersed"
 select_stow
-
 
 log_success "Nvim" "Installing nvim plugins"
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerInstall'
