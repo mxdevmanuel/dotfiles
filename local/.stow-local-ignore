@@ -1,4 +1,6 @@
-.local/fonts/README.md
-.local/fonts/.git
-.local/fonts/.gitignore
-.local/fonts/Prompt.png
+.local/share/fonts/sfmono/.git
+.local/share/fonts/sfmono/.gitignore
+.local/share/fonts/sfmono/Prompt.png
+.local/share/fonts/sfmono/README.md
+.local/share/fonts/sfdisplay/.git
+.local/share/fonts/sfdisplay/README.md

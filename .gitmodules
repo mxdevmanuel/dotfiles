@@ -1,3 +1,6 @@
 [submodule "local/.fonts"]
-	path = local/.local/share/fonts
+	path = local/.local/share/fonts/sfmono
 	url = https://github.com/Twixes/SF-Mono-Powerline
+[submodule "local/.local/share/fonts/sfdisplay"]
+	path = local/.local/share/fonts/sfdisplay
+	url = https://github.com/AppleDesignResources/SanFranciscoFont

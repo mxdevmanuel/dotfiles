@@ -27,9 +27,9 @@ floating_modifier $mod
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
+set $ws1 "1:term"
+set $ws2 "2:web"
+set $ws3 "3:editor"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
@@ -45,8 +45,8 @@ set $ws11 "11"
 
 # tray
 # exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
-# exec --no-startup-id "udiskie -t &"
 exec --no-startup-id "mako &"
+exec --no-startup-id "dbus-update-activation-environment --systemd --all"
 
 # }}}
 
@@ -124,7 +124,6 @@ bindsym $mod+grave exec wofi --show window
 # bindsym Mod4+Shift+F1 exec --no-startup-id notify-send "con shift"
 # bindsym $mod+Mod4+F1 exec --no-startup-id notify-send "con alt"
 bindsym $mod+F2 exec wofi --show run
-bindsym $mod+F4 exec $HOME/.local/bin/check_hdmi.sh
 # bindsym $mod+F5  AVAILABLE
 bindsym $mod+F6 exec kitty ssh $(cat ~/.zsh_history | grep "ssh" | grep -Eo "[a-z0-9]+?\@?([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)" | uniq | wofi --dmenu)
 bindsym $mod+F9 sticky toggle
@@ -151,6 +150,8 @@ bindsym $mod+Shift+r restart
 bindsym $mod+t exec kitty -e bash
 bindsym $mod+Shift+t exec env NOTMUX=1 kitty
 bindsym $mod+i exec stask.sh add
+bindsym $mod+o exec --no-startup-id makoctl dismiss
+bindsym $mod+Shift+o exec --no-startup-id makoctl dismiss --all
 # bindsym $mod+p AVAILABLE
 bindsym $mod+braceleft move workspace to output left
 bindsym $mod+braceright move workspace to output right
@@ -294,11 +295,26 @@ mode "resize" {
 
 
 #Gaps mode
-set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 
-bindsym $mod+Shift+g mode "$mode_gaps_outer"
+set $mode_back_forth Back And Forth y|n|q
+set $mode_light Backlight +|-|0
+set $mode_follow_focus Follow Focus y|n|q
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+
 bindsym $mod+g mode "$mode_gaps_inner"
+bindsym $mod+F3 mode "$mode_follow_focus"
+bindsym $mod+Shift+F3 mode "$mode_back_forth"
+bindsym $mod+Shift+g mode "$mode_gaps_outer"
+bindsym $mod+F4 mode "$mode_light"
+
+mode "$mode_light" {
+	bindsym plus exec light -A 5 # increase screen brightness
+	bindsym minus exec light -U 5 # decrease screen brightness
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym q mode "default"
+}
 
 mode "$mode_gaps_outer" {
         bindsym plus  gaps outer current plus 5
@@ -312,6 +328,7 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "$mode_gaps"
         bindsym Escape mode "default"
 }
+
 mode "$mode_gaps_inner" {
         bindsym plus  gaps inner current plus 5
         bindsym minus gaps inner current minus 5
@@ -325,9 +342,6 @@ mode "$mode_gaps_inner" {
         bindsym Escape mode "default"
 }
 
-set $mode_follow_focus Follow Focus y|n|q
-bindsym $mod+F3 mode $mode_follow_focus
-
 mode "$mode_follow_focus" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -335,9 +349,6 @@ mode "$mode_follow_focus" {
 	bindsym n exec --no-startup-id swaymsg focus_follows_mouse no
         bindsym q mode "default"
 }
-
-set $mode_back_forth Back And Forth y|n|q
-bindsym $mod+Shift+F3 mode $mode_back_forth
 
 mode "$mode_back_forth" {
         bindsym Return mode "default"

@@ -1,0 +1,8 @@
+[Unit]
+Description=Shells update
+Documentation=Update non repo shell tools
+Wants=update-shells.timer
+
+[Service]
+ExecStart=/usr/bin/env bash %h/.local/bin/shells_update.sh
+Type=oneshot

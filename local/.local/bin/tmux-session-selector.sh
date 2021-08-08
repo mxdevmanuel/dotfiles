@@ -7,7 +7,7 @@ else
 	COMMAND="wofi --dmenu"
 fi
 
-SESSION=$(tmux ls | perl -pe 's/:.*$//' | $COMMAND -p "sessions")
+SESSION=$(tmux ls | perl -pe 's/:.*$//' | eval $COMMAND -p "sessions")
 
 local exitcode=$?
 

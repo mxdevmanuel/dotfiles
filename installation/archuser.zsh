@@ -65,8 +65,7 @@ export PATH=$PATH:$HOME/.local/bin
 gitbase=$(git rev-parse --show-toplevel)
 localbin=${gitbase}/local/.local/bin
 
-bash ${localbin}/update_nvm.sh
-zsh ${localbin}/shells_update.zsh
+bash ${localbin}/shells_update.sh
 
 log_success "Nvim" "Installing nvim plugins"
 p=$(mktemp)

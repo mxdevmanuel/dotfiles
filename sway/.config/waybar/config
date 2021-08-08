@@ -20,16 +20,16 @@
     "height": 28,
 
     "modules-left": [
-        "sway/workspaces",
-        "sway/mode"
-    ],
-    // "modules-center": [
-     //   "sway/window"
-    // ],
-    "modules-right": [
         "cpu",
         "memory",
         "network",
+    ],
+    "modules-center": [
+       // "sway/window"
+        "sway/workspaces",
+        "sway/mode"
+    ],
+    "modules-right": [
         "temperature",
 //        "custom/keyboard-layout",
         "battery",
@@ -113,7 +113,7 @@
     },
 
     "sway/mode": {
-        "format": "<span style=\"italic\">  {}</span>", // Icon: expand-arrows-alt
+        "format": "<span style=\"italic\"> {}</span>", // Icon: expand-arrows-alt
         "tooltip": false
     },
 
@@ -125,18 +125,18 @@
     "sway/workspaces": {
         "all-outputs": false,
         "disable-scroll": true,
-        "format": "{icon}",
+        "format": "{icon}  {name}",
         "format-icons": {
-            "1": "", // Icon: firefox-browser
-            "2": "", // Icon: mail
-            "3": "", // Icon: terminal
-            "4": "4", // Icon: mail
-            "5": "5", // Icon: mail
-            "6": "6", // Icon: mail
-            "7": "7", // Icon: mail
-            "8": "8", // Icon: mail
-            "9": "9", // Icon: mail
-            "10": "10", // Icon: mail
+            "1:term": "", // Icon: terminal
+            "2:web": "", // Icon: chromium-browser
+            "3:editor": "", // Icon: vim
+            "4": "", // Icon: mail
+            "5": "", // Icon: mail
+            "6": "", // Icon: mail
+            "7": "", // Icon: mail
+            "8": "", // Icon: mail
+            "9": "", // Icon: mail
+            "10": "", // Icon: mail
             "urgent": "",
             "focused": "",
             "default": ""

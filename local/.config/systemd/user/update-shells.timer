@@ -1,0 +1,11 @@
+[Unit]
+Description=Triggers weekly checks on non-repo nor aur shell tools
+Requires=update-shells.service
+
+[Timer]
+Unit=update-shells.service
+OnCalendar=weekly
+Persistent=true
+
+[Install]
+WantedBy=timers.target
