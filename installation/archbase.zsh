@@ -97,7 +97,7 @@ then
 			cfdisk $device
 			;;
 		2)
-			sfdisk $device
+			gdisk $device
 			;;
 		*)
 			zsh

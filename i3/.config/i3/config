@@ -25,17 +25,16 @@ floating_modifier $mod
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
-set $ws11 "11"
+set $ws1 "1:term"
+set $ws2 "2:browser"
+set $ws3 "3:altbrowser"
+set $ws4 "4:editor"
+set $ws5 "5:files"
+set $ws6 "6:mail"
+set $ws7 "7:torrent"
+set $ws8 "8:docs"
+set $ws9 "9:rebel"
+set $ws10 "10:net"
 # }}}
 
 # Autostart {{{
@@ -227,7 +226,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # Rules{{{
 
-assign [class="^Chromium" instance="^chromium"] → $ws2
+assign [class="^Chromium" instance="^chromium"] → $ws3
 assign [class="^Google-chrome" instance="^google-chrome"] → $ws2
 assign [instance="mailspring" class="Mailspring"] → $ws3
 assign [instance="slack" class="Slack"] → $ws3
