@@ -129,8 +129,8 @@
         "format-icons": {
             "1:term": "", // Icon: terminal
             "2:web": "", // Icon: chromium-browser
-            "3:editor": "", // Icon: vim
-            "4": "", // Icon: mail
+            "3:altweb": "", // Icon: firefox
+            "4:editor": "", // Icon: vim
             "5": "", // Icon: mail
             "6": "", // Icon: mail
             "7": "", // Icon: mail

@@ -29,8 +29,8 @@ floating_modifier $mod
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1:term"
 set $ws2 "2:web"
-set $ws3 "3:editor"
-set $ws4 "4"
+set $ws3 "3:altweb"
+set $ws4 "4:editor"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
@@ -224,11 +224,11 @@ bindsym XF86AudioPrev exec playerctl previous
 assign [app_id="^Chromium"] → $ws3
 assign [app_id="^Google-chrome"] → $ws2
 assign [title="vifm"] → $ws5 
-assign [app_id="^Transmission-gtk"] → $ws7
-assign [app_id="^Wps"] → $ws8
-assign [app_id="Insomnia"] → $ws10
-assign [app_id="Postman"] → $ws10
-assign [app_id="Mockoon"] → $ws10
+assign [app_id="^transmission-gtk"] → $ws7
+assign [app_id="^wps"] → $ws8
+assign [app_id="insomnia"] → $ws10
+assign [app_id="postman"] → $ws10
+assign [app_id="mockoon"] → $ws10
 assign [floating] border pixel 0
 
 for_window [instance="matplotlib"] floating enable
