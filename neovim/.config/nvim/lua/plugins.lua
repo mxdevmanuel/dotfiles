@@ -73,6 +73,7 @@ return require('packer').startup(function()
 
     -- Filetypes
     use 'GutenYe/json5.vim'
+    use {'stevearc/vim-arduino', opt=true, ft='arduino'}
 
     -- Appeareance
     use {
