@@ -150,3 +150,7 @@ neovim/.config/nvim/plugin/packer_compiled.lua
 **/vifm/scripts/README
 **/vifm/vifm-help.txt
 **/vifm/vifminfo.json
+
+# Gtk
+.gtk/*
+!.gtk/install.zsh

@@ -33,7 +33,7 @@ set $ws3 "3:altweb"
 set $ws4 "4:editor"
 set $ws5 "5"
 set $ws6 "6"
-set $ws7 "7"
+set $ws7 "7:torrent"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
@@ -46,7 +46,8 @@ set $ws11 "11"
 # tray
 # exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
 exec --no-startup-id "mako &"
-exec --no-startup-id "dbus-update-activation-environment --systemd --all"
+exec  "dbus-update-activation-environment --systemd --all; systemctl --user start sway-session.target"
+# exec "systemctl --user import-environment; systemctl --user start sway-session.target"
 
 # }}}
 
