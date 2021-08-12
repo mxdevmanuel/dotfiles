@@ -227,6 +227,7 @@ bindsym XF86AudioPrev exec playerctl previous
 # Rules{{{
 
 assign [class="^Chromium" instance="^chromium"] → $ws3
+assign [class="^Tor Browser" instance="^Navigator"] → $ws3
 assign [class="^Google-chrome" instance="^google-chrome"] → $ws2
 assign [instance="mailspring" class="Mailspring"] → $ws3
 assign [instance="slack" class="Slack"] → $ws3
