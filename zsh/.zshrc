@@ -1,9 +1,11 @@
-# ZSH and zinit config
+# ZSH and Oh-my-zsh config
 
 # Profile start
 # zmodload zsh/zprof #enable zsh profiling
 
-export ZSHSHARE="$HOME/.local/share/zsh" # Path to custom autoload functions
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+export ZSHSHARE="$HOME/.local/share/zsh"
 export EDITOR=vim
 export VISUAL=vim
 
@@ -15,49 +17,11 @@ ZSH_TMUX_FIXTERM="true"
 ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
 ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
 
-### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
-fi
+plugins=(
+        git vi-mode tmux fzf docker direnv colored-man-pages z zsh-syntax-highlighting
+)
 
-source "$HOME/.zinit/bin/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zinit-zsh/z-a-rust \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-bin-gem-node
-
-### End of Zinit's installer chunk
-
-setopt promptsubst
-
-zinit snippet OMZL::clipboard.zsh
-zinit snippet OMZL::termsupport.zsh
-zinit snippet OMZL::git.zsh
-
-zinit snippet OMZP::git
-zinit snippet OMZP::ssh-agent
-zinit snippet OMZP::vi-mode
-zinit snippet OMZP::tmux
-zinit snippet OMZP::docker
-zinit snippet OMZP::fzf
-zinit snippet OMZP::direnv
-zinit snippet OMZP::colored-man-pages
-
-zinit light zsh-users/zsh-syntax-highlighting
-zinit load agkozak/zsh-z
-
-zinit ice depth=1;zinit light romkatv/powerlevel10k
-
+source $ZSH/oh-my-zsh.sh
 
 fpath=($fpath $ZSHSHARE/autoloaded)
 
@@ -69,6 +33,7 @@ alias ssh="TERM=xterm-256color ssh"
 alias btctl="bluetoothctl"
 alias packs="pacman -Q | wc -l"
 
+unalias l
 alias l='exa -la'
 alias ls='exa'
 alias la='exa -a'
@@ -82,6 +47,17 @@ alias ltla='exa -Tla'
 alias tig='vim -c GV'
 
 # Functions
+
+# if [[ -z "$THEMED" ]]
+# then
+# 	hour=$(date +"%H")
+# 	if [[ $(echo "$hour > 9" | bc) == "1" ]] && [[ $(echo "$hour < 19 " | bc) == "1" ]]
+# 	then
+# 		setTheme gruvbox-light light.toml light 1
+# 	else
+# 		setTheme gruvbox-dark dark.toml dark 2
+# 	fi
+# fi
 
 function unexa() { unalias ls }
 
@@ -106,9 +82,7 @@ alias nvm="_nvm"
 
 # For powerlevel10k, to customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 prompt_context(){}
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 # Profile end
 # zprof # start zsh profiling
