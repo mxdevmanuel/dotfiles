@@ -74,6 +74,7 @@ return require('packer').startup(function()
     -- Filetypes
     use 'GutenYe/json5.vim'
     use {'stevearc/vim-arduino', opt=true, ft='arduino'}
+    use {'chunkhang/vim-mbsync', opt = true, ft='mbsync' }
 
     -- Appeareance
     use {

@@ -17,6 +17,8 @@ ZSH_TMUX_FIXTERM="true"
 ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="tmux"
 ZSH_TMUX_FIXTERM_WITH_256COLOR="tmux-256color"
 
+VI_MODE_SET_CURSOR=true
+
 plugins=(
         git vi-mode tmux fzf docker direnv colored-man-pages z zsh-syntax-highlighting
 )

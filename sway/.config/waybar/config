@@ -131,7 +131,7 @@
             "2:web": "", // Icon: chromium-browser
             "3:altweb": "", // Icon: firefox
             "4:editor": "", // Icon: vim
-            "5": "", // Icon: mail
+            "5:files": "", // Icon: mail
             "6": "", // Icon: mail
             "7:torrent": "", // Icon: mail
             "8": "", // Icon: mail

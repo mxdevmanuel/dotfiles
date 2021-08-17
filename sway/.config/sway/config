@@ -31,7 +31,7 @@ set $ws1 "1:term"
 set $ws2 "2:web"
 set $ws3 "3:altweb"
 set $ws4 "4:editor"
-set $ws5 "5"
+set $ws5 "5:files"
 set $ws6 "6"
 set $ws7 "7:torrent"
 set $ws8 "8"
@@ -224,6 +224,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 assign [app_id="^Chromium"] → $ws3
 assign [app_id="^Google-chrome"] → $ws2
+assign [app_id="^Thunar"] → $ws5
 assign [title="vifm"] → $ws5 
 assign [app_id="^transmission-gtk"] → $ws7
 assign [app_id="^wps"] → $ws8
@@ -374,6 +375,10 @@ input type:touchpad {
 
 input type:keyboard {
     xkb_options "altwin:swap_lalt_lwin"
+}
+
+input 2:10:TPPS\/2_IBM_TrackPoint {
+	left_handed enabled
 }
 
 seat * {
