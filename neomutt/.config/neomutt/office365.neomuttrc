@@ -4,9 +4,10 @@ set from = "`pass office365/user`"
 
 set folder = "~/.mail/office365"
 set spoolfile = "+/Inbox"
-set postponed = "+/Drafts"
-set record = "+/Sent"
-set trash = "+/Trash"
+set postponed = "+/Borradores"
+set record = "+/Elementos enviados"
+set trash = "+/Elementos eliminados"
+set my_archive = "$folder/Archivo"
 
 # navigation settings
 bind index,pager,attach gi noop
@@ -31,6 +32,7 @@ set sendmail = "msmtp -a office365 --from=$from --user=$from"
 unmailboxes *
 
 mailboxes $spoolfile
+mailboxes $my_archive
 mailboxes $postponed
 mailboxes $record
 mailboxes $trash

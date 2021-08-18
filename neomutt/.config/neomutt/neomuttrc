@@ -1,6 +1,6 @@
 ## General options
 set realname = "Manuel Morales"
-set signature = $realname
+set signature = "echo $realname |"
 
 set mail_check_stats
 set mailcap_path=~/.mailcap
@@ -39,9 +39,12 @@ bind pager G bottom
 bind attach,index gg first-entry
 bind attach,index G last-entry
 bind index,pager 'B' sidebar-toggle-visible
+bind index { sidebar-prev
+bind index } sidebar-next
+bind index + sidebar-open
 
 ## UI
-set sidebar_visible=no
+set sidebar_visible=yes
 set sidebar_width = 20
 set sidebar_short_path = yes
 set sidebar_next_new_wrap = yes
@@ -57,9 +60,9 @@ source ~/.config/neomutt/gruvbox-dark.muttrc
 
 source ~/.config/neomutt/outlook.neomuttrc
 
-macro index,pager <f1> '<sync-mailbox><enter-command>source ~/.config/neomutt/outlook.neomuttrc<enter><change-folder>!<enter>;<check-stats>' "switch to outlook"
-macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/gmail.neomuttrc<enter><change-folder>!<enter>;<check-stats>' "switch to gmail"
-macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/office365.neomuttrc<enter><change-folder>!<enter>;<check-stats>' "switch to work"
+macro index,pager <f1> '<sync-mailbox><enter-command>source ~/.config/neomutt/outlook.neomuttrc<enter><change-folder>!<enter>' "switch to outlook"
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/gmail.neomuttrc<enter><change-folder>!<enter>' "switch to gmail"
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/office365.neomuttrc<enter><change-folder>!<enter>' "switch to work"
 
 macro attach,index,pager <f10> '<enter-command>source ~/.config/neomutt/gruvbox-light.muttrc<enter>'
 macro attach,index,pager <f9> '<enter-command>source ~/.config/neomutt/gruvbox-dark.muttrc<enter>'
