@@ -6,4 +6,5 @@
 # Recommendations
 
 Run this command to use my git hooks
+
 	git config --local core.hooksPath git/githooks
