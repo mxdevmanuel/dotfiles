@@ -28,13 +28,17 @@ Channel gmail-default
 Far :gmail-remote:
 Near :gmail-local:Inbox
 Create Near
-#Patterns INBOX
  
 Channel gmail-sent
 Far :gmail-remote:"[Gmail]/Sent Mail"
 Near :gmail-local:Sent
 Create Near
  
+Channel gmail-drafts
+Far :gmail-remote:"[Gmail]/Drafts"
+Near :gmail-local:Drafts
+Create Near
+
 Channel gmail-trash
 Far :gmail-remote:"[Gmail]/Trash"
 Near :gmail-local:Trash
@@ -54,6 +58,7 @@ Create Near
 Group gmail
 Channel gmail-default
 Channel gmail-trash
+Channel gmail-drafts
 Channel gmail-archive
 Channel gmail-sent
 Channel gmail-junk
@@ -78,6 +83,32 @@ MaildirStore outlook-local
 Channel outlook
     Far :outlook-remote:
     Near :outlook-local:
+    Patterns *
+    Create Both
+    Expunge Both
+    SyncState *
+    Sync Pull All Push All
+
+IMAPAccount office365
+    Host outlook.office365.com
+    Port 993
+    UserCmd "pass office365/user"
+    PassCmd "pass office365/password"
+    SSLType IMAPS
+    AuthMechs LOGIN
+
+IMAPStore office365-remote
+    Account office365
+    UseNamespace yes
+
+MaildirStore office365-local
+    SubFolders Verbatim
+    Inbox ~/.mail/office365/Inbox
+    Path ~/.mail/office365/
+
+Channel office365
+    Far :office365-remote:
+    Near :office365-local:
     Patterns *
     Create Both
     Expunge Both

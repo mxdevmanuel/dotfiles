@@ -1,30 +1,63 @@
 ## General options
-set sort=reverse-date
-
-## Paths
-set header_cache = "~/.cache/neomutt"
-set message_cachedir = "~/.cache/neomutt/"
-set certificate_file = "~/.cache/neomutt/"
-
 set realname = "Manuel Morales"
+set signature = $realname
 
+set mail_check_stats
+set mailcap_path=~/.mailcap
 set mbox_type = Maildir
-set folder = "~/.mail/outlook"
-
-## UI
+set fast_reply= yes
+set pager_stop=yes
+set move = no
 set rfc2047_parameters
-set sidebar_visible=yes
+set sleep_time=1
+set sort=reverse-date
+set use_from = yes
 
-set use_from=yes
 alternative_order text/plain text/html
 auto_view text/html
 
-# cache settings
+## Paths
 
-# mailbox settings
-set spoolfile = +Inbox
-set postponed = +Drafts
-set record = +Sent
-set trash = +Trash
+# Cache settings
+set header_cache = "~/.cache/neomutt/"
+set message_cachedir = "~/.cache/neomutt/"
+
+
+# Keybindings
+bind index,pager,attach g noop
+bind index,pager,attach gg noop
+
+bind pager j next-line
+bind pager k previous-line
+bind pager H display-toggle-weed
+bind attach,index,pager \CD next-page
+bind attach,index,pager \CU previous-page
+bind pager gg top
+bind pager G bottom
+bind attach,index gg first-entry
+bind attach,index G last-entry
+bind index,pager 'B' sidebar-toggle-visible
+
+## UI
+set sidebar_visible=no
+set sidebar_width = 20
+set sidebar_short_path = yes
+set sidebar_next_new_wrap = yes
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
+
+set markers = no
+# set new_mail_command="notify-send --icon='~/.local/share/icons/Gruvbox-Material-Dark/64x64/apps/mailspring.svg' \
+# 'New Email in %f at %h' '%n new messages, %u unread.' &"
 
 source ~/.config/neomutt/gruvbox-dark.muttrc
+
+## Accounts
+
+source ~/.config/neomutt/outlook.neomuttrc
+
+macro index,pager <f1> '<sync-mailbox><enter-command>source ~/.config/neomutt/outlook.neomuttrc<enter><change-folder>!<enter>;<check-stats>' "switch to outlook"
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/gmail.neomuttrc<enter><change-folder>!<enter>;<check-stats>' "switch to gmail"
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/office365.neomuttrc<enter><change-folder>!<enter>;<check-stats>' "switch to work"
+
+macro attach,index,pager <f10> '<enter-command>source ~/.config/neomutt/gruvbox-light.muttrc<enter>'
+macro attach,index,pager <f9> '<enter-command>source ~/.config/neomutt/gruvbox-dark.muttrc<enter>'

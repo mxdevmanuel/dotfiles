@@ -1,0 +1,32 @@
+# vi: ft=neomuttrc
+
+set from = "`pass office365/user`"
+
+set folder = "~/.mail/office365"
+set spoolfile = "+/Inbox"
+set postponed = "+/Drafts"
+set record = "+/Sent"
+set trash = "+/Trash"
+
+# navigation settings
+bind index,pager,attach gi noop
+bind index,pager,attach gs noop
+bind index,pager,attach gd noop
+bind index,pager,attach gt noop
+
+macro index,pager gi "<change-folder>$spoolfile<enter>" "go to inbox"
+macro index,pager gs "<change-folder>$record<enter>" "go to sent"
+macro index,pager gd "<change-folder>$postponed<enter>" "go to drafts"
+macro index,pager gt "<change-folder>$trash<enter>" "go to trash"
+
+# synchronization settings ['s' to sync]
+macro index S "<shell-escape>mbsync -V office365<enter>" "sync email"
+
+# set mailboxes
+
+unmailboxes *
+
+mailboxes $spoolfile
+mailboxes $postponed
+mailboxes $record
+mailboxes $trash
