@@ -3,4 +3,7 @@
 	My personal dotfiles, manage with GNU stow and used in Archlinux
 
 
-git config --local core.hooksPath git/githooks
+# Recommendations
+
+Run this command to use my git hooks
+	git config --local core.hooksPath git/githooks

@@ -13,6 +13,8 @@ set sleep_time=1
 set sort=reverse-date
 set use_from = yes
 
+unsetenv USER
+
 alternative_order text/plain text/html
 auto_view text/html
 

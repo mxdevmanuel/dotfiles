@@ -22,6 +22,10 @@ macro index,pager gt "<change-folder>$trash<enter>" "go to trash"
 # synchronization settings ['s' to sync]
 macro index S "<shell-escape>mbsync -V outlook<enter>" "sync email"
 
+setenv EMAIL $from
+
+set sendmail = "msmtp -a outlook --from=$from --user=$from"
+
 # set mailboxes
 
 unmailboxes *
