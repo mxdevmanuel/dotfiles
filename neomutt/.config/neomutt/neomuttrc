@@ -1,76 +1,30 @@
 ## General options
+set sort=reverse-date
+
+## Paths
 set header_cache = "~/.cache/neomutt"
 set message_cachedir = "~/.cache/neomutt/"
 set certificate_file = "~/.cache/neomutt/"
 
-set imap_check_subscribed
-set imap_list_subscribed
-set imap_keepalive = 300
-set mail_check = 60
-set move = yes
-unset imap_passive
-unset record
+set realname = "Manuel Morales"
 
-set mbox_type=Maildir
-set sleep_time=0
-set sort=reverse-date
-set mailcap_path=~/.mailcap
-set pager_stop=yes
-set fast_reply = yes
-set include = no
+set mbox_type = Maildir
+set folder = "~/.mail/outlook"
 
+## UI
+set rfc2047_parameters
 set sidebar_visible=yes
-set sidebar_new_mail_only=no
 
-set realname='Manuel Morales'
-set signature="Manuel Morales"
 set use_from=yes
-source "gpg -dq $HOME/.creds.gpg |"
-
 alternative_order text/plain text/html
 auto_view text/html
 
-set new_mail_command="notify-send --icon='/usr/share/icons/Papirus/64x64/apps/mailspring.svg' \
-'New Email in %f at %h' '%n new messages, %u unread.' &"
+# cache settings
 
-
-account-hook . 'unmailboxes *'
-
-## ACCOUNT1
-# source "~/.config/neomutt/office365.neomuttrc"
-folder-hook 'office365.neomuttrc' 'source ~/.config/neomutt/office365.neomuttrc'
-
-## ACCOUNT2
-source "~/.config/neomutt/gmail.neomuttrc"
-# Here we use the $account variable that has just been set in the sourced file.
-# We must set it right now otherwise the 'account' variable will change in the next sourced file.
-folder-hook 'gmail.neomuttrc' 'source ~/.config/neomutt/gmail.neomuttrc'
-
-## ACCOUNT1
-# source "~/.config/neomutt/outlook.neomuttrc"
-folder-hook 'outlook.neomuttrc' 'source ~/.config/neomutt/outlook.neomuttrc'
-
-
-# Shortcuts
-macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.config/neomutt/gmail.neomuttrc<enter><change-folder>!<enter>'
-macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.config/neomutt/outlook.neomuttrc<enter><change-folder>!<enter>'
-macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.config/neomutt/office365.neomuttrc<enter><change-folder>!<enter>'
-macro attach,index,pager <f10> '<enter-command>source ~/.config/neomutt/gruvbox-light.muttrc<enter>'
-macro attach,index,pager <f9> '<enter-command>source ~/.config/neomutt/gruvbox-dark.muttrc<enter>'
-
-macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 | vimb -<enter>"
-
-bind index 'I' imap-fetch-mail
-
-bind pager j next-line
-bind pager k previous-line
-bind pager H display-toggle-weed
-bind attach,index,pager \CD next-page
-bind attach,index,pager \CU previous-page
-bind pager g top
-bind pager G bottom
-bind attach,index g first-entry
-bind attach,index G last-entry
-bind index,pager 'B' sidebar-toggle-visible
+# mailbox settings
+set spoolfile = +Inbox
+set postponed = +Drafts
+set record = +Sent
+set trash = +Trash
 
 source ~/.config/neomutt/gruvbox-dark.muttrc

@@ -1,0 +1,85 @@
+# Automatically create missing mailboxes, both locally and on the server
+Create Both
+# Automatically delete messages on either side if they are found deleted on the other.
+Expunge Both
+# Save the synchronization state files in the relevant directory
+SyncState *
+
+IMAPAccount gmail
+Host imap.gmail.com
+Port 993
+UserCmd "pass gmail/user"
+PassCmd "pass gmail/password"
+SSLType IMAPS
+# The following line should work. If get certificate errors, uncomment the two following lines
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+#CertificateFile ~/.cert/imap.gmail.com.pem
+#CertificateFile ~/.cert/Equifax_Secure_CA.pem
+ 
+IMAPStore gmail-remote
+Account gmail
+ 
+MaildirStore gmail-local
+# The trailing "/" is important
+Path ~/.mail/gmail/
+Inbox ~/.mail/gmail/inbox
+ 
+Channel gmail-default
+Far :gmail-remote:
+Near :gmail-local:Inbox
+Create Near
+#Patterns INBOX
+ 
+Channel gmail-sent
+Far :gmail-remote:"[Gmail]/Sent Mail"
+Near :gmail-local:Sent
+Create Near
+ 
+Channel gmail-trash
+Far :gmail-remote:"[Gmail]/Trash"
+Near :gmail-local:Trash
+Create Near
+ 
+Channel gmail-archive
+Far :gmail-remote:"[Gmail]/All Mail"
+Near :gmail-local:All
+Create Near
+ 
+Channel gmail-junk
+Far :gmail-remote:"[Gmail]/Spam"
+Near :gmail-local:Junk
+Create Near
+ 
+ 
+Group gmail
+Channel gmail-default
+Channel gmail-trash
+Channel gmail-archive
+Channel gmail-sent
+Channel gmail-junk
+
+IMAPAccount outlook
+    Host outlook.office365.com
+    Port 993
+    UserCmd "pass outlook/user"
+    PassCmd "pass outlook/password"
+    SSLType IMAPS
+    AuthMechs LOGIN
+
+IMAPStore outlook-remote
+    Account outlook
+    UseNamespace yes
+
+MaildirStore outlook-local
+    SubFolders Verbatim
+    Inbox ~/.mail/outlook/Inbox
+    Path ~/.mail/outlook/
+
+Channel outlook
+    Far :outlook-remote:
+    Near :outlook-local:
+    Patterns *
+    Create Both
+    Expunge Both
+    SyncState *
+    Sync Pull All Push All
