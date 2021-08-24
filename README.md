@@ -3,7 +3,6 @@
 
 My personal dotfiles, manage with GNU stow and used in Archlinux
 
-
 # Recommendations
 
 To download fonts run the following command and stow _local_
@@ -17,3 +16,13 @@ To download and set the gtk theme
 Run this command to use my git hooks
 
 	git config --local core.hooksPath git/githooks
+
+# Packages
+
+## AUR and  non-repo software
+- nq
+- wob
+- cava
+- mpv-mpris
+- kmscon-patched-git, libtsm-patched-git
+

@@ -17,14 +17,14 @@ if fn.maparg('<C-L>', 'n') == '' then
 end
 
 -- Candidates
-map('n', '<localleader>f', '<cmd>Telescope find_files<cr>', {noremap = true})
+map('n', '<localleader>f', '<cmd>GFiles --others --exclude-standard<CR>',
+    {noremap = true, silent = true})
+map('n', '<localleader>F', '<cmd>Files<CR>', {noremap = true, silent = true})
 --
 
-map('n', '<M-f>', '<cmd>Files<CR>', {noremap = true, silent = true})
+map('n', '<M-f>', '<cmd>Telescope find_files<cr>', {noremap = true})
 map('n', '<leader>/', ':Rg<space>', {noremap = true})
 map('n', '<leader>?', '<cmd>Helptags<CR>', {noremap = true, silent = true})
-map('n', '<leader>F', '<cmd>GFiles --others --exclude-standard<CR>',
-    {noremap = true, silent = true})
 map('n', '<leader>L', '<cmd>Lines<CR>', {noremap = true, silent = true})
 map('n', '<leader>N', '<cmd>bp<CR>', {noremap = true})
 map('n', '<leader>T', '<cmd>BTags<CR>', {noremap = true, silent = true})
@@ -37,6 +37,7 @@ map('n', '<leader>cte', ':tabe <C-R>=expand("%:p:h") . "/"<CR>',
     {noremap = true})
 map('n', '<leader>cve', ':vsp <C-R>=expand("%:p:h") . "/"<CR>', {noremap = true})
 map('n', '<leader>f', '<cmd>GFiles<CR>', {noremap = true, silent = true})
+map('n', '<leader>F', '<cmd>GFiles?<CR>', {noremap = true, silent = true})
 map('n', '<leader>h', '<cmd>History<CR>', {noremap = true, silent = true})
 map('n', '<leader>l', '<cmd>BLines<CR>', {noremap = true, silent = true})
 map('n', '<leader>n', '<cmd>bn<CR>', {noremap = true})

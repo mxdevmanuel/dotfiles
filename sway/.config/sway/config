@@ -38,6 +38,8 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 set $ws11 "11"
+
+set $WOBSOCK /tmp/wob.sock
 # }}}
 
 # Autostart {{{
@@ -132,13 +134,13 @@ bindsym $mod+F10 exec $HOME/.local/bin/bluetooth-connect.sh
 
 bindsym $mod+Shift+F2 exec dmenu_run 
 
-bindsym Print exec flameshot gui
-bindsym Control+Print exec --no-startup-id $HOME/.local/bin/timed_screenshot.sh
-bindsym Shift+Print exec flameshot full
+bindsym Print exec grim -g "$(slurp)" - | swappy -f -
+# bindsym Control+Print exec --no-startup-id #pending
+bindsym Shift+Print exec grim - | tee /tmp/$(date +"%m-%d-%Y_%Hh%Mm%Ss").png |  wl-copy
 bindsym --release $mod+Next workspace next
 bindsym --release $mod+Prior workspace prev
-bindsym $mod+Home exec videoshot.sh
-bindsym $mod+End exec pkill ffmpeg
+bindsym $mod+Home exec wf-recorder -g "$(slurp)" -f ~/Documents/$(date +"%m-%d-%Y_%H-%M-%S").mp4
+bindsym $mod+End exec pkill -SIGINT wf-recorder && notify-send "Screen record saved" -t 2000
 # }}}
 
 # Second row {{{
@@ -200,14 +202,14 @@ bindsym $mod+Shift+Menu exec blezz
 # }}}
 
 #  Audio volume controls{{{
-bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/.local/bin/sink-smart-selector.sh +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id  $HOME/.local/bin/sink-smart-selector.sh -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id $HOME/.local/bin/sink-smart-selector.sh mute # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/.local/bin/sink-smart-selector-v2.sh +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id  $HOME/.local/bin/sink-smart-selector-v2.sh -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id $HOME/.local/bin/sink-smart-selector-v2.sh mute # mute sound
 # }}}
 
 # Screen brightness controls{{{
-bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec light -U 5 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec light -A 5 && light -G | sed 's/\.[0-9]\{2\}/ #282828ff #7c6f64ff #fabd2fff/' > $WOBSOCK # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 5 && light -G | sed 's/\.[0-9]\{2\}/ #282828ff #7c6f64ff #fabd2fff/' > $WOBSOCK # decrease screen brightness
 #}}}
 
 # Touchpad controls{{{

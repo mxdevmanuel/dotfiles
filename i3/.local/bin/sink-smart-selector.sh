@@ -1,4 +1,7 @@
+#!/usr/bin/env bash
 SINK=$(pactl list short sinks | grep RUNNING | gawk '{print $1}') 
+
+echo $SINK
 
 if [ -z "$SINK" ]
 then
