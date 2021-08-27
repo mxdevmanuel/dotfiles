@@ -3,7 +3,7 @@ SINK=$(pactl list short sinks | grep RUNNING | gawk '{print $1}')
 WOBSOCK=/tmp/wob.sock
 
 function report(){
-	pulsemixer --get-volume | sed 's/\s[0-9]\{1,2\}/ #282828ff #7c6f64ff #8ec07cff/' > $WOBSOCK
+	pulsemixer --get-volume | sed 's/\s[0-9]\{1,3\}/ #282828ff #7c6f64ff #8ec07cff/' > $WOBSOCK
 }
 
 if [ -z "$SINK" ]

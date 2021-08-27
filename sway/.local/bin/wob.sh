@@ -14,5 +14,3 @@ then
 fi
 
 tail -f $WOBSOCK | wob &
-
-echo "first"
