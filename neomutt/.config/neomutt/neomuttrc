@@ -12,11 +12,15 @@ set rfc2047_parameters
 set sleep_time=1
 set sort=reverse-date
 set use_from = yes
+set wait_key = no
+set timeout = 3
 
 unsetenv USER
 
 alternative_order text/plain text/html
 auto_view text/html
+
+source ~/.config/neomutt/gpg.neomuttrc
 
 ## Paths
 
@@ -54,10 +58,11 @@ set sidebar_next_new_wrap = yes
 set sidebar_format = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
 
 set markers = no
-# set new_mail_command="notify-send --icon='~/.local/share/icons/Gruvbox-Material-Dark/64x64/apps/mailspring.svg' \
-# 'New Email in %f at %h' '%n new messages, %u unread.' &"
+set status_on_top
+set new_mail_command="notify-send --icon=~/.local/share/icons/Gruvbox-Material-Dark/64x64/apps/email.svg 'New Email in %f at %h' '%n new messages, %u unread.' -t 10000 &"
 
 source ~/.config/neomutt/gruvbox-dark.muttrc
+source ~/.config/neomutt/styles.neomuttrc
 
 ## Accounts
 

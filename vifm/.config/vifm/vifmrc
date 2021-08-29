@@ -239,7 +239,7 @@ filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ shotwell,
 
 if $KITTY_WINDOW_ID != "" && $TMUX == ""
-fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*svg
 	\ kitty icat --place=%pwx%ph@%pxx%py %c 
 	\ %pc
 	\ kitty icat --clear

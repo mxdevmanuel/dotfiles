@@ -1,4 +1,15 @@
+# text/html; /usr/bin/w3m -I %{charset} -T text/html; copiousoutput;
 text/html; /usr/bin/vimb - > /dev/null 2>&1; needsterminal;
-text/html; /usr/bin/w3m -I %{charset} -T text/html; copiousoutput;
+text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -collapse_br_tags -dump %s; nametemplate=%s.html; copiousoutput
 application/pdf; /usr/bin/zathura %s > /dev/null 2>&1; needsterminal;
-image/*;/usr/bin/sxiv %s;copiousoutput
+# image/*;/usr/bin/sxiv %s;copiousoutput
+
+audio/*; /usr/bin/xdg-open %s
+
+image/*; /usr/bin/xdg-open %s
+
+application/msword; /usr/bin/xdg-open %s
+application/pdf; /usr/bin/xdg-open %s
+application/postscript ; /usr/bin/xdg-open %s
+
+text/html; /usr/bin/xdg-open %s ; copiousoutput
