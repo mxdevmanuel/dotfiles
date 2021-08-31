@@ -48,6 +48,11 @@ set $WOBSOCK /tmp/wob.sock
 # tray
 # exec --no-startup-id "redshift-gtk -l 19:-98.1 &"
 exec --no-startup-id "mako &"
+exec --no-startup-id swayidle -w \
+	timeout 1800 'swaylock' \
+	timeout 1805 'swaymsg "output * dpms off"' \
+	resume 'swaymsg "output * dpms on"'
+
 exec  "dbus-update-activation-environment --systemd --all; systemctl --user start sway-session.target"
 # exec "systemctl --user import-environment; systemctl --user start sway-session.target"
 

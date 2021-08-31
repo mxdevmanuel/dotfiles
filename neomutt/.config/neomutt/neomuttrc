@@ -14,6 +14,7 @@ set sort=reverse-date
 set use_from = yes
 set wait_key = no
 set timeout = 3
+set dsn_notify="failure,delay,success"
 
 unsetenv USER
 
@@ -59,7 +60,7 @@ set sidebar_format = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
 
 set markers = no
 set status_on_top
-set new_mail_command="notify-send --icon=~/.local/share/icons/Gruvbox-Material-Dark/64x64/apps/email.svg 'New Email in %f at %h' '%n new messages, %u unread.' -t 10000 &"
+set new_mail_command="notify-send --icon=$HOME/.local/share/icons/Gruvbox-Material-Dark/64x64/apps/email.svg 'New Email in %f at %h' '%n new messages, %u unread.' -t 10000 &"
 
 source ~/.config/neomutt/gruvbox-dark.muttrc
 source ~/.config/neomutt/styles.neomuttrc

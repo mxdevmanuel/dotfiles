@@ -3,9 +3,14 @@ vim.api.nvim_exec([[
 	  command! Test execute 'new | terminal ' . $TESTCOMMAND . ' ' . expand('%')
 	end
 
+	if exists('$SWAYSOCK')
+		command! -nargs=0 WriteToClipboard execute 'silent w !wl-copy' | w
+	else
+		command! -nargs=0 WriteToClipboard execute 'silent w !xclip -selection clipboard -i > /dev/null' | w
+	end
+
 	command! Bufonly %bd | e#
 	command! IPython new | terminal ipython
-	command! -nargs=0 WriteToClipboard execute 'silent w !xclip -selection clipboard -i > /dev/null' | w
 	command! -nargs=0 RunPy call OpenTerm('python ' . expand('%'))
 
 	function! DiffWithSaved()

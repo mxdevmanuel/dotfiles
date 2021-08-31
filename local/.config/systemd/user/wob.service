@@ -1,0 +1,16 @@
+[Unit]
+Description=A lightweight overlay volume/backlight/progress/anything bar for Wayland
+Documentation=man:wob(1)
+PartOf=graphical-session.target
+After=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+; StandardInput=socket
+ExecStart=%h/.local/bin/wob.sh
+; Restart=on-failure
+; RestartSec=5s
+Type=forking
+
+[Install]
+WantedBy=graphical-session.target
