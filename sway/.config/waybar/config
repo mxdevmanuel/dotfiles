@@ -125,18 +125,18 @@
     "sway/workspaces": {
         "all-outputs": false,
         "disable-scroll": true,
-        "format": "{icon}  {name}",
+        "format": "{icon} {name}",
         "format-icons": {
             "1:term": "", // Icon: terminal
             "2:web": "", // Icon: chromium-browser
             "3:altweb": "", // Icon: firefox
             "4:editor": "", // Icon: vim
-            "5:files": "", // Icon: mail
-            "6:player": "", // Icon: mail
-            "7:torrent": "", // Icon: mail
-            "8:docs": "", // Icon: mail
-            "9": "", // Icon: mail
-            "10": "", // Icon: mail
+            "5:files": "", // Icon: files
+            "6:player": "", // Icon: play
+            "7:torrent": "", // Icon: magnet
+            "8:docs": "", // Icon: docs
+            "9:misc": "", // Icon: rebel
+            "10:etc": "", // Icon: arch
             "urgent": "",
             "focused": "",
             "default": ""

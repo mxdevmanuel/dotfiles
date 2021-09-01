@@ -35,9 +35,8 @@ set $ws5 "5:files"
 set $ws6 "6:player"
 set $ws7 "7:torrent"
 set $ws8 "8:docs"
-set $ws9 "9"
-set $ws10 "10"
-set $ws11 "11"
+set $ws9 "9:misc"
+set $ws10 "10:etc"
 
 set $WOBSOCK /tmp/wob.sock
 # }}}
@@ -235,7 +234,7 @@ assign [app_id="^Thunar"] → $ws5
 assign [title="vifm"] → $ws5 
 assign [app_id="^mpv"] → $ws6
 assign [app_id="^transmission-gtk"] → $ws7
-assign [app_id="^wps"] → $ws8
+assign [app_id="^gnumeric"] → $ws8
 assign [app_id="insomnia"] → $ws10
 assign [app_id="postman"] → $ws10
 assign [app_id="mockoon"] → $ws10

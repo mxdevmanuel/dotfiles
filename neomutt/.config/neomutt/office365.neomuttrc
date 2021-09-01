@@ -16,9 +16,9 @@ bind index,pager,attach gd noop
 bind index,pager,attach gt noop
 
 macro index,pager gi "<change-folder>$spoolfile<enter>" "go to inbox"
-macro index,pager gs "<change-folder>$record<enter>" "go to sent"
+macro index,pager gs "<change-folder>+Elementos enviados<enter>" "go to sent" # Use CTRL-V to escape space on change folder
 macro index,pager gd "<change-folder>$postponed<enter>" "go to drafts"
-macro index,pager gt "<change-folder>$trash<enter>" "go to trash"
+macro index,pager gt "<change-folder>+Elementos eliminados<enter>" "go to trash" # Use CTRL-V to escape space on change folder
 
 # synchronization settings ['s' to sync]
 macro index S "<shell-escape>mbsync -V office365<enter>" "sync email"
