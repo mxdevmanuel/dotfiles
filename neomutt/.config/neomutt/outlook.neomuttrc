@@ -25,6 +25,7 @@ macro index S "<shell-escape>mbsync -V outlook<enter>" "sync email"
 setenv EMAIL $from
 
 set sendmail = "msmtp -a outlook --from=$from --user=$from"
+set dsn_notify="failure,delay,success"
 
 # set mailboxes
 

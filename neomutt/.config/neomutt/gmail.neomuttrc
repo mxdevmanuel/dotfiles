@@ -24,6 +24,7 @@ macro index S "<shell-escape>mbsync -V gmail<enter>" "sync email"
 
 
 set sendmail = "msmtp -a gmail --from=$from --user=$from"
+unset dsn_notify
 
 # set mailboxes
 
