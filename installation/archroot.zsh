@@ -54,6 +54,49 @@ function configure_network_iface(){
 		
 }
 
+function install_bootloader(){
+	vared -p "Select bootloader: 1) systemd-boot 2) grub (default=1)" -c selectboot
+
+case $selectboot in 
+	2)
+		if [[ ! -x /usr/bin/grub-install ]]
+		then
+			pacman -S grub os-prober
+		fi
+
+		grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
+
+		vared -p "Wish customize bootloader installation e.g enable os-prober? y/N: " -c custgrub
+		if [[ "$custgrub" == "y" ]]
+		then
+			# TODO: offer alternate system detection
+			echo "No automatic process available yet, will be prompt to zsh"
+			zsh
+		fi
+
+		grub-mkconfig -o /boot/grub/grub.cfg
+		;;
+	*)
+		bootctl install
+		
+		echo -ne "default arch\ntimeout 4\nconsole-mode max\neditor no" > /boot/loader/loader.conf
+
+
+		local rootpart=$(lsblk -l -p | grep "/$" | awk '{ print $1 }')
+		local uuid=$(blkid $rootpart | grep -Eo "\bUUID=\"[a-z0-9\-]*\"" | tr -d '"')
+
+		echo -e "title Arch Linux\nlinux /vmlinuz-linux" > /boot/loader/entries/arch.conf
+
+		if [[ ! -z "$2" ]]
+		then
+			echo "initrd /$1.img" >> /boot/loader/entries/arch.conf
+		fi
+
+		echo -n "initrd /initramfs-linux.img\noptions root=\"$uuid\" rw" >> /boot/loader/entries/arch.conf
+	;;
+esac
+}
+
 vared -p "Is this a laptop?y/N " -c laptop
 
 select_timezone
@@ -89,8 +132,6 @@ esac
 
 
 echo -e "${GREEN}Installing packages${NC}"
-
-
 
 echo "Configurations:"
 jq ".[].name" ${BASE}/pkconfig.json | tr -d "\"" |  awk '{print NR,$0}'
@@ -136,24 +177,14 @@ echo -e "${GREEN}Creating Initramfs${NC}"
 mkinitcpio -P
 
 echo -e "${GREEN}Installing bootloader${NC}"
-grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
-
-vared -p "Wish customize bootloader installation e.g enable os-prober? y/N: " -c custgrub
-if [[ "$custgrub" == "y" ]]
-then
-	# TODO: offer alternate system detection
-	echo "No automatic process available yet, will be prompt to zsh"
-	zsh
-fi
-
-grub-mkconfig -o /boot/grub/grub.cfg
+install_bootloader $ucode
 
 vared -p "Enter username for primary user" -c puser
 
 useradd -m -G systemd-journal,video,uucp,lp,audio,wheel,optical -s /usr/bin/zsh $puser
 
 echo "Added user to sudo/doas file"
-echo -n "permit persist $puser as root" > /etc/doas.conf
+echo -n "permit persist $puser" > /etc/doas.conf
 
 log_success "Copying dotfiles" "if you are ${BOLD}me${ND} remember to set remote to SSH and install your SSH key ${BOLD}(${ND}do that part even if you are not me${BOLD})${ND}"
 

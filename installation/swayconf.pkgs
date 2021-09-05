@@ -33,7 +33,6 @@ gnumeric
 go
 grim
 groff
-grub
 gtk-engine-murrine
 gvfs-mtp
 htop
@@ -67,7 +66,6 @@ neomutt
 neovim
 ntfs-3g
 opendoas
-os-prober
 pass
 patch
 pipewire
