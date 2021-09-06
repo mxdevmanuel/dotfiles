@@ -1,0 +1,19 @@
+# vim: ft=systemd
+[Unit]
+Description=Create a readonly snapshot a BTRFS filesystem.
+Documentation=man:btrfs-subvolume(8)
+Conflicts=btrfs-balance@.service btrfs-scrub@.service
+After=local-fs.target
+
+[Install]
+WantedBy=local-fs.target
+
+[Service]
+ExecStart=/usr/bin/btrfs-backup.sh
+
+# systemd.exec settings #
+IOSchedulingClass=idle
+CPUSchedulingPolicy=idle
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=BTRFS-Snapshot

@@ -1,0 +1,11 @@
+[Unit]
+Description=Timer for snapshotting a btrfs filesystem.
+Documentation=man:btrfs-subvolume(8)
+After=local-fs.target
+
+[Install]
+WantedBy=local-fs.target
+
+[Timer]
+OnCalendar=daily
+Persistent=true
