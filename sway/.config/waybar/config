@@ -23,6 +23,9 @@
         "cpu",
         "memory",
         "network",
+	"disk#root",
+	"disk#home",
+	"disk#shared"
     ],
     "modules-center": [
        // "sway/window"
@@ -93,7 +96,21 @@
       "signal": 1, // SIGHUP
       "tooltip": false
     },
-
+    "disk#root": {
+	"interval": 60,
+	"format": "  {free}",
+	"path": "/"
+    },
+    "disk#home": {
+	"interval": 60,
+	"format": "  {free}",
+	"path": "/home"
+    },
+    "disk#shared": {
+	"interval": 60,
+	"format": "  {free}",
+	"path": "/shared"
+    },
     "memory": {
         "interval": 5,
         "format": "  {used:0.2f}GB", // Icon: bars

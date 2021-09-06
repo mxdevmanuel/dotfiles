@@ -1,5 +1,5 @@
 setlocal formatprg=gofmt
-setlocal make=go\ build
+setlocal makeprg=go\ build
 
 setlocal errorformat =%-G#\ %.%#                                 " Ignore lines beginning with '#' ('# command-line-arguments' line sometimes appears?)
 setlocal errorformat+=%-G%.%#panic:\ %m                          " Ignore lines containing 'panic: message'

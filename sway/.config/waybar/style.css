@@ -43,7 +43,8 @@
   min-height: 0;
   margin: 0;
   padding: 0;
-  margin-right: 10px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 /* The whole bar */
@@ -62,9 +63,9 @@
 #mode,
 #pulseaudio,
 #temperature,
+#disk,
 #tray {
-  padding-left: 8px;
-  padding-right: 8px;
+  /* No styles */
 }
 
 /* -----------------------------------------------------------------------------
@@ -103,9 +104,6 @@
 #clock {
   color: #ebdbb2;
   background-color: #282828;
-  margin-right: 0;
-  padding-left: 8px;
-  padding-right: 8px;
 }
 
 #cpu {
@@ -185,16 +183,12 @@
 }
 
 #workspaces {
-  margin-left: 2px;
-  margin-right: 2px;
+  /* No styles */
 }
 
 #workspaces button {
-  padding-left: 8px;
-  padding-right: 4px;
   border-bottom: 2px solid transparent;
   /* To compensate for the top border and still have vertical centering */
-  padding-bottom: 2px;
   color: #888888;
 }
 
