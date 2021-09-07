@@ -3,7 +3,35 @@
 
 My personal dotfiles, manage with GNU stow and used in Archlinux
 
-# Recommendations
+# To install
+
+I have concocted 3 scripts to ease the installation of arch, to help me reinstall if I ever need to, with _my_ personal preferences
+
+A (Non comprehensive) list of them are:
+
+	- EFI
+	- systemd-boot (option to install grub)
+	- btrfs w/backups (option to format as ext4)
+	- systemd-networkd
+	- iwd (if wireless)
+	- pipewire
+	- doas (instead of sudo)
+	- sway (option for i3)
+	- nvim
+
+To install just boot into a clean arch iso and
+	
+	`git clone https://github.com/mxdevmanuel/dotfiles.git && cd installation && zsh archbase.zsh`
+
+and follow the prompts and then after chroot 
+
+	`cd ; cd dotfiles/installation ; zsh archroot.zsh`
+
+### Comments
+
+More than an installer this is a helper to avoid all the boilerplating that has to be done for LANG, hosts, useradd, etc. and to avoid forgetting to do any important step
+
+# Fonts and theme
 
 To download fonts run the following command and stow _local_
         
@@ -12,6 +40,8 @@ To download fonts run the following command and stow _local_
 To download and set the gtk theme
 
         zsh .gtk/install.zsh
+
+# Recommendations
 
 Run this command to use my git hooks
 
@@ -25,4 +55,6 @@ Run this command to use my git hooks
 - cava
 - mpv-mpris
 - kmscon-patched-git, libtsm-patched-git
+- keyd
+- xxd-standalone
 

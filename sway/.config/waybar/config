@@ -108,12 +108,12 @@
     },
     "disk#shared": {
 	"interval": 60,
-	"format": "  {free}",
+	"format": "  {free}",
 	"path": "/shared"
     },
     "memory": {
         "interval": 5,
-        "format": "  {used:0.2f}GB", // Icon: bars
+        "format": "  {used:0.2f}GB", // Icon: bars
         "states": {
             "warning": 70,
             "critical": 90
