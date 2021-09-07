@@ -5,12 +5,12 @@ My personal dotfiles, manage with GNU stow and used in Archlinux
 
 # To install
 
-I have concocted 3 scripts to ease the installation of arch, to help me reinstall if I ever need to, with _my_ personal preferences
+I have concocted 2 scripts to ease the installation of arch, to help me reinstall if I ever need to, with _my_ personal preferences
 
 A (Non comprehensive) list of them are:
 
 	- EFI
-	- uCode
+	- ucode
 	- systemd-boot (option to install grub)
 	- btrfs w/backups (option to format as ext4)
 	- systemd-networkd
@@ -32,12 +32,14 @@ up to these point you will have a running arch install with everything I need, a
 
 	su <username> ; cd ; zsh .dotfiles/installation/archuser.zsh
 
-this will ATM help you setup git, disperse the dotfiles you want to use, create a virtualenv for certain commands to run on and seup neovim, however I have'nt used this script yet during and installation as it is still pretty early progress and I would suggest to doit manually for the time being.
+this will ATM help you setup git, disperse the dotfiles you want to use, create a virtualenv for certain commands to run on and setup neovim, however I have'nt used this script yet during and installation as it is still pretty early progress and I would suggest to doit manually for the time being.
 
 
 ### Comments
 
-More than an installer this is a helper to avoid all the boilerplating that has to be done for LANG, hosts, useradd, etc. and to avoid forgetting any important step
+Instead of an installer this is a helper to avoid all the repetitive commands that have to be run and boilerplating that has to be done for LANG, hosts, useradd, etc. and to avoid forgetting any important step.
+
+I know of archinstall and maybe someday I'll redo my script with it's library but doing it this way was more fun.
 
 # Fonts and theme
 
