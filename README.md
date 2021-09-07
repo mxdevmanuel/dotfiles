@@ -10,6 +10,7 @@ I have concocted 3 scripts to ease the installation of arch, to help me reinstal
 A (Non comprehensive) list of them are:
 
 	- EFI
+	- uCode
 	- systemd-boot (option to install grub)
 	- btrfs w/backups (option to format as ext4)
 	- systemd-networkd
@@ -17,19 +18,26 @@ A (Non comprehensive) list of them are:
 	- pipewire
 	- doas (instead of sudo)
 	- sway (option for i3)
-	- nvim
+	- neovim
 
 To install just boot into a clean arch iso and
 	
-	`git clone https://github.com/mxdevmanuel/dotfiles.git && cd installation && zsh archbase.zsh`
+	git clone https://github.com/mxdevmanuel/dotfiles.git && cd installation && zsh archbase.zsh
 
 and follow the prompts and then after chroot 
 
-	`cd ; cd dotfiles/installation ; zsh archroot.zsh`
+	cd ; cd dotfiles/installation ; zsh archroot.zsh
+
+up to these point you will have a running arch install with everything I need, an extra step which is stil WIP could be
+
+	su <username> ; cd ; zsh .dotfiles/installation/archuser.zsh
+
+this will ATM help you setup git, disperse the dotfiles you want to use, create a virtualenv for certain commands to run on and seup neovim, however I have'nt used this script yet during and installation as it is still pretty early progress and I would suggest to doit manually for the time being.
+
 
 ### Comments
 
-More than an installer this is a helper to avoid all the boilerplating that has to be done for LANG, hosts, useradd, etc. and to avoid forgetting to do any important step
+More than an installer this is a helper to avoid all the boilerplating that has to be done for LANG, hosts, useradd, etc. and to avoid forgetting any important step
 
 # Fonts and theme
 
