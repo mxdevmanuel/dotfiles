@@ -116,6 +116,8 @@ echo -e "127.0.0.1\tlocalhost\n::1\tlocalhost\n127.0.1.1\t$hostname.localdomain\
 
 run_reflector
 
+systemctl enable reflector.timer
+
 vared -p "Select appropriate ucode(Use your CPU's brand) 1)intel 2)amd *)no ucode : " -c cucode
 
 case $cucode in 

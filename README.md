@@ -14,23 +14,26 @@ A (Non comprehensive) list of them are:
 	- systemd-boot (option to install grub)
 	- btrfs w/backups (option to format as ext4)
 	- systemd-networkd
+	- reflector (with weekly timer)
 	- iwd (if wireless)
 	- pipewire
 	- doas (instead of sudo)
 	- sway (option for i3)
 	- neovim
 
-To install just boot into a clean arch iso and
+To install just boot into a clean arch iso, install git and
 	
-	git clone https://github.com/mxdevmanuel/dotfiles.git && cd installation && zsh archbase.zsh
+	git clone https://github.com/mxdevmanuel/dotfiles.git && cd dotfiles/installation ; zsh archbase.zsh
 
 and follow the prompts and then after chroot 
 
-	cd ; cd dotfiles/installation ; zsh archroot.zsh
+	cd ~/dotfiles/installation ; zsh archroot.zsh
 
 up to these point you will have a running arch install with everything I need, an extra step which is stil WIP could be
 
-	su <username> ; cd ; zsh .dotfiles/installation/archuser.zsh
+	su <username>
+
+	cd ~/.dotfiles/installation/ ; zsh archuser.zsh
 
 this will ATM help you setup git, disperse the dotfiles you want to use, create a virtualenv for certain commands to run on and setup neovim, however I have'nt used this script yet during and installation as it is still pretty early progress and I would suggest to doit manually for the time being.
 
