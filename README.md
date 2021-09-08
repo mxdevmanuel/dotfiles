@@ -9,17 +9,17 @@ I have concocted 2 scripts to ease the installation of arch, to help me reinstal
 
 A (Non comprehensive) list of them are:
 
-	- EFI
-	- ucode
-	- systemd-boot (option to install grub)
-	- btrfs w/backups (option to format as ext4)
-	- systemd-networkd
-	- reflector (with weekly timer)
-	- iwd (if wireless)
-	- pipewire
-	- doas (instead of sudo)
-	- sway (option for i3)
-	- neovim
+- EFI
+- ucode
+- systemd-boot (option to install grub)
+- btrfs w/backups (option to format as ext4)
+- systemd-networkd
+- reflector (with weekly timer)
+- iwd (if wireless)
+- pipewire
+- doas (instead of sudo)
+- sway (option for i3)
+- neovim
 
 To install just boot into a clean arch iso, install git and
 	
@@ -40,7 +40,7 @@ this will ATM help you setup git, disperse the dotfiles you want to use, create 
 
 ### Comments
 
-Instead of an installer this is a helper to avoid all the repetitive commands that have to be run and boilerplating that has to be done for LANG, hosts, useradd, etc. and to avoid forgetting any important step.
+Rather than an installer this is a helper to avoid all the repetitive commands that have to be run and boilerplating that has to be done for LANG, hosts, useradd, etc. and to avoid forgetting any important step.
 
 I know of archinstall and maybe someday I'll redo my script with it's library but doing it this way was more fun.
 
@@ -62,7 +62,7 @@ Run this command to use my git hooks
 
 # Packages
 
-## AUR and  non-repo software
+## AUR and non-repo software
 - nq
 - wob
 - cava
