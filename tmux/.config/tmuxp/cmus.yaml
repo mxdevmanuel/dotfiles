@@ -1,0 +1,9 @@
+session_name: music
+windows:
+  - window_name: music
+    layout: main-horizontal
+    options:
+      main-pane-height: 5 
+    panes:
+    - shell_command: cava
+    - shell_command: cmus
