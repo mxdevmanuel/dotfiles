@@ -3,6 +3,8 @@
 
 My personal dotfiles, manage with GNU stow and used in Archlinux
 
+![Sway screenshot](screenshots/sway.jpg)
+
 # To install
 
 I have concocted 2 scripts to ease the installation of arch, to help me reinstall if I ever need to, with _my_ personal preferences
