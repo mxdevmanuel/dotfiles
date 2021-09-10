@@ -1,7 +1,7 @@
 
 # Dotfiles
 
-My personal dotfiles, manage with GNU stow and used in Archlinux
+My personal dotfiles, managed with GNU stow and used in Archlinux
 
 ![Sway screenshot](screenshots/sway.jpg)
 
@@ -39,8 +39,9 @@ up to these point you will have a running arch install with everything I need, a
 
 this will ATM help you setup git, disperse the dotfiles you want to use, create a virtualenv for certain commands to run on and setup neovim, however I have'nt used this script yet during and installation as it is still pretty early progress and I would suggest to doit manually for the time being.
 
+### Notes and comments
 
-### Comments
+The _archroot.zsh_ installation script will append `~/.local/bin` to  your PATH 
 
 Rather than an installer this is a helper to avoid all the repetitive commands that have to be run and boilerplating that has to be done for LANG, hosts, useradd, etc. and to avoid forgetting any important step.
 
@@ -50,17 +51,33 @@ I know of archinstall and maybe someday I'll redo my script with it's library bu
 
 To download fonts run the following command and stow _local_
         
-        git submodule init
+	git submodule init
 
 To download and set the gtk theme
 
-        zsh .gtk/install.zsh
+	zsh .gtk/install.zsh
 
 # Recommendations
+
+#### Git
 
 Run this command to use my git hooks
 
 	git config --local core.hooksPath git/githooks
+
+#### Keyboard
+
+I usually use 60% programmable mechanical keyboards as my daily drivers, so I'm used to key combinations and layers, but this is not always possible, specially when on the go with a laptop, so I use [**keyd**](https://github.com/rvaiya/keyd) to address this, I found it to be a simple yet powerful tool to be able to change how a non-programmable keybord works under linux. My config is located in `system/keyd/AT Translated Set 2 keyboard.cfg` but the name of your keyboard may vary. I set the following changes to my keyboard:
+
+- CAPS on hold is CTRL and on tap is ESC
+- L_Alt key maps to L_Super
+- L_Super key maps to L_ALT
+- R_Alt on hold is _vim layer_ and on tap it maps to Menu (because thinkpad)
+- _vim layer_ maps the hjkl to the arrow keys, so h -> Left, j -> Down, k -> Up and l -> Right
+
+After installing keyd (manually compiled or from the AUR) and copying the config file to the proper directory just enable keyd.service
+
+	# systemctl enable --now keyd.service
 
 # Packages
 
@@ -72,4 +89,4 @@ Run this command to use my git hooks
 - kmscon-patched-git, libtsm-patched-git
 - keyd
 - xxd-standalone
-
+- ripmime

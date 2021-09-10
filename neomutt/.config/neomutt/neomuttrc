@@ -48,6 +48,7 @@ bind index } sidebar-next
 bind index + sidebar-open
 
 macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro index,pager X "<pipe-message>ripmime -i - -d "
 macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 
 ## UI

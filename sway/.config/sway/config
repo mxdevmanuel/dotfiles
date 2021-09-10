@@ -380,13 +380,9 @@ input type:touchpad {
     natural_scroll enabled
 }
 
-input type:keyboard {
-    xkb_options "altwin:swap_lalt_lwin"
-}
-
-input 2:10:TPPS\/2_IBM_TrackPoint {
-	left_handed enabled
-}
+# input type:keyboard {
+#     xkb_options "altwin:swap_lalt_lwin"
+# }
 
 seat * {
 	hide_cursor 8000  
