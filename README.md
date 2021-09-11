@@ -25,13 +25,15 @@ A (Non comprehensive) list of them are:
 
 To install just boot into a clean arch iso, install git and
 	
-	git clone https://github.com/mxdevmanuel/dotfiles.git && cd dotfiles/installation ; zsh archbase.zsh
+	git clone https://github.com/mxdevmanuel/dotfiles.git
+
+	cd dotfiles/installation ; zsh archbase.zsh
 
 and follow the prompts and then after chroot 
 
 	cd ~/dotfiles/installation ; zsh archroot.zsh
 
-up to these point you will have a running arch install with everything I need, an extra step which is stil WIP could be
+up to these point you will have a running arch install with everything I need, an extra step which is stil **WIP** could be
 
 	su <username>
 
@@ -67,13 +69,13 @@ Run this command to use my git hooks
 
 #### Backups
 
-Btrfs is my preferred filesystem for _/_ , _/home_ and _/shared_ because of the snapshot capabilities and it's capabilities for SSD. As I have a way to easilly and quickly reinstall my base system I only backup my _/home_ to _/shared_ daily when system is idle.
-
-_/shared_ is usually an HDD to store big files, share with other SO if I'm dual booting and to store backups.
+Btrfs is my preferred filesystem for _/_ , _/home_ and _/shared_\* because of the snapshot capabilities and it's capabilities for SSD. As I have a way to easilly and quickly reinstall my base system I only backup my _/home_ to _/shared_ daily when system is idle.
 
 If you wanna use this modify `system/backup/btrfs-backup.sh` and change `$BCKPFOLDER` to your backup directory, copy the same file to _/usr/bin_, copy `system/backup/btrfs-backup.service` and `system/backup/btrfs-backup.timer` to _/etc/systemd/system_ and then run:
 
 	# systemctl enable --now btrfs-backup.timer
+
+###### \* _/shared_ usually is an HDD mounted to store big files, share with other SO if I'm dual booting and to store backups.
 
 #### Keyboard
 
