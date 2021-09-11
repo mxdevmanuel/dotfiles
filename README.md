@@ -14,7 +14,7 @@ A (Non comprehensive) list of them are:
 - EFI
 - ucode
 - systemd-boot (option to install grub)
-- btrfs w/backups (option to format as ext4)
+- btrfs (option to format as ext4)
 - systemd-networkd
 - reflector (with weekly timer)
 - iwd (if wireless)
@@ -64,6 +64,16 @@ To download and set the gtk theme
 Run this command to use my git hooks
 
 	git config --local core.hooksPath git/githooks
+
+#### Backups
+
+Btrfs is my preferred filesystem for _/_ , _/home_ and _/shared_ because of the snapshot capabilities and it's capabilities for SSD. As I have a way to easilly and quickly reinstall my base system I only backup my _/home_ to _/shared_ daily when system is idle.
+
+_/shared_ is usually an HDD to store big files, share with other SO if I'm dual booting and to store backups.
+
+If you wanna use this modify `system/backup/btrfs-backup.sh` and change `$BCKPFOLDER` to your backup directory, copy the same file to _/usr/bin_, copy `system/backup/btrfs-backup.service` and `system/backup/btrfs-backup.timer` to _/etc/systemd/system_ and then run:
+
+	# systemctl enable --now btrfs-backup.timer
 
 #### Keyboard
 
