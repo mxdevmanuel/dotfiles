@@ -84,7 +84,7 @@ I usually use 60% programmable mechanical keyboards as my daily drivers, so I'm 
 - CAPS on hold is CTRL and on tap is ESC
 - L_Alt key maps to L_Super
 - L_Super key maps to L_ALT
-- R*Alt on hold is \_second layer* and on tap it is Menu (because thinkpad)
+- R_Alt on hold is *second layer* and on tap it is Menu (because thinkpad)
 
 **Second layer:**
 
