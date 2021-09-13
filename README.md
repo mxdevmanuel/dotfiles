@@ -1,4 +1,3 @@
-
 # Dotfiles
 
 My personal dotfiles, managed with GNU stow and used in Archlinux
@@ -25,26 +24,26 @@ A (Non comprehensive) list of them are:
 - neovim
 
 To install just boot into a clean arch iso, install git and
-	
-	git clone https://github.com/mxdevmanuel/dotfiles.git
 
-	cd dotfiles/installation ; zsh archbase.zsh
+    git clone https://github.com/mxdevmanuel/dotfiles.git
 
-and follow the prompts and then after chroot 
+    cd dotfiles/installation ; zsh archbase.zsh
 
-	cd ~/dotfiles/installation ; zsh archroot.zsh
+and follow the prompts and then after chroot
+
+    cd ~/dotfiles/installation ; zsh archroot.zsh
 
 up to these point you will have a running arch install with everything I need, an extra step which is stil **WIP** could be
 
-	su <username>
+    su <username>
 
-	cd ~/.dotfiles/installation/ ; zsh archuser.zsh
+    cd ~/.dotfiles/installation/ ; zsh archuser.zsh
 
 this will ATM help you setup git, disperse the dotfiles you want to use, create a virtualenv for certain commands to run on and setup neovim, however I have'nt used this script yet during and installation as it is still pretty early progress and I would suggest to doit manually for the time being.
 
 ### Notes and comments
 
-The _archroot.zsh_ installation script will append `~/.local/bin` to  your PATH 
+The _archroot.zsh_ installation script will append `~/.local/bin` to your PATH
 
 Rather than an installer this is a helper to avoid all the repetitive commands that have to be run and boilerplating that has to be done for LANG, hosts, useradd, etc. and to avoid forgetting any important step.
 
@@ -53,12 +52,12 @@ I know of archinstall and maybe someday I'll redo my script with it's library bu
 # Fonts and theme
 
 To download fonts run the following command and stow _local_
-        
-	git submodule init
+
+    git submodule init
 
 To download and set the gtk theme
 
-	zsh .gtk/install.zsh
+    zsh .gtk/install.zsh
 
 # Recommendations
 
@@ -66,7 +65,7 @@ To download and set the gtk theme
 
 Run this command to use my git hooks
 
-	git config --local core.hooksPath git/githooks
+    git config --local core.hooksPath git/githooks
 
 #### Backups
 
@@ -74,7 +73,7 @@ Btrfs is my preferred filesystem for _/_ , _/home_ and _/shared_\* because of th
 
 If you wanna use this modify `system/backup/btrfs-backup.sh` and change `$BCKPFOLDER` to your backup directory, copy the same file to _/usr/bin_, copy `system/backup/btrfs-backup.service` and `system/backup/btrfs-backup.timer` to _/etc/systemd/system_ and then run:
 
-	# systemctl enable --now btrfs-backup.timer
+    # systemctl enable --now btrfs-backup.timer
 
 ###### \* _/shared_ usually is an HDD mounted to store big files, share with other SO if I'm dual booting and to store backups.
 
@@ -85,32 +84,27 @@ I usually use 60% programmable mechanical keyboards as my daily drivers, so I'm 
 - CAPS on hold is CTRL and on tap is ESC
 - L_Alt key maps to L_Super
 - L_Super key maps to L_ALT
-- R_Alt on hold is _second layer_ and on tap it maps to Menu (because thinkpad)
-- _second layer_ is like this:
+- R*Alt on hold is \_second layer* and on tap it is Menu (because thinkpad)
 
-	z = kp1
-	x = kp2
-	c = kp3
-	a = kp4
-	s = kp5
-	d = kp6
-	q = kp7
-	w = kp8
-	e = kp9
-	leftalt = kp0
+**Second layer:**
 
-	esc = numlock
-	leftmeta = kpdot
-	space = kpenter
-
-	1 = kpplus
-	2 = kpminus
-	3 = kpasterisk
-	4 = kpequal
+| key      | mapping    | key      | mapping    |
+| -------- | ---------- | -------- | ---------- |
+| h        | left       | z        | kp1        |    
+| j        | down       | x        | kp2        |    
+| k        | up         | c        | kp3        |    
+| l        | right      | a        | kp4        |    
+| esc      | numlock    | s        | kp5        |
+| leftmeta | kpdot      | d        | kp6        |     
+| space    | kpenter    | q        | kp7        |     
+| 1        | kpplus     | w        | kp8        |     
+| 2        | kpminus    | e        | kp9        |     
+| 3        | kpasterisk | leftalt  | kp0        |     
+| 4        | kpequal    |  
 
 After installing keyd (manually compiled or from the AUR) and copying the config file to the proper directory just enable keyd.service
 
-	# systemctl enable --now keyd.service
+    # systemctl enable --now keyd.service
 
 # Packages
 
@@ -118,9 +112,10 @@ After installing keyd (manually compiled or from the AUR) and copying the config
 
 Can be found at:
 
-	installation/swayconf.pkgs
+    installation/swayconf.pkgs
 
 ## AUR and non-repo software
+
 - nq
 - wob
 - cava
@@ -129,3 +124,12 @@ Can be found at:
 - keyd
 - xxd-standalone
 - ripmime
+
+
+
+
+
+
+
+
+
