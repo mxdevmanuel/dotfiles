@@ -14,6 +14,7 @@ A (Non comprehensive) list of them are:
 - EFI
 - ucode
 - systemd-boot (option to install grub)
+- GPT
 - btrfs (option to format as ext4)
 - systemd-networkd
 - reflector (with weekly timer)
@@ -84,14 +85,40 @@ I usually use 60% programmable mechanical keyboards as my daily drivers, so I'm 
 - CAPS on hold is CTRL and on tap is ESC
 - L_Alt key maps to L_Super
 - L_Super key maps to L_ALT
-- R_Alt on hold is _vim layer_ and on tap it maps to Menu (because thinkpad)
-- _vim layer_ maps the hjkl to the arrow keys, so h -> Left, j -> Down, k -> Up and l -> Right
+- R_Alt on hold is _second layer_ and on tap it maps to Menu (because thinkpad)
+- _second layer_ is like this:
+
+	z = kp1
+	x = kp2
+	c = kp3
+	a = kp4
+	s = kp5
+	d = kp6
+	q = kp7
+	w = kp8
+	e = kp9
+	leftalt = kp0
+
+	esc = numlock
+	leftmeta = kpdot
+	space = kpenter
+
+	1 = kpplus
+	2 = kpminus
+	3 = kpasterisk
+	4 = kpequal
 
 After installing keyd (manually compiled or from the AUR) and copying the config file to the proper directory just enable keyd.service
 
 	# systemctl enable --now keyd.service
 
 # Packages
+
+### Sway version packages
+
+Can be found at:
+
+	installation/swayconf.pkgs
 
 ## AUR and non-repo software
 - nq
