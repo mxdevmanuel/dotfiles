@@ -3,10 +3,10 @@
 set from = "`pass outlook/user`"
 
 set folder = "~/.mail/outlook"
-set spoolfile = "+/Inbox"
-set postponed = "+/Drafts"
-set record = "+/Sent"
-set trash = "+/Trash"
+set spoolfile = "+Inbox"
+set postponed = "+Drafts"
+set record = "+Sent"
+set trash = "+Trash"
 
 # navigation settings
 bind index,pager,attach gi noop
@@ -26,6 +26,7 @@ setenv EMAIL $from
 
 set sendmail = "msmtp -a outlook --from=$from --user=$from"
 set dsn_notify="failure,delay,success"
+set query_command="mail-query %s $spoolfile"
 
 # set mailboxes
 

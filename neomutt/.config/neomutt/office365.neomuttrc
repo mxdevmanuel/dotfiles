@@ -26,6 +26,8 @@ macro index S "<shell-escape>mbsync -V office365<enter>" "sync email"
 setenv EMAIL $from
 
 set sendmail = "msmtp -a office365 --from=$from --user=$from"
+set dsn_notify="failure,delay,success"
+set query_command="mail-query %s $spoolfile"
 
 # set mailboxes
 

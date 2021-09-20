@@ -124,6 +124,7 @@ Can be found at:
 - keyd
 - xxd-standalone
 - ripmime
+- (mail-query)[https://github.com/mxdevmanuel/mail-query]
 
 
 

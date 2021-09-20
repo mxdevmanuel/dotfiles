@@ -65,6 +65,8 @@ function unexa() { unalias ls }
 
 function flocate(){ locate -i $@ | fzf | xargs -I% vim % }
 
+function cheat(){ cache-command.sh curl cht.sh/${@} }
+
 autoload -Uz gi 
 
 autoload -Uz diffancy
