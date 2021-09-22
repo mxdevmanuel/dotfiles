@@ -19,7 +19,7 @@ _notify(){
 	if [[ ! -z "$news" ]] 
 	then
 		notify-send --icon=$HOME/.local/share/icons/Gruvbox-Material-Dark/64x64/apps/email.svg\
-			'New Email' "${news}" -t 10000 
+			'New mail' "${news}" -t 10000 
 	fi
 
 	touch $TIMEFILE

@@ -209,6 +209,7 @@ bindsym $mod+Shift+Menu exec blezz
 bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/.local/bin/sink-smart-selector-v2.sh +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id  $HOME/.local/bin/sink-smart-selector-v2.sh -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id $HOME/.local/bin/sink-smart-selector-v2.sh mute # mute sound
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute $(pactl get-default-source) toggle
 # }}}
 
 # Screen brightness controls{{{
@@ -230,7 +231,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 assign [app_id="^Chromium"] → $ws3
 assign [app_id="^Google-chrome"] → $ws2
-assign [app_id="^Thunar"] → $ws5
+assign [app_id="^thunar"] → $ws5
 assign [title="vifm"] → $ws5 
 assign [app_id="^mpv"] → $ws6
 assign [app_id="^transmission-gtk"] → $ws7

@@ -3,10 +3,10 @@
 set from = "`pass office365/user`"
 
 set folder = "~/.mail/office365"
-set spoolfile = "+/Inbox"
-set postponed = "+/Borradores"
-set record = "+/Elementos enviados"
-set trash = "+/Elementos eliminados"
+set spoolfile = "+Inbox"
+set postponed = "+Borradores"
+set record = "+Elementos enviados"
+set trash = "+Elementos eliminados"
 set my_archive = "$folder/Archivo"
 
 # navigation settings
