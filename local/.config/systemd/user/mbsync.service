@@ -3,5 +3,6 @@ Description=Mailbox synchronization service
 
 [Service]
 Type=oneshot
+ExecStartPre=-/usr/bin/imapfilter
 ExecStart=/usr/bin/mbsync -Va
 ExecStartPost=%h/.local/bin/mail-notify.sh
