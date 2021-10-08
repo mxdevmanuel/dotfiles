@@ -51,17 +51,6 @@ macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract U
 macro index,pager X "<pipe-message>ripmime -i - -d "
 macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 
-## UI
-set sidebar_visible=yes
-set sidebar_width = 20
-set sidebar_short_path = yes
-set sidebar_next_new_wrap = yes
-set sidebar_format = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
-
-set markers = no
-set status_on_top
-# set new_mail_command="notify-send --icon=$HOME/.local/share/icons/Gruvbox-Material-Dark/64x64/apps/email.svg 'New Email in %f at %h' '%n new messages, %u unread.' -t 10000 &"
-
 source ~/.config/neomutt/gruvbox-dark.muttrc
 source ~/.config/neomutt/styles.neomuttrc
 

@@ -2,6 +2,7 @@
 
 MAILDIR=~/.mail
 TIMEFILE=~/.config/neomutt/.mailsynclastrun
+TEE=/tmp/newmails.lst
 
 _notify(){
 	[[ ! -d $MAILDIR ]] && exit 0
@@ -13,6 +14,7 @@ _notify(){
 	[[ -z "$inboxes" ]] && exit 0
 
 	local news=`eval "find ${inboxes} -type f -newer ${TIMEFILE}" \
+		| tee ${TEE} \
 		| awk 'BEGIN { FS = "/" } ; { print toupper( substr( $2, 1, 1 ) ) substr( $2, 2 ); }' \
 		| sort | uniq -c`
 	

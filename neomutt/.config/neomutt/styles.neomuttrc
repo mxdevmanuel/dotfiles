@@ -1,7 +1,8 @@
 # vi: ft=neomuttrc
-# ----------------------------------------------------------------------------
 
-set sidebar_visible=no
+set status_on_top
+
+set sidebar_visible=yes
 set sidebar_width = 20
 set sidebar_short_path = yes
 set sidebar_next_new_wrap = yes
