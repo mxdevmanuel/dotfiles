@@ -154,3 +154,6 @@ neovim/.config/nvim/plugin/packer_compiled.lua
 # Gtk
 .gtk/*
 !.gtk/install.zsh
+
+# Neomutt
+.mailsynclastrun
