@@ -36,9 +36,9 @@ map('n', '<leader>cse', ':sp <C-R>=expand("%:p:h") . "/"<CR>', {noremap = true})
 map('n', '<leader>cte', ':tabe <C-R>=expand("%:p:h") . "/"<CR>',
     {noremap = true})
 map('n', '<leader>cve', ':vsp <C-R>=expand("%:p:h") . "/"<CR>', {noremap = true})
-map('n', '<leader>f', '<cmd>GFiles<CR>', {noremap = true, silent = true})
+map('n', '<leader>f', '<cmd>Telescope git_files<CR>', {noremap = true, silent = true})
 map('n', '<leader>F', '<cmd>GFiles?<CR>', {noremap = true, silent = true})
-map('n', '<leader>h', '<cmd>History<CR>', {noremap = true, silent = true})
+map('n', '<leader>h', '<cmd>Telescope oldfiles<CR>', {noremap = true, silent = true})
 map('n', '<leader>l', '<cmd>BLines<CR>', {noremap = true, silent = true})
 map('n', '<leader>n', '<cmd>bn<CR>', {noremap = true})
 map('n', '<leader>un', '<cmd>setlocal rnu!<CR>', {noremap = true})
@@ -54,9 +54,6 @@ map('n', 'g/', "<cmd>lua require'hop'.hint_char2()<cr>",
     {noremap = true, silent = true})
 map('n', 'gh', "<cmd>lua require'hop'.hint_lines()<cr>",
     {noremap = true, silent = true})
-
-map('i', '<CR>', 'compe#confirm("<CR>")',
-    {silent = true, expr = true, noremap = true})
 
 map('t', '<C-W>n', '<C-\\><C-n>', {noremap = true})
 map('t', '<M-h>', '<C-\\><C-n><C-w>h', {noremap = true})

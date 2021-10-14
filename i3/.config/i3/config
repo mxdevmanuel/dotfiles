@@ -159,6 +159,8 @@ bindsym $mod+Shift+r restart
 bindsym $mod+t exec kitty -e bash
 bindsym $mod+Shift+t exec env NOTMUX=1 kitty
 bindsym $mod+i exec stask.sh add
+bindsym $mod+o exec dunstctl close
+bindsym $mod+Shift+o dunstctl close-all
 # bindsym $mod+p AVAILABLE
 bindsym $mod+braceleft move workspace to output left
 bindsym $mod+braceright move workspace to output right

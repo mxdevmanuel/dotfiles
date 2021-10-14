@@ -90,3 +90,6 @@ prompt_context(){}
 
 # Profile end
 # zprof # start zsh profiling
+
+# The next line updates PATH for Netlify's Git Credential Helper.
+test -f '/home/manuel/.config/netlify/helper/path.zsh.inc' && source '/home/manuel/.config/netlify/helper/path.zsh.inc'

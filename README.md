@@ -126,3 +126,7 @@ Can be found at:
 - ripmime
 - imapfilter
 - [mail-query](https://github.com/mxdevmanuel/mail-query)
+
+# TODO
+
+- Configure keybindings for better notifications control (dunst and mako)

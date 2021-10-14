@@ -26,11 +26,7 @@ return require('packer').startup(function()
     }
 
     -- tbaggery
-    use {
-        'tpope/vim-fugitive',
-        opt = true,
-        event = "VimEnter"
-    }
+    use {'tpope/vim-fugitive', opt = true, event = "VimEnter"}
     use {
         'tpope/vim-eunuch',
         opt = true,
@@ -39,31 +35,14 @@ return require('packer').startup(function()
             'Cfind', 'Lfind', 'Llocate', 'Chmod', 'Rename'
         }
     }
-    use {
-        'tpope/vim-commentary',
-        opt = true,
-        event = "BufRead"
-    }
-    use {
-        'tpope/vim-surround',
-        opt = true,
-        event = "BufRead"
-    }
-    use {
-        'tpope/vim-repeat',
-        opt = true,
-        event = "BufRead"
-    }
+    use {'tpope/vim-commentary', opt = true, event = "BufRead"}
+    use {'tpope/vim-surround', opt = true, event = "BufRead"}
+    use {'tpope/vim-repeat', opt = true, event = "BufRead"}
 
     -- Colorscheme
     use {
         "npxbr/gruvbox.nvim",
-        requires = {
-            {
-                "rktjmp/lush.nvim",
-                opt = true
-            }
-        },
+        requires = {{"rktjmp/lush.nvim", opt = true}},
         opt = true,
         event = "VimEnter",
         config = function() require('hicolors'):setup() end
@@ -83,9 +62,7 @@ return require('packer').startup(function()
                     enable = true -- false will disable the whole extension
                     -- disable = { "c", "rust" },  -- list of language that will be disabled
                 },
-                incremental_selection = {
-                    enable = true
-                }
+                incremental_selection = {enable = true}
             }
 
         end
@@ -93,16 +70,8 @@ return require('packer').startup(function()
 
     -- Filetypes
     use 'GutenYe/json5.vim'
-    use {
-        'stevearc/vim-arduino',
-        opt = true,
-        ft = 'arduino'
-    }
-    use {
-        'chunkhang/vim-mbsync',
-        opt = true,
-        ft = 'mbsync'
-    }
+    use {'stevearc/vim-arduino', opt = true, ft = 'arduino'}
+    use {'chunkhang/vim-mbsync', opt = true, ft = 'mbsync'}
 
     -- Appeareance
     use {
@@ -116,11 +85,7 @@ return require('packer').startup(function()
         opt = true,
         event = "VimEnter",
         requires = {
-            {
-                'kyazdani42/nvim-web-devicons',
-                opt = true,
-                event = "VimEnter"
-            }
+            {'kyazdani42/nvim-web-devicons', opt = true, event = "VimEnter"}
         },
         config = function()
             vim.o.tabline = '%!v:lua.require\'luatab\'.tabline()'
@@ -128,11 +93,7 @@ return require('packer').startup(function()
     }
 
     -- Misc
-    use {
-        'glepnir/dashboard-nvim',
-        opt = true,
-        event = "VimEnter"
-    }
+    use {'glepnir/dashboard-nvim', opt = true, event = "VimEnter"}
     use {
         'mattn/emmet-vim',
         ft = {
@@ -143,25 +104,17 @@ return require('packer').startup(function()
     use {
         'windwp/nvim-autopairs',
         config = function()
-            require('nvim-autopairs').setup({
-                check_ts = true
-            })
+            require('nvim-autopairs').setup({check_ts = true})
         end
     }
-    use {
-        'andymass/vim-matchup',
-        opt = true,
-        event = "VimEnter"
-    }
+    use {'andymass/vim-matchup', opt = true, event = "VimEnter"}
     use {
         'phaazon/hop.nvim',
         as = 'hop',
         opt = true,
         event = "VimEnter",
         config = function()
-            require'hop'.setup {
-                keys = 'etovxqpdygfblzhckisuran'
-            }
+            require'hop'.setup {keys = 'etovxqpdygfblzhckisuran'}
         end
     }
     use {
@@ -172,45 +125,21 @@ return require('packer').startup(function()
     }
 
     -- LSP
-    use {
-        'kabouzeid/nvim-lspinstall',
-        opt = true,
-        event = "VimEnter"
-    }
-    use {
-        'hrsh7th/nvim-compe',
-        opt = true,
-        after = "nvim-lspinstall"
-    }
+    use {'kabouzeid/nvim-lspinstall', opt = true, event = "VimEnter"}
+    use {'hrsh7th/nvim-cmp', opt = true, after = "nvim-lspinstall"}
+    use {'hrsh7th/cmp-buffer', opt = true, after = "nvim-lspinstall"}
     use {
         'neovim/nvim-lspconfig',
         opt = true,
-        after = 'nvim-compe',
+        after = 'nvim-cmp',
         config = function() require'lsp'.setup() end
     }
-    use {
-        'tzachar/compe-tabnine',
-        run = './install.sh',
-        requires = 'hrsh7th/nvim-compe',
-        after = 'nvim-compe',
-        opt = true
-    }
-    use {
-        'glepnir/lspsaga.nvim',
-        opt = true,
-        after = "nvim-lspconfig"
-    }
-    use {
-        'weilbith/nvim-code-action-menu',
-        cmd = 'CodeActionMenu'
-    }
+    use {'hrsh7th/cmp-nvim-lsp', opt = true, after = "nvim-lspinstall"}
+    use {'glepnir/lspsaga.nvim', opt = true, after = "nvim-lspconfig"}
+    use {'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'}
 
     -- VCS
-    use {
-        'junegunn/gv.vim',
-        opt = true,
-        cmd = {'GV'}
-    }
+    use {'junegunn/gv.vim', opt = true, cmd = {'GV'}}
     use {
         'lewis6991/gitsigns.nvim',
         opt = true,

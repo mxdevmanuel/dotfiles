@@ -6,6 +6,7 @@ set mail_check_stats
 set mailcap_path=~/.mailcap
 set mbox_type = Maildir
 set fast_reply= yes
+set include=yes
 set pager_stop=yes
 set move = no
 set rfc2047_parameters
