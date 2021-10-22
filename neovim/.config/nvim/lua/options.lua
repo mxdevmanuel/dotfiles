@@ -65,7 +65,7 @@ o.directory = swapdir
 opt.backspace = {"indent", "eol", "start"}
 opt.wildoptions = {"tagfile"}
 opt.fileencodings = {'utf-8'}
-opt.completeopt = {'menuone', 'noselect'}
+opt.completeopt = {'menu', 'menuone', 'noselect'}
 opt.virtualedit = {'block'}
 
 opt.shortmess = opt.shortmess + 'Ic'
@@ -83,7 +83,12 @@ env.FZF_DEFAULT_OPTS =
     (vim.env.FZF_DEFAULT_OPTS == nil and ' --layout=reverse' or
         vim.env.FZF_DEFAULT_OPTS .. ' --layout=reverse')
 
-g.fzf_layout = {window = {width = 0.9, height = 0.6}}
+g.fzf_layout = {
+    window = {
+        width = 0.9,
+        height = 0.6
+    }
+}
 
 g.dashboard_default_executive = 'fzf'
 
@@ -97,14 +102,14 @@ g.dashboard_custom_shortcut = {
     book_marks = ''
 }
 
-g.dashboard_custom_header = { 
-' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
- }
+g.dashboard_custom_header = {
+    ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+    ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+    ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+    ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+    ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+    ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝'
+}
 
 g.netrw_banner = 0
 g.loaded_matchit = 1

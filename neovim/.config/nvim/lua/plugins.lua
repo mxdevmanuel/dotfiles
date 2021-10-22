@@ -126,15 +126,15 @@ return require('packer').startup(function()
 
     -- LSP
     use {'kabouzeid/nvim-lspinstall', opt = true, event = "VimEnter"}
-    use {'hrsh7th/nvim-cmp', opt = true, after = "nvim-lspinstall"}
     use {'hrsh7th/cmp-buffer', opt = true, after = "nvim-lspinstall"}
+    use {'hrsh7th/cmp-nvim-lsp', opt = true, after = "nvim-lspinstall"}
+    use {'hrsh7th/nvim-cmp', opt = true, after = "nvim-lspinstall"}
     use {
         'neovim/nvim-lspconfig',
         opt = true,
         after = 'nvim-cmp',
         config = function() require'lsp'.setup() end
     }
-    use {'hrsh7th/cmp-nvim-lsp', opt = true, after = "nvim-lspinstall"}
     use {'glepnir/lspsaga.nvim', opt = true, after = "nvim-lspconfig"}
     use {'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'}
 
