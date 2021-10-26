@@ -11,14 +11,27 @@ function M.setup()
     local cmp = require 'cmp'
 
     cmp.setup({
+        snippet = {
+            expand = function(args)
+                require('luasnip').lsp_expand(args.body)
+            end
+        },
         mapping = {
             ['<C-d>'] = cmp.mapping.scroll_docs(-4),
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.close(),
-            ['<CR>'] = cmp.mapping.confirm({select = true})
+            ['<CR>'] = cmp.mapping.confirm({
+                select = true
+            })
         },
-        sources = {{name = 'nvim_lsp'}, {name = 'buffer'}}
+        sources = {
+            {
+                name = 'nvim_lsp'
+            }, {
+                name = 'buffer'
+            }
+        }
     })
 
     -- On attach function for LSP clients
@@ -33,7 +46,10 @@ function M.setup()
         buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
         -- Mappings.
-        local opts = {noremap = true, silent = false}
+        local opts = {
+            noremap = true,
+            silent = false
+        }
 
         buf_set_keymap('n', '<C-k>',
                        '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -96,7 +112,7 @@ function M.setup()
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport =
             true
-	capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+        capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
         return {
             -- enable snippet support
             capabilities = capabilities,
@@ -135,8 +151,12 @@ function M.setup()
         if server == "lua" then
             config.settings = {
                 Lua = {
-                    runtime = {version = 'LuaJIT'},
-                    diagnostics = {globals = {'vim', 'use'}}
+                    runtime = {
+                        version = 'LuaJIT'
+                    },
+                    diagnostics = {
+                        globals = {'vim', 'use'}
+                    }
                 }
             }
         end
