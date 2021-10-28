@@ -200,8 +200,6 @@ return require('packer').startup(function()
     }
     use {
         'L3MON4D3/LuaSnip',
-        opt = true,
-        after = "nvim-lspinstall"
     }
     use {
         "rafamadriz/friendly-snippets",
@@ -211,7 +209,7 @@ return require('packer').startup(function()
     use {
         'saadparwaiz1/cmp_luasnip',
         opt = true,
-        after = "nvim-lspinstall"
+        after = "nvim-cmp"
     }
     use {
         'glepnir/lspsaga.nvim',
