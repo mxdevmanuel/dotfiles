@@ -192,7 +192,7 @@ return require('packer').startup(function()
         'weilbith/nvim-code-action-menu',
         cmd = 'CodeActionMenu'
     }
-    
+
     -- Completion
     use {
         "rafamadriz/friendly-snippets",
@@ -231,11 +231,6 @@ return require('packer').startup(function()
    }
 
     -- VCS
-    use {
-        'junegunn/gv.vim',
-        opt = true,
-        cmd = {'GV'}
-    }
     use {
         'lewis6991/gitsigns.nvim',
         opt = true,
