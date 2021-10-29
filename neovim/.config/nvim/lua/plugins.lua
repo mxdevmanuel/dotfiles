@@ -178,38 +178,10 @@ return require('packer').startup(function()
         event = "VimEnter"
     }
     use {
-        'hrsh7th/cmp-buffer',
-        opt = true,
-        after = "nvim-lspinstall"
-    }
-    use {
-        'hrsh7th/cmp-nvim-lsp',
-        opt = true,
-        after = "nvim-lspinstall"
-    }
-    use {
-        'hrsh7th/nvim-cmp',
-        opt = true,
-        after = "nvim-lspinstall"
-    }
-    use {
         'neovim/nvim-lspconfig',
         opt = true,
         after = 'nvim-cmp',
         config = function() require'lsp'.setup() end
-    }
-    use {
-        'L3MON4D3/LuaSnip',
-    }
-    use {
-        "rafamadriz/friendly-snippets",
-        opt = true,
-        after = "LuaSnip"
-    }
-    use {
-        'saadparwaiz1/cmp_luasnip',
-        opt = true,
-        after = "nvim-cmp"
     }
     use {
         'glepnir/lspsaga.nvim',
@@ -220,6 +192,43 @@ return require('packer').startup(function()
         'weilbith/nvim-code-action-menu',
         cmd = 'CodeActionMenu'
     }
+    
+    -- Completion
+    use {
+        "rafamadriz/friendly-snippets",
+	event = "InsertEnter"
+    }
+    use {
+        'hrsh7th/nvim-cmp',
+        after = "friendly-snippets",
+	config = function()
+		require'completion'.setup()
+	end
+    }
+    use {
+        'L3MON4D3/LuaSnip',
+	after = "nvim-cmp",
+	wants = "friendly-snippets",
+	config = function()
+		require'completion'.luasnip()
+	end
+    }
+    use {
+        'saadparwaiz1/cmp_luasnip',
+        after = "LuaSnip"
+    }
+    use {
+        'hrsh7th/cmp-nvim-lsp',
+        after = "cmp_luasnip"
+    }
+    use {
+        'hrsh7th/cmp-buffer',
+        after = "cmp-nvim-lsp"
+    }
+    use {
+      "hrsh7th/cmp-path",
+      after = "cmp-buffer",
+   }
 
     -- VCS
     use {
