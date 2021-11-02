@@ -29,8 +29,8 @@ floating_modifier $mod
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1:term"
 set $ws2 "2:web"
-set $ws3 "3:altweb"
-set $ws4 "4:editor"
+set $ws3 "3:editor"
+set $ws4 "4:altweb"
 set $ws5 "5:files"
 set $ws6 "6:player"
 set $ws7 "7:torrent"

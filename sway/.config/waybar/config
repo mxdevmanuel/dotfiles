@@ -146,8 +146,8 @@
         "format-icons": {
             "1:term": "", // Icon: terminal
             "2:web": "", // Icon: chromium-browser
-            "3:altweb": "", // Icon: firefox
-            "4:editor": "", // Icon: vim
+            "3:editor": "", // Icon: firefox
+            "4:altweb": "", // Icon: vim
             "5:files": "", // Icon: files
             "6:player": "", // Icon: play
             "7:torrent": "", // Icon: magnet

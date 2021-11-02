@@ -108,18 +108,18 @@ return require('packer').startup(function()
     use {
         'norcalli/nvim-colorizer.lua',
         opt = true,
-        event = "VimEnter",
+        after = "dashboard-nvim",
         config = function() require('colorizer').setup() end
     }
     use { -- It is more complicated making a custom tabline than a statusline, this one's lean
         'alvarosevilla95/luatab.nvim',
         opt = true,
-        event = "VimEnter",
+        after = "dashboard-nvim",
         requires = {
             {
                 'kyazdani42/nvim-web-devicons',
                 opt = true,
-                event = "VimEnter"
+                after = "dashboard-nvim"
             }
         },
         config = function()
@@ -132,6 +132,16 @@ return require('packer').startup(function()
         'glepnir/dashboard-nvim',
         opt = true,
         event = "VimEnter"
+    }
+    use {
+        'kyazdani42/nvim-tree.lua',
+        requires = 'kyazdani42/nvim-web-devicons',
+        after = 'dashboard-nvim',
+        config = function()
+            require'nvim-tree'.setup {
+                update_cwd = true
+            }
+        end
     }
     use {
         'mattn/emmet-vim',
@@ -151,13 +161,13 @@ return require('packer').startup(function()
     use {
         'andymass/vim-matchup',
         opt = true,
-        event = "VimEnter"
+        event = "InsertEnter"
     }
     use {
         'phaazon/hop.nvim',
         as = 'hop',
         opt = true,
-        event = "VimEnter",
+        cmd = "HopChar2",
         config = function()
             require'hop'.setup {
                 keys = 'etovxqpdygfblzhckisuran'
@@ -169,6 +179,11 @@ return require('packer').startup(function()
         opt = true,
         cmd = {'WhichKey'},
         config = function() require'which-key'.setup() end
+    }
+    use {
+        'mbbill/undotree',
+        opt = true,
+        cmd = {'UndotreeToggle'},
     }
 
     -- LSP
@@ -196,22 +211,18 @@ return require('packer').startup(function()
     -- Completion
     use {
         "rafamadriz/friendly-snippets",
-	event = "InsertEnter"
+        event = "InsertEnter"
     }
     use {
         'hrsh7th/nvim-cmp',
         after = "friendly-snippets",
-	config = function()
-		require'completion'.setup()
-	end
+        config = function() require'completion'.setup() end
     }
     use {
         'L3MON4D3/LuaSnip',
-	after = "nvim-cmp",
-	wants = "friendly-snippets",
-	config = function()
-		require'completion'.luasnip()
-	end
+        after = "nvim-cmp",
+        wants = "friendly-snippets",
+        config = function() require'completion'.luasnip() end
     }
     use {
         'saadparwaiz1/cmp_luasnip',
@@ -226,9 +237,9 @@ return require('packer').startup(function()
         after = "cmp-nvim-lsp"
     }
     use {
-      "hrsh7th/cmp-path",
-      after = "cmp-buffer",
-   }
+        "hrsh7th/cmp-path",
+        after = "cmp-buffer"
+    }
 
     -- VCS
     use {
@@ -236,65 +247,13 @@ return require('packer').startup(function()
         opt = true,
         event = "VimEnter",
         requires = {'nvim-lua/plenary.nvim'},
-        config = function()
-            if packer_plugins["plenary.nvim"] and
-                not packer_plugins["plenary.nvim"].loaded then
-                vim.api.nvim_command('PackerLoad plenary.nvim')
-            end
-            require('gitsigns').setup({
-                signs = {
-                    add = {
-                        -- hl = 'CustomGitSignsAdd',
-                        hl = 'GitSignsAdd',
-                        text = '+',
-                        numhl = 'GitSignsAddNr',
-                        linehl = 'GitSignsAddLn'
-                    },
-                    change = {
-                        -- hl = 'CustomGitSignsChange',
-                        hl = 'GitSignsChange',
-                        text = '•',
-                        numhl = 'GitSignsChangeNr',
-                        linehl = 'GitSignsChangeLn'
-                    },
-                    delete = {
-                        -- hl = 'CustomGitSignsDelete',
-                        hl = 'GitSignsDelete',
-                        text = '-',
-                        numhl = 'GitSignsDeleteNr',
-                        linehl = 'GitSignsDeleteLn'
-                    },
-                    topdelete = {
-                        -- hl = 'CustomGitSignsDelete',
-                        hl = 'GitSignsDelete',
-                        text = '‾',
-                        numhl = 'GitSignsDeleteNr',
-                        linehl = 'GitSignsDeleteLn'
-                    },
-                    changedelete = {
-                        -- hl = 'CustomGitSignsDelete',
-                        hl = 'GitSignsChange',
-                        text = '~',
-                        numhl = 'GitSignsChangeNr',
-                        linehl = 'GitSignsChangeLn'
-                    }
-                },
-                numhl = false
-            })
-        end
+        config = function() require'others'.gitsigns() end
     }
 
     -- Debug
     use {
         'mfussenegger/nvim-dap',
         opt = true,
-        config = function()
-            local dap = require('dap')
-            dap.adapters.python = {
-                type = 'executable',
-                command = os.getenv('VIRTUAL_ENV') .. '/bin/python',
-                args = {'-m', 'debugpy.adapter'}
-            }
-        end
+        config = function() require'others'.dap() end
     }
 end)

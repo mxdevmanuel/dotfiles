@@ -120,7 +120,7 @@ g.loaded_matchit = 1
 -- GUI Options
 
 if (vim.g.neovide ~= nil and vim.env.SWAYSOCK ~= nil) then
-    o.guifont = "SF Mono:h14"
+    o.guifont = "SF Mono:h12"
 elseif (vim.g.neovide ~= nil) then
     o.guifont = "SF Mono:h16"
 else
