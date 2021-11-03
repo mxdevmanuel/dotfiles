@@ -1,0 +1,4 @@
+version: 2
+log-file: /home/manuel/output.log
+log-level: 1
+lint-debounce: 1s

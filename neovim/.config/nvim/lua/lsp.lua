@@ -104,6 +104,32 @@ function M.setup()
         nvim_lsp["dartls"].setup(config)
     end
 
+    if fn.executable("efm-langserver") == 1 then
+        local eslint = {
+            lintCommand = 'npx eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
+            lintIgnoreExitCode = true,
+            lintStdin = true,
+            lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m"}
+        }
+        local languages = {
+            javascript = {eslint},
+            typescript = {eslint},
+            javascriptreact = {eslint},
+            typescriptreact = {eslint}
+        }
+        local config = make_config()
+        nvim_lsp["efm"].setup({
+            filetypes = {
+                "javascript", "javascriptreact", "typescript",
+                "typescriptreact", "python", "lua"
+            },
+            settings = {
+                rootMarkers = {".eslintrc"},
+                languages = languages
+            }
+        })
+    end
+
     local lspinstall = require 'lspinstall'
 
     lspinstall.setup()
@@ -117,7 +143,7 @@ function M.setup()
             config.filetypes = {
                 "javascript", "javascriptreact", "javascript.jsx", "typescript",
                 "typescriptreact", "typescript.tsx"
-            }; -- we don't want c and cpp!
+            };
         end
         if server == "clangd" then
             config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
