@@ -2,5 +2,9 @@
   {
     "name": "Sway",
     "file": "swayconf.pkgs"
+  },
+  {
+    "name": "i3",
+    "file": "i3conf.pkgs"
   }
 ]

@@ -106,16 +106,23 @@ function M.setup()
 
     if fn.executable("efm-langserver") == 1 then
         local eslint = {
-            lintCommand = 'npx eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
+            lintCommand = 'yarn eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
             lintIgnoreExitCode = true,
             lintStdin = true,
             lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m"}
+        }
+        local flake8 = {
+            lintCommand = 'flake8 --stdin-display-name ${INPUT} -',
+            lintStdin = true,
+            lintFormats = {'%f:%l:%c: %m'}
+
         }
         local languages = {
             javascript = {eslint},
             typescript = {eslint},
             javascriptreact = {eslint},
-            typescriptreact = {eslint}
+            typescriptreact = {eslint},
+	    python = {flake8}
         }
         local config = make_config()
         nvim_lsp["efm"].setup({
