@@ -77,7 +77,9 @@ case $selectboot in
 		grub-mkconfig -o /boot/grub/grub.cfg
 		;;
 	*)
-		bootctl install
+		pushd /
+
+		bootctl install --esp-path=/boot
 		
 		echo -ne "default arch\ntimeout 4\nconsole-mode max\neditor no" > /boot/loader/loader.conf
 
@@ -93,6 +95,8 @@ case $selectboot in
 		fi
 
 		echo -n "initrd /initramfs-linux.img\noptions root=\"$uuid\" rw" >> /boot/loader/entries/arch.conf
+
+		pushd
 	;;
 esac
 }

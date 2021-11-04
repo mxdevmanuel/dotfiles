@@ -148,7 +148,7 @@ mount $rootpart /mnt
 mkdir -p /mnt/efi
 mkdir -p /mnt/home
 
-mount $bootpart /mnt/efi
+mount $bootpart /mnt/boot
 mount $homepart /mnt/home
 
 run_reflector
