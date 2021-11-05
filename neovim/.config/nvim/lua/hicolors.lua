@@ -18,7 +18,7 @@ function h.gruvbox(self)
                              colors.faded_aqua.hex .. " gui=bold" .. slgui ..
                              " guibg=" .. slcfg)
     vim.api.nvim_command("highlight StatusLineFt ctermbg=5 guifg=" ..
-                             colors.neutral_purple.hex .. " gui=bold" .. slgui ..
+                             colors.neutral_blue.hex .. " gui=bold" .. slgui ..
                              " guibg=" .. slcfg)
 end
 

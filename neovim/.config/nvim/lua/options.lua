@@ -19,7 +19,7 @@ w.cursorline = true
 w.foldmethod = 'expr'
 w.foldexpr = 'nvim_tressiter#foldexpr()'
 w.statusline =
-    "%<%#StatusLineGit#%<%{FugitiveStatusline()} %f %#StatusLine#%h%m%r%=%#StatusLineFt#%y%#StatusLine# %-14.(%l,%c%V%) %P"
+    "%<%#StatusLineGit#%<%{FugitiveStatusline()} %f %#StatusLine#%h%m%r%=%#StatusLineFt# %y %#StatusLine# %-14.(%l,%c%V%) %P"
 
 o.autoread = true
 o.foldlevelstart = 20
