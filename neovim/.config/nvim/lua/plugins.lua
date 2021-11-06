@@ -11,9 +11,14 @@ if fn.empty(fn.glob(install_path)) > 0 then
     execute 'packadd packer.nvim'
 end
 
+vim.g.did_load_filetypes = 1
+
 return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
+
+    -- Performance
+    use("nathom/filetype.nvim")
 
     -- Fuzzy search
     use 'junegunn/fzf'
@@ -159,6 +164,11 @@ return require('packer').startup(function()
         end
     }
     use {
+	    'windwp/nvim-ts-autotag',
+	    after = "nvim-treesitter",
+	    config = function() require('nvim-ts-autotag').setup() end
+    }
+    use {
         'andymass/vim-matchup',
         opt = true,
         event = "InsertEnter"
@@ -183,7 +193,7 @@ return require('packer').startup(function()
     use {
         'mbbill/undotree',
         opt = true,
-        cmd = {'UndotreeToggle'},
+        cmd = {'UndotreeToggle'}
     }
 
     -- LSP
@@ -256,4 +266,5 @@ return require('packer').startup(function()
         opt = true,
         config = function() require'others'.dap() end
     }
+
 end)

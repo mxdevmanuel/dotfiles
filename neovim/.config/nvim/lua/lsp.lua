@@ -124,7 +124,6 @@ function M.setup()
             typescriptreact = {eslint},
 	    python = {flake8}
         }
-        local config = make_config()
         nvim_lsp["efm"].setup({
             filetypes = {
                 "javascript", "javascriptreact", "typescript",
