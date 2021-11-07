@@ -198,19 +198,17 @@ return require('packer').startup(function()
 
     -- LSP
     use {
-        'kabouzeid/nvim-lspinstall',
+        'williamboman/nvim-lsp-installer',
         opt = true,
         event = "VimEnter"
     }
     use {
         'neovim/nvim-lspconfig',
-        opt = true,
-        after = 'nvim-cmp',
+        after = 'nvim-lsp-installer',
         config = function() require'lsp'.setup() end
     }
     use {
         'glepnir/lspsaga.nvim',
-        opt = true,
         after = "nvim-lspconfig"
     }
     use {
