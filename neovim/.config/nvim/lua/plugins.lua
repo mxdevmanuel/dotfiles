@@ -131,6 +131,14 @@ return require('packer').startup(function()
             vim.o.tabline = '%!v:lua.require\'luatab\'.tabline()'
         end
     }
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = {
+            'kyazdani42/nvim-web-devicons',
+            opt = true
+        },
+	config = function() require'statusline'.setup() end
+    }
 
     -- Misc
     use {
@@ -164,9 +172,9 @@ return require('packer').startup(function()
         end
     }
     use {
-	    'windwp/nvim-ts-autotag',
-	    after = "nvim-treesitter",
-	    config = function() require('nvim-ts-autotag').setup() end
+        'windwp/nvim-ts-autotag',
+        after = "nvim-treesitter",
+        config = function() require('nvim-ts-autotag').setup() end
     }
     use {
         'andymass/vim-matchup',

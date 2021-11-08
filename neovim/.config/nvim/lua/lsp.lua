@@ -134,7 +134,7 @@ function M.setup()
                 "typescriptreact", "python", "lua"
             },
             settings = {
-                rootMarkers = {".eslintrc"},
+                rootMarkers = {".eslintrc", ".eslintrc.js"},
                 languages = languages
             }
         })

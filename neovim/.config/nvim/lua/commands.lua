@@ -37,13 +37,13 @@ vim.api.nvim_exec([[
 	au! BufRead,BufNewFile .envrc set filetype=sh
 	au! TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
 
-	augroup StatusLineChange
-		autocmd!
-		 set statusline<
-		autocmd BufWinEnter,WinEnter,BufEnter * lua vim.wo.statusline = "%<%#StatusLineGit#%<%{FugitiveStatusline()}%#StatusLineFn# %f %#StatusLine#%h%m%r%=%#StatusLineFt#%y%#StatusLine# %-14.(%l,%c%V%) %P"
-		autocmd WinLeave,BufLeave * set statusline<
-		autocmd VimResized * redrawstatus
-	augroup END
+	"augroup StatusLineChange
+	"	autocmd!
+	"	 set statusline<
+	"	autocmd BufWinEnter,WinEnter,BufEnter * lua vim.wo.statusline = "%<%#StatusLineGit#%<%{FugitiveStatusline()}%#StatusLineFn# %f %#StatusLine#%h%m%r%=%#StatusLineFt#%y%#StatusLine# %-14.(%l,%c%V%) %P"
+	"	autocmd WinLeave,BufLeave * set statusline<
+	"	autocmd VimResized * redrawstatus
+	"augroup END
 
 
 	augroup Packer
