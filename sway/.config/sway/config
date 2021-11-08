@@ -229,8 +229,9 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # Rules{{{
 
-assign [app_id="^chromium"] → $ws3
 assign [app_id="^google-chrome"] → $ws2
+assign [app_id="^neovide"] → $ws3
+assign [app_id="^chromium"] → $ws4
 assign [app_id="^thunar"] → $ws5
 assign [title="vifm"] → $ws5 
 assign [app_id="^mpv"] → $ws6
