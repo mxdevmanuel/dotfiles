@@ -27,8 +27,8 @@ floating_modifier $mod
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1:term"
 set $ws2 "2:browser"
-set $ws3 "3:altbrowser"
-set $ws4 "4:editor"
+set $ws3 "3:editor"
+set $ws4 "4:altbrowser"
 set $ws5 "5:files"
 set $ws6 "6:mail"
 set $ws7 "7:torrent"
@@ -39,7 +39,7 @@ set $ws10 "10:net"
 
 # Autostart {{{
 # Screen
-exec --no-startup-id $HOME/.screenlayout/variable.sh
+exec --no-startup-id $HOME/.screenlayout/i3.sh
 exec --no-startup-id sleep 1; feh --no-fehbg --bg-fill $HOME/.local/share/wallpapers/gruvarch.png
 # exec --no-startup-id conky; sleep 1; pkill -USR1 conky
 exec_always --no-startup-id $HOME/.local/bin/polybar.sh
