@@ -27,6 +27,7 @@ function select_stow(){
 		cdesktop=sway
 	fi
 
+	mkdir -p ~/.config/systemd ~/.gnupg ~/.local/bin ~/.local/share
 	stow local kitty neovim tmux zsh $cdesktop
 	popd
 }
@@ -68,10 +69,7 @@ localbin=${gitbase}/local/.local/bin
 bash ${localbin}/shells_update.sh
 
 log_success "Nvim" "Installing nvim plugins"
-p=$(mktemp)
-echo "Run :PackerInstall to install plugins" >> $p
-echo "the :q to exit"
-nvim $p
+nvim --headless +PackerInstall +q
 
 log_success "Python" "Creating Envs"
 mkdir $HOME/Envs

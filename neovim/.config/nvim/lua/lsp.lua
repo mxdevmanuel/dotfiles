@@ -152,10 +152,10 @@ function M.setup()
                 "typescriptreact", "typescript.tsx"
             };
         end
-        if server == "clangd" then
+        if server.name == "clangd" then
             config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
         end
-        if server == "sumneko_lua" then
+        if server.name == "sumneko_lua" then
             config.settings = {
                 Lua = {
                     runtime = {
