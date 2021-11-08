@@ -86,7 +86,11 @@ function M.setup()
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport =
             true
+    if packer_plugins["cmp_nvim_lsp"] and packer_plugins["cmp_nvim_lsp"].loaded then
+        -- vim.api.nvim_command('PackerLoad lush.nvim')
+	print("Loaded cmp")
         capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+    end
         return {
             -- enable snippet support
             capabilities = capabilities,
@@ -136,16 +140,13 @@ function M.setup()
         })
     end
 
-    local lspinstall = require 'lspinstall'
+    local lsp_installer = require 'nvim-lsp-installer'
 
-    lspinstall.setup()
-
-    local servers = lspinstall.installed_servers()
-    for _, server in pairs(servers) do
+    lsp_installer.on_server_ready(function(server)
         local config = make_config()
 
         -- language specific config
-        if server == "typescript-language-server" then
+        if server.name == "tsserver" then
             config.filetypes = {
                 "javascript", "javascriptreact", "javascript.jsx", "typescript",
                 "typescriptreact", "typescript.tsx"
@@ -154,7 +155,7 @@ function M.setup()
         if server == "clangd" then
             config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
         end
-        if server == "lua" then
+        if server == "sumneko_lua" then
             config.settings = {
                 Lua = {
                     runtime = {
@@ -167,8 +168,8 @@ function M.setup()
             }
         end
 
-        require'lspconfig'[server].setup(config)
-    end
+        server:setup(config)
+end)
 
 end
 
