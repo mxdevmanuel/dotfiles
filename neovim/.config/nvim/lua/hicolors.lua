@@ -15,7 +15,7 @@ function h.gruvbox(self)
     local slcfg = base.StatusLine.bg.hex
     if (vim.o.background == 'light') then slcfg = colors.light1.hex end
     vim.api.nvim_command("highlight StatusLineGit ctermbg=5 guifg=" ..
-                             colors.faded_aqua.hex .. " gui=bold" .. slgui ..
+                             colors.neutral_aqua.hex .. " gui=bold" .. slgui ..
                              " guibg=" .. slcfg)
     vim.api.nvim_command("highlight StatusLineDiff ctermbg=5 guifg=" ..
                              colors.dark4.hex .. " gui=inverse"  ..

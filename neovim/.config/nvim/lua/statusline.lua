@@ -4,6 +4,7 @@ local lsp = vim.lsp
 
 M.trunc_width = setmetatable({
     git_status = 90,
+    lsp = 90,
     filename = 120
 }, {
     __index = function() return 80 end
@@ -61,7 +62,7 @@ function M.get_lsp_diagnostic(self)
         result[k] = vim.lsp.diagnostic.get_count(0, level)
     end
 
-    if self:is_truncated(120) then
+    if self:is_truncated(self.trunc_width.lsp) then
         return ''
     else
         return string.format(" %%#StatusLineLspError#:%s %%#StatusLineLspWarning#:%s %%#StatusLineLspInfo#:%s %%#StatusLineLspAction#:%s%%#Statusline# ",

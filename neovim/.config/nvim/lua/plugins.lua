@@ -112,7 +112,7 @@ return require('packer').startup(function()
     use {
         'kyazdani42/nvim-tree.lua',
         requires = {'kyazdani42/nvim-web-devicons', opt = true},
-        event = 'VimEnter',
+        after = 'gitsigns.nvim',
         config = function() require'nvim-tree'.setup {update_cwd = true} end
     }
     use {

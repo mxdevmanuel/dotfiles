@@ -29,17 +29,15 @@ To install just boot into a clean arch iso, install git and
 
     cd dotfiles/installation ; zsh archbase.zsh
 
-and follow the prompts and then after chroot
+follow the prompts and then after chroot
 
     cd ~/dotfiles/installation ; zsh archroot.zsh
 
-up to these point you will have a running arch install with everything I need, an extra step which is stil **WIP** could be
+up to these point you will have a running arch install with everything _I_ use, to automatically spread dotfiles, configure git, nvim, zsh and install user systemd services, a python virtualenv for running some commands, the gtk theme and fonts do
 
     su <username>
 
     cd ~/.dotfiles/installation/ ; zsh archuser.zsh
-
-this will ATM help you setup git, disperse the dotfiles you want to use, create a virtualenv for certain commands to run on and setup neovim, however I have'nt used this script yet during and installation as it is still pretty early progress and I would suggest to doit manually for the time being.
 
 ### Notes and comments
 
