@@ -17,13 +17,32 @@ function h.gruvbox(self)
     vim.api.nvim_command("highlight StatusLineGit ctermbg=5 guifg=" ..
                              colors.faded_aqua.hex .. " gui=bold" .. slgui ..
                              " guibg=" .. slcfg)
+    vim.api.nvim_command("highlight StatusLineDiff ctermbg=5 guifg=" ..
+                             colors.dark4.hex .. " gui=inverse"  ..
+                             " guibg=" .. slcfg)
     vim.api.nvim_command("highlight StatusLineFt ctermbg=5 guifg=" ..
                              colors.neutral_purple.hex .. " gui=bold" .. slgui ..
                              " guibg=" .. slcfg)
+
+    local bg = vim.o.background
+    local bghex = bg == 'dark' and colors.dark2.hex or colors.light2.hex
+
+    vim.api.nvim_command("highlight StatusLineLspError ctermbg=5 guifg=" ..
+                             colors.neutral_orange.hex .. " guibg=" ..
+                             bghex)
+    vim.api.nvim_command("highlight StatusLineLspWarning ctermbg=5 guifg=" ..
+                             colors.neutral_yellow.hex .. " guibg=" ..
+                             bghex)
+    vim.api.nvim_command("highlight StatusLineLspInfo ctermbg=5 guifg=" ..
+                             colors.neutral_aqua.hex .. " guibg=" ..
+                             bghex)
+    vim.api.nvim_command("highlight StatusLineLspAction ctermbg=5 guifg=" ..
+                             colors.neutral_green.hex .. " guibg=" ..
+                             bghex)
 end
 
 function h.setup(self)
-    time = tonumber(os.date("%H"))
+    local time = tonumber(os.date("%H"))
 
     if (time < 19 and time > 9) then
         vim.o.background = 'light'

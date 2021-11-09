@@ -95,16 +95,16 @@ return require('packer').startup(function()
     use { -- It is more complicated making a custom tabline than a statusline, this one's lean
         'alvarosevilla95/luatab.nvim',
         opt = true,
-        after = "dashboard-nvim",
+        after = "nvim-tree.lua",
         requires = {
             {
                 'kyazdani42/nvim-web-devicons',
                 opt = true,
-                after = "dashboard-nvim"
+                after = "nvim-tree.lua"
             }
         },
         config = function()
-            vim.o.tabline = '%!v:lua.require\'luatab\'.tabline()'
+		require'luatab'.setup({})
         end
     }
 
@@ -112,7 +112,7 @@ return require('packer').startup(function()
     use {
         'kyazdani42/nvim-tree.lua',
         requires = {'kyazdani42/nvim-web-devicons', opt = true},
-        after = 'dashboard-nvim',
+        event = 'VimEnter',
         config = function() require'nvim-tree'.setup {update_cwd = true} end
     }
     use {

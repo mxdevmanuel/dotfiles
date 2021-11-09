@@ -11,4 +11,4 @@ require('options')
 require('commands')
 
 -- Statusline
-require('statusline').setup()
+require('statusline')
