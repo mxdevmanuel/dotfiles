@@ -31,11 +31,7 @@ return require('packer').startup(function()
     }
 
     -- tbaggery
-    use {
-        'tpope/vim-fugitive',
-        opt = true,
-        event = "VimEnter"
-    }
+    use {'tpope/vim-fugitive', opt = true, event = "VimEnter"}
     use {
         'tpope/vim-eunuch',
         opt = true,
@@ -44,31 +40,14 @@ return require('packer').startup(function()
             'Cfind', 'Lfind', 'Llocate', 'Chmod', 'Rename'
         }
     }
-    use {
-        'tpope/vim-commentary',
-        opt = true,
-        event = "BufRead"
-    }
-    use {
-        'tpope/vim-surround',
-        opt = true,
-        event = "BufRead"
-    }
-    use {
-        'tpope/vim-repeat',
-        opt = true,
-        event = "BufRead"
-    }
+    use {'tpope/vim-commentary', opt = true, event = "BufRead"}
+    use {'tpope/vim-surround', opt = true, event = "BufRead"}
+    use {'tpope/vim-repeat', opt = true, event = "BufRead"}
 
     -- Colorscheme
     use {
         "npxbr/gruvbox.nvim",
-        requires = {
-            {
-                "rktjmp/lush.nvim",
-                opt = true
-            }
-        },
+        requires = {{"rktjmp/lush.nvim", opt = true}},
         opt = true,
         event = "VimEnter",
         config = function() require('hicolors'):setup() end
@@ -82,15 +61,20 @@ return require('packer').startup(function()
         config = function()
             require'nvim-treesitter.configs'.setup {
                 -- one of "all", "maintained", or a list of languages
-                ensure_installed = "maintained",
+                ensure_installed = {
+                    "bash", "c", "c_sharp", "clojure", "cmake", "comment",
+                    "cpp", "css", "dart", "dockerfile", "dot", "go", "graphql",
+                    "html", "java", "javascript", "jsdoc", "json", "json5",
+                    "jsonc", "kotlin", "latex", "lua", "php", "python", "r",
+                    "regex", "rst", "rust", "scss", "svelte", "toml", "tsx",
+                    "turtle", "typescript", "vim", "vue", "yaml"
+                },
                 -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
                 highlight = {
                     enable = true -- false will disable the whole extension
                     -- disable = { "c", "rust" },  -- list of language that will be disabled
                 },
-                incremental_selection = {
-                    enable = true
-                }
+                incremental_selection = {enable = true}
             }
 
         end
@@ -98,16 +82,8 @@ return require('packer').startup(function()
 
     -- Filetypes
     use 'GutenYe/json5.vim'
-    use {
-        'stevearc/vim-arduino',
-        opt = true,
-        ft = 'arduino'
-    }
-    use {
-        'chunkhang/vim-mbsync',
-        opt = true,
-        ft = 'mbsync'
-    }
+    use {'stevearc/vim-arduino', opt = true, ft = 'arduino'}
+    use {'chunkhang/vim-mbsync', opt = true, ft = 'mbsync'}
 
     -- Appeareance
     use {
@@ -133,31 +109,17 @@ return require('packer').startup(function()
     }
     use {
         'nvim-lualine/lualine.nvim',
-        requires = {
-            'kyazdani42/nvim-web-devicons',
-            opt = true
-        },
-	config = function() require'statusline'.setup() end
+        requires = {'kyazdani42/nvim-web-devicons', opt = true},
+        config = function() require'statusline'.setup() end
     }
 
     -- Misc
-    use {
-        'glepnir/dashboard-nvim',
-        opt = true,
-        event = "VimEnter"
-    }
+    use {'glepnir/dashboard-nvim', opt = true, event = "VimEnter"}
     use {
         'kyazdani42/nvim-tree.lua',
-        requires ={
-            'kyazdani42/nvim-web-devicons',
-            opt = true
-        },
+        requires = {'kyazdani42/nvim-web-devicons', opt = true},
         after = 'dashboard-nvim',
-        config = function()
-            require'nvim-tree'.setup {
-                update_cwd = true
-            }
-        end
+        config = function() require'nvim-tree'.setup {update_cwd = true} end
     }
     use {
         'mattn/emmet-vim',
@@ -169,9 +131,7 @@ return require('packer').startup(function()
     use {
         'windwp/nvim-autopairs',
         config = function()
-            require('nvim-autopairs').setup({
-                check_ts = true
-            })
+            require('nvim-autopairs').setup({check_ts = true})
         end
     }
     use {
@@ -179,20 +139,14 @@ return require('packer').startup(function()
         after = "nvim-treesitter",
         config = function() require('nvim-ts-autotag').setup() end
     }
-    use {
-        'andymass/vim-matchup',
-        opt = true,
-        event = "InsertEnter"
-    }
+    use {'andymass/vim-matchup', opt = true, event = "InsertEnter"}
     use {
         'phaazon/hop.nvim',
         as = 'hop',
         opt = true,
         cmd = "HopChar2",
         config = function()
-            require'hop'.setup {
-                keys = 'etovxqpdygfblzhckisuran'
-            }
+            require'hop'.setup {keys = 'etovxqpdygfblzhckisuran'}
         end
     }
     use {
@@ -201,37 +155,20 @@ return require('packer').startup(function()
         cmd = {'WhichKey'},
         config = function() require'which-key'.setup() end
     }
-    use {
-        'mbbill/undotree',
-        opt = true,
-        cmd = {'UndotreeToggle'}
-    }
+    use {'mbbill/undotree', opt = true, cmd = {'UndotreeToggle'}}
 
     -- LSP
-    use {
-        'williamboman/nvim-lsp-installer',
-        opt = true,
-        event = "VimEnter"
-    }
+    use {'williamboman/nvim-lsp-installer', opt = true, event = "VimEnter"}
     use {
         'neovim/nvim-lspconfig',
         after = 'nvim-lsp-installer',
         config = function() require'lsp'.setup() end
     }
-    use {
-        'glepnir/lspsaga.nvim',
-        after = "nvim-lspconfig"
-    }
-    use {
-        'weilbith/nvim-code-action-menu',
-        cmd = 'CodeActionMenu'
-    }
+    use {'glepnir/lspsaga.nvim', after = "nvim-lspconfig"}
+    use {'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'}
 
     -- Completion
-    use {
-        "rafamadriz/friendly-snippets",
-        event = "InsertEnter"
-    }
+    use {"rafamadriz/friendly-snippets", event = "InsertEnter"}
     use {
         'hrsh7th/nvim-cmp',
         after = "friendly-snippets",
@@ -243,22 +180,10 @@ return require('packer').startup(function()
         wants = "friendly-snippets",
         config = function() require'completion'.luasnip() end
     }
-    use {
-        'saadparwaiz1/cmp_luasnip',
-        after = "LuaSnip"
-    }
-    use {
-        'hrsh7th/cmp-nvim-lsp',
-        after = "cmp_luasnip"
-    }
-    use {
-        'hrsh7th/cmp-buffer',
-        after = "cmp-nvim-lsp"
-    }
-    use {
-        "hrsh7th/cmp-path",
-        after = "cmp-buffer"
-    }
+    use {'saadparwaiz1/cmp_luasnip', after = "LuaSnip"}
+    use {'hrsh7th/cmp-nvim-lsp', after = "cmp_luasnip"}
+    use {'hrsh7th/cmp-buffer', after = "cmp-nvim-lsp"}
+    use {"hrsh7th/cmp-path", after = "cmp-buffer"}
 
     -- VCS
     use {

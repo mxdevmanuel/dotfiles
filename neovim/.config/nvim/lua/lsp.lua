@@ -135,7 +135,8 @@ function M.setup()
             },
             settings = {
                 rootMarkers = {".eslintrc", ".eslintrc.js"},
-                languages = languages
+                languages = languages,
+		lintDebounce = '100ms'
             }
         })
     end
