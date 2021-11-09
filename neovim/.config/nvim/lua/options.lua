@@ -118,9 +118,9 @@ g.loaded_matchit = 1
 -- GUI Options
 
 if (vim.g.neovide ~= nil and vim.env.SWAYSOCK ~= nil) then
-    o.guifont = "SF Mono:h12"
+    o.guifont = "SF Mono Powerline:h12"
 elseif (vim.g.neovide ~= nil) then
-    o.guifont = "SF Mono:h16"
+    o.guifont = "SF Mono Powerline:h16"
 else
-    o.guifont = "SF Mono:h12"
+    o.guifont = "SF Mono Powerline:h12"
 end

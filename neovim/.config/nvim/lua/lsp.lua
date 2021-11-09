@@ -160,7 +160,7 @@ function M.setup()
             config.settings = {
                 Lua = {
                     runtime = {version = 'LuaJIT'},
-                    diagnostics = {globals = {'vim', 'use'}}
+                    diagnostics = {globals = {'vim', 'use', 'packer_plugins'}}
                 }
             }
         end
