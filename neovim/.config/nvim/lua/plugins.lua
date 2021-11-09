@@ -89,7 +89,7 @@ return require('packer').startup(function()
     use {
         'norcalli/nvim-colorizer.lua',
         opt = true,
-        after = "dashboard-nvim",
+        event = "VimEnter",
         config = function() require('colorizer').setup() end
     }
     use { -- It is more complicated making a custom tabline than a statusline, this one's lean
@@ -107,14 +107,8 @@ return require('packer').startup(function()
             vim.o.tabline = '%!v:lua.require\'luatab\'.tabline()'
         end
     }
-    use {
-        'nvim-lualine/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true},
-        config = function() require'statusline'.setup() end
-    }
 
     -- Misc
-    use {'glepnir/dashboard-nvim', opt = true, event = "VimEnter"}
     use {
         'kyazdani42/nvim-tree.lua',
         requires = {'kyazdani42/nvim-web-devicons', opt = true},
@@ -164,7 +158,6 @@ return require('packer').startup(function()
         after = 'nvim-lsp-installer',
         config = function() require'lsp'.setup() end
     }
-    use {'glepnir/lspsaga.nvim', after = "nvim-lspconfig"}
     use {'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'}
 
     -- Completion
