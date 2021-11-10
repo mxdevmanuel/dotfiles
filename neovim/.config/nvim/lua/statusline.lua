@@ -76,8 +76,8 @@ local truncater = "%<"
 function M.get_statusline(self)
     return table.concat {
         truncater, self:get_git_status(),
-        "%#StatusLine#", self:get_filename(), "%h%m%r%=", self:get_lsp_diagnostic() ,"%#StatusLineFt#",
-        "%y", "%#StatusLine#", " %-6.(%l,%c%V%) %P"
+        "%#StatusLine#", self:get_filename(), "%h%m%r", self:get_lsp_diagnostic() ,"%=%#StatusLineFt#",
+        "%y", "%#StatusLine#", " %-8.(%l,%c%V%) %P"
     }
 end
 
