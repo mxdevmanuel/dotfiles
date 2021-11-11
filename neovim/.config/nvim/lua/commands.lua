@@ -10,6 +10,7 @@ vim.api.nvim_exec([[
 	end
 
 	command! Bufonly %bd | e#
+	command! Project lua ChangeProject() 
 	command! IPython new | terminal ipython
 	command! -nargs=0 RunPy call OpenTerm('python ' . expand('%'))
 

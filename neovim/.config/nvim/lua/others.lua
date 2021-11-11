@@ -47,13 +47,72 @@ function M.gitsigns()
     })
 end
 
+function M.telescope()
+    local telescope = require('telescope')
+
+    telescope.setup()
+
+    telescope.load_extension('fzf')
+end
+
+function ChangeProject()
+    local pickers = require "telescope.pickers"
+    local finders = require "telescope.finders"
+    local previewers = require "telescope.previewers"
+
+    local opts = {}
+    local dirpreviewer = previewers.new_termopen_previewer({
+        get_command = function(entry, status)
+            return {'tree', '-I', '.git', entry.value}
+        end
+    })
+    local find_command = opts.find_command
+
+    if 1 == vim.fn.executable "find" and vim.fn.has "win32" == 0 then
+        find_command = {
+            "find", vim.fn.expand('~') .. "/Code", "-type", "d", "-and",
+            "-name", ".git"
+        }
+    end
+
+    if not find_command then
+        print("You need to install find. " ..
+                  "You can also submit a PR to add support for another file finder :)")
+        return
+    end
+
+    opts.entry_maker = function(entry)
+        local rep = entry:gsub('.git', '')
+        return {value = rep, display = rep, ordinal = rep}
+    end
+
+    pickers.new(opts, {
+        prompt_title = "cd to project",
+        finder = finders.new_oneshot_job(find_command, opts),
+        previewer = dirpreviewer,
+        attach_mappings = function(prompt_bufnr, map)
+            local function cd_to_project()
+                local content =
+                    require'telescope.actions.state'.get_selected_entry(
+                        prompt_bufnr)
+                vim.api.nvim_exec("cd " .. content.value, false)
+                require'telescope.actions'.close(prompt_bufnr)
+            end
+
+            map('i', '<CR>', function(bufnr) cd_to_project() end)
+            return true
+        end
+
+    }):find()
+end
+
 function M.dap()
-            local dap = require('dap')
-            dap.adapters.python = {
-                type = 'executable',
-                command = os.getenv('VIRTUAL_ENV') .. '/bin/python',
-                args = {'-m', 'debugpy.adapter'}
-            }
+    local dap = require('dap')
+    dap.adapters.python = {
+        type = 'executable',
+        command = os.getenv('VIRTUAL_ENV') .. '/bin/python',
+        args = {'-m', 'debugpy.adapter'}
+    }
 end
 
 return M

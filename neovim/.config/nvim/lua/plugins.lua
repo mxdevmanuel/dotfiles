@@ -21,13 +21,13 @@ return require('packer').startup(function()
     use("nathom/filetype.nvim")
 
     -- Fuzzy search
-    use 'junegunn/fzf'
-    use 'junegunn/fzf.vim'
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
     use {
         'nvim-telescope/telescope.nvim',
         opt = true,
         event = "VimEnter",
-        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+        config = function() require'others'.telescope() end
     }
 
     -- tbaggery
@@ -69,7 +69,7 @@ return require('packer').startup(function()
                     "regex", "rst", "rust", "scss", "svelte", "toml", "tsx",
                     "turtle", "typescript", "vim", "vue", "yaml"
                 },
-		sync_install = false,
+                sync_install = false,
                 highlight = {
                     enable = true -- false will disable the whole extension
                     -- disable = { "c", "rust" },  -- list of language that will be disabled
@@ -103,9 +103,7 @@ return require('packer').startup(function()
                 after = "nvim-tree.lua"
             }
         },
-        config = function()
-		require'luatab'.setup({})
-        end
+        config = function() require'luatab'.setup({}) end
     }
 
     -- Misc

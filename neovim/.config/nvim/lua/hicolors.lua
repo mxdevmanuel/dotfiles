@@ -44,7 +44,7 @@ end
 function h.setup(self)
     local time = tonumber(os.date("%H"))
 
-    if (time < 19 and time > 9) then
+    if (time < 18 and time > 9) then
         vim.o.background = 'light'
     else
         vim.o.background = 'dark'
