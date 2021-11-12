@@ -81,6 +81,15 @@ alias setlighttheme="setTheme gruvbox-light light.toml light 1"
 autoload -Uz _nvm
 alias nvm="_nvm"
 
+function load-nvmrc(){
+	if [[ -f ".nvmrc" ]]
+	then
+		nvm use
+	fi
+}
+
+add-zsh-hook chpwd load-nvmrc
+
 # Init 
 [ ! -z "$FIRSTRUN" ] && [[ ! -f /tmp/firstrun ]] && lolarch.zsh && touch /tmp/firstrun
 

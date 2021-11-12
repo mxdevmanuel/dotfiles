@@ -88,27 +88,6 @@ g.fzf_layout = {
     }
 }
 
-g.dashboard_default_executive = 'fzf'
-
-g.dashboard_custom_shortcut = {
-    last_session = '',
-    find_history = '',
-    find_file = '',
-    new_file = '',
-    change_colorscheme = '',
-    find_word = '',
-    book_marks = ''
-}
-
-g.dashboard_custom_header = {
-    ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-    ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-    ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-    ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-    ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-    ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝'
-}
-
 g.netrw_banner = 0
 g.loaded_matchit = 1
 
