@@ -6,6 +6,26 @@ local fn = vim.fn
 
 local M = {}
 
+M.mappings = {
+    {'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>'},
+    {'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>'},
+    {'n', '<leader>ca', '<cmd>Telescope lsp_code_actions<CR>'},
+    {'n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>'},
+    {'n', '<leader>gd', '<Cmd>lua vim.lsp.buf.definition()<CR>'},
+    {
+        'n', '<leader>i',
+        '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>'
+    }, {'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>'},
+    {'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>'}, -- 
+    {'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>'}, --
+    {'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>'},
+    {'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>'},
+    {'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>'},
+    {'n', 'gd', '<Cmd>lua vim.lsp.buf.declaration()<CR>'},
+    {'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>'},
+    {'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>'}
+}
+
 function M.setup()
 
     -- On attach function for LSP clients
@@ -20,58 +40,25 @@ function M.setup()
         bufopt('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
         -- Mappings.
-        local opts = {noremap = true, silent = false}
+        local opts = {
+            noremap = true,
+            silent = false
+        }
 
-        bufmap('n', '<C-k>',
-                       '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-        bufmap('n', '<space>D',
-                       '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-        bufmap('n', '<space>ca',
-                       '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-        bufmap('n', '<space>d',
-                       '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-        bufmap('n', '<space>i',
-                       '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
-                       opts)
-        bufmap('n', '<space>gd',
-                       '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-        bufmap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',
-                       opts)
-        bufmap('n', '<space>wa',
-                       '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-        bufmap('n', '<space>wl',
-                       '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
-                       opts)
-        bufmap('n', '<space>wr',
-                       '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
-                       opts)
-        bufmap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-
-        bufmap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',
-                       opts)
-        bufmap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',
-                       opts)
-        -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-        bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>',
-                       opts)
-        bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+        for i, v in ipairs(M.mappings) do bufmap(v[1], v[2], v[3], opts) end
 
         -- Set some keybinds conditional on server capabilities
         if client.resolved_capabilities.document_formatting then
-            bufmap("n", "<space>gq",
-                           "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+            bufmap("n", "gQ", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
         end
         if client.resolved_capabilities.document_range_formatting then
-            bufmap("v", "<space>gq",
-                           "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+            bufmap("v", "gq", "<cmd>lua vim.lsp.buf.range_formatting()<CR>",
+                   opts)
         end
 
         -- Set autocommands conditional on server_capabilities
         if client.resolved_capabilities.document_highlight then
             vim.api.nvim_exec([[
-		      hi link LspReferenceRead DiffDelete
-		      hi link LspReferenceText DiffDelete
-		      hi link LspReferenceWrite DiffDelete
 		      augroup lsp_document_highlight
 			autocmd! * <buffer>
 			autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
@@ -159,8 +146,12 @@ function M.setup()
         if server.name == "sumneko_lua" then
             config.settings = {
                 Lua = {
-                    runtime = {version = 'LuaJIT'},
-                    diagnostics = {globals = {'vim', 'use', 'packer_plugins'}}
+                    runtime = {
+                        version = 'LuaJIT'
+                    },
+                    diagnostics = {
+                        globals = {'vim', 'use', 'packer_plugins'}
+                    }
                 }
             }
         end

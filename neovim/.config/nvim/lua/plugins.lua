@@ -21,7 +21,10 @@ return require('packer').startup(function()
     use("nathom/filetype.nvim")
 
     -- Fuzzy search
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+    use {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make'
+    }
     use {
         'nvim-telescope/telescope.nvim',
         opt = true,
@@ -31,7 +34,11 @@ return require('packer').startup(function()
     }
 
     -- tbaggery
-    use {'tpope/vim-fugitive', opt = true, event = "VimEnter"}
+    use {
+        'tpope/vim-fugitive',
+        opt = true,
+        event = "VimEnter"
+    }
     use {
         'tpope/vim-eunuch',
         opt = true,
@@ -40,14 +47,31 @@ return require('packer').startup(function()
             'Cfind', 'Lfind', 'Llocate', 'Chmod', 'Rename'
         }
     }
-    use {'tpope/vim-commentary', opt = true, event = "BufRead"}
-    use {'tpope/vim-surround', opt = true, event = "BufRead"}
-    use {'tpope/vim-repeat', opt = true, event = "BufRead"}
+    use {
+        'tpope/vim-commentary',
+        opt = true,
+        event = "BufRead"
+    }
+    use {
+        'tpope/vim-surround',
+        opt = true,
+        event = "BufRead"
+    }
+    use {
+        'tpope/vim-repeat',
+        opt = true,
+        event = "BufRead"
+    }
 
     -- Colorscheme
     use {
         "npxbr/gruvbox.nvim",
-        requires = {{"rktjmp/lush.nvim", opt = true}},
+        requires = {
+            {
+                "rktjmp/lush.nvim",
+                opt = true
+            }
+        },
         opt = true,
         event = "VimEnter",
         config = function() require('hicolors'):setup() end
@@ -74,7 +98,9 @@ return require('packer').startup(function()
                     enable = true -- false will disable the whole extension
                     -- disable = { "c", "rust" },  -- list of language that will be disabled
                 },
-                incremental_selection = {enable = true}
+                incremental_selection = {
+                    enable = true
+                }
             }
 
         end
@@ -82,8 +108,16 @@ return require('packer').startup(function()
 
     -- Filetypes
     use 'GutenYe/json5.vim'
-    use {'stevearc/vim-arduino', opt = true, ft = 'arduino'}
-    use {'chunkhang/vim-mbsync', opt = true, ft = 'mbsync'}
+    use {
+        'stevearc/vim-arduino',
+        opt = true,
+        ft = 'arduino'
+    }
+    use {
+        'chunkhang/vim-mbsync',
+        opt = true,
+        ft = 'mbsync'
+    }
 
     -- Appeareance
     use {
@@ -105,13 +139,34 @@ return require('packer').startup(function()
         },
         config = function() require'luatab'.setup({}) end
     }
+    use {
+        "lukas-reineke/indent-blankline.nvim",
+        opt = true,
+        event = "InsertEnter",
+        config = function()
+            require("indent_blankline").setup {
+		char = '┊',
+		filetype_exclude = { 'help', 'packer' },
+		buftype_exclude = { 'terminal', 'nofile' },
+		char_highlight = 'LineNr',
+		show_trailing_blankline_indent = false,
+            }
+        end
+    }
 
     -- Misc
     use {
         'kyazdani42/nvim-tree.lua',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true},
+        requires = {
+            'kyazdani42/nvim-web-devicons',
+            opt = true
+        },
         after = 'gitsigns.nvim',
-        config = function() require'nvim-tree'.setup {update_cwd = true} end
+        config = function()
+            require'nvim-tree'.setup {
+                update_cwd = true
+            }
+        end
     }
     use {
         'mattn/emmet-vim',
@@ -123,7 +178,9 @@ return require('packer').startup(function()
     use {
         'windwp/nvim-autopairs',
         config = function()
-            require('nvim-autopairs').setup({check_ts = true})
+            require('nvim-autopairs').setup({
+                check_ts = true
+            })
         end
     }
     use {
@@ -131,14 +188,20 @@ return require('packer').startup(function()
         after = "nvim-treesitter",
         config = function() require('nvim-ts-autotag').setup() end
     }
-    use {'andymass/vim-matchup', opt = true, event = "InsertEnter"}
+    use {
+        'andymass/vim-matchup',
+        opt = true,
+        event = "InsertEnter"
+    }
     use {
         'phaazon/hop.nvim',
         as = 'hop',
         opt = true,
         cmd = "HopChar2",
         config = function()
-            require'hop'.setup {keys = 'etovxqpdygfblzhckisuran'}
+            require'hop'.setup {
+                keys = 'etovxqpdygfblzhckisuran'
+            }
         end
     }
     use {
@@ -147,19 +210,33 @@ return require('packer').startup(function()
         cmd = {'WhichKey'},
         config = function() require'which-key'.setup() end
     }
-    use {'mbbill/undotree', opt = true, cmd = {'UndotreeToggle'}}
+    use {
+        'mbbill/undotree',
+        opt = true,
+        cmd = {'UndotreeToggle'}
+    }
 
     -- LSP
-    use {'williamboman/nvim-lsp-installer', opt = true, event = "VimEnter"}
+    use {
+        'williamboman/nvim-lsp-installer',
+        opt = true,
+        event = "VimEnter"
+    }
     use {
         'neovim/nvim-lspconfig',
         after = 'nvim-lsp-installer',
         config = function() require'lsp'.setup() end
     }
-    use {'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'}
+    use {
+        'weilbith/nvim-code-action-menu',
+        cmd = 'CodeActionMenu'
+    }
 
     -- Completion
-    use {"rafamadriz/friendly-snippets", event = "InsertEnter"}
+    use {
+        "rafamadriz/friendly-snippets",
+        event = "InsertEnter"
+    }
     use {
         'hrsh7th/nvim-cmp',
         after = "friendly-snippets",
@@ -171,10 +248,22 @@ return require('packer').startup(function()
         wants = "friendly-snippets",
         config = function() require'completion'.luasnip() end
     }
-    use {'saadparwaiz1/cmp_luasnip', after = "LuaSnip"}
-    use {'hrsh7th/cmp-nvim-lsp', after = "cmp_luasnip"}
-    use {'hrsh7th/cmp-buffer', after = "cmp-nvim-lsp"}
-    use {"hrsh7th/cmp-path", after = "cmp-buffer"}
+    use {
+        'saadparwaiz1/cmp_luasnip',
+        after = "LuaSnip"
+    }
+    use {
+        'hrsh7th/cmp-nvim-lsp',
+        after = "cmp_luasnip"
+    }
+    use {
+        'hrsh7th/cmp-buffer',
+        after = "cmp-nvim-lsp"
+    }
+    use {
+        "hrsh7th/cmp-path",
+        after = "cmp-buffer"
+    }
 
     -- VCS
     use {
