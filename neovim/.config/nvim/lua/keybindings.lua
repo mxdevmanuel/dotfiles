@@ -6,63 +6,60 @@ local fn = vim.fn
 local map = vim.api.nvim_set_keymap
 local unmap = vim.api.nvim_del_keymap
 
+local mappings = {
+    {'n', '<M-f>', '<cmd>Telescope find_files<cr>'},
+    {'n', '<leader>/', '<cmd>Telescope live_grep<cr>'},
+    {'n', '<leader>5', '<cmd>norm V$%<CR>'},
+    {'n', '<leader>?', '<cmd>Telescope help_tags<CR>'},
+    {'n', '<leader>G', '<cmd>Telescope git_status<CR>'},
+    {'n', '<leader>N', '<cmd>bp<CR>'},
+    {'n', '<leader>T', '<cmd>Telescope treesitter<CR>'},
+    {'n', '<leader>[', '<cmd>cprev<CR>'}, {'n', '<leader>]', '<cmd>cnext<CR>'},
+    {'n', '<leader>a', '<cmd>NvimTreeToggle<CR>'},
+    {'n', '<leader>b', '<cmd>Telescope buffers<CR>'},
+    {'n', '<leader>f', '<cmd>Telescope git_files<CR>'},
+    {'n', '<leader>h', '<cmd>Telescope oldfiles<CR>'},
+    {'n', '<leader>n', '<cmd>bn<CR>'},
+    {'n', '<leader>sh', '<cmd>split <Bar> ter<CR>'},
+    {'n', '<leader>t', '<cmd>Telescope tags<CR>'},
+    {'n', '<leader>uc', '<cmd>setlocal cursorcolumn!<CR>'},
+    {'n', '<leader>un', '<cmd>setlocal rnu!<CR>'},
+    {'n', '<leader>vsh', '<cmd>vsplit <Bar> ter<CR>'},
+    {'n', '<leader>x', '<cmd>bd<CR>'},
+    {'n', '<localleader>f', '<cmd>Telescope find_files<CR>'},
+    {'n', 'gQ', 'mmgggqG\'m'}, -- Comments to keep
+    {'n', 'gh', "<cmd>HopChar2<cr>"}, -- one entry
+    {'t', '<M-h>', '<C-\\><C-n><C-w>h'}, -- per line
+    {'t', '<M-j>', '<C-\\><C-n><C-w>j'}, -- when formatting
+    {'t', '<M-k>', '<C-\\><C-n><C-w>k'}, -- TODO(mxdevmanuel)
+    {'t', '<M-l>', '<C-\\><C-n><C-w>l'}, -- find a better way
+    {'t', '<M-n>', '<C-\\><C-n>'} -- to do this
+}
+
 g.mapleader = " "
 
 if fn.maparg('gh', 'n') ~= '' then unmap('n', 'gh') end
 
 if fn.maparg('<C-L>', 'n') == '' then
     map('n', '<C-L>',
-        ':nohlsearch<C-R>=has("diff")?"<Bar>diffupdate":""<CR><CR><C-L>',
-        {silent = true, noremap = true})
+        ':nohlsearch<C-R>=has("diff")?"<Bar>diffupdate":""<CR><CR><C-L>', {
+        silent = true,
+        noremap = true
+    })
 end
 
--- Candidates
-map('n', '<localleader>f', '<cmd>GFiles --others --exclude-standard<CR>',
-    {noremap = true, silent = true})
-map('n', '<localleader>F', '<cmd>Files<CR>', {noremap = true, silent = true})
---
+if fn.maparg('<C-L>', 'c') == '' then
+    map('c', '<C-L>', '<C-R>=expand("%:p:h") . "/"<CR>', {
+        noremap = true
+    })
+end
 
-map('n', '<M-f>', '<cmd>Telescope find_files<cr>', {noremap = true})
-map('n', '<leader>/', ':Telescope live_grep<cr>', {noremap = true})
-map('n', '<leader>?', '<cmd>Helptags<CR>', {noremap = true, silent = true})
--- map('n', '<leader>L', '<cmd>AVAILABLE<CR>', {noremap = true, silent = true})
-map('n', '<leader>n', '<cmd>bn<CR>', {noremap = true})
-map('n', '<leader>N', '<cmd>bp<CR>', {noremap = true})
-map('n', '<leader>T', '<cmd>Telescope treesitter<CR>', {noremap = true, silent = true})
-map('n', '<leader>[', '<cmd>cprev<CR>', {noremap = true})
-map('n', '<leader>]', '<cmd>cnext<CR>', {noremap = true})
-map('n', '<leader>a', '<cmd>NvimTreeToggle<CR>', {noremap = true, silent = true})
-map('n', '<leader>b', '<cmd>Telescope buffers<CR>', {noremap = true, silent = true})
-map('n', '<leader>ce', ':e <C-R>=expand("%:p:h") . "/"<CR>', {noremap = true})
-map('n', '<leader>cse', ':sp <C-R>=expand("%:p:h") . "/"<CR>', {noremap = true})
-map('n', '<leader>cte', ':tabe <C-R>=expand("%:p:h") . "/"<CR>',
-    {noremap = true})
-map('n', '<leader>cve', ':vsp <C-R>=expand("%:p:h") . "/"<CR>', {noremap = true})
-map('n', '<leader>f', '<cmd>Telescope git_files<CR>',
-    {noremap = true, silent = true})
--- map('n', '<leader>F', '<cmd>GFiles?<CR>', {noremap = true, silent = true})
-map('n', '<leader>h', '<cmd>Telescope oldfiles<CR>',
-    {noremap = true, silent = true})
--- map('n', '<leader>l', '<cmd>AVAILABLE<CR>', {noremap = true, silent = true})
-map('n', '<leader>un', '<cmd>setlocal rnu!<CR>', {noremap = true})
-map('n', '<leader>uc', '<cmd>setlocal cursorcolumn!<CR>', {noremap = true})
-map('n', '<leader>sh', '<cmd>split <Bar> ter<CR>', {noremap = true})
-map('n', '<leader>t', '<cmd>Tags<CR>', {noremap = true, silent = true})
-map('n', '<leader>5', '<cmd>norm V$%<CR>', {noremap = true, silent = true})
-map('n', '<leader>vsh', '<cmd>vsplit <Bar> ter<CR>', {noremap = true})
-map('n', '<leader>w', '<cmd>Windows<CR>', {noremap = true, silent = true})
-map('n', '<leader>x', '<cmd>bd<CR>', {noremap = true})
-map('n', 'gQ', 'mmgggqG\'m', {noremap = true, silent = true})
-map('n', 'gh', "<cmd>HopChar2<cr>",
-    {noremap = true, silent = true})
-
-map('t', '<C-W>n', '<C-\\><C-n>', {noremap = true})
-map('t', '<M-h>', '<C-\\><C-n><C-w>h', {noremap = true})
-map('t', '<M-j>', '<C-\\><C-n><C-w>j', {noremap = true})
-map('t', '<M-k>', '<C-\\><C-n><C-w>k', {noremap = true})
-map('t', '<M-l>', '<C-\\><C-n><C-w>l', {noremap = true})
-
-map('c', '<C-L>', '<C-R>=expand("%:p:h") . "/"<CR>', {noremap = true})
+for i, v in ipairs(mappings) do
+    map(v[1], v[2], v[3], {
+        noremap = true,
+        silent = true
+    })
+end
 
 vim.cmd([[
 	cnoreabbrev W! w!
@@ -77,3 +74,4 @@ vim.cmd([[
 	cnoreabbrev Qall qall
 	cnoreabbrev wc WriteToClipboard
 ]])
+

@@ -11,8 +11,11 @@ vim.api.nvim_exec([[
 
 	command! Bufonly %bd | e#
 	command! Project lua ChangeProject() 
+	command! ListLSPFolders lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	command! IPython new | terminal ipython
 	command! -nargs=0 RunPy call OpenTerm('python ' . expand('%'))
+	command! -range ToLCamel s/\(_\)\(.\)/\u\2/ge
+	command! -range ToSnake s/[A-Z]/_\l&/ge
 
 	function! DiffWithSaved()
 		let filetype=&ft
