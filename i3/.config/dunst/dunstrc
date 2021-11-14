@@ -85,7 +85,7 @@
 
     ### Text ###
 
-    font = Source\ Code\ Pro\ for\ Powerline 14
+    font = San\ Francisco\ Display 14
     #font = Monospace 14
 
     # The spacing between lines.  If the height is smaller than the

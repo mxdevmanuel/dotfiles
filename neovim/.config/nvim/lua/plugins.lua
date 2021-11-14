@@ -74,10 +74,30 @@ return require('packer').startup(function()
                     enable = true -- false will disable the whole extension
                     -- disable = { "c", "rust" },  -- list of language that will be disabled
                 },
-                incremental_selection = {enable = true}
+                incremental_selection = {enable = true},
+                textobjects = {
+                    select = {
+                        enable = true,
+                        lookahead = true,
+                        keymaps = {
+                            ["af"] = "@function.outer",
+                            ["if"] = "@function.inner"
+                        }
+                    }
+                }
             }
 
         end
+    }
+    use {
+        'windwp/nvim-ts-autotag',
+        after = "nvim-treesitter",
+        config = function() require('nvim-ts-autotag').setup() end
+    }
+    use {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        branch = '0.5-compat',
+        after = "nvim-treesitter"
     }
 
     -- Filetypes
@@ -125,11 +145,6 @@ return require('packer').startup(function()
         config = function()
             require('nvim-autopairs').setup({check_ts = true})
         end
-    }
-    use {
-        'windwp/nvim-ts-autotag',
-        after = "nvim-treesitter",
-        config = function() require('nvim-ts-autotag').setup() end
     }
     use {'andymass/vim-matchup', opt = true, event = "InsertEnter"}
     use {
