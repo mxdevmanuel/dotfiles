@@ -76,6 +76,7 @@ return require('packer').startup(function()
         event = "VimEnter",
         config = function() require('hicolors'):setup() end
     }
+    -- use "savq/melange"
 
     -- Treesitter
     use {
@@ -200,11 +201,6 @@ return require('packer').startup(function()
                 check_ts = true
             })
         end
-    }
-    use {
-        'windwp/nvim-ts-autotag',
-        after = "nvim-treesitter",
-        config = function() require('nvim-ts-autotag').setup() end
     }
     use {
         'andymass/vim-matchup',

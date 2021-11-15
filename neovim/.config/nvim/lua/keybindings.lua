@@ -9,6 +9,7 @@ local unmap = vim.api.nvim_del_keymap
 local mappings = {
     {'n', '<M-f>', '<cmd>Telescope find_files<cr>'},
     {'n', '<leader>/', '<cmd>Telescope live_grep<cr>'},
+    {'n', '<leader>"', '<cmd>Telescope registers<cr>'},
     {'n', '<leader>5', '<cmd>norm V$%<CR>'},
     {'n', '<leader>?', '<cmd>Telescope help_tags<CR>'},
     {'n', '<leader>G', '<cmd>Telescope git_status<CR>'},
