@@ -11,12 +11,12 @@ M.mappings = {
     {'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>'},
     {'n', '<leader>ca', '<cmd>Telescope lsp_code_actions<CR>'},
     {'n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>'},
-    {'n', '<leader>gd', '<Cmd>lua vim.lsp.buf.definition()<CR>'},
+    {'n', '<leader>gd', '<Cmd>lua vim.lsp.buf.definition()<CR>'}, --
     {
         'n', '<leader>i',
         '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>'
-    }, {'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>'},
-    {'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>'}, -- 
+    }, {'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>'}, --
+    {'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>'}, --
     {'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>'}, --
     {'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>'},
     {'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>'},
@@ -40,10 +40,7 @@ function M.setup()
         bufopt('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
         -- Mappings.
-        local opts = {
-            noremap = true,
-            silent = false
-        }
+        local opts = {noremap = true, silent = false}
 
         for i, v in ipairs(M.mappings) do bufmap(v[1], v[2], v[3], opts) end
 
@@ -108,17 +105,22 @@ function M.setup()
             lintFormats = {'%f:%l:%c: %m'}
 
         }
+        local yamllint = {
+            lintCommand = 'yamllint -f parsable -',
+            lintStdin = true
+        }
         local languages = {
             javascript = {eslint},
             typescript = {eslint},
             javascriptreact = {eslint},
             typescriptreact = {eslint},
-            python = {flake8}
+            python = {flake8},
+	    yaml = {yamllint}
         }
         nvim_lsp["efm"].setup({
             filetypes = {
-                "javascript", "javascriptreact", "typescript",
-                "typescriptreact", "python", "lua"
+                "javascript", "javascriptreact", "python", "typescript",
+                "typescriptreact", "yaml"
             },
             settings = {
                 rootMarkers = {".eslintrc", ".eslintrc.js"},
@@ -146,12 +148,8 @@ function M.setup()
         if server.name == "sumneko_lua" then
             config.settings = {
                 Lua = {
-                    runtime = {
-                        version = 'LuaJIT'
-                    },
-                    diagnostics = {
-                        globals = {'vim', 'use', 'packer_plugins'}
-                    }
+                    runtime = {version = 'LuaJIT'},
+                    diagnostics = {globals = {'vim', 'use', 'packer_plugins'}}
                 }
             }
         end

@@ -158,7 +158,9 @@ neovim/.config/nvim/plugin/packer_compiled.lua
 # Neomutt
 .mailsynclastrun
 
+# Custom
 local/.gnupg
 !local/.gnupg/gpg-agent.conf
 mimeapps.list
 *.target.wants*
+.uuid

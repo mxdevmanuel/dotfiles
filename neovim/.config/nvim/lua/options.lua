@@ -17,6 +17,7 @@ w.relativenumber = true
 w.signcolumn = 'yes:1'
 w.cursorline = true
 w.foldmethod = 'expr'
+w.colorcolumn = '99999'
 w.foldexpr = 'nvim_tressiter#foldexpr()'
 
 o.autoread = true

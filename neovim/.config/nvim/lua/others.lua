@@ -89,6 +89,7 @@ function ChangeProject()
     pickers.new(opts, {
         prompt_title = "cd to project",
         finder = finders.new_oneshot_job(find_command, opts),
+	sorter = require'telescope.sorters'.get_generic_fuzzy_sorter({}),
         previewer = dirpreviewer,
         attach_mappings = function(prompt_bufnr, map)
             local function cd_to_project()
