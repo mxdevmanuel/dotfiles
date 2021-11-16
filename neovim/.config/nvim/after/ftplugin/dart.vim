@@ -1,5 +1,9 @@
+setlocal shiftwidth=2
+setlocal tabstop=2
+setlocal expandtab
+
 if executable("dart")
-  set formatprg=dart\ format
+  setlocal formatprg=dart\ format
 endif
 
 if executable("flutter")

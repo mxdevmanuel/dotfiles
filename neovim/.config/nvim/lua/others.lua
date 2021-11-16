@@ -60,7 +60,7 @@ function ChangeProject()
     local finders = require "telescope.finders"
     local previewers = require "telescope.previewers"
 
-    local opts = {}
+    local opts = require'telescope.themes'.get_dropdown();
     local dirpreviewer = previewers.new_termopen_previewer({
         get_command = function(entry, status)
             return {'tree', '-I', '.git', entry.value}
@@ -85,6 +85,7 @@ function ChangeProject()
         local rep = entry:gsub('.git', '')
         return {value = rep, display = rep, ordinal = rep}
     end
+
 
     pickers.new(opts, {
         prompt_title = "cd to project",

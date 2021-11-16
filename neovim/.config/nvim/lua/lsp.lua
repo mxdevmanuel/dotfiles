@@ -115,7 +115,7 @@ function M.setup()
             javascriptreact = {eslint},
             typescriptreact = {eslint},
             python = {flake8},
-	    yaml = {yamllint}
+            yaml = {yamllint}
         }
         nvim_lsp["efm"].setup({
             filetypes = {
