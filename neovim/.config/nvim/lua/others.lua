@@ -89,7 +89,7 @@ function ChangeProject()
     pickers.new(opts, {
         prompt_title = "cd to project",
         finder = finders.new_oneshot_job(find_command, opts),
-	sorter = require'telescope.sorters'.get_generic_fuzzy_sorter({}),
+        sorter = require'telescope.sorters'.get_generic_fuzzy_sorter({}),
         previewer = dirpreviewer,
         attach_mappings = function(prompt_bufnr, map)
             local function cd_to_project()
@@ -108,10 +108,28 @@ function ChangeProject()
 end
 
 function M.dap()
+    if packer_plugins["DAPInstall.nvim"] and
+        not packer_plugins["DAPInstall.nvim"].loaded then
+        vim.api.nvim_command('PackerLoad DAPInstall.nvim')
+    end
+
+    local dap_install = require("dap-install")
+
+    dap_install.setup({
+        installation_path = vim.fn.stdpath("data") .. "/dapinstall/"
+    })
+
+    local dbg_list =
+        require("dap-install.api.debuggers").get_installed_debuggers()
+
+    for _, debugger in ipairs(dbg_list) do dap_install.config(debugger, {}) end
+
     local dap = require('dap')
+    local venv = os.getenv('VIRTUAL_ENV')
+    local python = (venv ~= nil and venv or '/usr') .. '/bin/python'
     dap.adapters.python = {
         type = 'executable',
-        command = os.getenv('VIRTUAL_ENV') .. '/bin/python',
+        command = python,
         args = {'-m', 'debugpy.adapter'}
     }
 end
