@@ -1,4 +1,7 @@
-set shiftwidth=2
+setlocal shiftwidth=2
+setlocal tabstop=2
+setlocal expandtab
+
 if !executable('prettier')
 	finish
 end
@@ -8,12 +11,12 @@ if exists('$NOAUTOFORMAT')
 	finish
 end
 
-function! Prettier()
+function! JavascriptFormat()
 	:mark p
 	execute '%!prettier --parser babel'
 	:norm g'pzz
 endfunction
 
 augroup javascript
-	autocmd! BufWritePre <buffer> call Prettier()
+	autocmd! BufWritePre <buffer> call JavascriptFormat()
 augroup END

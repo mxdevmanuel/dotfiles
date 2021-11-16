@@ -2,22 +2,18 @@
 -- Neovim API aliases
 -----------------------------------------------------------
 local env = vim.env -- environment variables
--- local map = vim.api.nvim_set_keymap  -- set global keymap
 local fn = vim.fn -- call Vim functions
 local g = vim.g -- global variables
 local o = vim.o -- global options
-local b = vim.bo -- buffer-scoped options
 local w = vim.wo -- windows-scoped options
 local opt = vim.opt -- table options (TODO: wanna know difference with `o`)
-
-b.expandtab = true
 
 w.number = true
 w.relativenumber = true
 w.signcolumn = 'yes:1'
 w.cursorline = true
-w.foldmethod = 'expr'
 w.colorcolumn = '99999'
+w.foldmethod = 'expr'
 w.foldexpr = 'nvim_tressiter#foldexpr()'
 
 o.autoread = true
@@ -44,7 +40,7 @@ o.termguicolors = true
 o.updatetime = 300
 
 if fn.executable("rg") == 1 then
-    o.grepprg = 'rg --vimgrep --no-heading --hidden --glob="!.git/"'
+    o.grepprg = 'rg --vimgrep --no-heading --hidden --glob=\'!.git/\''
     o.grepformat = '%f:%l:%c:%m,%f:%l:%m'
 end
 
@@ -78,22 +74,10 @@ end
 
 -- plugins variables
 env.NOTMUX = 1
-env.FZF_DEFAULT_OPTS =
-    (vim.env.FZF_DEFAULT_OPTS == nil and ' --layout=reverse' or
-        vim.env.FZF_DEFAULT_OPTS .. ' --layout=reverse')
-
-g.fzf_layout = {
-    window = {
-        width = 0.9,
-        height = 0.6
-    }
-}
 
 g.netrw_banner = 0
 g.loaded_matchit = 1
-
--- g.indent_blankline_char = "┆"
--- g.indent_blankline_show_first_indent_level = false
+g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*', 'NvimTree*' }
 
 -- GUI Options
 
