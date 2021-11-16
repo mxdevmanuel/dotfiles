@@ -99,6 +99,15 @@ function M.setup()
             lintStdin = true,
             lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m"}
         }
+        local eslintD = {
+            lintCommand = 'yarn eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}',
+            lintSource = 'eslint_d',
+            lintStdin = true,
+            lintFormats = {'%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m'},
+            lintIgnoreExitCode = true,
+            -- formatCommand = 'eslint_d --fix-to-stdout --stdin --stdin-filename ${INPUT}',
+            -- formatStdin = true
+        }
         local flake8 = {
             lintCommand = 'flake8 --stdin-display-name ${INPUT} -',
             lintStdin = true,
@@ -110,10 +119,10 @@ function M.setup()
             lintStdin = true
         }
         local languages = {
-            javascript = {eslint},
-            typescript = {eslint},
-            javascriptreact = {eslint},
-            typescriptreact = {eslint},
+            javascript = {eslintD},
+            typescript = {eslintD},
+            javascriptreact = {eslintD},
+            typescriptreact = {eslintD},
             python = {flake8},
             yaml = {yamllint}
         }
