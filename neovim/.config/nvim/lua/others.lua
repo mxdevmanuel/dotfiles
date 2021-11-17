@@ -83,9 +83,12 @@ function ChangeProject()
 
     opts.entry_maker = function(entry)
         local rep = entry:gsub('.git', '')
-        return {value = rep, display = rep, ordinal = rep}
+        return {
+            value = rep,
+            display = rep,
+            ordinal = rep
+        }
     end
-
 
     pickers.new(opts, {
         prompt_title = "cd to project",
