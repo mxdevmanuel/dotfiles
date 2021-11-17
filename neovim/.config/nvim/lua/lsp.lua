@@ -40,7 +40,10 @@ function M.setup()
         bufopt('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
         -- Mappings.
-        local opts = {noremap = true, silent = false}
+        local opts = {
+            noremap = true,
+            silent = false
+        }
 
         for i, v in ipairs(M.mappings) do bufmap(v[1], v[2], v[3], opts) end
 
@@ -57,9 +60,9 @@ function M.setup()
         if client.resolved_capabilities.document_highlight then
             vim.api.nvim_exec([[
 		      augroup lsp_document_highlight
-			autocmd! * <buffer>
-			autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-			autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+                autocmd! * <buffer>
+                autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+                autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
 		      augroup END ]], false)
         end
     end
@@ -104,7 +107,7 @@ function M.setup()
             lintSource = 'eslint_d',
             lintStdin = true,
             lintFormats = {'%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m'},
-            lintIgnoreExitCode = true,
+            lintIgnoreExitCode = true
             -- formatCommand = 'eslint_d --fix-to-stdout --stdin --stdin-filename ${INPUT}',
             -- formatStdin = true
         }
@@ -151,14 +154,16 @@ function M.setup()
                 "typescriptreact", "typescript.tsx"
             };
         end
-        if server.name == "clangd" then
-            config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
-        end
+        if server.name == "clangd" then config.filetypes = {"c", "cpp"}; end
         if server.name == "sumneko_lua" then
             config.settings = {
                 Lua = {
-                    runtime = {version = 'LuaJIT'},
-                    diagnostics = {globals = {'vim', 'use', 'packer_plugins'}}
+                    runtime = {
+                        version = 'LuaJIT'
+                    },
+                    diagnostics = {
+                        globals = {'vim', 'use', 'packer_plugins'}
+                    }
                 }
             }
         end

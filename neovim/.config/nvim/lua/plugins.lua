@@ -18,7 +18,7 @@ return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
 
     -- Performance
-    use {"nathom/filetype.nvim"}
+    use "nathom/filetype.nvim"
 
     -- File navigation
     use {
@@ -72,12 +72,12 @@ return require('packer').startup(function()
     use {
         'tpope/vim-surround',
         opt = true,
-        event = "BufRead"
+        after = "vim-commentary"
     }
     use {
         'tpope/vim-repeat',
         opt = true,
-        event = "BufRead"
+        after = "vim-surround"
     }
 
     -- Colorscheme
@@ -93,11 +93,13 @@ return require('packer').startup(function()
         event = "VimEnter",
         config = function() require('hicolors'):setup() end
     }
-    -- use "savq/melange"
+    -- "savq/melange"
 
     -- Treesitter
     use {
         'nvim-treesitter/nvim-treesitter',
+        opt = true,
+        event = "UIEnter",
         branch = "0.5-compat",
         run = ':TSUpdate',
         config = function()
@@ -270,6 +272,9 @@ return require('packer').startup(function()
                 'hrsh7th/cmp-path',
                 opt = true
             }, {
+                'hrsh7th/cmp-nvim-lua',
+                opt = true
+            },{
                 'saadparwaiz1/cmp_luasnip',
                 opt = true
             }
