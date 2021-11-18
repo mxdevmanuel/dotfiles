@@ -32,7 +32,7 @@ return require('packer').startup(function()
                 opt = true,
                 event = "UIEnter",
                 run = 'make'
-            }, {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}
+            },  {'nvim-lua/plenary.nvim'}
         },
         config = function() require'others'.telescope() end
     }
