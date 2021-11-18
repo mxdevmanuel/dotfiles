@@ -219,7 +219,7 @@ return require('packer').startup(function()
     use {
         'andymass/vim-matchup',
         opt = true,
-        event = "InsertEnter"
+        after = "vim-repeat"
     }
     use {
         'phaazon/hop.nvim',
