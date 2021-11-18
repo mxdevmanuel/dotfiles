@@ -163,4 +163,4 @@ local/.gnupg
 !local/.gnupg/gpg-agent.conf
 mimeapps.list
 *.target.wants*
-.uuid
+**/.uuid
