@@ -264,6 +264,7 @@ return require('packer').startup(function()
         requires = {
             {
                 'hrsh7th/cmp-nvim-lsp',
+                module = "cmp_nvim_lsp",
                 opt = true
             }, {
                 'hrsh7th/cmp-buffer',
