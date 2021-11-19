@@ -78,6 +78,7 @@ env.NOTMUX = 1
 g.netrw_banner = 0
 g.loaded_matchit = 1
 g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*', 'NvimTree*' }
+-- g.neovide_cursor_animation_length = 0
 
 -- GUI Options
 
