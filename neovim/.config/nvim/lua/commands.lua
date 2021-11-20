@@ -16,6 +16,7 @@ vim.api.nvim_exec([[
 	command! -nargs=0 RunPy call OpenTerm('python ' . expand('%'))
 	command! -range ToLCamel s/\(_\)\(.\)/\u\2/ge
 	command! -range ToSnake s/[A-Z]/_\l&/ge
+    command! -nargs=1 -complete=filetype Curl new | set filetype=<args> | read !sh #
 
 	function! DiffWithSaved()
 		let filetype=&ft

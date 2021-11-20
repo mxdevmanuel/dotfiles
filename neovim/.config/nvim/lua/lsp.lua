@@ -26,6 +26,11 @@ M.mappings = {
     {'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>'}
 }
 
+local opts = {
+    noremap = true,
+    silent = false
+}
+
 function M.setup()
 
     -- On attach function for LSP clients
@@ -40,10 +45,6 @@ function M.setup()
         bufopt('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
         -- Mappings.
-        local opts = {
-            noremap = true,
-            silent = false
-        }
 
         for i, v in ipairs(M.mappings) do bufmap(v[1], v[2], v[3], opts) end
 
@@ -71,13 +72,7 @@ function M.setup()
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport =
             true
-        if packer_plugins["cmp_nvim_lsp"] and
-            packer_plugins["cmp_nvim_lsp"].loaded then
-            -- vim.api.nvim_command('PackerLoad lush.nvim')
-            print("Loaded cmp")
-            capabilities = require('cmp_nvim_lsp').update_capabilities(
-                               capabilities)
-        end
+        capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
         return {
             -- enable snippet support
             capabilities = capabilities,

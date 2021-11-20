@@ -57,6 +57,8 @@ function M.setup()
             }, {
                 name = 'luasnip'
             }, {
+                name = 'nvim_lua'
+            }, {
                 name = 'path'
             }
         }
