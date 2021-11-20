@@ -287,7 +287,6 @@ return require('packer').startup(function()
         requires = {
             {
                 "rafamadriz/friendly-snippets",
-                opt = true
             }
         },
         config = function() require'completion'.luasnip() end
