@@ -11,12 +11,12 @@ vim.api.nvim_exec([[
 
 	command! Bufonly %bd | e#
 	command! Project lua ChangeProject() 
-	command! ListLSPFolders lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	command! IPython new | terminal ipython
-	command! -nargs=0 RunPy call OpenTerm('python ' . expand('%'))
+	command! ListLSPFolders lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	command! -range ToLCamel s/\(_\)\(.\)/\u\2/ge
 	command! -range ToSnake s/[A-Z]/_\l&/ge
-    command! -nargs=1 -complete=filetype Curl new | set filetype=<args> | read !sh #
+    command! -nargs=1 -complete=filetype Curl new | set filetype=<args> buftype=nofile bufhidden=wipe noswapfile | 0read !sh #
+    command! -nargs=0 LazyCommit r !curl -s http://whatthecommit.com/index.txt
 
 	function! DiffWithSaved()
 		let filetype=&ft
@@ -45,7 +45,7 @@ vim.api.nvim_exec([[
 	augroup Packer
 	    autocmd!
 	    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-	  augroup end
+	augroup end
 ]], false)
 
 -- TODO: useful for later
