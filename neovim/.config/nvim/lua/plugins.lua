@@ -32,7 +32,7 @@ return require('packer').startup(function()
                 opt = true,
                 event = "UIEnter",
                 run = 'make'
-            },  {'nvim-lua/plenary.nvim'}
+            }, {'nvim-lua/plenary.nvim'}
         },
         config = function() require'others'.telescope() end
     }
@@ -127,7 +127,9 @@ return require('packer').startup(function()
                         lookahead = true,
                         keymaps = {
                             ["af"] = "@function.outer",
-                            ["if"] = "@function.inner"
+                            ["if"] = "@function.inner",
+                            ["ac"] = "@class.outer",
+                            ["ic"] = "@class.inner"
                         }
                     }
                 }
@@ -275,7 +277,7 @@ return require('packer').startup(function()
             }, {
                 'hrsh7th/cmp-nvim-lua',
                 opt = true
-            },{
+            }, {
                 'saadparwaiz1/cmp_luasnip',
                 opt = true
             }
@@ -285,11 +287,7 @@ return require('packer').startup(function()
     use {
         'L3MON4D3/LuaSnip',
         after = "nvim-cmp",
-        requires = {
-            {
-                "rafamadriz/friendly-snippets",
-            }
-        },
+        requires = {{"rafamadriz/friendly-snippets"}},
         config = function() require'completion'.luasnip() end
     }
 
