@@ -35,14 +35,11 @@ pushd $1
 
 local new_env=`printenv`
 
-local extract=`diff <(echo $orig_env) <(echo $new_env) | grep -E '^>' | grep -vE 'DIRENV|OLDPWD|PWD' | tr -d '>'`
+local extract=`diff <(echo $orig_env) <(echo $new_env) | grep -E '^>' | grep -vE 'DIRENV|OLDPWD|PWD' | tr -d '> '`
 
 local funame=".projectvars"
 
 touch $funame
 truncate --size=0 $funame
 
-for i in $( echo $extract ) 
-do
-	echo $i | sed "s?\(.*\)=\(.*\)?\1='\2'?" >> $funame
-done
+echo $extract > $funame
