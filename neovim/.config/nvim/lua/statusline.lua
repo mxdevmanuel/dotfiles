@@ -68,9 +68,9 @@ function M.get_lsp_diagnostic(self)
         return ''
     else
         return string.format(
-                   " %%#StatusLineLspError#:%s %%#StatusLineLspWarning#:%s %%#StatusLineLspInfo#:%s %%#StatusLineLspAction#:%s%%#Statusline# ",
-                   result['errors'] or 0, result['warnings'] or 0,
-                   result['info'] or 0, result['hints'] or 0)
+                   " %%#StatusLineLspAction#:%s %%#StatusLineLspInfo#:%s %%#StatusLineLspWarning#:%s %%#StatusLineLspError#:%s%%#Statusline# ",
+                   result['hints'] or 0, result['info'] or 0,
+                   result['warnings'] or 0, result['errors'] or 0)
     end
 end
 
@@ -79,7 +79,7 @@ local truncater = "%<"
 function M.get_statusline(self)
     return table.concat {
         truncater, self:get_git_status(), "%#StatusLine#", self:get_filename(),
-        "%h%m%r", self:get_lsp_diagnostic(), "%=%#StatusLineFt#", "%y",
+        "%h%m%r%=", self:get_lsp_diagnostic(), "%#StatusLineFt#", "%y",
         "%#StatusLine#", " %-8.(%l,%c%V%) %P"
     }
 end
