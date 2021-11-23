@@ -84,3 +84,5 @@ g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*', 'NvimTree*' }
 -- GUI Options
 
 o.guifont = "SF Mono Powerline:h12"
+
+require('mine').setup()
