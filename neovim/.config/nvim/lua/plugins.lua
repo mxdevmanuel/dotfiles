@@ -38,24 +38,13 @@ return require('packer').startup(function()
     }
     use {
         'kyazdani42/nvim-tree.lua',
-        requires = {
-            'kyazdani42/nvim-web-devicons',
-            opt = true
-        },
+        requires = {'kyazdani42/nvim-web-devicons', opt = true},
         after = 'gitsigns.nvim',
-        config = function()
-            require'nvim-tree'.setup {
-                update_cwd = true
-            }
-        end
+        config = function() require'nvim-tree'.setup {update_cwd = true} end
     }
 
     -- tbaggery
-    use {
-        'tpope/vim-fugitive',
-        opt = true,
-        event = "UIEnter"
-    }
+    use {'tpope/vim-fugitive', opt = true, event = "UIEnter"}
     use {
         'tpope/vim-eunuch',
         opt = true,
@@ -64,31 +53,14 @@ return require('packer').startup(function()
             'Cfind', 'Lfind', 'Llocate', 'Chmod', 'Rename'
         }
     }
-    use {
-        'tpope/vim-commentary',
-        opt = true,
-        event = "BufRead"
-    }
-    use {
-        'tpope/vim-surround',
-        opt = true,
-        after = "vim-commentary"
-    }
-    use {
-        'tpope/vim-repeat',
-        opt = true,
-        after = "vim-surround"
-    }
+    use {'tpope/vim-commentary', opt = true, event = "BufRead"}
+    use {'tpope/vim-surround', opt = true, after = "vim-commentary"}
+    use {'tpope/vim-repeat', opt = true, after = "vim-surround"}
 
     -- Colorscheme
     use {
         "npxbr/gruvbox.nvim",
-        requires = {
-            {
-                "rktjmp/lush.nvim",
-                opt = true
-            }
-        },
+        requires = {{"rktjmp/lush.nvim", opt = true}},
         opt = true,
         event = "VimEnter",
         config = function() require('hicolors'):setup() end
@@ -118,9 +90,7 @@ return require('packer').startup(function()
                     enable = true -- false will disable the whole extension
                     -- disable = { "c", "rust" },  -- list of language that will be disabled
                 },
-                incremental_selection = {
-                    enable = true
-                },
+                incremental_selection = {enable = true},
                 textobjects = {
                     select = {
                         enable = true,
@@ -150,16 +120,8 @@ return require('packer').startup(function()
 
     -- Filetypes
     use 'GutenYe/json5.vim'
-    use {
-        'stevearc/vim-arduino',
-        opt = true,
-        ft = 'arduino'
-    }
-    use {
-        'chunkhang/vim-mbsync',
-        opt = true,
-        ft = 'mbsync'
-    }
+    use {'stevearc/vim-arduino', opt = true, ft = 'arduino'}
+    use {'chunkhang/vim-mbsync', opt = true, ft = 'mbsync'}
 
     -- Appeareance
     use {
@@ -172,12 +134,7 @@ return require('packer').startup(function()
         'alvarosevilla95/luatab.nvim',
         opt = true,
         after = "nvim-tree.lua",
-        requires = {
-            {
-                'kyazdani42/nvim-web-devicons',
-                opt = true
-            }
-        },
+        requires = {{'kyazdani42/nvim-web-devicons', opt = true}},
         config = function() require'luatab'.setup({}) end
     }
     use {
@@ -201,7 +158,7 @@ return require('packer').startup(function()
     use {
         'editorconfig/editorconfig-vim',
         opt = true,
-        event = "BufRead"
+        cond = function() return vim.fn.filereadable('.editorconfig') == 1 end
     }
     use {
         'mattn/emmet-vim',
@@ -213,25 +170,17 @@ return require('packer').startup(function()
     use {
         'windwp/nvim-autopairs',
         config = function()
-            require('nvim-autopairs').setup({
-                check_ts = true
-            })
+            require('nvim-autopairs').setup({check_ts = true})
         end
     }
-    use {
-        'andymass/vim-matchup',
-        opt = true,
-        after = "vim-repeat"
-    }
+    use {'andymass/vim-matchup', opt = true, after = "vim-repeat"}
     use {
         'phaazon/hop.nvim',
         as = 'hop',
         opt = true,
         cmd = "HopChar2",
         config = function()
-            require'hop'.setup {
-                keys = 'etovxqpdygfblzhckisuran'
-            }
+            require'hop'.setup {keys = 'etovxqpdygfblzhckisuran'}
         end
     }
     use {
@@ -240,18 +189,10 @@ return require('packer').startup(function()
         cmd = {'WhichKey'},
         config = function() require'which-key'.setup() end
     }
-    use {
-        'mbbill/undotree',
-        opt = true,
-        cmd = {'UndotreeToggle'}
-    }
+    use {'mbbill/undotree', opt = true, cmd = {'UndotreeToggle'}}
 
     -- LSP
-    use {
-        'williamboman/nvim-lsp-installer',
-        opt = true,
-        event = "VimEnter"
-    }
+    use {'williamboman/nvim-lsp-installer', opt = true, event = "VimEnter"}
     use {
         'neovim/nvim-lspconfig',
         after = 'nvim-lsp-installer',
@@ -264,23 +205,11 @@ return require('packer').startup(function()
         event = "UIEnter",
         opt = true,
         requires = {
-            {
-                'hrsh7th/cmp-nvim-lsp',
-                module = "cmp_nvim_lsp",
-                opt = true
-            }, {
-                'hrsh7th/cmp-buffer',
-                opt = true
-            }, {
-                'hrsh7th/cmp-path',
-                opt = true
-            }, {
-                'hrsh7th/cmp-nvim-lua',
-                opt = true
-            }, {
-                'saadparwaiz1/cmp_luasnip',
-                opt = true
-            }
+            {'hrsh7th/cmp-nvim-lsp', module = "cmp_nvim_lsp", opt = true},
+            {'hrsh7th/cmp-buffer', opt = true},
+            {'hrsh7th/cmp-path', opt = true},
+            {'hrsh7th/cmp-nvim-lua', opt = true},
+            {'saadparwaiz1/cmp_luasnip', opt = true}
         },
         config = function() require'completion'.setup() end
     }
@@ -303,12 +232,7 @@ return require('packer').startup(function()
     -- Debug
     use {
         'mfussenegger/nvim-dap',
-        requires = {
-            {
-                "Pocco81/DAPInstall.nvim",
-                opt = true
-            }
-        },
+        requires = {{"Pocco81/DAPInstall.nvim", opt = true}},
         opt = true,
         config = function() require'others'.dap() end
     }

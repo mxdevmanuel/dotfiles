@@ -28,6 +28,7 @@ o.mouse = 'a'
 o.mousemodel = 'popup'
 o.pastetoggle = '<F11>'
 o.scrolloff = 3
+o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,globals"
 o.showcmd = true
 o.showmatch = true
 o.showmode = true
