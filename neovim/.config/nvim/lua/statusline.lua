@@ -26,14 +26,16 @@ M.get_git_status = function(self)
     local is_head_empty = signs.head ~= ""
 
     if self:is_truncated(self.trunc_width.git_status) then
-        return is_head_empty and string.format("%%<%%#StatusLineGit#  %s ", signs.head or "") or
-                   ""
+        return is_head_empty and
+                   string.format("%%<%%#StatusLineGit#  %s ",
+                                 signs.head or "") or ""
     end
 
     -- stylua: ignore
     return is_head_empty and
-               string.format("%%<%%#StatusLineGit#  %s %%#StatusLineDiff# +%s ~%s -%s ", signs.head, signs.added,
-                             signs.changed, signs.removed) or ""
+               string.format(
+                   "%%<%%#StatusLineGit#  %s %%#StatusLineDiff# +%s ~%s -%s ",
+                   signs.head, signs.added, signs.changed, signs.removed) or ""
 end
 
 function M.get_filename(self)
@@ -65,9 +67,10 @@ function M.get_lsp_diagnostic(self)
     if self:is_truncated(self.trunc_width.lsp) then
         return ''
     else
-        return string.format(" %%#StatusLineLspError#:%s %%#StatusLineLspWarning#:%s %%#StatusLineLspInfo#:%s %%#StatusLineLspAction#:%s%%#Statusline# ",
-                             result['errors'] or 0, result['warnings'] or 0,
-                             result['info'] or 0, result['hints'] or 0)
+        return string.format(
+                   " %%#StatusLineLspError#:%s %%#StatusLineLspWarning#:%s %%#StatusLineLspInfo#:%s %%#StatusLineLspAction#:%s%%#Statusline# ",
+                   result['errors'] or 0, result['warnings'] or 0,
+                   result['info'] or 0, result['hints'] or 0)
     end
 end
 
@@ -75,12 +78,11 @@ local truncater = "%<"
 
 function M.get_statusline(self)
     return table.concat {
-        truncater, self:get_git_status(),
-        "%#StatusLine#", self:get_filename(), "%h%m%r", self:get_lsp_diagnostic() ,"%=%#StatusLineFt#",
-        "%y", "%#StatusLine#", " %-8.(%l,%c%V%) %P"
+        truncater, self:get_git_status(), "%#StatusLine#", self:get_filename(),
+        "%h%m%r", self:get_lsp_diagnostic(), "%=%#StatusLineFt#", "%y",
+        "%#StatusLine#", " %-8.(%l,%c%V%) %P"
     }
 end
-
 
 Statusline = setmetatable(M, {
     __call = function(self) return self:get_statusline(self) end

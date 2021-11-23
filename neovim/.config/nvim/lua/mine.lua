@@ -1,39 +1,41 @@
-local Job = require 'plenary.job'
 local fn = vim.fn
+local M = {}
 
-local envfile = '/tmp/envfile'
+local projectvars = '.projectvars'
 
-function LoadENV()
-    Job:new({
-        command = '/usr/bin/zsh',
-        args = {
-            '-i', '-c',
-            [[ pushd $HOME ; d=`mktemp`; env > $d ; pushd ${OLDPWD} ; s=`mktemp` ; env > $s ;  diff $d $s | grep -E "^>" | grep -vE "DIRENV|OLDPWD|PWD" | tr -d ">" | tee $envfile ]]
-        },
-        cwd = '/home/manuel/Code/Python/drapi',
-        env = { ['envfile'] = envfile },
-        on_exit = vim.schedule_wrap(function(j, return_val)
-            print(return_val)
-            if (return_val == 2) then return end
-            local x = j:result()
-            print(vim.inspect(x))
-            for _, s in ipairs(x) do
+function M.setup()
+    vim.api.nvim_exec([[
+	augroup ReadVars
+		autocmd!
+		autocmd DirChanged * lua require'mine'.readVars()
+	augroup END
+]], false)
+end
+
+function M.readVars()
+    local context_manager = require "plenary.context_manager"
+    local with = context_manager.with
+    local open = context_manager.open
+
+    if fn.filereadable(projectvars) == 1 then
+        with(open(projectvars), function(reader)
+            local str = reader:read("*all")
+            for s in str:gmatch("[^\r\n]+") do
                 local p, o = string.find(s, "=")
                 local name = (string.sub(s, 0, p - 1))
                 local value = (string.sub(s, p + 1))
                 vim.env[name] = value
             end
         end)
-    }):sync() -- or start()
+    end
 end
 
-LoadENV()
+function M.split(s, delimiter)
+    local result = {};
+    for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
+        table.insert(result, match);
+    end
+    return result;
+end
 
--- TODO: useful for later
--- function Split(s, delimiter)
---     result = {};
---     for match in (s..delimiter):gmatch("(.-)"..delimiter) do
---         table.insert(result, match);
---     end
---     return result;
--- end
+return M
