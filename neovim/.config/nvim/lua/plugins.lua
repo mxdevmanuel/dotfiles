@@ -153,6 +153,11 @@ return require('packer').startup(function()
             }
         end
     }
+    use {
+        'rcarriga/nvim-notify',
+        opt = true,
+        module = 'notify'
+    }
 
     -- Misc
     use {

@@ -26,8 +26,18 @@ function M.read_vars()
                 local value = (string.sub(s, p + 1))
                 vim.env[name] = value
             end
-            print("Loaded environment")
+
             vim.cmd("LspRestart all")
+
+            if packer_plugins["nvim-notify"] then
+                require 'notify'("Environment loaded", vim.lsp.log_levels.INFO,
+                                 {
+                    title = "Read vars",
+                    timeout = 2000
+                })
+            else
+                vim.notify("Environment loaded")
+            end
         end)
     end
 end
