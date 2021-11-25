@@ -63,7 +63,7 @@ function ChangeProject()
     local opts = require'telescope.themes'.get_dropdown();
     local dirpreviewer = previewers.new_termopen_previewer({
         get_command = function(entry, status)
-            return {'tree', '-I', '.git', entry.value}
+            return {'exa', '--icons', '--git', entry.value}
         end
     })
     local find_command = opts.find_command

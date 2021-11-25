@@ -90,7 +90,16 @@ return require('packer').startup(function()
                     enable = true -- false will disable the whole extension
                     -- disable = { "c", "rust" },  -- list of language that will be disabled
                 },
-                incremental_selection = {enable = true},
+                incremental_selection = {
+                    enable = true,
+                    keymaps = {
+                        init_selection = "<leader>+",
+                        node_incremental = "<leader>=",
+                        node_decremental = "<leader>-",
+                        scope_incremental = "<leader>}",
+                        scope_decremental = "<leader>{",
+                    }
+                },
                 textobjects = {
                     select = {
                         enable = true,
