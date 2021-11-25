@@ -117,10 +117,10 @@ function M.setup()
             lintStdin = true
         }
         local languages = {
-            javascript = {eslintD},
-            typescript = {eslintD},
-            javascriptreact = {eslintD},
-            typescriptreact = {eslintD},
+            javascript = {eslint},
+            typescript = {eslint},
+            javascriptreact = {eslint},
+            typescriptreact = {eslint},
             python = {flake8},
             yaml = {yamllint}
         }

@@ -46,7 +46,7 @@ alias lt='exa -T'
 alias lta='exa -Ta'
 alias ltla='exa -Tla'
 
-alias tig='vim -c GV'
+alias project='cd `find ~/Code -type d -and -name .git -exec dirname {} \; | fzf --height "40%"`'
 
 # Functions
 
@@ -89,6 +89,7 @@ function load-nvmrc(){
 }
 
 add-zsh-hook chpwd load-nvmrc
+load-nvmrc
 
 # Init 
 [ ! -z "$FIRSTRUN" ] && [[ ! -f /tmp/firstrun ]] && lolarch.zsh && touch /tmp/firstrun
