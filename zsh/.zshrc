@@ -48,6 +48,8 @@ alias ltla='exa -Tla'
 
 alias project='cd `find ~/Code -type d -and -name .git -exec dirname {} \; | fzf --height "40%"`'
 
+alias yarnw='yarn workspace'
+
 # Functions
 
 # if [[ -z "$THEMED" ]]

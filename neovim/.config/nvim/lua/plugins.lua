@@ -59,7 +59,7 @@ return require('packer').startup(function()
 
     -- Colorscheme
     use {
-        "npxbr/gruvbox.nvim",
+        "mxdevmanuel/gruvbox.nvim",
         requires = {{"rktjmp/lush.nvim", opt = true}},
         opt = true,
         event = "VimEnter",

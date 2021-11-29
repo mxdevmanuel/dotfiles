@@ -91,13 +91,13 @@ function M.setup()
     end
 
     if fn.executable("efm-langserver") == 1 then
-        local eslint = {
+        local _eslint = {
             lintCommand = 'yarn eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
             lintIgnoreExitCode = true,
             lintStdin = true,
             lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m"}
         }
-        local eslintD = {
+        local eslint = {
             lintCommand = 'yarn eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}',
             lintSource = 'eslint_d',
             lintStdin = true,
