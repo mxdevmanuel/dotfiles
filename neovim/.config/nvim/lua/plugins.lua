@@ -59,7 +59,7 @@ return require('packer').startup(function()
 
     -- Colorscheme
     use {
-        "mxdevmanuel/gruvbox.nvim",
+        "ellisonleao/gruvbox.nvim",
         requires = {{"rktjmp/lush.nvim", opt = true}},
         opt = true,
         event = "VimEnter",
@@ -72,7 +72,7 @@ return require('packer').startup(function()
         'nvim-treesitter/nvim-treesitter',
         opt = true,
         event = "UIEnter",
-        branch = "0.5-compat",
+        -- branch = "0.5-compat",
         run = ':TSUpdate',
         config = function()
             require'nvim-treesitter.configs'.setup {
