@@ -13,6 +13,7 @@ local mappings = {
     }, {'n', '<leader>"', '<cmd>Telescope registers<cr>'},
     {'n', '<leader>5', '<cmd>norm V$%<CR>'},
     {'n', '<leader>?', '<cmd>Telescope help_tags<CR>'},
+    {'n', '<leader>F', '<cmd>NvimTreeFindFile<CR>'},
     {'n', '<leader>G', '<cmd>Telescope git_status<CR>'},
     {'n', '<leader>N', '<cmd>bp<CR>'},
     {'n', '<leader>T', '<cmd>Telescope treesitter<CR>'},
