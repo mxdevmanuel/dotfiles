@@ -7,6 +7,7 @@ local fn = vim.fn
 local M = {}
 
 M.mappings = {
+    {'n', '<F8>', '<cmd>Telescope lsp_workspace_diagnosticsCR>'},
     {'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>'},
     {'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>'},
     {'n', '<leader>ca', '<cmd>Telescope lsp_code_actions<CR>'},
