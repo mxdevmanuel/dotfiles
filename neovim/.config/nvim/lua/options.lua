@@ -60,6 +60,7 @@ o.directory = swapdir
 -- Table options
 opt.backspace = {"indent", "eol", "start"}
 opt.wildoptions = {"tagfile"}
+opt.wildignore = {"node_modules/*", "**/node_modules/*", ".git/*"}
 opt.fileencodings = {'utf-8'}
 opt.completeopt = {'menu', 'menuone', 'noselect'}
 opt.virtualedit = {'block'}
