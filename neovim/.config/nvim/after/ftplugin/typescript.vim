@@ -12,12 +12,11 @@ if exists('$NOAUTOFORMAT')
 end
 
 function! TypescriptFormat()
-	:mark p
-	execute '%!prettier --parser typescript'
-	:norm g'pzz
+	silent mark p
+	silent %!prettier --stdin-filepath %
+	silent 'p
 endfunction
 
 augroup typescript
-	" autocmd! BufWritePre <buffer> call TypescriptFormat()
-	autocmd! BufWritePre <buffer> lua vim.lsp.buf.formatting()
+	autocmd! BufWritePre <buffer> call TypescriptFormat()
 augroup END

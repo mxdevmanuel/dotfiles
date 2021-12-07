@@ -5,6 +5,7 @@ setlocal expandtab
 if !executable('prettier')
 	finish
 end
+
 setlocal formatprg=prettier\ --parser\ babel
 
 if exists('$NOAUTOFORMAT')
@@ -12,9 +13,9 @@ if exists('$NOAUTOFORMAT')
 end
 
 function! JavascriptFormat()
-	:mark p
-	execute '%!prettier --parser babel'
-	:norm g'pzz
+	silent mark p
+	silent %!prettier --stdin-filepath %
+	silent 'p
 endfunction
 
 augroup javascript
