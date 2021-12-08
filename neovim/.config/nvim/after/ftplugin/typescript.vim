@@ -13,7 +13,7 @@ end
 
 function! TypescriptFormat()
 	silent mark p
-	silent %!prettier --stdin-filepath %
+	silent %!prettier --parser typescript
 	silent 'p
 endfunction
 
