@@ -69,7 +69,7 @@ localbin=${gitbase}/local/.local/bin
 bash ${localbin}/shells_update.sh
 
 log_success "Nvim" "Installing nvim plugins"
-nvim --headless +PackerInstall +q
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 log_success "Python" "Creating Envs"
 mkdir $HOME/Envs
