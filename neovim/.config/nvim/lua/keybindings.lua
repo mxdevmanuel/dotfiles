@@ -7,10 +7,12 @@ local map = vim.api.nvim_set_keymap
 local unmap = vim.api.nvim_del_keymap
 
 local mappings = {
-    {'n', '<M-f>', '<cmd>Telescope find_files<cr>'}, {
+    {'n', '<M-f>', '<cmd>Telescope find_files<CR>'}, {
         'n', '<leader>/',
-        '<cmd>lua require\'telescope.builtin\'.live_grep({additional_args = function() return {"--hidden"} end})<cr>'
-    }, {'n', '<leader>"', '<cmd>Telescope registers<cr>'},
+        '<cmd>lua require\'telescope.builtin\'.live_grep({additional_args = function() return {"--hidden"} end})<CR>'
+    },
+    {'n', '<leader><localleader>', '<cmd>Telescope grep_string<CR>'},
+    {'n', '<leader>"', '<cmd>Telescope registers<CR>'},
     {'n', '<leader>5', '<cmd>norm V$%<CR>'},
     {'n', '<leader>?', '<cmd>Telescope help_tags<CR>'},
     {'n', '<leader>F', '<cmd>NvimTreeFindFile<CR>'},
