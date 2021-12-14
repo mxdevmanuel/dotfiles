@@ -32,7 +32,11 @@ return require('packer').startup(function()
                 opt = true,
                 event = "UIEnter",
                 run = 'make'
-            }, {'nvim-lua/plenary.nvim'}
+            }, {'nvim-lua/plenary.nvim'}, {
+                'benfowler/telescope-luasnip.nvim',
+                opt = true,
+                module = 'telescope._extensions.luasnip'
+            }
         },
         config = function() require'others'.telescope() end
     }
@@ -226,6 +230,12 @@ return require('packer').startup(function()
         'neovim/nvim-lspconfig',
         after = 'nvim-lsp-installer',
         config = function() require'lsp'.setup() end
+    }
+    use {
+        'akinsho/flutter-tools.nvim',
+        opt = true,
+        module = 'flutter-tools',
+        requires = 'nvim-lua/plenary.nvim'
     }
 
     -- Completion

@@ -87,8 +87,9 @@ function M.setup()
     local nvim_lsp = require('lspconfig')
 
     if fn.executable("flutter") == 1 then
-        local config = make_config()
-        nvim_lsp["dartls"].setup(config)
+        -- local config = make_config()
+        -- nvim_lsp["dartls"].setup(config)
+        require('flutter-tools').setup({})
     end
 
     if fn.executable("efm-langserver") == 1 then
