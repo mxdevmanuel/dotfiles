@@ -107,14 +107,7 @@ return require('packer').startup(function()
         config = function()
             require'nvim-treesitter.configs'.setup {
                 -- one of "all", "maintained", or a list of languages
-                ensure_installed = {
-                    "bash", "c", "c_sharp", "clojure", "cmake", "comment",
-                    "cpp", "css", "dart", "dockerfile", "dot", "go", "graphql",
-                    "html", "java", "javascript", "jsdoc", "json", "json5",
-                    "jsonc", "kotlin", "latex", "lua", "php", "python", "r",
-                    "regex", "rst", "rust", "scss", "svelte", "toml", "tsx",
-                    "turtle", "typescript", "vim", "vue", "yaml"
-                },
+                ensure_installed = "maintained",
                 sync_install = false,
                 highlight = {
                     enable = true -- false will disable the whole extension
@@ -160,7 +153,7 @@ return require('packer').startup(function()
     }
 
     -- Filetypes
-    use 'GutenYe/json5.vim'
+    -- use 'GutenYe/json5.vim'
     use {
         'stevearc/vim-arduino',
         opt = true,
@@ -248,7 +241,7 @@ return require('packer').startup(function()
         cmd = "HopChar2",
         config = function()
             require'hop'.setup {
-                keys = 'etovxqpdygfblzhckisuran'
+                keys = 'asdfqwerzxcv'
             }
         end
     }
@@ -257,16 +250,6 @@ return require('packer').startup(function()
         opt = true,
         cmd = {'WhichKey'},
         config = function() require'which-key'.setup() end
-    }
-    use {
-        'mbbill/undotree',
-        opt = true,
-        cmd = {'UndotreeToggle'}
-    }
-    use {
-        'https://gitlab.com/yorickpeterse/nvim-window',
-        opt = true,
-        module = 'nvim-window'
     }
 
     -- LSP
@@ -344,18 +327,33 @@ return require('packer').startup(function()
         config = function() require'others'.gitsigns() end
     }
 
-    -- Debug
-    use {
-        'mfussenegger/nvim-dap',
-        requires = {
-            {
-                "Pocco81/DAPInstall.nvim",
-                opt = true
-            }
-        },
-        opt = true,
-        config = function() require'others'.dap() end
-    }
 
     if Packer_bootstrap then require('packer').sync() end
 end)
+
+-- PLUGINS I DON'T USE BUT
+-- WANNA KEEP AROUND
+--
+-- use {
+--     'mbbill/undotree',
+--     opt = true,
+--     cmd = {'UndotreeToggle'}
+-- }
+--
+-- use {
+--     'https://gitlab.com/yorickpeterse/nvim-window',
+--     opt = true,
+--     module = 'nvim-window'
+-- }
+--
+-- use {
+--     'mfussenegger/nvim-dap',
+--     requires = {
+--         {
+--             "Pocco81/DAPInstall.nvim",
+--             opt = true
+--         }
+--     },
+--     opt = true,
+--     config = function() require'others'.dap() end
+-- }
