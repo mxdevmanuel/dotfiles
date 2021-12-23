@@ -4,7 +4,7 @@ local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({
+    Packer_bootstrap = fn.system({
         'git', 'clone', 'https://github.com/wbthomason/packer.nvim',
         install_path
     })
@@ -27,12 +27,12 @@ return require('packer').startup(function()
         cmd = "Telescope",
         module = 'telescope',
         requires = {
-            {
+            {'nvim-lua/plenary.nvim'}, {
                 'nvim-telescope/telescope-fzf-native.nvim',
                 opt = true,
                 event = "UIEnter",
                 run = 'make'
-            }, {'nvim-lua/plenary.nvim'}, {
+            }, {
                 'benfowler/telescope-luasnip.nvim',
                 opt = true,
                 module = 'telescope._extensions.luasnip'
@@ -42,13 +42,24 @@ return require('packer').startup(function()
     }
     use {
         'kyazdani42/nvim-tree.lua',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true},
+        requires = {
+            'kyazdani42/nvim-web-devicons',
+            opt = true
+        },
         after = 'gitsigns.nvim',
-        config = function() require'nvim-tree'.setup {update_cwd = true} end
+        config = function()
+            require'nvim-tree'.setup {
+                update_cwd = true
+            }
+        end
     }
 
     -- tbaggery
-    use {'tpope/vim-fugitive', opt = true, event = "UIEnter"}
+    use {
+        'tpope/vim-fugitive',
+        opt = true,
+        cmd = {"Git", "Gread", "Gwrite", "Gcd", "Glcd" }
+    }
     use {
         'tpope/vim-eunuch',
         opt = true,
@@ -57,19 +68,35 @@ return require('packer').startup(function()
             'Cfind', 'Lfind', 'Llocate', 'Chmod', 'Rename'
         }
     }
-    use {'tpope/vim-commentary', opt = true, event = "BufRead"}
-    use {'tpope/vim-surround', opt = true, after = "vim-commentary"}
-    use {'tpope/vim-repeat', opt = true, after = "vim-surround"}
+    use {
+        'tpope/vim-commentary',
+        opt = true,
+        after = "vim-matchup"
+    }
+    use {
+        'tpope/vim-surround',
+        opt = true,
+        after = "vim-commentary"
+    }
+    use {
+        'tpope/vim-repeat',
+        opt = true,
+        after = "vim-surround"
+    }
 
     -- Colorscheme
     use {
         "ellisonleao/gruvbox.nvim",
-        requires = {{"rktjmp/lush.nvim", opt = true}},
+        requires = {
+            {
+                "rktjmp/lush.nvim",
+                opt = true
+            }
+        },
         opt = true,
-        event = "VimEnter",
+        event = "UIEnter",
         config = function() require('hicolors'):setup() end
     }
-    -- "savq/melange"
 
     -- Treesitter
     use {
@@ -114,6 +141,9 @@ return require('packer').startup(function()
                             ["ic"] = "@class.inner"
                         }
                     }
+                },
+                matchup = {
+                    enable = true
                 }
             }
 
@@ -131,8 +161,16 @@ return require('packer').startup(function()
 
     -- Filetypes
     use 'GutenYe/json5.vim'
-    use {'stevearc/vim-arduino', opt = true, ft = 'arduino'}
-    use {'chunkhang/vim-mbsync', opt = true, ft = 'mbsync'}
+    use {
+        'stevearc/vim-arduino',
+        opt = true,
+        ft = 'arduino'
+    }
+    use {
+        'chunkhang/vim-mbsync',
+        opt = true,
+        ft = 'mbsync'
+    }
 
     -- Appeareance
     use {
@@ -145,7 +183,12 @@ return require('packer').startup(function()
         'alvarosevilla95/luatab.nvim',
         opt = true,
         after = "nvim-tree.lua",
-        requires = {{'kyazdani42/nvim-web-devicons', opt = true}},
+        requires = {
+            {
+                'kyazdani42/nvim-web-devicons',
+                opt = true
+            }
+        },
         config = function() require'luatab'.setup({}) end
     }
     use {
@@ -164,7 +207,11 @@ return require('packer').startup(function()
             }
         end
     }
-    use {'rcarriga/nvim-notify', opt = true, module = 'notify'}
+    use {
+        'rcarriga/nvim-notify',
+        opt = true,
+        module = 'notify'
+    }
 
     -- Misc
     use {
@@ -184,17 +231,25 @@ return require('packer').startup(function()
     use {
         'windwp/nvim-autopairs',
         config = function()
-            require('nvim-autopairs').setup({check_ts = true})
+            require('nvim-autopairs').setup({
+                check_ts = true
+            })
         end
     }
-    use {'andymass/vim-matchup', opt = true, after = "vim-repeat"}
+    use {
+        'andymass/vim-matchup',
+        opt = true,
+        event = "BufRead"
+    }
     use {
         'phaazon/hop.nvim',
         as = 'hop',
         opt = true,
         cmd = "HopChar2",
         config = function()
-            require'hop'.setup {keys = 'etovxqpdygfblzhckisuran'}
+            require'hop'.setup {
+                keys = 'etovxqpdygfblzhckisuran'
+            }
         end
     }
     use {
@@ -203,18 +258,32 @@ return require('packer').startup(function()
         cmd = {'WhichKey'},
         config = function() require'which-key'.setup() end
     }
-    use {'mbbill/undotree', opt = true, cmd = {'UndotreeToggle'}}
+    use {
+        'mbbill/undotree',
+        opt = true,
+        cmd = {'UndotreeToggle'}
+    }
+    use {
+        'https://gitlab.com/yorickpeterse/nvim-window',
+        opt = true,
+        module = 'nvim-window'
+    }
 
     -- LSP
     use {
+        'neovim/nvim-lspconfig',
+        event = 'VimEnter',
+        config = function() require'lsp'.setup() end
+    }
+    use {
         'williamboman/nvim-lsp-installer',
         opt = true,
-        event = "VimEnter",
+        module = 'nvim-lsp-installer',
         run = function()
             local lsp_installer = require 'nvim-lsp-installer'
             -- Ensure installed
             local servers = {
-                "sumneko_lua", "tsserver", "tailwindcss", "pyright", "clangd"
+                "sumneko_lua", "tsserver", "tailwindcss", "pyright", "clangd", "cssls"
             }
 
             for _, name in pairs(servers) do
@@ -227,15 +296,10 @@ return require('packer').startup(function()
         end
     }
     use {
-        'neovim/nvim-lspconfig',
-        after = 'nvim-lsp-installer',
-        config = function() require'lsp'.setup() end
-    }
-    use {
         'akinsho/flutter-tools.nvim',
         opt = true,
         module = 'flutter-tools',
-        requires = 'nvim-lua/plenary.nvim'
+        requires = {'nvim-lua/plenary.nvim'}
     }
 
     -- Completion
@@ -244,11 +308,23 @@ return require('packer').startup(function()
         event = "UIEnter",
         opt = true,
         requires = {
-            {'hrsh7th/cmp-nvim-lsp', module = "cmp_nvim_lsp", opt = true},
-            {'hrsh7th/cmp-buffer', opt = true},
-            {'hrsh7th/cmp-path', opt = true},
-            {'hrsh7th/cmp-nvim-lua', opt = true},
-            {'saadparwaiz1/cmp_luasnip', opt = true}
+            {
+                'hrsh7th/cmp-nvim-lsp',
+                module = "cmp_nvim_lsp",
+                opt = true
+            }, {
+                'hrsh7th/cmp-buffer',
+                opt = true
+            }, {
+                'hrsh7th/cmp-path',
+                opt = true
+            }, {
+                'hrsh7th/cmp-nvim-lua',
+                opt = true
+            }, {
+                'saadparwaiz1/cmp_luasnip',
+                opt = true
+            }
         },
         config = function() require'completion'.setup() end
     }
@@ -263,7 +339,7 @@ return require('packer').startup(function()
     use {
         'lewis6991/gitsigns.nvim',
         opt = true,
-        after = "vim-fugitive",
+        event = "UIEnter",
         requires = {'nvim-lua/plenary.nvim'},
         config = function() require'others'.gitsigns() end
     }
@@ -271,10 +347,15 @@ return require('packer').startup(function()
     -- Debug
     use {
         'mfussenegger/nvim-dap',
-        requires = {{"Pocco81/DAPInstall.nvim", opt = true}},
+        requires = {
+            {
+                "Pocco81/DAPInstall.nvim",
+                opt = true
+            }
+        },
         opt = true,
         config = function() require'others'.dap() end
     }
 
-    if packer_bootstrap then require('packer').sync() end
+    if Packer_bootstrap then require('packer').sync() end
 end)

@@ -14,18 +14,26 @@ function h.gruvbox(self)
     if (base.StatusLine.gui) then slgui = "," .. base.StatusLine.gui end
     local slcfg = base.StatusLine.bg.hex
     if (vim.o.background == 'light') then slcfg = colors.light1.hex end
-    vim.api.nvim_command("highlight StatusLineGit ctermbg=5 guifg=" ..
-                             colors.neutral_aqua.hex .. " gui=bold" .. slgui ..
-                             " guibg=" .. slcfg)
-    vim.api.nvim_command("highlight StatusLineDiff ctermbg=5 guifg=" ..
-                             colors.dark4.hex .. " gui=inverse"  ..
-                             " guibg=" .. slcfg)
-    vim.api.nvim_command("highlight StatusLineFt ctermbg=5 guifg=" ..
-                             colors.neutral_purple.hex .. " gui=bold" .. slgui ..
-                             " guibg=" .. slcfg)
 
     local bg = vim.o.background
     local bghex = bg == 'dark' and colors.dark2.hex or colors.light2.hex
+    local gitbg = bg == 'dark' and colors.dark3.hex or colors.light1.hex
+
+    vim.api.nvim_command("highlight StatusLineGit ctermbg=5 guifg=" ..
+                             colors.neutral_aqua.hex .. " gui=bold" .. slgui ..
+                             " guibg=" .. slcfg)
+    vim.api.nvim_command("highlight StatusLineGitAdd ctermbg=5 guifg=" ..
+                             colors.bright_green.hex ..
+                             " guibg=" .. gitbg)
+    vim.api.nvim_command("highlight StatusLineGitChange ctermbg=5 guifg=" ..
+                             colors.bright_yellow.hex ..
+                             " guibg=" .. gitbg)
+    vim.api.nvim_command("highlight StatusLineGitDelete ctermbg=5 guifg=" ..
+                             colors.bright_orange.hex ..
+                             " guibg=" .. gitbg)
+    vim.api.nvim_command("highlight StatusLineFt ctermbg=5 guifg=" ..
+                             colors.neutral_purple.hex .. " gui=bold" .. slgui ..
+                             " guibg=" .. slcfg)
 
     vim.api.nvim_command("highlight StatusLineLspError ctermbg=5 guifg=" ..
                              colors.neutral_orange.hex .. " guibg=" ..
