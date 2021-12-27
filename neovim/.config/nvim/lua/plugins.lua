@@ -69,7 +69,11 @@ return require('packer').startup(function()
         event = "VimEnter",
         config = function() require('hicolors'):setup() end
     }
-    -- "savq/melange"
+    use {
+        'rebelot/kanagawa.nvim',
+        opt = true,
+        module = "kanagawa",
+    }
 
     -- Treesitter
     use {
