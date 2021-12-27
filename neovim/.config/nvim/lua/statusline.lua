@@ -34,7 +34,7 @@ M.get_git_status = function(self)
     -- stylua: ignore
     return is_head_empty and
                string.format(
-                   "%%<%%#StatusLineGit#  %s %%#StatusLineDiff# +%s ~%s -%s ",
+                   "%%<%%#StatusLineGit#  %s %%#StatusLineGitAdd# +%s %%#StatusLineGitChange#~%s %%#StatusLineGitDelete#-%s ",
                    signs.head, signs.added, signs.changed, signs.removed) or ""
 end
 
