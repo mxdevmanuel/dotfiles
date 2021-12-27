@@ -46,7 +46,7 @@ return require('packer').startup(function()
             'kyazdani42/nvim-web-devicons',
             opt = true
         },
-        after = 'gitsigns.nvim',
+        event = "UIEnter",
         config = function()
             require'nvim-tree'.setup {
                 update_cwd = true
@@ -153,7 +153,6 @@ return require('packer').startup(function()
     }
 
     -- Filetypes
-    -- use 'GutenYe/json5.vim'
     use {
         'stevearc/vim-arduino',
         opt = true,
@@ -175,7 +174,7 @@ return require('packer').startup(function()
     use { -- It is more complicated making a custom tabline than a statusline, this one's lean
         'alvarosevilla95/luatab.nvim',
         opt = true,
-        after = "nvim-tree.lua",
+        event = "UIEnter",
         requires = {
             {
                 'kyazdani42/nvim-web-devicons',
