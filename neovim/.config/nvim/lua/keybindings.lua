@@ -32,6 +32,7 @@ local mappings = {
     {'n', '<leader>vsh', '<cmd>vsplit <Bar> ter<CR>'},
     {'n', '<leader>x', '<cmd>bd<CR>'},
     {'n', '<localleader>f', '<cmd>Telescope find_files<CR>'},
+    {'n', '<localleader>o', '<cmd>AerialToggle<CR>'},
     {'n', 'gQ', 'mmgggqG\'m'}, -- Comments to keep
     {'n', 'gh', "<cmd>HopChar2<cr>"}, -- one entry
     {'t', '<M-h>', '<C-\\><C-n><C-w>h'}, -- per line

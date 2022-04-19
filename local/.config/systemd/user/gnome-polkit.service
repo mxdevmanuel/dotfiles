@@ -1,0 +1,13 @@
+[Unit]
+Description=Polkit authenticator
+Documentation=https://wiki.archlinux.org/polkit
+After=polkit.service
+
+[Service]
+Type=simple
+ExecStart=/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+RestartSec=15
+Restart=always
+
+[Install]
+WantedBy=graphical-session.target

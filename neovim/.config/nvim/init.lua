@@ -10,5 +10,5 @@ require('options')
 -- Custom commands/functions
 require('commands')
 
--- Statusline
-require('statusline')
+-- User interface
+require('ui')

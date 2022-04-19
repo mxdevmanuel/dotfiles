@@ -5,8 +5,8 @@ function M.setup()
     local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and
-                   vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(
-                       col, col):match("%s") == nil
+            vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(
+                col, col):match("%s") == nil
     end
 
     local cmp = require 'cmp'
@@ -17,7 +17,7 @@ function M.setup()
                 require('luasnip').lsp_expand(args.body)
             end
         },
-        mapping = {
+        mapping = cmp.mapping.preset.insert( {
             ['<C-d>'] = cmp.mapping.scroll_docs(-4),
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
             ['<C-Space>'] = cmp.mapping.complete(),
@@ -36,7 +36,7 @@ function M.setup()
                 else
                     fallback()
                 end
-            end, {"i", "s"}),
+            end, { "i", "s" }),
 
             ["<S-Tab>"] = cmp.mapping(function(fallback)
                 local luasnip = require 'luasnip'
@@ -47,8 +47,8 @@ function M.setup()
                 else
                     fallback()
                 end
-            end, {"i", "s"})
-        },
+            end, { "i", "s" })
+        } ),
         sources = {
             {
                 name = 'nvim_lsp'
@@ -61,7 +61,10 @@ function M.setup()
             }, {
                 name = 'path'
             }
-        }
+        },
+        -- view = {
+        --     entries = 'native'
+        -- }
     })
 end
 

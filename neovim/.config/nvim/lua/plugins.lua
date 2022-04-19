@@ -27,7 +27,7 @@ return require('packer').startup(function()
         cmd = "Telescope",
         module = 'telescope',
         requires = {
-            {'nvim-lua/plenary.nvim'}, {
+            { 'nvim-lua/plenary.nvim' }, {
                 'nvim-telescope/telescope-fzf-native.nvim',
                 opt = true,
                 event = "UIEnter",
@@ -38,7 +38,7 @@ return require('packer').startup(function()
                 module = 'telescope._extensions.luasnip'
             }
         },
-        config = function() require'others'.telescope() end
+        config = function() require 'others'.telescope() end
     }
     use {
         'kyazdani42/nvim-tree.lua',
@@ -48,7 +48,7 @@ return require('packer').startup(function()
         },
         event = "UIEnter",
         config = function()
-            require'nvim-tree'.setup {
+            require 'nvim-tree'.setup {
                 update_cwd = true
             }
         end
@@ -58,7 +58,7 @@ return require('packer').startup(function()
     use {
         'tpope/vim-fugitive',
         opt = true,
-        cmd = {"Git", "Gread", "Gwrite", "Gcd", "Glcd" }
+        cmd = { "Git", "Gread", "Gwrite", "Gcd", "Glcd" }
     }
     use {
         'tpope/vim-eunuch',
@@ -87,12 +87,6 @@ return require('packer').startup(function()
     -- Colorscheme
     use {
         "ellisonleao/gruvbox.nvim",
-        requires = {
-            {
-                "rktjmp/lush.nvim",
-                opt = true
-            }
-        },
         opt = true,
         event = "UIEnter",
         config = function() require('hicolors'):setup() end
@@ -105,9 +99,16 @@ return require('packer').startup(function()
         event = "UIEnter",
         run = ':TSUpdate',
         config = function()
-            require'nvim-treesitter.configs'.setup {
+            require 'nvim-treesitter.configs'.setup {
                 -- one of "all", "maintained", or a list of languages
-                ensure_installed = "maintained",
+                ensure_installed = {
+                    "bash", "c", "c_sharp", "clojure", "cmake", "comment",
+                    "cpp", "css", "dart", "dockerfile", "dot", "go", "graphql",
+                    "html", "java", "javascript", "jsdoc", "json", "json5",
+                    "jsonc", "kotlin", "latex", "lua", "php", "python", "r",
+                    "regex", "rst", "rust", "scss", "svelte", "toml", "tsx",
+                    "turtle", "typescript", "vim", "vue", "yaml"
+                },
                 sync_install = false,
                 highlight = {
                     enable = true -- false will disable the whole extension
@@ -151,6 +152,11 @@ return require('packer').startup(function()
         'nvim-treesitter/nvim-treesitter-textobjects',
         after = "nvim-treesitter"
     }
+    use {
+        'stevearc/aerial.nvim',
+        config = function() require('aerial').setup() end,
+        cmd = { "AerialToggle", "AerialOpen", "AerialTreeOpen", "AerialTreeToggle", "AerialTreeOpenAll" }
+    }
 
     -- Filetypes
     use {
@@ -181,7 +187,7 @@ return require('packer').startup(function()
                 opt = true
             }
         },
-        config = function() require'luatab'.setup({}) end
+        config = function() require 'luatab'.setup({}) end
     }
     use {
         "lukas-reineke/indent-blankline.nvim",
@@ -190,8 +196,8 @@ return require('packer').startup(function()
         config = function()
             require("indent_blankline").setup {
                 char = '│',
-                filetype_exclude = {'help', 'packer'},
-                buftype_exclude = {'terminal', 'nofile'},
+                filetype_exclude = { 'help', 'packer' },
+                buftype_exclude = { 'terminal', 'nofile' },
                 char_highlight = 'LineNr',
                 show_trailing_blankline_indent = false,
                 -- show_first_indent_level = false,
@@ -201,8 +207,18 @@ return require('packer').startup(function()
     }
     use {
         'rcarriga/nvim-notify',
-        opt = true,
-        module = 'notify'
+        -- opt = true,
+        module = 'notify',
+        config= function()
+            vim.notify= require('notify');
+        end
+    }
+    use { 'stevearc/dressing.nvim',
+        -- opt = true,
+        config = function ()
+            require("dressing").setup()
+        end
+        -- module = 'dressing'
     }
 
     -- Misc
@@ -239,7 +255,7 @@ return require('packer').startup(function()
         opt = true,
         cmd = "HopChar2",
         config = function()
-            require'hop'.setup {
+            require 'hop'.setup {
                 keys = 'asdfqwerzxcv'
             }
         end
@@ -247,15 +263,15 @@ return require('packer').startup(function()
     use {
         'folke/which-key.nvim',
         opt = true,
-        cmd = {'WhichKey'},
-        config = function() require'which-key'.setup() end
+        cmd = { 'WhichKey' },
+        config = function() require 'which-key'.setup() end
     }
 
     -- LSP
     use {
         'neovim/nvim-lspconfig',
         event = 'VimEnter',
-        config = function() require'lsp'.setup() end
+        config = function() require 'lsp'.setup() end
     }
     use {
         'williamboman/nvim-lsp-installer',
@@ -281,7 +297,7 @@ return require('packer').startup(function()
         'akinsho/flutter-tools.nvim',
         opt = true,
         module = 'flutter-tools',
-        requires = {'nvim-lua/plenary.nvim'}
+        requires = { 'nvim-lua/plenary.nvim' }
     }
 
     -- Completion
@@ -308,13 +324,13 @@ return require('packer').startup(function()
                 opt = true
             }
         },
-        config = function() require'completion'.setup() end
+        config = function() require 'completion'.setup() end
     }
     use {
         'L3MON4D3/LuaSnip',
         after = "nvim-cmp",
-        requires = {{"rafamadriz/friendly-snippets"}},
-        config = function() require'completion'.luasnip() end
+        requires = { { "rafamadriz/friendly-snippets" } },
+        config = function() require 'completion'.luasnip() end
     }
 
     -- VCS
@@ -322,8 +338,8 @@ return require('packer').startup(function()
         'lewis6991/gitsigns.nvim',
         opt = true,
         event = "UIEnter",
-        requires = {'nvim-lua/plenary.nvim'},
-        config = function() require'others'.gitsigns() end
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function() require 'others'.gitsigns() end
     }
 
 
