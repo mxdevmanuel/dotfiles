@@ -26,7 +26,32 @@ function h.gruvbox()
     Highlight("StatusLineLspError", { fg = colors.neutral_orange, bg = bghex })
     Highlight("StatusLineLspInfo", { fg = colors.neutral_aqua, bg = bghex })
     Highlight("StatusLineLspWarning", { fg = colors.neutral_yellow, bg = bghex })
+end 
 
+
+function h.kanagawa(self)
+    require'kanagawa'.setup();
+    local colors = require('kanagawa.colors')
+    local bghex = colors.sumiInk2;
+    vim.api.nvim_command("highlight StatusLineGit ctermbg=5 guibg=" ..
+                             colors.waveAqua2 .. " gui=bold" .. " guifg=" ..
+                             bghex)
+    vim.api.nvim_command("highlight StatusLineDiff ctermbg=5 guibg=" ..
+                             colors.katanaGray .. " guifg=" .. bghex)
+    vim.api.nvim_command("highlight StatusLineFt ctermbg=5 guibg=" ..
+                             colors.sakuraPink .. " gui=bold" ..
+                             " guifg=" .. bghex)
+
+    vim.api.nvim_command("highlight StatusLineLspError ctermbg=5 guifg=" ..
+                             colors.surimiOrange .. " guibg=" .. bghex)
+    vim.api.nvim_command("highlight StatusLineLspWarning ctermbg=5 guifg=" ..
+                             colors.carpYellow .. " guibg=" .. bghex)
+    vim.api.nvim_command("highlight StatusLineLspInfo ctermbg=5 guifg=" ..
+                             colors.waveAqua1 .. " guibg=" .. bghex)
+    vim.api.nvim_command("highlight StatusLineLspAction ctermbg=5 guifg=" ..
+                             colors.autumnGreen .. " guibg=" .. bghex)
+
+    vim.cmd("colorscheme kanagawa")
 end
 
 function h.setup(self)
@@ -42,6 +67,7 @@ function h.setup(self)
         vim.env.TIMETHEME) then vim.o.background = vim.env.TIMETHEME end
 
     self.gruvbox()
+    -- self.kanagawa()
 end
 
 return h

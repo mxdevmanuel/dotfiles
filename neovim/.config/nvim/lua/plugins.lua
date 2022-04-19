@@ -91,6 +91,11 @@ return require('packer').startup(function()
         event = "UIEnter",
         config = function() require('hicolors'):setup() end
     }
+    use {
+        'rebelot/kanagawa.nvim',
+        opt = true,
+        module = "kanagawa",
+    }
 
     -- Treesitter
     use {
