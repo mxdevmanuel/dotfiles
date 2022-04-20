@@ -65,7 +65,7 @@ opt.fileencodings = {'utf-8'}
 opt.completeopt = {'menu', 'menuone', 'noselect'}
 opt.virtualedit = {'block'}
 
-opt.shortmess = opt.shortmess + 'c'
+opt.shortmess = opt.shortmess + 'Ic'
 
 if (fn.has('langmap') ~= 0 and fn.exists('+langremap') ~= 0) then
     -- Prevent that the langmap option applies to characters that result from a

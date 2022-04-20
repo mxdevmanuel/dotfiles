@@ -54,6 +54,7 @@ function M.telescope()
 
     telescope.load_extension('fzf')
     telescope.load_extension('luasnip')
+    telescope.load_extension('notify')
 end
 
 function ChangeProject()
@@ -61,10 +62,10 @@ function ChangeProject()
     local finders = require "telescope.finders"
     local previewers = require "telescope.previewers"
 
-    local opts = require'telescope.themes'.get_dropdown();
+    local opts = require 'telescope.themes'.get_dropdown();
     local dirpreviewer = previewers.new_termopen_previewer({
         get_command = function(entry, status)
-            return {'exa', '--icons', '--git', entry.value}
+            return { 'exa', '--icons', '--git', entry.value }
         end
     })
     local find_command = opts.find_command
@@ -78,7 +79,7 @@ function ChangeProject()
 
     if not find_command then
         print("You need to install find. " ..
-                  "You can also submit a PR to add support for another file finder :)")
+        "You can also submit a PR to add support for another file finder :)")
         return
     end
 
@@ -94,15 +95,15 @@ function ChangeProject()
     pickers.new(opts, {
         prompt_title = "cd to project",
         finder = finders.new_oneshot_job(find_command, opts),
-        sorter = require'telescope.sorters'.get_generic_fuzzy_sorter({}),
+        sorter = require 'telescope.sorters'.get_generic_fuzzy_sorter({}),
         previewer = dirpreviewer,
         attach_mappings = function(prompt_bufnr, map)
             local function cd_to_project()
                 local content =
-                    require'telescope.actions.state'.get_selected_entry(
-                        prompt_bufnr)
+                require 'telescope.actions.state'.get_selected_entry(
+                    prompt_bufnr)
                 vim.api.nvim_exec("cd " .. content.value, false)
-                require'telescope.actions'.close(prompt_bufnr)
+                require 'telescope.actions'.close(prompt_bufnr)
             end
 
             map('i', '<CR>', function(bufnr) cd_to_project() end)
@@ -125,7 +126,7 @@ function M.dap()
     })
 
     local dbg_list =
-        require("dap-install.api.debuggers").get_installed_debuggers()
+    require("dap-install.api.debuggers").get_installed_debuggers()
 
     for _, debugger in ipairs(dbg_list) do dap_install.config(debugger, {}) end
 
@@ -135,7 +136,7 @@ function M.dap()
     dap.adapters.python = {
         type = 'executable',
         command = python,
-        args = {'-m', 'debugpy.adapter'}
+        args = { '-m', 'debugpy.adapter' }
     }
 end
 

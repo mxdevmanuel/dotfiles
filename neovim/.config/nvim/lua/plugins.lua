@@ -91,11 +91,6 @@ return require('packer').startup(function()
         event = "UIEnter",
         config = function() require('hicolors'):setup() end
     }
-    use {
-        'rebelot/kanagawa.nvim',
-        opt = true,
-        module = "kanagawa",
-    }
 
     -- Treesitter
     use {
@@ -212,11 +207,11 @@ return require('packer').startup(function()
     }
     use {
         'rcarriga/nvim-notify',
-        -- opt = true,
+        opt = true,
         module = 'notify',
-        config= function()
-            vim.notify= require('notify');
-        end
+        -- config= function()
+        --     vim.notify= require('notify');
+        -- end
     }
     use { 'stevearc/dressing.nvim',
         -- opt = true,
