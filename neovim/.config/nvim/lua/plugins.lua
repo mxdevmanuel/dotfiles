@@ -11,8 +11,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
     execute 'packadd packer.nvim'
 end
 
-vim.g.did_load_filetypes = 1
-
 return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
@@ -103,10 +101,10 @@ return require('packer').startup(function()
                 -- one of "all", "maintained", or a list of languages
                 ensure_installed = {
                     "bash", "c", "c_sharp", "clojure", "cmake", "comment",
-                    "cpp", "css", "dart", "dockerfile", "dot", "go", "graphql",
+                    "cpp", "css", "dart", "dockerfile", "dot", "go", "graphql", "help",
                     "html", "java", "javascript", "jsdoc", "json", "json5",
-                    "jsonc", "kotlin", "latex", "lua", "php", "python", "r",
-                    "regex", "rst", "rust", "scss", "svelte", "toml", "tsx",
+                    "jsonc", "kotlin", "latex", "lua", "make", "markdown", "php", "python", "r",
+                    "regex", "rst", "rust", "scss", "svelte", "todotxt", "toml", "tsx",
                     "turtle", "typescript", "vim", "vue", "yaml"
                 },
                 sync_install = false,
@@ -151,6 +149,15 @@ return require('packer').startup(function()
     use {
         'nvim-treesitter/nvim-treesitter-textobjects',
         after = "nvim-treesitter"
+    }
+    use {
+        "danymat/neogen",
+        cmd = "Neogen",
+        config = function() require('neogen').setup {} end,
+        module = 'neogen',
+        opt = true,
+        -- Uncomment next line if you want to follow only stable versions
+        tag = "*"
     }
     use {
         'stevearc/aerial.nvim',
@@ -209,13 +216,13 @@ return require('packer').startup(function()
         'rcarriga/nvim-notify',
         opt = true,
         module = 'notify',
-        -- config= function()
-        --     vim.notify= require('notify');
-        -- end
+        config = function()
+            vim.notify = require('notify');
+        end
     }
     use { 'stevearc/dressing.nvim',
         -- opt = true,
-        config = function ()
+        config = function()
             require("dressing").setup()
         end
         -- module = 'dressing'
