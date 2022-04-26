@@ -19,8 +19,8 @@ M.mappings = {
     { 'n', '<leader>wa', vim.lsp.buf.add_workspace_folder },
     { 'n', '<leader>wr', vim.lsp.buf.remove_workspace_folder },
     { 'n', 'K', vim.lsp.buf.hover },
-    { 'n', '[d', vim.lsp.diagnostic.goto_prev },
-    { 'n', ']d', vim.lsp.diagnostic.goto_next },
+    { 'n', '[d', vim.diagnostic.goto_prev },
+    { 'n', ']d', vim.diagnostic.goto_next },
     { 'n', 'gd', vim.lsp.buf.declaration },
     { 'n', 'gi', vim.lsp.buf.implementation },
     { 'n', 'gr', vim.lsp.buf.references }

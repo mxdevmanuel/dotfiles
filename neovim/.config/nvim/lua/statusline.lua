@@ -1,6 +1,5 @@
 local M = {}
 local api = vim.api
-local lsp = vim.lsp
 
 M.trunc_width = setmetatable({
     git_status = 90,
@@ -11,12 +10,14 @@ M.trunc_width = setmetatable({
 })
 
 M.is_truncated = function(_, width)
-    local current_width = api.nvim_win_get_width(0)
+    local current_width = vim.o.laststatus == 3 and vim.o.columns
+        or api.nvim_win_get_width(0)
     return current_width < width
 end
 
 M.get_git_status = function(self)
-    -- use fallback because it doesn't set this variable on the initial `BufEnter`
+    -- use fallback because it doesn't set
+    -- this variable on the initial `BufEnter`
     local signs = vim.b.gitsigns_status_dict or {
         head = "",
         added = 0,
@@ -53,7 +54,7 @@ function M.get_lsp_diagnostic(self)
         return ''
     end
 
-    local buf_clients = lsp.buf_get_clients(0)
+    local buf_clients = vim.lsp.buf_get_clients(0)
 
     local next = next
 
@@ -88,6 +89,41 @@ function M.get_statusline(self)
         "%h%m%r%=", self:get_lsp_diagnostic(), "%#StatusLineFt#", "%y",
         "%#StatusLine#", " %-8.(%l,%c%V%) %P"
     }
+end
+
+function M.setup(self)
+
+    local statusline_group_id = vim.api.nvim_create_augroup("StatusLineChange", {})
+
+    vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter", "BufEnter" }, {
+        group = statusline_group_id,
+        pattern = "*",
+        callback = function(args)
+            -- vim.pretty_print(args)
+            if args.event == "BufEnter" then
+                vim.defer_fn(function()
+                    vim.wo.statusline = self:get_statusline()
+                end, 1000)
+            else
+                vim.wo.statusline = self:get_statusline()
+            end
+        end
+    })
+
+    if vim.o.laststatus ~= 3 then
+        vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
+            group = statusline_group_id,
+            pattern = "*",
+            command = "set statusline<"
+        })
+    end
+
+    vim.api.nvim_create_autocmd({ "VimResized" }, {
+        group = statusline_group_id,
+        pattern = "*",
+        command = "redrawstatus"
+    })
+
 end
 
 return M

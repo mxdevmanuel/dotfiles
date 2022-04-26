@@ -8,42 +8,37 @@ function M.gitsigns()
     require('gitsigns').setup({
         signs = {
             add = {
-                -- hl = 'CustomGitSignsAdd',
                 hl = 'GitSignsAdd',
                 text = '+',
                 numhl = 'GitSignsAddNr',
                 linehl = 'GitSignsAddLn'
             },
             change = {
-                -- hl = 'CustomGitSignsChange',
                 hl = 'GitSignsChange',
                 text = '•',
                 numhl = 'GitSignsChangeNr',
                 linehl = 'GitSignsChangeLn'
             },
             delete = {
-                -- hl = 'CustomGitSignsDelete',
                 hl = 'GitSignsDelete',
                 text = '-',
                 numhl = 'GitSignsDeleteNr',
                 linehl = 'GitSignsDeleteLn'
             },
             topdelete = {
-                -- hl = 'CustomGitSignsDelete',
                 hl = 'GitSignsDelete',
                 text = '‾',
                 numhl = 'GitSignsDeleteNr',
                 linehl = 'GitSignsDeleteLn'
             },
             changedelete = {
-                -- hl = 'CustomGitSignsDelete',
                 hl = 'GitSignsChange',
                 text = '~',
                 numhl = 'GitSignsChangeNr',
                 linehl = 'GitSignsChangeLn'
             }
         },
-        numhl = false
+        numhl = false,
     })
 end
 
