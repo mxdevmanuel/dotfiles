@@ -36,7 +36,7 @@ return require('packer').startup(function()
                 module = 'telescope._extensions.luasnip'
             }
         },
-        config = function() require 'others'.telescope() end
+        config = function() require 'custom'.telescope() end
     }
     use {
         'kyazdani42/nvim-tree.lua',
@@ -285,19 +285,7 @@ return require('packer').startup(function()
         opt = true,
         module = 'nvim-lsp-installer',
         run = function()
-            local lsp_installer = require 'nvim-lsp-installer'
-            -- Ensure installed
-            local servers = {
-                "sumneko_lua", "tsserver", "tailwindcss", "pyright", "clangd", "cssls"
-            }
-
-            for _, name in pairs(servers) do
-                local server_is_found, server = lsp_installer.get_server(name)
-                if (server_is_found and not server:is_installed()) then
-                    print("Installing " .. name)
-                    server:install()
-                end
-            end
+            require 'lsp':install()
         end
     }
     use {
@@ -346,7 +334,7 @@ return require('packer').startup(function()
         opt = true,
         event = "UIEnter",
         requires = { 'nvim-lua/plenary.nvim' },
-        config = function() require 'others'.gitsigns() end
+        config = function() require 'custom'.gitsigns() end
     }
 
 
@@ -377,5 +365,5 @@ end)
 --         }
 --     },
 --     opt = true,
---     config = function() require'others'.dap() end
+--     config = function() require'custom'.dap() end
 -- }
