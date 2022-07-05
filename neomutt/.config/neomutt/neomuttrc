@@ -49,7 +49,7 @@ bind index } sidebar-next
 bind index + sidebar-open
 
 macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
-macro index,pager X "<pipe-message>ripmime -i - -d "
+macro index,pager X "<pipe-message> ripmime -i - -d " "extract mime data to files"
 macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 
 source ~/.config/neomutt/gruvbox-dark.muttrc

@@ -8,13 +8,12 @@ local o = vim.o -- global options
 local w = vim.wo -- windows-scoped options
 local opt = vim.opt -- table options (TODO: wanna know difference with `o`)
 
+w.colorcolumn = '99999'
+w.cursorline = true
+w.foldmethod = "indent"
 w.number = true
 w.relativenumber = true
 w.signcolumn = 'yes:1'
-w.cursorline = true
-w.colorcolumn = '99999'
-w.foldmethod = 'expr'
-w.foldexpr = 'nvim_tressiter#foldexpr()'
 
 o.autoread = true
 o.foldlevelstart = 20
@@ -59,11 +58,11 @@ o.directory = swapdir
 
 -- Table options
 opt.backspace = {"indent", "eol", "start"}
-opt.wildoptions = {"tagfile"}
-opt.wildignore = {"node_modules/*", "**/node_modules/*", ".git/*", "**/.git/*", "**/dist/*", "dist/*"}
-opt.fileencodings = {'utf-8'}
 opt.completeopt = {'menu', 'menuone', 'noselect'}
+opt.fileencodings = {'utf-8'}
 opt.virtualedit = {'block'}
+opt.wildignore = {"node_modules/*", "**/node_modules/*", ".git/*", "**/.git/*", "**/dist/*", "dist/*"}
+opt.wildoptions = {"tagfile"}
 
 opt.shortmess = opt.shortmess + 'Ic'
 
