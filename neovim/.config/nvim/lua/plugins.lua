@@ -102,7 +102,7 @@ return require('packer').startup(function()
                 ensure_installed = {
                     "bash", "c", "c_sharp", "clojure", "cmake", "comment",
                     "cpp", "css", "dart", "dockerfile", "dot", "go", "graphql",
-                    "help", "html", "java", "javascript", "jsdoc", "json",
+                    "html", "java", "javascript", "jsdoc", "json",
                     "json5", "jsonc", "kotlin", "latex", "lua", "make",
                     "markdown", "php", "python", "r", "regex", "rst", "rust",
                     "scss", "svelte", "todotxt", "toml", "tsx", "turtle",
@@ -234,6 +234,7 @@ return require('packer').startup(function()
         'rcarriga/nvim-notify',
         opt = true,
         module = 'notify',
+        event = 'UIEnter',
         config = function() vim.notify = require('notify'); end
     }
     use {
@@ -296,10 +297,10 @@ return require('packer').startup(function()
         config = function() require 'lsp':setup() end
     }
     use {
-        'williamboman/nvim-lsp-installer',
+        'williamboman/mason.nvim',
         opt = true,
-        module = 'nvim-lsp-installer',
-        run = function() require 'lsp':install() end
+        module = 'mason',
+        run = ":MasonUpdate"
     }
     use {
         'akinsho/flutter-tools.nvim',

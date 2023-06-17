@@ -82,7 +82,7 @@ M.servers = {
         end
     },
     pyright = {},
-    sumneko_lua = { config = function(config)
+    lua_ls = { config = function(config)
         config.settings = {
             Lua = {
                 runtime = {
@@ -109,16 +109,17 @@ M.servers = {
 }
 
 function M.install(self)
-	local lsp_installer = require 'nvim-lsp-installer'
+	local mason = require 'mason'
+    mason.setup()
 	-- Ensure installed
 
-	for name, _ in pairs(self.servers) do
-		local server_is_found, server = lsp_installer.get_server(name)
-		if (server_is_found and not server:is_installed()) then
-			print("Installing " .. name)
-			server:install()
-		end
-	end
+	-- for name, _ in pairs(self.servers) do
+	-- 	local server_is_found, server = lsp_installer.get_server(name)
+	-- 	if (server_is_found and not server:is_installed()) then
+	-- 		print("Installing " .. name)
+	-- 		server:install()
+	-- 	end
+	-- end
 end
 
 function M.setup(self)
@@ -174,7 +175,7 @@ function M.setup(self)
     local function make_config()
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport = true
-        capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+        capabilities = require('cmp_nvim_lsp').default_capabilities()
         return {
             -- enable snippet support
             capabilities = capabilities,
@@ -193,7 +194,7 @@ function M.setup(self)
         require('flutter-tools').setup({})
     end
 
-    require 'nvim-lsp-installer'.setup({})
+    require 'mason'.setup({})
 
     for name, options in pairs(self.servers) do
         local config = make_config()
