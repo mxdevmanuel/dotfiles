@@ -8,17 +8,19 @@ source ${BASE}/utils.zsh
 pacman -Syu dialog jq archlinux-keyring reflector --noconfirm
 
 function select_timezone(){
-	r=$(timedatectl list-timezones | awk -F'/' '{ print $1, toupper(substr($1,0,2)) }' | uniq)
-	timebase=$( dialog --stdout --title "Areas" --menu "Select area" 0 0 0 $(echo $r | sed ':a;N;$!ba;s/\n/ /g') )
-	if [[ -z "$timebase" ]]
-	then
-		select_timezone
-		return 5
-	fi
-	byarea=$(timedatectl list-timezones | grep "$timebase" | awk -F'/' '{ print $0, toupper(substr($2,0,2)) }' | uniq)
-	timezone=$( dialog --stdout --title "Areas" --menu "Select area" 0 0 0 $(echo $byarea | sed ':a;N;$!ba;s/\n/ /g') )
+	# r=$(timedatectl list-timezones | awk -F'/' '{ print $1, toupper(substr($1,0,2)) }' | uniq)
+	# timebase=$( dialog --stdout --title "Areas" --menu "Select area" 0 0 0 $(echo $r | sed ':a;N;$!ba;s/\n/ /g') )
+	# if [[ -z "$timebase" ]]
+	# then
+	# 	select_timezone
+	# 	return 5
+	# fi
+	# byarea=$(timedatectl list-timezones | grep "$timebase" | awk -F'/' '{ print $0, toupper(substr($2,0,2)) }' | uniq)
+	# timezone=$( dialog --stdout --title "Areas" --menu "Select area" 0 0 0 $(echo $byarea | sed ':a;N;$!ba;s/\n/ /g') )
 
-	ln -s /usr/share/zoneinfo/$timezone /etc/localtime
+
+	echo "ln -s /usr/share/zoneinfo/timezone /etc/localtime"
+	zsh
 }
 
 function configure_network_iface(){
@@ -36,7 +38,7 @@ function configure_network_iface(){
 		return 21
 	fi
 
-	local netfile=/etc/systemd/network/20-wireless.network
+	local netfile=/etc/systemd/network/$1.network
 
 	if [[ -f $netfile ]]
 	then
@@ -50,7 +52,7 @@ function configure_network_iface(){
 	echo "DHCP=yes" >> $netfile
 	echo "" >> $netfile
 	echo "[DHCP]" >> $netfile
-	echo "RouteMetric=20" >> $netfile
+	echo "RouteMetric=$2" >> $netfile
 		
 }
 
@@ -173,10 +175,13 @@ then
 	cp ../system/profile/* /etc/profile.d/
 fi
 
+echo "Configure wired network"
+configure_network_iface "10-wired" 10
+
 vared -p "Wish to configure network interface (special for wireless)? Y/n: " -c ciface
 if [[ "$ciface" != "n" ]]
 then
-	configure_network_iface
+	configure_network_iface "20-wireless" 20
 fi
 
 echo -e "${GREEN}Creating Initramfs${NC}"
@@ -190,7 +195,7 @@ vared -p "Enter username for primary user" -c puser
 useradd -m -G systemd-journal,video,uucp,lp,audio,wheel,optical -s /usr/bin/zsh $puser
 
 echo "Added user to sudo/doas file"
-echo -n "permit persist $puser" > /etc/doas.conf
+echo -n "permit persist $puser\n" > /etc/doas.conf
 
 log_success "Copying dotfiles" "if you are ${BOLD}me${ND} remember to set remote to SSH and install your SSH key ${BOLD}(${ND}do that part even if you are not me${BOLD})${ND}"
 

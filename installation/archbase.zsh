@@ -112,8 +112,8 @@ partnumber=$(echo $partnumber | wc -l)
 
 # Select partitions to install
 
-# Select efi partition
-export bootpart=$( whiptail --title "Block devices" --menu "Select partition for /efi" 0 0 0 $(echo $partstmp | grep -Ev "boot|rpmb|loop" | tac | sed ':a;N;$!ba;s/\n/ /g') 3>&1 1>&2 2>&3 )
+# Select boot partition
+export bootpart=$( whiptail --title "Block devices" --menu "Select partition for /boot" 0 0 0 $(echo $partstmp | grep -Ev "boot|rpmb|loop" | tac | sed ':a;N;$!ba;s/\n/ /g') 3>&1 1>&2 2>&3 )
 
 echo -e "Boot: ${bootpart}"
 
@@ -145,7 +145,7 @@ echo -e "${GREEN}Mounting devices...${NC}"
 #first mount root to create structure inside device
 mount $rootpart /mnt
 
-mkdir -p /mnt/efi
+mkdir -p /mnt/boot
 mkdir -p /mnt/home
 
 mount $bootpart /mnt/boot
