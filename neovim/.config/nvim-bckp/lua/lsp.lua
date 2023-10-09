@@ -34,68 +34,68 @@ M.servers = {
         end
     },
     cssls = {},
-    efm = {
-        config = function(config)
-            local eslint = {
-                lintCommand = 'yarn eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
-                lintIgnoreExitCode = true,
-                lintStdin = true,
-                lintFormats = { "%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m" }
-            }
-            local eslintd = {
-                lintCommand = 'yarn eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}',
-                lintSource = 'eslint_d',
-                lintStdin = true,
-                lintFormats = { '%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m' },
-                lintIgnoreExitCode = true
-                -- formatCommand = 'eslint_d --fix-to-stdout --stdin --stdin-filename ${INPUT}',
-                -- formatStdin = true
-            }
-            local flake8 = {
-                lintCommand = 'flake8 --stdin-display-name ${INPUT} -',
-                lintStdin = true,
-                lintFormats = { '%f:%l:%c: %m' }
+    -- efm = {
+    --     config = function(config)
+    --         local eslint = {
+    --             lintCommand = 'yarn eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
+    --             lintIgnoreExitCode = true,
+    --             lintStdin = true,
+    --             lintFormats = { "%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m" }
+    --         }
+    --         local eslintd = {
+    --             lintCommand = 'yarn eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}',
+    --             lintSource = 'eslint_d',
+    --             lintStdin = true,
+    --             lintFormats = { '%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m' },
+    --             lintIgnoreExitCode = true
+    --             -- formatCommand = 'eslint_d --fix-to-stdout --stdin --stdin-filename ${INPUT}',
+    --             -- formatStdin = true
+    --         }
+    --         local flake8 = {
+    --             lintCommand = 'flake8 --stdin-display-name ${INPUT} -',
+    --             lintStdin = true,
+    --             lintFormats = { '%f:%l:%c: %m' }
 
-            }
-            local yamllint = {
-                lintCommand = 'yamllint -f parsable -',
-                lintStdin = true
-            }
-            local languages = {
-                javascript = { eslintd },
-                typescript = { eslintd },
-                javascriptreact = { eslintd },
-                typescriptreact = { eslintd },
-                python = { flake8 },
-                yaml = { yamllint }
-            }
-            config.filetypes = {
-                "javascript", "javascriptreact", "python", "typescript",
-                "typescriptreact", "yaml"
-            }
-            config.settings = {
-                rootMarkers = { ".eslintrc", ".eslintrc.js" },
-                languages = languages,
-                lintDebounce = '100ms'
-            }
-            return config
-        end
-    },
-    pyright = {},
-    lua_ls = { config = function(config)
-        config.settings = {
-            Lua = {
-                runtime = {
-                    version = 'LuaJIT'
-                },
-                diagnostics = {
-                    globals = { 'vim', 'use', 'packer_plugins' }
-                }
-            }
-        }
-        return config;
-    end },
-    tailwindcss = {},
+    --         }
+    --         local yamllint = {
+    --             lintCommand = 'yamllint -f parsable -',
+    --             lintStdin = true
+    --         }
+    --         local languages = {
+    --             javascript = { eslintd },
+    --             typescript = { eslintd },
+    --             javascriptreact = { eslintd },
+    --             typescriptreact = { eslintd },
+    --             python = { flake8 },
+    --             yaml = { yamllint }
+    --         }
+    --         config.filetypes = {
+    --             "javascript", "javascriptreact", "python", "typescript",
+    --             "typescriptreact", "yaml"
+    --         }
+    --         config.settings = {
+    --             rootMarkers = { ".eslintrc", ".eslintrc.js" },
+    --             languages = languages,
+    --             lintDebounce = '100ms'
+    --         }
+    --         return config
+    --     end
+    -- },
+    -- pyright = {},
+    -- lua_ls = { config = function(config)
+    --     config.settings = {
+    --         Lua = {
+    --             runtime = {
+    --                 version = 'LuaJIT'
+    --             },
+    --             diagnostics = {
+    --                 globals = { 'vim', 'use', 'packer_plugins' }
+    --             }
+    --         }
+    --     }
+    --     return config;
+    -- end },
+    -- tailwindcss = {},
     tsserver = {
         config = function(config)
             config.filetypes = {

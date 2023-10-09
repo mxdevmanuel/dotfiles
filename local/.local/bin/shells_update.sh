@@ -21,6 +21,8 @@ function _update_nvm(){
                 fi
          fi
 
+	echo "https://raw.githubusercontent.com/nvm-sh/nvm/${releasename}/install.sh" 
+
          curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${releasename}/install.sh" | bash
 }
 

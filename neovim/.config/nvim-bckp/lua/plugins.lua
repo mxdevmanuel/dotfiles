@@ -15,9 +15,6 @@ return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- Performance
-    use "nathom/filetype.nvim"
-
     -- File navigation
     use {
         'nvim-telescope/telescope.nvim',
@@ -300,7 +297,18 @@ return require('packer').startup(function()
         'williamboman/mason.nvim',
         opt = true,
         module = 'mason',
-        run = ":MasonUpdate"
+        run = function()
+            pcall(vim.cmd, 'MasonUpdate')
+        end
+    }
+    use {
+          'VonHeikemen/lsp-zero.nvim',
+            opt = true,
+            after = 'mason.nvim',
+            branch = 'v2.x',
+            requires = {
+             {'williamboman/mason-lspconfig.nvim'}
+            }
     }
     use {
         'akinsho/flutter-tools.nvim',

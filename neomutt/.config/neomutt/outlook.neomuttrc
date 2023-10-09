@@ -20,7 +20,7 @@ macro index,pager gd "<change-folder>$postponed<enter>" "go to drafts"
 macro index,pager gt "<change-folder>$trash<enter>" "go to trash"
 
 # synchronization settings ['s' to sync]
-macro index S "<shell-escape>mbsync -V outlook<enter>" "sync email"
+macro index S "<enter-command>unset wait-key<enter><shell-escape>mbsync -q outlook &<enter><enter-command>set wait-key<enter>" "sync email"
 
 setenv EMAIL $from
 

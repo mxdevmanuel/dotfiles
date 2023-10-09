@@ -8,7 +8,7 @@ end
 
 function h.gruvbox()
 
-    local colors = require('gruvbox.palette')
+    local colors = require('gruvbox.palette').colors
 
     vim.api.nvim_command([[ colorscheme gruvbox ]])
 

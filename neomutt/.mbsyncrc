@@ -6,13 +6,13 @@ Expunge Both
 SyncState *
 
 IMAPAccount gmail
-Host imap.gmail.com
-Port 993
-UserCmd "pass gmail/user"
-PassCmd "pass gmail/password"
-SSLType IMAPS
+    Host imap.gmail.com
+    Port 993
+    UserCmd "pass gmail/user"
+    PassCmd "pass gmail/password"
+    SSLType IMAPS
 # The following line should work. If get certificate errors, uncomment the two following lines
-CertificateFile /etc/ssl/certs/ca-certificates.crt
+    CertificateFile /etc/ssl/certs/ca-certificates.crt
 #CertificateFile ~/.cert/imap.gmail.com.pem
 #CertificateFile ~/.cert/Equifax_Secure_CA.pem
  
@@ -89,28 +89,28 @@ Channel outlook
     SyncState *
     Sync Pull All Push All
 
-IMAPAccount office365
-    Host outlook.office365.com
-    Port 993
-    UserCmd "pass office365/user"
-    PassCmd "pass office365/password"
-    SSLType IMAPS
-    AuthMechs LOGIN
-
-IMAPStore office365-remote
-    Account office365
-    UseNamespace yes
-
-MaildirStore office365-local
-    SubFolders Verbatim
-    Inbox ~/.mail/office365/Inbox
-    Path ~/.mail/office365/
-
-Channel office365
-    Far :office365-remote:
-    Near :office365-local:
-    Patterns *
-    Create Both
-    Expunge Both
-    SyncState *
-    Sync Pull All Push All
+# IMAPAccount office365
+#     Host outlook.office365.com
+#     Port 993
+#     UserCmd "pass office365/user"
+#     PassCmd "pass office365/password"
+#     SSLType IMAPS
+#     AuthMechs LOGIN
+#
+# IMAPStore office365-remote
+#     Account office365
+#     UseNamespace yes
+#
+# MaildirStore office365-local
+#     SubFolders Verbatim
+#     Inbox ~/.mail/office365/Inbox
+#     Path ~/.mail/office365/
+#
+# Channel office365
+#     Far :office365-remote:
+#     Near :office365-local:
+#     Patterns *
+#     Create Both
+#     Expunge Both
+#     SyncState *
+#     Sync Pull All Push All
