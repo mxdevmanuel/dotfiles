@@ -1,3 +1,0 @@
-# vim: ft=sh
-UNIPICKER_SELECT_COMMAND="rofi -dmenu"
-UNIPICKER_COPY_COMMAND="xclip -selection clipboard -i"

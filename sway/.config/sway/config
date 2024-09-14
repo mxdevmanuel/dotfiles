@@ -39,6 +39,8 @@ set $ws9 "9:misc"
 set $ws10 "10:etc"
 
 set $WOBSOCK /tmp/wob.sock
+
+
 # }}}
 
 # Autostart {{{
@@ -372,9 +374,14 @@ mode "$mode_back_forth" {
 
 # Bar {{{
 bar {
-	swaybar_command waybar
+        swaybar_command waybar
 }
 #}}}
+
+# Outputs {{{
+output eDP-1 scale 1.5
+
+# }}}
 
 # Inputs {{{
 input type:touchpad {
