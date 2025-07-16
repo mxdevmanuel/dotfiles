@@ -163,7 +163,10 @@ genfstab -U /mnt > /mnt/etc/fstab
 log_success "Copying files to installation's root directory"
 cp -R $(git rev-parse --show-toplevel) /mnt/root
 
-log_success "After chroot do ${BOLD} cd ${ND} to go to root directory and  there run ${BOLD}archroot.zsh${ND} to continue installation."
+log_success "Copying resolv.conf"
+mv /mnt/etc/resolv.conf /mnt/etc/resolv.conf.backup
+
+cp /etc/resolv.conf /mnt/etc/
 
 vared -p "Wish to chroot now: (Y/n)" -c cchroot
 
@@ -173,4 +176,22 @@ then
 	exit 0 
 fi
 
-arch-chroot /mnt
+arch-chroot /mnt /usr/bin/zsh /root/dotfiles/installation/archroot.zsh
+
+log_success "Set root password"
+arch-chroot /mnt passwd
+
+log_success "Set user password"
+arch-chroot /mnt passwd $(cat /mnt/root/user)
+
+vared -p "Wish to reboot now: (Y/n)" -c creboot
+
+if [[ "${creboot}" == "n" ]]
+then
+	log_warning "Exiting" "bye"
+	exit 0 
+else
+	reboot
+fi
+
+

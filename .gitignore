@@ -164,7 +164,7 @@ local/.gnupg
 mimeapps.list
 *.target.wants*
 **/.uuid
-sway/.local/state
-sway/.local/share/nvim
-sway/.local/bin/direnv
-sway/.config/chromium/*
+#sway/.local/state
+#sway/.local/share/nvim
+#sway/.local/bin/direnv
+#sway/.config/chromium/*

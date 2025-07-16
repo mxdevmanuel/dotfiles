@@ -12,11 +12,11 @@ smart_gaps on
 smart_borders on
 
 # Set inner/outer gaps
-gaps inner 0
-gaps outer 0
+gaps inner 5
+gaps outer 5
 
-default_floating_border none
-default_border none
+default_floating_border normal
+default_border normal
 
 
 focus_follows_mouse yes
@@ -27,6 +27,8 @@ floating_modifier $mod
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
+set $term foot
+
 set $ws1 "1:term"
 set $ws2 "2:web"
 set $ws3 "3:editor"
@@ -134,7 +136,7 @@ bindsym $mod+grave exec wofi --show window
 # bindsym $mod+Mod4+F1 exec --no-startup-id notify-send "con alt"
 bindsym $mod+F2 exec wofi --show run
 # bindsym $mod+F5  AVAILABLE
-bindsym $mod+F6 exec kitty ssh $(cat ~/.zsh_history | grep "ssh" | grep -Eo "[a-z0-9]+?\@?([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)" | uniq | wofi --dmenu)
+bindsym $mod+F6 exec $term ssh $(cat ~/.zsh_history | grep "ssh" | grep -Eo "[a-z0-9]+?\@?([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)" | uniq | wofi --dmenu)
 bindsym $mod+F9 sticky toggle
 bindsym $mod+F10 exec $HOME/.local/bin/bluetooth-connect.sh
 
@@ -156,8 +158,8 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split 
 # bindsym $mod+Shift+e AVAILABLE
 bindsym $mod+Shift+r restart 
-bindsym $mod+t exec kitty -e bash
-bindsym $mod+Shift+t exec env NOTMUX=1 kitty
+bindsym $mod+t exec $term -e bash
+bindsym $mod+Shift+t exec env NOTMUX=1 $term
 bindsym $mod+i exec stask.sh add
 bindsym $mod+o exec --no-startup-id makoctl dismiss
 bindsym $mod+Shift+o exec --no-startup-id makoctl dismiss --all
@@ -175,10 +177,10 @@ bindsym $mod+s layout stacking
 bindsym $mod+d exec wofi --show drun 
 bindsym $mod+Shift+d exec stask.sh delete
 bindsym $mod+f fullscreen toggle 
-bindsym $mod+Shift+f workspace $ws5; exec kitty vifm
+bindsym $mod+Shift+f workspace $ws5; exec $term vifm
 bindsym $mod+semicolon exec wmfocus
 bindsym $mod+apostrophe [urgent=latest] focus
-bindsym $mod+Return exec kitty # start a terminal
+bindsym $mod+Return exec $term # start a terminal
 # bindsym $mod+Shift+Return AVAILABLE
 # }}}
 
@@ -190,9 +192,9 @@ bindsym $mod+Shift+c reload
 # bindsym $mod+v exec --no-startup-id $HOME/.dotfiles/wofi/.local/share/scripts/pulseaudio-wofi.sh --output
 bindsym $mod+v exec --no-startup-id pavucontrol
 #bindsym $mod+m  AVAILABLE
-bindsym $mod+n  exec kitty nvim
+bindsym $mod+n  exec $term nvim
 #bindsym $mod+Shift+m AVAILABLE
-bindsym $mod+less exec kitty --class="unicodepicker" unicodepicker.sh
+bindsym $mod+less exec $term --class="unicodepicker" unicodepicker.sh
 bindsym $mod+greater exec emoji.sh
 # bindsym $mod+Shift+greater AVAILABLE
 # bindsym $mod+slash AVAILABLE
@@ -232,8 +234,8 @@ bindsym XF86AudioPrev exec playerctl previous
 # Rules{{{
 
 assign [app_id="^google-chrome"] → $ws2
+assign [app_id="^chromium"] → $ws2
 assign [app_id="^neovide"] → $ws3
-assign [app_id="^chromium"] → $ws4
 assign [app_id="^thunar"] → $ws5
 assign [title="vifm"] → $ws5 
 assign [app_id="^mpv"] → $ws6
@@ -380,6 +382,14 @@ bar {
 
 # Outputs {{{
 output eDP-1 scale 1.5
+
+output DP-3 {
+        pos 1920 0 res 1920x1080
+}
+
+output HDMI-A-2 {
+        pos 0 0 res 1920x1080
+}
 
 # }}}
 

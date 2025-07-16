@@ -1,0 +1,8 @@
+[Unit]
+Description=WLSunset
+
+[Service]
+ExecStart=/usr/bin/wlsunset -l 19.00002 -L -98.12
+
+[Install]
+WantedBy=graphical-session.target
