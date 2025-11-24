@@ -21,13 +21,11 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 source ~/.zcd/zsh-z.plugin.zsh
 
-autoload -Uz compinit _nvm compdef
-
-alias nvm="_nvm"
-
 alias ls="eza"
 
 alias k=kubectl
+
+autoload -Uz compinit
 
 if [[ ! -z $FIRSTRUN ]] && [[ ! -f /tmp/firstrun ]] then
 	neofetch
@@ -44,3 +42,6 @@ source <(kubectl completion zsh)
 compdef _kubectl k
 
 alias gst='git status'
+
+source ~/.zsh-nvm/zsh-nvm-lazy-load.plugin.zsh
+
