@@ -40,11 +40,13 @@ else
 	compinit -C
 fi
 
-export KUBECONFIG=~/.kube/config
+if command -v kubectl &>/dev/null;
+then
+	export KUBECONFIG=~/.kube/config
+	source <(kubectl completion zsh)
+	compdef _kubectl k
+fi
 
-source <(kubectl completion zsh)
-
-compdef _kubectl k
 
 alias gst='git status'
 
