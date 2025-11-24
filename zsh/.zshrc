@@ -1,3 +1,8 @@
+if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
+	tmux attach || tmux new-session
+	exit
+fi
+
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
