@@ -1,7 +1,10 @@
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
+
 setopt appendhistory
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
 
 bindkey -v
 
@@ -24,6 +27,8 @@ alias nvm="_nvm"
 
 alias ls="eza"
 
+alias k=kubectl
+
 if [[ ! -z $FIRSTRUN ]] && [[ ! -f /tmp/firstrun ]] then
 	neofetch
 	compinit
@@ -31,3 +36,11 @@ if [[ ! -z $FIRSTRUN ]] && [[ ! -f /tmp/firstrun ]] then
 else
 	compinit -C
 fi
+
+export KUBECONFIG=~/.kube/config
+
+source <(kubectl completion zsh)
+
+compdef _kubectl k
+
+alias gst='git status'
