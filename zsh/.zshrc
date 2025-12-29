@@ -29,6 +29,7 @@ source ~/.zcd/zsh-z.plugin.zsh
 alias ls="eza"
 
 alias k=kubectl
+alias kseal="kubeseal --controller-name sealed-secrets --controller-namespace kube-system --format yaml"
 
 autoload -Uz compinit
 
@@ -49,6 +50,7 @@ fi
 
 
 alias gst='git status'
+alias diffancy='git diff | diff-so-fancy'
 
 source ~/.zsh-nvm/zsh-nvm-lazy-load.plugin.zsh
 
