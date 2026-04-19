@@ -1,0 +1,101 @@
+/* =============================================================================
+ * Waybar — Monokai
+ * Palette:
+ *   bg        #272822
+ *   fg        #f8f8f2
+ *   selection #49483e
+ *   comment   #75715e
+ *   green     #a6e22e   (focus / ok)
+ *   yellow    #e6db74
+ *   orange    #fd971f   (warning)
+ *   pink      #f92672   (critical / urgent)
+ *   purple    #ae81ff
+ *   cyan      #66d9ef
+ * =========================================================================== */
+
+@keyframes blink-warning {
+  70% { color: #f8f8f2; }
+  to  { color: #f8f8f2; background-color: #fd971f; }
+}
+
+@keyframes blink-critical {
+  70% { color: #f8f8f2; }
+  to  { color: #f8f8f2; background-color: #f92672; }
+}
+
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-family: 'San Francisco Display', 'San Francisco Mono', 'DejaVu Sans', sans-serif;
+}
+
+#waybar {
+  background: #272822;
+  color: #f8f8f2;
+  font-size: 14px;
+}
+
+#battery          { color: #e6db74; animation-timing-function: linear; animation-iteration-count: infinite; animation-direction: alternate; }
+#battery.warning  { color: #fd971f; }
+#battery.critical { color: #f92672; font-weight: bold; }
+#battery.warning.discharging  { animation-name: blink-warning;  animation-duration: 3s; }
+#battery.critical.discharging { animation-name: blink-critical; animation-duration: 2s; }
+
+#clock            { color: #f8f8f2; background-color: #272822; }
+
+#cpu              { color: #66d9ef; }
+#cpu.warning      { color: #fd971f; }
+#cpu.critical     { color: #f92672; }
+
+#memory           { color: #ae81ff; animation-timing-function: linear; animation-iteration-count: infinite; animation-direction: alternate; }
+#memory.warning   { color: #fd971f; }
+#memory.critical  { color: #f92672; animation-name: blink-critical; animation-duration: 2s; }
+
+#submap {
+  background: #49483e;
+  color: #f8f8f2;
+  border-top: 2px solid #a6e22e;
+  padding-bottom: 2px;
+}
+
+#network             { color: #a6e22e; }
+#network.disconnected{ color: #fd971f; }
+
+#temperature           { color: #a6e22e; }
+#temperature.critical  { background-color: #f92672; color: #272822; font-weight: bold; }
+
+#disk { color: #f8f8f2; }
+#tray { background-color: #272822; }
+
+#workspaces button {
+  border-bottom: 2px solid transparent;
+  color: #75715e;
+}
+
+#workspaces button:hover {
+  background-color: #a6e22e;
+  color: #272822;
+}
+
+#workspaces button.active,
+#workspaces button.focused {
+  border-color: #a6e22e;
+  color: #f8f8f2;
+  font-weight: bold;
+}
+
+#workspaces button.active:hover,
+#workspaces button.focused:hover {
+  background-color: #a6e22e;
+  color: #272822;
+}
+
+#workspaces button.urgent {
+  border-color: #f92672;
+  color: #f92672;
+}

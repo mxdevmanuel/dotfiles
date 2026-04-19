@@ -1,0 +1,7 @@
+[terminal]
+vt = 1
+
+[default_session]
+# tuigreet -> Hyprland. --remember keeps last user; --asterisks masks pwd.
+command = "tuigreet --time --remember --asterisks --cmd Hyprland"
+user = "greeter"

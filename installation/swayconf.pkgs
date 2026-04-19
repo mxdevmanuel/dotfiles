@@ -18,12 +18,14 @@ cmus
 ctags
 dialog
 diff-so-fancy
+direnv
 efibootmgr
-exa
+eza
 fakeroot
 firefox
 firejail
 flex
+fzf
 gammastep
 gcc
 gdb

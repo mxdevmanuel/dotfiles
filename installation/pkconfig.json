@@ -6,5 +6,9 @@
   {
     "name": "i3",
     "file": "i3conf.pkgs"
+  },
+  {
+    "name": "Hyprland",
+    "file": "hyprlandconf.pkgs"
   }
 ]

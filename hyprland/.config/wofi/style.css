@@ -1,0 +1,51 @@
+/* Monokai */
+* {
+    font-size: 13px;
+    font-family: 'San Francisco Display', 'Noto Sans', sans-serif;
+}
+
+window {
+    background-color: #272822;
+}
+
+#input {
+    margin-right: 1px;
+    margin-left: 1px;
+    border-radius: 0px;
+    border: none;
+    background-color: #272822;
+    color: #f8f8f2;
+}
+
+#inner-box {
+    background-color: #272822;
+}
+
+#outer-box {
+    margin-right: 1px;
+    margin-left: 1px;
+    background-color: #272822;
+}
+
+#text {
+    padding: 1px;
+    color: #f8f8f2;
+}
+
+#entry {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#entry:nth-child(even) {
+    background-color: #49483e;
+}
+
+#entry:selected {
+    background-color: #a6e22e;
+}
+
+#text:selected {
+    font-weight: bold;
+    color: #272822;
+}

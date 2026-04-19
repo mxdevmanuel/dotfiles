@@ -1,93 +1,50 @@
 #!/usr/bin/env bash
+# Periodic refresh for terminal tooling not managed by pacman.
+# Safe to re-run; updates everything in place.
+# - antidote plugin bundle (rebuilds ~/.zsh_plugins.zsh)
+# - tpm (tmux plugin manager)
+# - nvm (if cloned; zsh-nvm installs it lazily on first use)
 
-# NVM
-function _update_nvm(){
-        local releasedata=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/nvm-sh/nvm/releases/latest)
-        local releasename=$(echo -n $releasedata | jq ".name" )
+set -e
 
-         if [[ -d $HOME/.nvm ]]
-         then
-                [ `alias | grep nvm | wc -l` != 0 ] && unalias nvm
+# Antidote plugins
+ANTIDOTE_HOME=${ANTIDOTE_HOME:-$HOME/.antidote}
+PLUGINS_TXT=$HOME/.zsh_plugins.txt
+PLUGINS_ZSH=$HOME/.zsh_plugins.zsh
 
-                [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-                
-                nvm_version=$(nvm --version)
-                nvm_latest=$(echo $releasename | sed 's/[^0-9.]*//g')
-
-                if [[ "$nvm_version" == "$nvm_latest" ]]
-                then
-                        echo "NVM is up to date"
-                        return 0
-                fi
-         fi
-
-	echo "https://raw.githubusercontent.com/nvm-sh/nvm/${releasename}/install.sh" 
-
-         curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${releasename}/install.sh" | bash
-}
-
-_update_nvm
-
-# Direnv
-function _update_direnv(){
-        local releasedata=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/direnv/direnv/releases/latest)
-        local releasename=$(echo -n $releasedata | jq ".name" )
-
-	local direnvbin=$HOME/.local/bin/direnv
-         if [[ -x $direnvbin ]]
-         then
-                direnv_version=$($direnvbin --version)
-                direnv_latest=$(echo $releasename | sed 's/[^0-9.]*//g')
-
-                if [[ "$direnv_version" == "$direnv_latest" ]]
-                then
-                        echo "Direnv is up to date"
-                        return 0
-                fi
-         fi
-
-	curl -sfL https://direnv.net/install.sh | bash
-}
-
-_update_direnv
-
-# Theme
-powerlevel10k=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-if [[ ! -d $powerlevel10k ]]
-then
-	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $powerlevel10k
+if [[ -d $ANTIDOTE_HOME ]] && [[ -f $PLUGINS_TXT ]]; then
+	echo "==> Updating antidote bundles"
+	zsh -c "source $ANTIDOTE_HOME/antidote.zsh && antidote update && antidote bundle < $PLUGINS_TXT > $PLUGINS_ZSH"
 else
-	pushd $powerlevel10k
-	git pull
+	echo "==> Antidote not installed yet; will bootstrap on next zsh launch"
 fi
 
-# zsh syntax highlight
-syntax=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-if [[ ! -d $syntax ]]
-then
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $syntax
-else
-	pushd $syntax
-	git pull
-fi
 # Tmux plugin manager
-tpm=$HOME/.tmux/plugins/tpm
-if [[ ! -d $tpm ]]
-then
-	git clone https://github.com/tmux-plugins/tpm $tpm
+TPM=$HOME/.tmux/plugins/tpm
+if [[ ! -d $TPM ]]; then
+	echo "==> Installing tpm"
+	git clone https://github.com/tmux-plugins/tpm "$TPM"
 else
-	pushd $tpm
-	git pull
+	echo "==> Updating tpm"
+	git -C "$TPM" pull --ff-only
 fi
 
-# fzf
-fzf=$HOME/.fzf
-if [[ ! -d $fzf ]]
-then
-	git clone --depth 1 https://github.com/junegunn/fzf.git $fzf
+# NVM: installed lazily by zsh-nvm on first `nvm` invocation.
+# If it's already cloned, fast-forward it to the latest tagged release.
+NVM_DIR=${NVM_DIR:-$HOME/.nvm}
+if [[ -d $NVM_DIR/.git ]]; then
+	echo "==> Updating nvm"
+	git -C "$NVM_DIR" fetch --tags --quiet origin
+	latest=$(git -C "$NVM_DIR" tag -l 'v*' --sort=-v:refname | head -1)
+	current=$(git -C "$NVM_DIR" describe --tags --abbrev=0 2>/dev/null || echo "")
+	if [[ -n $latest && "$current" != "$latest" ]]; then
+		echo "    nvm ${current:-unknown} -> $latest"
+		git -C "$NVM_DIR" checkout --quiet "$latest"
+	else
+		echo "    nvm up to date (${current:-unknown})"
+	fi
 else
-	pushd $tpm
-	git pull
-	$fzf/install --no-bash --no-zsh --key-bindings --completion
+	echo "==> nvm not installed; zsh-nvm will install it on first use"
 fi
 
+echo "==> Done"

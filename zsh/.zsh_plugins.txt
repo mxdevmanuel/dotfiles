@@ -1,0 +1,4 @@
+romkatv/powerlevel10k
+zsh-users/zsh-syntax-highlighting
+agkozak/zsh-z
+lukechilds/zsh-nvm

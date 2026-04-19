@@ -106,9 +106,9 @@ then
 
 fi
 # Extract partitions from device
-partstmp=$( fdisk -l $device | grep -E '^\/dev' | awk '{print $1, $5}'  ) 
+partstmp=$( fdisk -l $device | grep -E '^\/dev' | awk '{print $1, $5}'  )
 
-partnumber=$(echo $partnumber | wc -l)
+partnumber=$(echo $partstmp | wc -l)
 
 # Select partitions to install
 
@@ -154,14 +154,15 @@ mount $homepart /mnt/home
 run_reflector
 
 log_success "Pacstrap" "installing base system"
-pacstrap /mnt base linux linux-firmware btrfs-progs zsh
+pacstrap /mnt base linux linux-firmware btrfs-progs zsh curl
 
 log_success "Disks" "Generating fstab"
 
 genfstab -U /mnt > /mnt/etc/fstab
 
 log_success "Copying files to installation's root directory"
-cp -R $(git rev-parse --show-toplevel) /mnt/root
+mkdir -p /mnt/root/dotfiles
+cp -R $(git rev-parse --show-toplevel)/. /mnt/root/dotfiles/
 
 log_success "Copying resolv.conf"
 mv /mnt/etc/resolv.conf /mnt/etc/resolv.conf.backup
@@ -181,8 +182,14 @@ arch-chroot /mnt /usr/bin/zsh /root/dotfiles/installation/archroot.zsh
 log_success "Set root password"
 arch-chroot /mnt passwd
 
-log_success "Set user password"
-arch-chroot /mnt passwd $(cat /mnt/root/user)
+if [[ -s /mnt/root/.installer_user ]]
+then
+	puser=$(cat /mnt/root/.installer_user)
+	log_success "Set user password" "for $puser"
+	arch-chroot /mnt passwd $puser
+else
+	log_warning "No installer user found" "skipping user passwd; run 'passwd <user>' inside the chroot"
+fi
 
 vared -p "Wish to reboot now: (Y/n)" -c creboot
 

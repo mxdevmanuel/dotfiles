@@ -34,3 +34,30 @@ function run_reflector(){
 		log_error "Unable to run reflector, installation may proceed"
 	fi
 }
+
+# Detect timezone via IP geolocation, fall back to a manual prompt.
+# Writes /etc/localtime and runs hwclock --systohc.
+function set_timezone(){
+	local tz=""
+
+	if command -v curl &>/dev/null
+	then
+		tz=$(curl -sf --max-time 5 https://ipapi.co/timezone)
+	fi
+
+	if [[ -z "$tz" ]] || [[ ! -f "/usr/share/zoneinfo/$tz" ]]
+	then
+		log_warning "Timezone" "Auto-detection failed; please enter one manually (e.g. America/New_York)"
+		vared -p "Timezone: " -c tz
+	fi
+
+	if [[ ! -f "/usr/share/zoneinfo/$tz" ]]
+	then
+		log_error "Invalid timezone: $tz"
+		return 11
+	fi
+
+	ln -sf "/usr/share/zoneinfo/$tz" /etc/localtime
+	hwclock --systohc
+	log_success "Timezone" "set to $tz"
+}

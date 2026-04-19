@@ -1,0 +1,15 @@
+# vim: ft=config
+allow_images=true
+hide_scroll=true
+image_size=16
+key_forward=Control_L-n
+key_backward=Control_L-p
+key_expand=greater
+location=bottom
+orientation=horizontal
+term=foot
+lines=1
+width=100%
+content_halign=center
+halign=start
+layer=overlay

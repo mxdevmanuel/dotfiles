@@ -1,0 +1,114 @@
+// Waybar — Hyprland flavour, mirrors sway layout
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 28,
+
+    "modules-left": [
+        "cpu",
+        "memory",
+        "network",
+        "disk#root",
+        "disk#home",
+        "disk#shared"
+    ],
+    "modules-center": [
+        "hyprland/workspaces",
+        "hyprland/submap"
+    ],
+    "modules-right": [
+        "temperature",
+        "battery",
+        "tray",
+        "clock#date",
+        "clock#time"
+    ],
+
+    "battery": {
+        "interval": 10,
+        "states": {"warning": 30, "critical": 15},
+        "format": "  {icon}  {capacity}%",
+        "format-discharging": "{icon}  {capacity}%",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip": true
+    },
+
+    "clock#time": {
+        "interval": 1,
+        "format": "{:%H:%M:%S}",
+        "tooltip": false
+    },
+
+    "clock#date": {
+        "interval": 10,
+        "format": "  {:%e %b %Y}",
+        "tooltip-format": "{:%e %B %Y}"
+    },
+
+    "cpu": {
+        "interval": 5,
+        "format": "  {usage}% ({load})",
+        "states": {"warning": 70, "critical": 90}
+    },
+
+    "disk#root":   {"interval": 60, "format": "  {free}", "path": "/"},
+    "disk#home":   {"interval": 60, "format": "  {free}", "path": "/home"},
+    "disk#shared": {"interval": 60, "format": "  {free}", "path": "/shared"},
+
+    "memory": {
+        "interval": 5,
+        "format": "  {used:0.2f}GB",
+        "states": {"warning": 70, "critical": 90}
+    },
+
+    "network": {
+        "interval": 5,
+        "format-wifi": "  {signalStrength}%",
+        "format-ethernet": "  {ifname}: {ipaddr}/{cidr}",
+        "format-disconnected": "  Disconnected",
+        "tooltip-format": "{ifname}: {ipaddr}"
+    },
+
+    "hyprland/submap": {
+        "format": "<span style=\"italic\"> {}</span>",
+        "tooltip": false
+    },
+
+    "hyprland/workspaces": {
+        "all-outputs": false,
+        "disable-scroll": true,
+        "format": "{icon} {name}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "10": "",
+            "urgent": "",
+            "active": "",
+            "default": ""
+        },
+        "persistent-workspaces": {
+            "*": 10
+        }
+    },
+
+    "temperature": {
+        "critical-threshold": 80,
+        "interval": 5,
+        "format": "{icon}  {temperatureC}°C",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip": true
+    },
+
+    "tray": {
+        "icon-size": 21,
+        "spacing": 10
+    }
+}
+// vim: ft=json5 :

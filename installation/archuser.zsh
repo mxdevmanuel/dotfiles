@@ -20,7 +20,7 @@ function select_stow(){
 	pushd $(git rev-parse --show-toplevel)
 	log_success "Dispersing dotfiles" \
 		"Will disperse basic dotfiles (local,kitty,neovim,tmux,zsh) you can disperse other ones later with 'stow target'"
-	vared -p "Disperse sway or i3 files (default=sway)?: " -c cdesktop
+	vared -p "Disperse desktop: sway, i3, or hyprland (default=sway)?: " -c cdesktop
 
 	if [[ -z "$cdesktop" ]]
 	then
@@ -28,7 +28,15 @@ function select_stow(){
 	fi
 
 	mkdir -p ~/.config/systemd ~/.gnupg ~/.local/bin ~/.local/share
-	stow local kitty neovim tmux zsh $cdesktop
+
+	# Hyprland uses foot (config lives in hyprland/); other desktops use kitty.
+	local term_pkg=kitty
+	if [[ "$cdesktop" == "hyprland" ]]
+	then
+		term_pkg=
+	fi
+
+	stow local neovim tmux zsh $term_pkg $cdesktop
 	popd
 }
 
@@ -38,11 +46,6 @@ then
 	pushd $installation_dir
 fi
 
-log_success "Installing Oh-my-zsh" "This will launch a new zsh shell just  CTRL-D to continue"
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-[[ -f $HOME/.zshrc ]] && rm $HOME/.zshrc
-
 vared -p "Wish to configure git now: (Y/n)" -c cgitconfig
 
 if [[ "${cgitconfig}" != "n" ]]
@@ -50,18 +53,23 @@ then
 	git_config
 fi
 
-log_success "Downloading fonts" \
-	"Installing SF Mono"
+log_success "Downloading fonts" "Initializing submodules (SF Mono, SF Display)"
 git submodule update --init
 
-if [[ ! -d $HOME/.local/bin ]]
-then
-	mkdir -p $HOME/.local/bin
-fi
 log_success "Dotfiles" "dotfiles are about to be dispersed"
 select_stow
 
-log_success "Installing shell tools" "Installing..."
+log_success "Antidote" "Cloning antidote zsh plugin manager"
+ANTIDOTE_HOME=$HOME/.antidote
+if [[ ! -d $ANTIDOTE_HOME ]]
+then
+	git clone --depth=1 https://github.com/mattmc3/antidote.git $ANTIDOTE_HOME
+fi
+
+log_success "Antidote" "Pre-bundling plugins from ~/.zsh_plugins.txt"
+zsh -c "source $ANTIDOTE_HOME/antidote.zsh && antidote bundle < $HOME/.zsh_plugins.txt > $HOME/.zsh_plugins.zsh"
+
+log_success "Installing shell tools" "tmux plugins, etc."
 export PATH=$PATH:$HOME/.local/bin
 gitbase=$(git rev-parse --show-toplevel)
 localbin=${gitbase}/local/.local/bin
@@ -72,10 +80,11 @@ log_success "Nvim" "Installing nvim plugins"
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 log_success "Python" "Creating Envs"
-mkdir $HOME/Envs
+mkdir -p $HOME/Envs
 pushd $HOME/Envs
 python -m venv tests
 source tests/bin/activate
 pip install lolcat
+popd
 
-log_success "Completed" "Now just exit two times and reboot. Remember to get a copy of your SSH key. Everything should be setup"
+log_success "Completed" "Now just exit and reboot. Remember to get a copy of your SSH key. Everything should be setup"
