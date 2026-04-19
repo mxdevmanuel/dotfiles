@@ -61,3 +61,43 @@ function set_timezone(){
 	hwclock --systohc
 	log_success "Timezone" "set to $tz"
 }
+
+# ThinkPad-specific power management: TLP with battery charge thresholds.
+# Opt-in via prompt in archroot.zsh.
+function setup_thinkpad(){
+	local start_thresh=75
+	local stop_thresh=80
+
+	vared -p "Battery start charge threshold (default 75): " -c start_thresh
+	vared -p "Battery stop charge threshold  (default 80): " -c stop_thresh
+
+	log_success "ThinkPad" "installing tlp, tlp-rdw, acpi"
+	pacman -S --noconfirm --needed tlp tlp-rdw acpi
+
+	mkdir -p /etc/tlp.d
+	cat > /etc/tlp.d/00-thinkpad.conf <<EOF
+# Battery charge thresholds (preserve longevity)
+START_CHARGE_THRESH_BAT0=${start_thresh}
+STOP_CHARGE_THRESH_BAT0=${stop_thresh}
+START_CHARGE_THRESH_BAT1=${start_thresh}
+STOP_CHARGE_THRESH_BAT1=${stop_thresh}
+
+# CPU governor
+CPU_SCALING_GOVERNOR_ON_AC=performance
+CPU_SCALING_GOVERNOR_ON_BAT=powersave
+
+# WiFi power save
+WIFI_PWR_ON_AC=off
+WIFI_PWR_ON_BAT=on
+
+# USB autosuspend (1 = on)
+USB_AUTOSUSPEND=1
+EOF
+
+	log_success "TLP" "enabling tlp.service and masking rfkill conflicts"
+	systemctl enable tlp.service
+	systemctl mask systemd-rfkill.service
+	systemctl mask systemd-rfkill.socket
+
+	log_success "ThinkPad" "setup complete; thresholds apply after reboot"
+}

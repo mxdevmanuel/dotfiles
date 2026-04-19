@@ -144,9 +144,15 @@ pacman -Syu $(cat ${BASE}/${pkgfile}) $ucode --noconfirm
 systemctl enable systemd-networkd.service
 systemctl enable systemd-resolved.service
 
-if [[ ! -z "$laptop" ]]
+if [[ "$laptop" == "y" ]]
 then
 	systemctl enable iwd.service
+
+	vared -p "Is this a ThinkPad? (y/N): " -c thinkpad
+	if [[ "$thinkpad" == "y" ]]
+	then
+		setup_thinkpad
+	fi
 fi
 
 
