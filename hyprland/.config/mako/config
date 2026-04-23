@@ -1,15 +1,22 @@
-background-color=#272822
-border-color=#a6e22e
-text-color=#f8f8f2
 font=SF Mono 12
-height=200
+background-color=#1a1a1aee
+text-color=#f8f8f2
+border-color=#33ccffee
 border-size=2
+border-radius=10
+width=320
+height=200
+padding=12
+margin=12
 default-timeout=5000
+anchor=top-right
+layer=overlay
 
 [urgency=low]
-border-color=#75715e
+border-color=#595959aa
+default-timeout=3000
 
 [urgency=high]
-border-color=#f92672
+border-color=#f92672ee
 text-color=#f8f8f2
 default-timeout=0

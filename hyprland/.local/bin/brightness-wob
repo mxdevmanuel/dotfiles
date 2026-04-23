@@ -1,0 +1,6 @@
+#!/bin/bash
+case "$1" in
+    up)   brightnessctl -e4 -n2 set 5%+ ;;
+    down) brightnessctl -e4 -n2 set 5%- ;;
+esac
+echo $(( $(brightnessctl get) * 100 / $(brightnessctl max) )) > /tmp/wob.sock

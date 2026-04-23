@@ -1,51 +1,48 @@
-/* Monokai */
 * {
-    font-size: 13px;
-    font-family: 'San Francisco Display', 'Noto Sans', sans-serif;
+    font-size: 14px;
+    font-family: 'UbuntuSans Nerd Font', 'Noto Sans', sans-serif;
 }
 
 window {
-    background-color: #272822;
+    margin: 0px;
+    padding: 0px;
+    opacity: 0.9;
+    border: 3px solid #70ccdb;
+    background-color: rgba(22, 50, 53, 0.9);
+    border-radius: 10px 10px 10px 10px;
 }
 
 #input {
-    margin-right: 1px;
-    margin-left: 1px;
-    border-radius: 0px;
+    margin: 2px;
     border: none;
-    background-color: #272822;
-    color: #f8f8f2;
+    color: #163235;
+    background-color: #a5ffff;
 }
 
 #inner-box {
-    background-color: #272822;
+    margin: 5px;
+    border: none;
+    background-color: #163235;
 }
 
 #outer-box {
-    margin-right: 1px;
-    margin-left: 1px;
-    background-color: #272822;
+    margin: 5px;
+    border: none;
+    background-color: #163235;
 }
 
 #text {
-    padding: 1px;
-    color: #f8f8f2;
-}
-
-#entry {
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-#entry:nth-child(even) {
-    background-color: #49483e;
+    margin: 5px;
+    border: none;
+    color: #a5ffff;
 }
 
 #entry:selected {
-    background-color: #a6e22e;
+    background-color: #05908d;
+    border-radius: 6px;
 }
 
-#text:selected {
-    font-weight: bold;
-    color: #272822;
+list {
+    background-color: #05908d;
+    border-radius: 6px;
 }

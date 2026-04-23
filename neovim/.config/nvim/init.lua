@@ -1,4 +1,5 @@
 vim.opt.number = true
+vim.opt.termguicolors = true
 vim.opt.relativenumber = true
 vim.opt.mouse = 'a'
 vim.opt.breakindent = true
@@ -24,4 +25,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+vim.pack.add({
+    "https://github.com/catgoose/nvim-colorizer.lua"
+})
+
+require('colorizer').setup()
+
 
