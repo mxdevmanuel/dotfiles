@@ -12,9 +12,10 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
 	export PATH="$HOME/.local/bin:$PATH"
 fi
 
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+# Linux only: macOS manages ssh-agent via launchd and sets SSH_AUTH_SOCK automatically
+[[ "$OSTYPE" == linux* ]] && export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
-HISTFILE=~/.histfile
+HISTFILE="$HOME/.histfile"
 HISTSIZE=10000
 SAVEHIST=10000
 
@@ -35,14 +36,16 @@ export NVM_LAZY_LOAD=true
 source $ANTIDOTE_HOME/antidote.zsh
 antidote load
 
-source <(fzf --zsh)
+_fzf_cache="${XDG_CACHE_HOME:-$HOME/.cache}/fzf_init.zsh"
+[[ ! -f $_fzf_cache ]] && fzf --zsh >| $_fzf_cache
+zsh-defer source $_fzf_cache
 
-command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
+command -v direnv &>/dev/null && zsh-defer -c 'eval "$(direnv hook zsh)"'
 
 zstyle ':completion:*' menu select
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f "$HOME/.p10k.zsh" ]] || source "$HOME/.p10k.zsh"
 
 alias ls="eza"
 
@@ -52,7 +55,7 @@ alias kseal="kubeseal --controller-name sealed-secrets --controller-namespace ku
 autoload -Uz compinit
 
 if [[ ! -z $FIRSTRUN ]] && [[ ! -f /tmp/firstrun ]] then
-	neofetch
+	fastfetch
 	compinit
 	touch /tmp/firstrun
 else
@@ -62,10 +65,10 @@ fi
 source ${ZDOTDIR:-$HOME}/.local/share/zsh/aliases/git
 
 if command -v kubectl &>/dev/null; then
-	export KUBECONFIG=~/.kube/config
+	export KUBECONFIG="$HOME/.kube/config"
 	# Cache kubectl completions — regenerate only when kubectl binary changes
-	_kubectl_completion=~/.cache/kubectl_completion.zsh
-	if [[ ! -f $_kubectl_completion || /usr/bin/kubectl -nt $_kubectl_completion ]]; then
+	_kubectl_completion="${XDG_CACHE_HOME:-$HOME/.cache}/kubectl_completion.zsh"
+	if [[ ! -f $_kubectl_completion || "$(command -v kubectl)" -nt $_kubectl_completion ]]; then
 		kubectl completion zsh >| $_kubectl_completion
 	fi
 	source $_kubectl_completion
@@ -74,14 +77,19 @@ fi
 
 alias diffancy='git diff | diff-so-fancy'
 
-# Google Cloud SDK — PATH only at startup, completions loaded on first gcloud call
-if [ -f '/home/manuel/.google-cloud-sdk/path.zsh.inc' ]; then
-	source '/home/manuel/.google-cloud-sdk/path.zsh.inc'
+# Google Cloud SDK — Linux uses ~/.google-cloud-sdk, macOS uses ~/google-cloud-sdk
+_gcloud_base=""
+[[ -d "$HOME/.google-cloud-sdk" ]] && _gcloud_base="$HOME/.google-cloud-sdk"
+[[ -z "$_gcloud_base" && -d "$HOME/google-cloud-sdk" ]] && _gcloud_base="$HOME/google-cloud-sdk"
+
+if [[ -n "$_gcloud_base" ]]; then
+	[[ -f "$_gcloud_base/path.zsh.inc" ]] && source "$_gcloud_base/path.zsh.inc"
+	if [[ -f "$_gcloud_base/completion.zsh.inc" ]]; then
+		gcloud() {
+			unfunction gcloud
+			source "$_gcloud_base/completion.zsh.inc"
+			gcloud "$@"
+		}
+	fi
 fi
-if [ -f '/home/manuel/.google-cloud-sdk/completion.zsh.inc' ]; then
-	gcloud() {
-		unfunction gcloud
-		source '/home/manuel/.google-cloud-sdk/completion.zsh.inc'
-		gcloud "$@"
-	}
-fi
+unset _gcloud_base

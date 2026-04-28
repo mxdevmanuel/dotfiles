@@ -1,35 +1,23 @@
-vim.opt.number = true
-vim.opt.termguicolors = true
-vim.opt.relativenumber = true
-vim.opt.mouse = 'a'
-vim.opt.breakindent = true
-vim.opt.undofile = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-vim.opt.inccommand = 'split'
-vim.opt.cursorline = true
-vim.opt.scrolloff = 10
-vim.opt.laststatus = 3
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-vim.keymap.set('c', '<C-L>', '<C-R>=expand("%:p:h") . "/"<CR>')
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+vim.g.have_nerd_font = true
 
 vim.pack.add({
-    "https://github.com/catgoose/nvim-colorizer.lua"
+  { src = 'https://github.com/echasnovski/mini.nvim' },
+  { src = 'https://github.com/neovim/nvim-lspconfig' },
+  { src = 'https://github.com/mason-org/mason.nvim' },
+  { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
+  { src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim' },
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
+  { src = 'https://github.com/tanvirtin/monokai.nvim' },
+  { src = 'https://github.com/catgoose/nvim-colorizer.lua' },
+  { src = 'https://github.com/NMAC427/guess-indent.nvim' },
 })
 
-require('colorizer').setup()
-
-
+require('options')
+require('keymaps')
+require('autocmds')
+require('plugins.lsp')
+require('plugins.treesitter')
+require('plugins.mini')
+require('plugins.colorscheme')

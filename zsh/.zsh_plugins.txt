@@ -1,3 +1,4 @@
+romkatv/zsh-defer
 romkatv/powerlevel10k
 zsh-users/zsh-syntax-highlighting
 agkozak/zsh-z
