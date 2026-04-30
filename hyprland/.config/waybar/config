@@ -73,7 +73,7 @@
     },
 
     "hyprland/workspaces": {
-        "all-outputs": false,
+        "all-outputs": true,
         "disable-scroll": true,
         "format": "{icon} {name}",
         "format-icons": {
