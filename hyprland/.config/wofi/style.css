@@ -6,9 +6,8 @@
 window {
     margin: 0px;
     padding: 0px;
-    opacity: 0.9;
-    border: 3px solid #70ccdb;
-    background-color: rgba(22, 50, 53, 0.9);
+    border: 3px solid #3d7a87;
+    background-color: #163235;
     border-radius: 10px 10px 10px 10px;
 }
 
@@ -16,7 +15,7 @@ window {
     margin: 2px;
     border: none;
     color: #163235;
-    background-color: #a5ffff;
+    background-color: #7db8b8;
 }
 
 #inner-box {
@@ -34,15 +33,15 @@ window {
 #text {
     margin: 5px;
     border: none;
-    color: #a5ffff;
+    color: #7db8b8;
 }
 
 #entry:selected {
-    background-color: #05908d;
+    background-color: #1e6360;
     border-radius: 6px;
 }
 
 list {
-    background-color: #05908d;
+    background-color: #1e6360;
     border-radius: 6px;
 }

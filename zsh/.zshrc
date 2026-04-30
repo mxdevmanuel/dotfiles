@@ -8,10 +8,6 @@ if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
 	exit
 fi
 
-if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
-	export PATH="$HOME/.local/bin:$PATH"
-fi
-
 # Linux only: macOS manages ssh-agent via launchd and sets SSH_AUTH_SOCK automatically
 [[ "$OSTYPE" == linux* ]] && export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
@@ -54,8 +50,7 @@ alias kseal="kubeseal --controller-name sealed-secrets --controller-namespace ku
 
 autoload -Uz compinit
 
-if [[ ! -z $FIRSTRUN ]] && [[ ! -f /tmp/firstrun ]] then
-	fastfetch
+if [[ ! -f /tmp/firstrun ]] then
 	compinit
 	touch /tmp/firstrun
 else
@@ -75,6 +70,15 @@ if command -v kubectl &>/dev/null; then
 	compdef _kubectl k
 fi
 
+# Auto-switch node version on directory change, silent and no-op when no .nvmrc
+_auto_nvm_use() {
+	[[ -f .nvmrc ]] || return 0
+	nvm use
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd _auto_nvm_use
+zsh-defer _auto_nvm_use
+
 alias diffancy='git diff | diff-so-fancy'
 
 # Google Cloud SDK — Linux uses ~/.google-cloud-sdk, macOS uses ~/google-cloud-sdk
@@ -84,12 +88,6 @@ _gcloud_base=""
 
 if [[ -n "$_gcloud_base" ]]; then
 	[[ -f "$_gcloud_base/path.zsh.inc" ]] && source "$_gcloud_base/path.zsh.inc"
-	if [[ -f "$_gcloud_base/completion.zsh.inc" ]]; then
-		gcloud() {
-			unfunction gcloud
-			source "$_gcloud_base/completion.zsh.inc"
-			gcloud "$@"
-		}
-	fi
+	[[ -f "$_gcloud_base/completion.zsh.inc" ]] && zsh-defer source "$_gcloud_base/completion.zsh.inc"
 fi
 unset _gcloud_base
