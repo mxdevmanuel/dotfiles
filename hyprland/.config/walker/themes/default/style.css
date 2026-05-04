@@ -1,0 +1,125 @@
+/* walker — matches hyprland/waybar palette
+ * bg #1a1a1a  fg #f8f8f2  cyan #33ccff  green #00ff99
+ * orange #fd971f  red #f92672  outline #595959
+ */
+
+@define-color window_bg_color  #1a1a1a;
+@define-color accent_bg_color  #33ccff;
+@define-color theme_fg_color   #f8f8f2;
+@define-color error_bg_color   #f92672;
+@define-color error_fg_color   #f8f8f2;
+@define-color outline_color    #595959;
+@define-color surface_color    #272822;
+
+* {
+  all: unset;
+  font-family: 'UbuntuSans Nerd Font', 'Symbols Nerd Font Mono';
+  font-size: 13px;
+}
+
+scrollbar { opacity: 0; }
+
+.box-wrapper {
+  background: @window_bg_color;
+  border: 1px solid @outline_color;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  min-width: 560px;
+  max-width: 560px;
+}
+
+.search-container {
+  border-radius: 8px;
+  background: @surface_color;
+  border: 1px solid @outline_color;
+  margin-bottom: 8px;
+}
+
+.input {
+  padding: 8px 12px;
+  color: @theme_fg_color;
+  caret-color: @accent_bg_color;
+  background: transparent;
+}
+
+.input placeholder {
+  opacity: 0.4;
+}
+
+.input:focus,
+.input:active {}
+
+.list {
+  color: @theme_fg_color;
+}
+
+.item-box {
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+child:selected .item-box,
+row:selected .item-box {
+  background: alpha(@accent_bg_color, 0.15);
+}
+
+child:selected .item-box .item-text,
+row:selected .item-box .item-text {
+  color: @accent_bg_color;
+}
+
+.item-subtext {
+  font-size: 11px;
+  opacity: 0.45;
+}
+
+/* calc result row */
+.calc .item-text {
+  font-size: 20px;
+  color: @accent_bg_color;
+}
+
+.calc .item-subtext {
+  opacity: 0.55;
+}
+
+:not(.calc).current {
+  font-style: italic;
+}
+
+.error {
+  padding: 8px 10px;
+  background: @error_bg_color;
+  color: @error_fg_color;
+  border-radius: 6px;
+}
+
+.placeholder {
+  color: @outline_color;
+  padding: 12px;
+}
+
+.keybinds {
+  padding-top: 8px;
+  border-top: 1px solid @outline_color;
+  font-size: 11px;
+  color: @outline_color;
+}
+
+.keybind-label {
+  padding: 1px 4px;
+  border-radius: 4px;
+  border: 1px solid @outline_color;
+}
+
+.keybind-button {
+  opacity: 0.45;
+}
+
+.keybind-button:hover {
+  opacity: 0.7;
+}
+
+.normal-icons  { -gtk-icon-size: 18px; }
+.large-icons   { -gtk-icon-size: 32px; }

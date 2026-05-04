@@ -1,0 +1,65 @@
+force_keyboard_focus = true
+close_when_open = true
+click_to_close = true
+as_window = false
+single_click_activation = true
+selection_wrap = true
+theme = "default"
+hide_quick_activation = true
+hide_action_hints = true
+
+[shell]
+exclusive_zone = -1
+layer = "overlay"
+anchor_top = true
+anchor_bottom = true
+anchor_left = true
+anchor_right = true
+
+[placeholders]
+"default" = { input = "Search apps or calculate…", list = "No results" }
+
+[keybinds]
+close     = ["Escape"]
+next      = ["Down", "Tab"]
+previous  = ["Up", "shift Tab"]
+
+[providers]
+default   = ["desktopapplications", "calc"]
+empty     = ["desktopapplications"]
+max_results = 30
+
+[providers.max_results_provider]
+calc = 1
+
+[[providers.prefixes]]
+prefix   = "="
+provider = "calc"
+
+[[providers.prefixes]]
+prefix   = ">"
+provider = "runner"
+
+[[providers.prefixes]]
+prefix   = ":"
+provider = "clipboard"
+
+[[providers.prefixes]]
+prefix   = "/"
+provider = "files"
+
+[providers.actions]
+desktopapplications = [
+  { action = "start",        default = true, bind = "Return" },
+  { action = "new_instance", label = "new instance", bind = "ctrl Return" },
+]
+
+calc = [
+  { action = "copy",   default = true, bind = "Return" },
+  { action = "delete", bind = "ctrl d", after = "AsyncReload" },
+]
+
+runner = [
+  { action = "run",         default = true, bind = "Return" },
+  { action = "runterminal", label = "in terminal", bind = "shift Return" },
+]
