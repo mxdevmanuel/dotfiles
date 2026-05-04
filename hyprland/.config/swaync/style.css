@@ -1,0 +1,237 @@
+/* swaync — matches hyprland/waybar palette
+ * bg #1a1a1a  fg #f8f8f2  cyan #33ccff  green #00ff99
+ * orange #fd971f  red #f92672  outline #595959
+ */
+
+* {
+  font-family: 'UbuntuSans Nerd Font', 'Symbols Nerd Font Mono';
+  font-size: 13px;
+  transition: none;
+}
+
+notificationwindow,
+blankwindow {
+  background: transparent;
+}
+
+/* ── Notification toasts ── */
+.floating-notifications.background {
+  background: transparent;
+}
+
+.floating-notifications .notification-row {
+  outline: none;
+}
+
+.floating-notifications .notification-row .notification-background {
+  background: transparent;
+  margin: 6px 12px;
+}
+
+.notification-row .notification-background .notification {
+  background: rgba(26, 26, 26, 0.96);
+  border: 2px solid #595959;
+  border-radius: 10px;
+  padding: 0;
+  color: #f8f8f2;
+}
+
+.notification-row .notification-background .notification.low {
+  border-color: #595959;
+}
+
+.notification-row .notification-background .notification.normal {
+  border-color: #33ccff;
+}
+
+.notification-row .notification-background .notification.critical {
+  border-color: #f92672;
+}
+
+/* ── Close button ── */
+.close-button {
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: #595959;
+  min-width: 22px;
+  min-height: 22px;
+  margin-top: 6px;
+  margin-right: 6px;
+  padding: 0;
+}
+
+.close-button:hover {
+  background: rgba(249, 38, 114, 0.25);
+  color: #f92672;
+}
+
+/* ── Notification content ── */
+.notification-default-action {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  color: #f8f8f2;
+}
+
+.notification-default-action:hover {
+  background: rgba(51, 204, 255, 0.08);
+}
+
+.notification-default-action:not(:only-child) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.notification-default-action .notification-content .text-box .summary {
+  font-size: 13px;
+  font-weight: bold;
+  color: #f8f8f2;
+}
+
+.notification-default-action .notification-content .text-box .time {
+  font-size: 11px;
+  color: #595959;
+}
+
+.notification-default-action .notification-content .text-box .body {
+  font-size: 12px;
+  color: #f8f8f2;
+}
+
+.notification-default-action .notification-content .image {
+  border-radius: 6px;
+}
+
+.notification-default-action .notification-content .app-icon {
+  border-radius: 6px;
+}
+
+/* ── Action buttons ── */
+.notification-action > button {
+  background: transparent;
+  border: none;
+  border-top: 1px solid #595959;
+  border-radius: 0;
+  color: #33ccff;
+  padding: 6px;
+  font-size: 12px;
+}
+
+.notification-action > button:first-child {
+  border-bottom-left-radius: 8px;
+}
+
+.notification-action > button:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+.notification-action > button:hover {
+  background: rgba(51, 204, 255, 0.1);
+}
+
+/* ── Notification groups ── */
+.notification-group {
+  margin: 0;
+  padding: 0;
+}
+
+.notification-group.low    { border-color: #595959; }
+.notification-group.normal { border-color: #33ccff; }
+.notification-group.critical { border-color: #f92672; }
+
+/* ── Control center ── */
+.control-center {
+  background: rgba(26, 26, 26, 0.97);
+  border: 1px solid #595959;
+  border-radius: 10px;
+  padding: 0;
+  color: #f8f8f2;
+}
+
+.control-center .control-center-list-placeholder {
+  color: #595959;
+  font-size: 13px;
+}
+
+.control-center .control-center-list {
+  background: transparent;
+}
+
+.control-center .control-center-list .notification {
+  border-radius: 8px;
+}
+
+.control-center .control-center-list .notification .notification-default-action,
+.control-center .control-center-list .notification .notification-action {
+  background: transparent;
+}
+
+.control-center .control-center-list .notification .notification-default-action:hover,
+.control-center .control-center-list .notification .notification-action:hover {
+  background: rgba(51, 204, 255, 0.08);
+}
+
+/* ── Title widget ── */
+.widget-title {
+  padding: 12px 14px 10px 14px;
+  border-bottom: 1px solid #595959;
+  color: #f8f8f2;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.widget-title > label {
+  color: #33ccff;
+}
+
+.widget-title > button {
+  font-size: 12px;
+  font-weight: normal;
+  color: #595959;
+  background: transparent;
+  border: 1px solid #595959;
+  border-radius: 8px;
+  padding: 2px 10px;
+}
+
+.widget-title > button:hover {
+  background: rgba(249, 38, 114, 0.2);
+  color: #f92672;
+  border-color: #f92672;
+}
+
+/* ── DND toggle ── */
+.widget-dnd {
+  padding: 8px 14px;
+  border-bottom: 1px solid #595959;
+  color: #f8f8f2;
+  font-size: 13px;
+}
+
+.widget-dnd > switch {
+  background: transparent;
+  border: 1px solid #595959;
+  border-radius: 14px;
+}
+
+.widget-dnd > switch slider {
+  background: #595959;
+  border-radius: 12px;
+  min-width: 20px;
+  min-height: 20px;
+}
+
+.widget-dnd > switch:checked {
+  background: rgba(253, 151, 31, 0.2);
+  border-color: #fd971f;
+}
+
+.widget-dnd > switch:checked slider {
+  background: #fd971f;
+}
+
+.blank-window {
+  background: transparent;
+}
