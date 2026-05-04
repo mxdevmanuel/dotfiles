@@ -32,6 +32,7 @@ blankwindow {
   background: rgba(26, 26, 26, 0.96);
   border: 2px solid #595959;
   border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
   padding: 0;
   color: #f8f8f2;
 }
@@ -144,8 +145,9 @@ blankwindow {
 /* ── Control center ── */
 .control-center {
   background: rgba(26, 26, 26, 0.97);
-  border: 1px solid #595959;
+  border: 2px solid #595959;
   border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
   padding: 0;
   color: #f8f8f2;
 }

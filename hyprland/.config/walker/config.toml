@@ -21,11 +21,11 @@ anchor_right = true
 
 [keybinds]
 close     = ["Escape"]
-next      = ["Down", "Tab"]
-previous  = ["Up", "shift Tab"]
+next      = ["Down", "Tab", "ctrl n"]
+previous  = ["Up", "shift Tab", "ctrl p"]
 
 [providers]
-default   = ["desktopapplications", "calc"]
+default   = ["desktopapplications", "windows", "calc"]
 empty     = ["desktopapplications"]
 max_results = 30
 

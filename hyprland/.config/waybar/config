@@ -26,9 +26,15 @@
     "battery": {
         "interval": 10,
         "states": {"warning": 30, "critical": 15},
-        "format": "  {icon}  {capacity}%",
+        "format": " {icon}  {capacity}%",
         "format-discharging": "{icon}  {capacity}%",
-        "format-icons": ["", "", "", "", ""],
+        "format-icons": [
+            "󰁹", // Icon: battery-full
+            "󰂀", // Icon: battery-three-quarters
+            "󰁾", // Icon: battery-half
+            "󰁻", // Icon: battery-quarter
+            "󱟩"  // Icon: battery-empty
+        ],
         "tooltip": true
     },
 
@@ -64,7 +70,8 @@
         "format-wifi": "  {signalStrength}%",
         "format-ethernet": "  {ifname}: {ipaddr}/{cidr}",
         "format-disconnected": "  Disconnected",
-        "tooltip-format": "{ifname}: {essid} {ipaddr}"
+        "tooltip-format": "{ifname}: {essid} {ipaddr}",
+        "on-click": "iwmenu --launcher custom --launcher-command 'walker --dmenu'"
     },
 
     "hyprland/submap": {
@@ -100,7 +107,13 @@
         "critical-threshold": 80,
         "interval": 5,
         "format": "{icon}  {temperatureC}°C",
-        "format-icons": ["", "", "", "", ""],
+        "format-icons": [
+              "", // Icon: temperature-empty
+              "", // Icon: temperature-quarter
+              "", // Icon: temperature-half
+              "", // Icon: temperature-three-quarters
+              ""  // Icon: temperature-full
+        ],
         "tooltip": true
     },
 
