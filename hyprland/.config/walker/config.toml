@@ -5,8 +5,8 @@ as_window = false
 single_click_activation = true
 selection_wrap = true
 theme = "default"
-hide_quick_activation = true
-hide_action_hints = true
+hide_quick_activation = false
+hide_action_hints = false
 
 [shell]
 exclusive_zone = -1
@@ -23,11 +23,14 @@ anchor_right = true
 close     = ["Escape"]
 next      = ["Down", "Tab", "ctrl n"]
 previous  = ["Up", "shift Tab", "ctrl p"]
+quick_activate = [
+  "ctrl 1", "ctrl 2", "ctrl 3", "ctrl 4"
+]
 
 [providers]
 default   = ["desktopapplications", "windows", "calc"]
 empty     = ["desktopapplications"]
-max_results = 30
+max_results = 10
 
 [providers.max_results_provider]
 calc = 1
@@ -52,6 +55,10 @@ provider = "files"
 desktopapplications = [
   { action = "start",        default = true, bind = "Return" },
   { action = "new_instance", label = "new instance", bind = "ctrl Return" },
+  { action = "pin", bind = "ctrl t", after = "AsyncReload" },
+  { action = "unpin", bind = "ctrl t", after = "AsyncReload" },
+  { action = "pinup", bind = "ctrl u", after = "AsyncReload" },
+  { action = "pindown", bind = "ctrl d", after = "AsyncReload" },
 ]
 
 calc = [
