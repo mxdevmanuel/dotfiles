@@ -26,14 +26,14 @@
     "battery": {
         "interval": 10,
         "states": {"warning": 30, "critical": 15},
-        "format": " {icon}  {capacity}%",
+        "format": "󱐋 {icon}  {capacity}%",
         "format-discharging": "{icon}  {capacity}%",
         "format-icons": [
-            "󰁹", // Icon: battery-full
-            "󰂀", // Icon: battery-three-quarters
-            "󰁾", // Icon: battery-half
+            "󱟩", // Icon: battery-empty
             "󰁻", // Icon: battery-quarter
-            "󱟩"  // Icon: battery-empty
+            "󰁾", // Icon: battery-half
+            "󰂀", // Icon: battery-three-quarters
+            "󰁹"  // Icon: battery-full
         ],
         "tooltip": true
     },
@@ -108,11 +108,11 @@
         "interval": 5,
         "format": "{icon}  {temperatureC}°C",
         "format-icons": [
-              "", // Icon: temperature-empty
-              "", // Icon: temperature-quarter
-              "", // Icon: temperature-half
+              "", // Icon: temperature-full
               "", // Icon: temperature-three-quarters
-              ""  // Icon: temperature-full
+              "", // Icon: temperature-half
+              "", // Icon: temperature-quarter
+              ""  // Icon: temperature-empty
         ],
         "tooltip": true
     },
