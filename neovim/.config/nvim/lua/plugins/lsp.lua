@@ -17,3 +17,11 @@ vim.lsp.config('lua_ls', {
 })
 
 vim.lsp.enable('lua_ls')
+
+vim.lsp.config('qmlls', {
+  cmd = { '/usr/lib/qt6/bin/qmlls' },
+  cmd_env = { QML_IMPORT_PATH = '/usr/lib/qt6/qml' },
+  filetypes = { 'qml' },
+  root_markers = { '.qmlls.ini', '.git' },
+})
+vim.lsp.enable('qmlls')

@@ -3,8 +3,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
-	tmux attach || tmux new-session
+if (( $+commands[tmux] )) && [[ -z "$TMUX" && -z "$VIM" && "$TERM_PROGRAM" != "vscode" ]]; then
+	tmux new-session -A
 	exit
 fi
 
