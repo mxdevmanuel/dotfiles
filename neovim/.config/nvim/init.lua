@@ -9,7 +9,7 @@ vim.pack.add({
   { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
   { src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim' },
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
-  { src = 'https://github.com/tanvirtin/monokai.nvim' },
+  { src = 'https://github.com/catppuccin/nvim', name = 'catppuccin' },
   { src = 'https://github.com/catgoose/nvim-colorizer.lua' },
   { src = 'https://github.com/NMAC427/guess-indent.nvim' },
 })

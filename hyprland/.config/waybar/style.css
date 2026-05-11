@@ -1,23 +1,20 @@
 /* =============================================================================
- * Waybar — Hyprland
- * Palette mirrors hyprland.conf:
- *   bg        #1a1a1a    (shadow color)
- *   fg        #f8f8f2
- *   cyan      #33ccff    (active border start)
- *   green     #00ff99    (active border end)
- *   inactive  #595959    (inactive border)
- *   orange    #fd971f    (warning)
- *   red       #f92672    (critical)
+ * Waybar — Catppuccin Mocha
+ *   base      #1e1e2e    crust     #11111b
+ *   text      #cdd6f4    overlay0  #6c7086
+ *   mauve     #cba6f7    blue      #89b4fa
+ *   green     #a6e3a1    peach     #fab387
+ *   red       #f38ba8
  * =========================================================================== */
 
 @keyframes blink-warning {
-  70% { color: #f8f8f2; }
-  to  { color: #1a1a1a; background-color: #fd971f; }
+  70% { color: #cdd6f4; }
+  to  { color: #11111b; background-color: #fab387; }
 }
 
 @keyframes blink-critical {
-  70% { color: #f8f8f2; }
-  to  { color: #1a1a1a; background-color: #f92672; }
+  70% { color: #cdd6f4; }
+  to  { color: #11111b; background-color: #f38ba8; }
 }
 
 * {
@@ -35,9 +32,9 @@ window#waybar {
 }
 
 #waybar {
-  background: rgba(26, 26, 26, 0.92);
-  color: #f8f8f2;
-  border-top: 2px solid #33ccff;
+  background: rgba(30, 30, 46, 0.92);
+  color: #cdd6f4;
+  border-top: 2px solid #cba6f7;
 }
 
 /* ── modules base ── */
@@ -45,72 +42,89 @@ window#waybar {
 .modules-center > widget > *,
 .modules-right > widget > * {
   padding: 0 10px;
-  color: #f8f8f2;
+  color: #cdd6f4;
 }
 
 /* ── workspaces ── */
 #workspaces button {
   padding: 0 6px;
   border-radius: 8px;
-  color: #595959;
+  color: #6c7086;
   background: transparent;
   transition: all 0.2s ease;
 }
 
 #workspaces button:hover {
-  background: rgba(51, 204, 255, 0.15);
-  color: #33ccff;
+  background: rgba(203, 166, 247, 0.15);
+  color: #cba6f7;
 }
 
 #workspaces button.active,
 #workspaces button.focused {
-  background: rgba(51, 204, 255, 0.2);
-  color: #33ccff;
-  border-bottom: 2px solid #33ccff;
+  background: rgba(203, 166, 247, 0.2);
+  color: #cba6f7;
+  border-bottom: 2px solid #cba6f7;
 }
 
 #workspaces button.urgent {
-  background: rgba(249, 38, 114, 0.2);
-  color: #f92672;
-  border-bottom: 2px solid #f92672;
+  background: rgba(243, 139, 168, 0.2);
+  color: #f38ba8;
+  border-bottom: 2px solid #f38ba8;
 }
 
 /* ── left modules ── */
-#cpu              { color: #33ccff; }
-#cpu.warning      { color: #fd971f; }
-#cpu.critical     { color: #f92672; animation-name: blink-critical; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite; animation-direction: alternate; }
+#cpu              { color: #89b4fa; }
+#cpu.warning      { color: #fab387; }
+#cpu.critical     { color: #f38ba8; animation-name: blink-critical; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite; animation-direction: alternate; }
 
-#memory           { color: #00ff99; }
-#memory.warning   { color: #fd971f; }
-#memory.critical  { color: #f92672; animation-name: blink-critical; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite; animation-direction: alternate; }
+#memory           { color: #a6e3a1; }
+#memory.warning   { color: #fab387; }
+#memory.critical  { color: #f38ba8; animation-name: blink-critical; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite; animation-direction: alternate; }
 
-#network              { color: #33ccff; }
-#network.disconnected { color: #595959; }
+#network              { color: #89b4fa; }
+#network.disconnected { color: #6c7086; }
 
-#disk { color: #f8f8f2; }
+#disk { color: #cdd6f4; }
 
 /* ── right modules ── */
-#temperature          { color: #00ff99; }
-#temperature.critical { color: #f92672; font-weight: bold; }
+#temperature          { color: #a6e3a1; }
+#temperature.critical { color: #f38ba8; font-weight: bold; }
 
-#battery              { color: #00ff99; }
-#battery.warning      { color: #fd971f; }
-#battery.critical     { color: #f92672; font-weight: bold; }
+#battery              { color: #a6e3a1; }
+#battery.warning      { color: #fab387; }
+#battery.critical     { color: #f38ba8; font-weight: bold; }
 #battery.warning.discharging  { animation-name: blink-warning;  animation-duration: 3s; animation-timing-function: linear; animation-iteration-count: infinite; animation-direction: alternate; }
 #battery.critical.discharging { animation-name: blink-critical; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite; animation-direction: alternate; }
-#battery.charging     { color: #33ccff; }
-#battery.full         { color: #00ff99; }
+#battery.charging     { color: #89b4fa; }
+#battery.full         { color: #a6e3a1; }
 
-#clock { color: #f8f8f2; }
+#clock { color: #cdd6f4; }
 
 #tray { padding: 0 6px; }
 #tray > .passive         { -gtk-icon-effect: dim; }
-#tray > .needs-attention { -gtk-icon-effect: highlight; background-color: rgba(249, 38, 114, 0.3); border-radius: 8px; }
+#tray > .needs-attention { -gtk-icon-effect: highlight; background-color: rgba(243, 139, 168, 0.3); border-radius: 8px; }
 
 #submap {
-  background: rgba(51, 204, 255, 0.15);
-  color: #33ccff;
+  background: rgba(203, 166, 247, 0.15);
+  color: #cba6f7;
   border-radius: 8px;
   padding: 0 10px;
   font-style: italic;
+}
+
+/* ── notifications ── */
+#custom-notifications {
+  color: #cba6f7;
+  padding: 0 12px;
+}
+
+/* ── idle inhibitor ── */
+#idle_inhibitor {
+  color: #6c7086;
+}
+
+#idle_inhibitor.activated {
+  background: rgba(250, 179, 135, 0.18);
+  color: #fab387;
+  border-radius: 8px;
 }

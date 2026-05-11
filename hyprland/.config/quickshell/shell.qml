@@ -1,6 +1,7 @@
 import Quickshell // for PanelWindow
 import Quickshell.Io // I/O
 import QtQuick // for Text
+import QtQuick.Controls
 
 
 Variants {
@@ -20,34 +21,10 @@ Variants {
 
       implicitHeight: 30
 
-      Text {
-        id: clock
-        // center the bar in its parent component (the window)
-        anchors.centerIn: parent
-
-        Process {
-
-          id: dateProc
-
-          command: ['date']
-
-          running: true
-
-          stdout: StdioCollector {
-            onStreamFinished: clock.text = this.text
-          }
-        }
+      Calendar {
+        selectedDate: new Date()
       }
-
-      Timer {
-        interval: 1000
-
-        running: true
-
-        repeat: true
-
-        onTriggered: dateProc.running = true
-      }
+      
     }
   }
 }

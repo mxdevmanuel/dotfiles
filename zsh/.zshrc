@@ -79,6 +79,8 @@ autoload -Uz add-zsh-hook
 add-zsh-hook chpwd _auto_nvm_use
 zsh-defer _auto_nvm_use
 
+source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/catppuccin-mocha.zsh"
+
 alias diffancy='git diff | diff-so-fancy'
 
 # Google Cloud SDK — Linux uses ~/.google-cloud-sdk, macOS uses ~/google-cloud-sdk

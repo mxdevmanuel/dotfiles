@@ -18,9 +18,11 @@
     "modules-right": [
         "temperature",
         "battery",
+        "idle_inhibitor",
         "tray",
         "clock#date",
-        "clock#time"
+        "clock#time",
+        "custom/notifications"
     ],
 
     "battery": {
@@ -36,6 +38,14 @@
             "󰁹"  // Icon: battery-full
         ],
         "tooltip": true
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰅶 on",
+            "deactivated": "󰾪 off"
+        }
     },
 
     "clock#time": {
@@ -117,6 +127,12 @@
     "tray": {
         "icon-size": 21,
         "spacing": 10
+    },
+
+    "custom/notifications": {
+        "format": "󰂚",
+        "on-click": "swaync-client -t",
+        "tooltip": false
     }
 }
 // vim: ft=json5 :

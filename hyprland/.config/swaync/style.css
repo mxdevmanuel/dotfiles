@@ -1,6 +1,6 @@
-/* swaync — matches hyprland/waybar palette
- * bg #1a1a1a  fg #f8f8f2  cyan #33ccff  green #00ff99
- * orange #fd971f  red #f92672  outline #595959
+/* swaync — Catppuccin Mocha
+ * base #1e1e2e  text #cdd6f4  mauve #cba6f7  green #a6e3a1
+ * peach #fab387  red #f38ba8  overlay0 #6c7086
  */
 
 * {
@@ -29,24 +29,24 @@ blankwindow {
 }
 
 .notification-row .notification-background .notification {
-  background: rgba(26, 26, 26, 0.96);
-  border: 2px solid #595959;
+  background: rgba(30, 30, 46, 0.96);
+  border: 2px solid #6c7086;
   border-radius: 10px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
   padding: 0;
-  color: #f8f8f2;
+  color: #cdd6f4;
 }
 
 .notification-row .notification-background .notification.low {
-  border-color: #595959;
+  border-color: #6c7086;
 }
 
 .notification-row .notification-background .notification.normal {
-  border-color: #33ccff;
+  border-color: #cba6f7;
 }
 
 .notification-row .notification-background .notification.critical {
-  border-color: #f92672;
+  border-color: #f38ba8;
 }
 
 /* ── Close button ── */
@@ -54,7 +54,7 @@ blankwindow {
   background: transparent;
   border: none;
   border-radius: 50%;
-  color: #595959;
+  color: #6c7086;
   min-width: 22px;
   min-height: 22px;
   margin-top: 6px;
@@ -63,8 +63,8 @@ blankwindow {
 }
 
 .close-button:hover {
-  background: rgba(249, 38, 114, 0.25);
-  color: #f92672;
+  background: rgba(243, 139, 168, 0.25);
+  color: #f38ba8;
 }
 
 /* ── Notification content ── */
@@ -73,11 +73,11 @@ blankwindow {
   border: none;
   border-radius: 10px;
   padding: 10px;
-  color: #f8f8f2;
+  color: #cdd6f4;
 }
 
 .notification-default-action:hover {
-  background: rgba(51, 204, 255, 0.08);
+  background: rgba(203, 166, 247, 0.08);
 }
 
 .notification-default-action:not(:only-child) {
@@ -88,17 +88,17 @@ blankwindow {
 .notification-default-action .notification-content .text-box .summary {
   font-size: 13px;
   font-weight: bold;
-  color: #f8f8f2;
+  color: #cdd6f4;
 }
 
 .notification-default-action .notification-content .text-box .time {
   font-size: 11px;
-  color: #595959;
+  color: #6c7086;
 }
 
 .notification-default-action .notification-content .text-box .body {
   font-size: 12px;
-  color: #f8f8f2;
+  color: #cdd6f4;
 }
 
 .notification-default-action .notification-content .image {
@@ -113,9 +113,9 @@ blankwindow {
 .notification-action > button {
   background: transparent;
   border: none;
-  border-top: 1px solid #595959;
+  border-top: 1px solid #6c7086;
   border-radius: 0;
-  color: #33ccff;
+  color: #cba6f7;
   padding: 6px;
   font-size: 12px;
 }
@@ -129,7 +129,7 @@ blankwindow {
 }
 
 .notification-action > button:hover {
-  background: rgba(51, 204, 255, 0.1);
+  background: rgba(203, 166, 247, 0.1);
 }
 
 /* ── Notification groups ── */
@@ -138,22 +138,22 @@ blankwindow {
   padding: 0;
 }
 
-.notification-group.low    { border-color: #595959; }
-.notification-group.normal { border-color: #33ccff; }
-.notification-group.critical { border-color: #f92672; }
+.notification-group.low      { border-color: #6c7086; }
+.notification-group.normal   { border-color: #cba6f7; }
+.notification-group.critical { border-color: #f38ba8; }
 
 /* ── Control center ── */
 .control-center {
-  background: rgba(26, 26, 26, 0.97);
-  border: 2px solid #595959;
+  background: rgba(30, 30, 46, 0.97);
+  border: 2px solid #6c7086;
   border-radius: 10px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
   padding: 0;
-  color: #f8f8f2;
+  color: #cdd6f4;
 }
 
 .control-center .control-center-list-placeholder {
-  color: #595959;
+  color: #6c7086;
   font-size: 13px;
 }
 
@@ -172,66 +172,66 @@ blankwindow {
 
 .control-center .control-center-list .notification .notification-default-action:hover,
 .control-center .control-center-list .notification .notification-action:hover {
-  background: rgba(51, 204, 255, 0.08);
+  background: rgba(203, 166, 247, 0.08);
 }
 
 /* ── Title widget ── */
 .widget-title {
   padding: 12px 14px 10px 14px;
-  border-bottom: 1px solid #595959;
-  color: #f8f8f2;
+  border-bottom: 1px solid #6c7086;
+  color: #cdd6f4;
   font-size: 14px;
   font-weight: bold;
 }
 
 .widget-title > label {
-  color: #33ccff;
+  color: #cba6f7;
 }
 
 .widget-title > button {
   font-size: 12px;
   font-weight: normal;
-  color: #595959;
+  color: #6c7086;
   background: transparent;
-  border: 1px solid #595959;
+  border: 1px solid #6c7086;
   border-radius: 8px;
   padding: 2px 10px;
 }
 
 .widget-title > button:hover {
-  background: rgba(249, 38, 114, 0.2);
-  color: #f92672;
-  border-color: #f92672;
+  background: rgba(243, 139, 168, 0.2);
+  color: #f38ba8;
+  border-color: #f38ba8;
 }
 
 /* ── DND toggle ── */
 .widget-dnd {
   padding: 8px 14px;
-  border-bottom: 1px solid #595959;
-  color: #f8f8f2;
+  border-bottom: 1px solid #6c7086;
+  color: #cdd6f4;
   font-size: 13px;
 }
 
 .widget-dnd > switch {
   background: transparent;
-  border: 1px solid #595959;
+  border: 1px solid #6c7086;
   border-radius: 14px;
 }
 
 .widget-dnd > switch slider {
-  background: #595959;
+  background: #6c7086;
   border-radius: 12px;
   min-width: 20px;
   min-height: 20px;
 }
 
 .widget-dnd > switch:checked {
-  background: rgba(253, 151, 31, 0.2);
-  border-color: #fd971f;
+  background: rgba(250, 179, 135, 0.2);
+  border-color: #fab387;
 }
 
 .widget-dnd > switch:checked slider {
-  background: #fd971f;
+  background: #fab387;
 }
 
 .blank-window {
