@@ -5,6 +5,7 @@
     "height": 28,
 
     "modules-left": [
+        "custom/launcher",
         "cpu",
         "memory",
         "network",
@@ -24,6 +25,12 @@
         "clock#time",
         "custom/notifications"
     ],
+
+    "custom/launcher": {
+        "format": "󰣇",
+        "on-click": "walker",
+        "tooltip": false
+    },
 
     "battery": {
         "interval": 10,

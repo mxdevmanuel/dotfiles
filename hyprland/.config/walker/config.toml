@@ -51,6 +51,10 @@ provider = "clipboard"
 prefix   = "/"
 provider = "files"
 
+[[providers.websearch]]
+prefix   = "?"
+provider = "websearch"
+
 [providers.actions]
 desktopapplications = [
   { action = "start",        default = true, bind = "Return" },
