@@ -7,6 +7,17 @@ import Quickshell.Io
 import Quickshell.Wayland
 
 ShellRoot {
+    // Monitor statically assigned to workspace 10, resolved at startup from Hyprland rules
+    property string ws10Monitor: ""
+
+    Process {
+        running: true
+        command: ["sh", "-c", "hyprctl workspacerules -j | jq -r '.[] | select(.workspaceString == \"10\") | .monitor'"]
+        stdout: SplitParser {
+            onRead: line => { if (line.trim() !== "") ws10Monitor = line.trim(); }
+        }
+    }
+
     Variants {
         model: Quickshell.screens
 
@@ -14,11 +25,17 @@ ShellRoot {
             id: clockWindow
             property var modelData: modelData
             screen: modelData
+            color: "transparent"
+            WlrLayershell.layer: WlrLayer.Bottom
+
+            // Single monitor: always show. Multiple monitors: show only on ws10's monitor.
+            readonly property bool isTarget:
+                Quickshell.screens.length <= 1 || modelData.name === ws10Monitor
+
+            visible: isTarget
 
             // Available height per row: screen height minus top/bottom margins and two row gaps
             readonly property int rowMaxHeight: Math.floor((modelData.height - 32 - 24 - 16) / 3)
-            color: "transparent"
-            WlrLayershell.layer: WlrLayer.Bottom
 
             anchors {
                 top: true
