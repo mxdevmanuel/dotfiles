@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Fetch assigned Jira issues that are In Progress or Selected for Development.
 
-API key from: pass jira/api-token
+Credentials from pass:
+  pass jira/api-token
+  pass jira/email
 Output format:
   JIRA|||KEY-123|||summary|||priority|||status
   JIRA_STATUS|||ok  (or "cached <date>", or "unavailable")
@@ -31,7 +33,6 @@ def log(msg):
         pass
 
 BASE_URL = "https://JIRA_DOMAIN/rest/api/3"
-EMAIL = "JIRA_EMAIL"
 CACHE_FILE = os.path.expanduser("~/.cache/quickshell/jira-issues.json")
 JQL = (
     'assignee = currentUser() '
@@ -100,10 +101,20 @@ def read_cache() -> tuple[list, str] | None:
         return None
 
 
+def load_email() -> str:
+    try:
+        return subprocess.check_output(["pass", "jira/email"], text=True, timeout=5).strip()
+    except Exception as e:
+        log(f"ERROR loading email: {e}")
+        print(f"JIRA_STATUS|||unavailable|||{e}", flush=True)
+        sys.exit(0)
+
+
 def main():
     log(f"--- jira_fetch start (pid {os.getpid()}) ---")
     token = load_api_token()
-    credentials = base64.b64encode(f"{EMAIL}:{token}".encode()).decode()
+    email = load_email()
+    credentials = base64.b64encode(f"{email}:{token}".encode()).decode()
     url = f"{BASE_URL}/search/jql"
     log(f"requesting {url}")
     body = json.dumps({"jql": JQL, "fields": ["summary", "priority", "status"], "maxResults": 10}).encode()
