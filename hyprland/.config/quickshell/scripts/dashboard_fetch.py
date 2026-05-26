@@ -56,7 +56,7 @@ def fetch_emails(service) -> None:
         userId="me",
         maxResults=MAX_EMAILS,
         labelIds=["INBOX"],
-        q="is:unread",
+        q="is:unread from:@loomstate.org",
     ).execute()
 
     for msg_ref in result.get("messages", []):
@@ -87,6 +87,8 @@ def fetch_calendar(service) -> None:
     ).execute()
 
     for event in result.get("items", []):
+        if event.get("eventType") == "workingLocation":
+            continue
         start_info = event.get("start", {})
         if "dateTime" in start_info:
             dt = datetime.fromisoformat(start_info["dateTime"])

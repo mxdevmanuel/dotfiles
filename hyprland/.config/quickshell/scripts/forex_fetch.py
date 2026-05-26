@@ -13,7 +13,7 @@ import urllib.request
 import urllib.error
 from datetime import datetime, timedelta
 
-BASE = "https://api.frankfurter.app"
+BASE = "https://api.frankfurter.dev/v1"
 URL = f"{BASE}/latest?from=USD&to=MXN"
 CACHE_FILE = os.path.expanduser("~/.cache/quickshell/forex.json")
 
@@ -23,7 +23,8 @@ def fmt_rate(rate):
 
 
 def fetch_url(url):
-    with urllib.request.urlopen(url, timeout=8) as resp:
+    req = urllib.request.Request(url, headers={"User-Agent": "quickshell-forex/1.0"})
+    with urllib.request.urlopen(req, timeout=8) as resp:
         return json.loads(resp.read())
 
 
@@ -69,6 +70,9 @@ def main():
             emit_change(change_pct)
         print("FOREX_STATUS|||ok|||", flush=True)
 
+    except urllib.error.HTTPError as e:
+        print(f"FOREX|||HTTP {e.code}|||", flush=True)
+        print("FOREX_STATUS|||unavailable|||", flush=True)
     except (urllib.error.URLError, OSError):
         cached = read_cache()
         if cached:
@@ -80,9 +84,6 @@ def main():
         else:
             print("FOREX|||—|||", flush=True)
             print("FOREX_STATUS|||unavailable|||", flush=True)
-    except urllib.error.HTTPError as e:
-        print(f"FOREX|||HTTP {e.code}|||", flush=True)
-        print("FOREX_STATUS|||unavailable|||", flush=True)
 
 
 if __name__ == "__main__":
