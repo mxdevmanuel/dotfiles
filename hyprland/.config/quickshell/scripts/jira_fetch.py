@@ -4,6 +4,7 @@
 Credentials from pass:
   pass jira/api-token
   pass jira/email
+  pass jira/domain
 Output format:
   JIRA|||KEY-123|||summary|||priority|||status
   JIRA_STATUS|||ok  (or "cached <date>", or "unavailable")
@@ -32,7 +33,6 @@ def log(msg):
     except Exception:
         pass
 
-BASE_URL = "https://JIRA_DOMAIN/rest/api/3"
 CACHE_FILE = os.path.expanduser("~/.cache/quickshell/jira-issues.json")
 JQL = (
     'assignee = currentUser() '
@@ -110,12 +110,22 @@ def load_email() -> str:
         sys.exit(0)
 
 
+def load_domain() -> str:
+    try:
+        return subprocess.check_output(["pass", "jira/domain"], text=True, timeout=5).strip()
+    except Exception as e:
+        log(f"ERROR loading domain: {e}")
+        print(f"JIRA_STATUS|||unavailable|||{e}", flush=True)
+        sys.exit(0)
+
+
 def main():
     log(f"--- jira_fetch start (pid {os.getpid()}) ---")
     token = load_api_token()
     email = load_email()
+    domain = load_domain()
     credentials = base64.b64encode(f"{email}:{token}".encode()).decode()
-    url = f"{BASE_URL}/search/jql"
+    url = f"https://{domain}/rest/api/3/search/jql"
     log(f"requesting {url}")
     body = json.dumps({"jql": JQL, "fields": ["summary", "priority", "status"], "maxResults": 10}).encode()
     log(f"jql: {JQL}")
