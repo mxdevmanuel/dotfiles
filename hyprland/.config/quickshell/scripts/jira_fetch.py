@@ -16,6 +16,20 @@ import urllib.request
 import urllib.error
 from datetime import datetime
 
+LOG_FILE = os.path.expanduser("~/.cache/quickshell/jira_fetch.log")
+
+
+def log(msg):
+    ts = datetime.now().strftime("%H:%M:%S")
+    line = f"[{ts}] {msg}"
+    print(line, file=sys.stderr, flush=True)
+    try:
+        os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+        with open(LOG_FILE, "a") as f:
+            f.write(line + "\n")
+    except Exception:
+        pass
+
 BASE_URL = "https://JIRA_DOMAIN/rest/api/3"
 EMAIL = "JIRA_EMAIL"
 CACHE_FILE = os.path.expanduser("~/.cache/quickshell/jira-issues.json")
@@ -27,11 +41,29 @@ JQL = (
 
 
 def load_api_token() -> str:
+    log("loading token via pass...")
     try:
-        return subprocess.check_output(["pass", "jira/api-token"], text=True).strip()
+        token = subprocess.check_output(["pass", "jira/api-token"], text=True, timeout=5).strip()
+        log("token loaded ok")
+        return token
+    except subprocess.TimeoutExpired:
+        log("ERROR: pass timed out after 5s")
+        cached = read_cache()
+        if cached:
+            log("falling back to cache")
+            print_issues(cached[0], cached=True, cached_at=cached[1])
+        else:
+            print("JIRA_STATUS|||unavailable|||pass timed out", flush=True)
+        sys.exit(0)
     except Exception as e:
-        print(f"JIRA|||Error loading token: {e}|||||||", flush=True)
-        sys.exit(1)
+        log(f"ERROR loading token: {e}")
+        cached = read_cache()
+        if cached:
+            log("falling back to cache")
+            print_issues(cached[0], cached=True, cached_at=cached[1])
+        else:
+            print(f"JIRA_STATUS|||unavailable|||{e}", flush=True)
+        sys.exit(0)
 
 
 def safe(value: str) -> str:
@@ -69,32 +101,41 @@ def read_cache() -> tuple[list, str] | None:
 
 
 def main():
+    log(f"--- jira_fetch start (pid {os.getpid()}) ---")
     token = load_api_token()
     credentials = base64.b64encode(f"{EMAIL}:{token}".encode()).decode()
-    req = urllib.request.Request(
-        f"{BASE_URL}/search?jql={urllib.request.quote(JQL)}&fields=summary,priority,status&maxResults=10",
-        headers={
-            "Authorization": f"Basic {credentials}",
-            "Accept": "application/json",
-        },
-    )
+    url = f"{BASE_URL}/search/jql"
+    log(f"requesting {url}")
+    body = json.dumps({"jql": JQL, "fields": ["summary", "priority", "status"], "maxResults": 10}).encode()
+    log(f"jql: {JQL}")
+    req = urllib.request.Request(url, data=body, headers={
+        "Authorization": f"Basic {credentials}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    })
     try:
         with urllib.request.urlopen(req, timeout=8) as resp:
-            data = json.loads(resp.read())
+            raw = resp.read()
+        data = json.loads(raw)
+        log(f"response keys: {list(data.keys())}")
+        log(f"raw (first 500): {raw[:500]}")
         issues = data.get("issues", [])
+        log(f"got {len(issues)} issue(s)")
         write_cache(issues)
         print_issues(issues)
-    except (urllib.error.URLError, OSError):
+    except urllib.error.HTTPError as e:
+        log(f"HTTP error {e.code}: {e.reason}")
+        print(f"JIRA_STATUS|||unavailable|||HTTP {e.code}", flush=True)
+    except (urllib.error.URLError, OSError) as e:
+        log(f"network error: {e}")
         cached = read_cache()
         if cached:
             issues, fetched_at = cached
+            log(f"using cache from {fetched_at}")
             print_issues(issues, cached=True, cached_at=fetched_at)
         else:
-            print("JIRA|||Jira unavailable||||||", flush=True)
+            log("no cache available")
             print("JIRA_STATUS|||unavailable|||", flush=True)
-    except urllib.error.HTTPError as e:
-        print(f"JIRA|||HTTP {e.code}: {e.reason}||||||", flush=True)
-        print("JIRA_STATUS|||unavailable|||", flush=True)
 
 
 if __name__ == "__main__":

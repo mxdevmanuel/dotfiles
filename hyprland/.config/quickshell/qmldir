@@ -1,0 +1,12 @@
+singleton Theme 1.0 Theme.qml
+singleton DataManager 1.0 DataManager.qml
+
+Widget 1.0 Widget.qml
+CalendarWidget 1.0 CalendarWidget.qml
+EmailWidget 1.0 EmailWidget.qml
+TodayCalWidget 1.0 TodayCalWidget.qml
+TodoWidget 1.0 TodoWidget.qml
+JiraWidget 1.0 JiraWidget.qml
+WorldClocksWidget 1.0 WorldClocksWidget.qml
+ForexWidget 1.0 ForexWidget.qml
+ServerWidget 1.0 ServerWidget.qml
