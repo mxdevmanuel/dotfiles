@@ -6,9 +6,21 @@ Widget {
     title: "INBOX"
     property var model
 
-    content: Repeater {
-        model: root.model
-        delegate: Column {
+    content: Column {
+        width: parent.width
+
+        Text {
+            visible: root.model.count === 0
+            text: "no unread mail"
+            color: Theme.subtext
+            font.family: Theme.monoFont
+            font.pixelSize: 11
+            font.italic: true
+        }
+
+        Repeater {
+            model: root.model
+            delegate: Column {
             width: parent.width
             spacing: 2
             topPadding: index === 0 ? 0 : 10
@@ -37,6 +49,18 @@ Widget {
                 font.pixelSize: 11
                 elide: Text.ElideRight
             }
+
+            Text {
+                width: parent.width
+                visible: model.summary !== ""
+                text: "  " + model.summary
+                color: Theme.subtext
+                font.family: Theme.monoFont
+                font.pixelSize: 11
+                font.italic: true
+                wrapMode: Text.WordWrap
+            }
+        }
         }
     }
 }

@@ -30,6 +30,7 @@ Item {
     readonly property ListModel serverModel: ListModel {}
 
     // Status properties
+    property string emailStatus: ""
     property string todoStatus: ""
     property string jiraStatus: ""
     property string forexStatus: ""
@@ -43,18 +44,25 @@ Item {
         property alias command: proc.command
         property alias running: proc.running
         property var onLineRead: (line) => {}
-        property var onRefresh: () => {}
+        property var onDone: () => {}
         property int refreshInterval: 300000
         property ListModel modelToClear: null
+        property var lineBuffer: []
 
         Process {
             id: proc
             running: true
             stdout: SplitParser {
-                onRead: (line) => fetchRoot.onLineRead(line)
+                onRead: (line) => fetchRoot.lineBuffer.push(line)
             }
             onRunningChanged: {
-                if (!running) refreshTimer.start();
+                if (!running) {
+                    if (fetchRoot.modelToClear) fetchRoot.modelToClear.clear();
+                    fetchRoot.onDone();
+                    for (let line of fetchRoot.lineBuffer) fetchRoot.onLineRead(line);
+                    fetchRoot.lineBuffer = [];
+                    refreshTimer.start();
+                }
             }
         }
 
@@ -62,25 +70,32 @@ Item {
             id: refreshTimer
             interval: fetchRoot.refreshInterval
             onTriggered: {
-                if (fetchRoot.modelToClear) fetchRoot.modelToClear.clear();
-                fetchRoot.onRefresh();
+                fetchRoot.lineBuffer = [];
                 proc.running = true;
             }
         }
     }
 
     FetchProcess {
-        id: dashboardProc
-        command: getCommand("dashboard_fetch")
-        onRefresh: () => {
-            emailModel.clear();
-            calModel.clear();
-        }
+        id: emailProc
+        command: getCommand("email_fetch")
+        modelToClear: emailModel
         onLineRead: (line) => {
             const parts = line.split("|||");
-            if (parts[0] === "EMAIL" && parts.length === 3)
-                emailModel.append({ "subject": parts[1], "sender": parts[2] });
-            else if (parts[0] === "CAL" && parts.length === 4)
+            if (parts[0] === "EMAIL" && parts.length === 4)
+                emailModel.append({ "subject": parts[1], "sender": parts[2], "summary": parts[3] });
+            else if (parts[0] === "EMAIL_STATUS")
+                emailStatus = parts[1] === "unavailable" ? "unavailable" : "";
+        }
+    }
+
+    FetchProcess {
+        id: calProc
+        command: getCommand("calendar_fetch")
+        modelToClear: calModel
+        onLineRead: (line) => {
+            const parts = line.split("|||");
+            if (parts[0] === "CAL" && parts.length === 4)
                 calModel.append({ "time": parts[1], "title": parts[2], "location": parts[3] });
         }
     }

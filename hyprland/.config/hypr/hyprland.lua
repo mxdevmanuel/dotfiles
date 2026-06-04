@@ -53,7 +53,6 @@ end)
 
 hl.env("XCURSOR_SIZE",        "24")
 hl.env("HYPRCURSOR_SIZE",     "24")
-hl.env("PATH",                "$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin")
 hl.env("QT_QPA_PLATFORMTHEME","qt6ct")
 
 -----------------------
@@ -164,7 +163,7 @@ local mainMod = "SUPER"
 hl.bind(mainMod .. " + Return",    hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + Backspace", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + C",         hl.dsp.window.close())
-hl.bind(mainMod .. " + M",         hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"))
+hl.bind(mainMod .. " + M",         hl.dsp.exec_cmd("hyprshutdown"))
 hl.bind(mainMod .. " + E",         hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + U",         hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R",         hl.dsp.exec_cmd(menu))
@@ -208,7 +207,7 @@ hl.bind(mainMod .. " + mouse:273",  hl.dsp.window.resize(), { mouse = true })
 hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd("swayosd-client --output-volume raise --max-volume 100"), { locked = true, repeating = true })
 hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd("swayosd-client --output-volume lower"),                  { locked = true, repeating = true })
 hl.bind("XF86AudioMute",         hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"),            { locked = true, repeating = true })
-hl.bind("XF86AudioMicMute",      hl.dsp.exec_cmd("swayosd-client --input-volume mute-toggle"),             { locked = true, repeating = true })
+hl.bind("XF86AudioMicMute",      hl.dsp.exec_cmd("~/.local/bin/mic-mute.sh"),                              { locked = true })
 hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("swayosd-client --brightness raise"),                     { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness lower"),                     { locked = true, repeating = true })
 

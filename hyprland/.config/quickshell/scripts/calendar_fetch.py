@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Fetch Gmail inbox and today's Google Calendar events. Authenticates once.
+"""Fetch today's Google Calendar events.
 
-Output format (one line per item, flushed immediately):
-  EMAIL|||subject|||sender
+Credentials:
+  Google OAuth via ~/.config/google-dashboard-token.json (shared with email_fetch)
+
+Output format:
   CAL|||HH:MM|||title|||location
 """
 
 import os
-import sys
 from datetime import datetime, timezone, timedelta
 
 from google.oauth2.credentials import Credentials
@@ -16,12 +17,11 @@ from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 
 CLIENT_SECRETS = os.path.expanduser("~/.config/google-oauth-client.json")
-TOKEN_PATH = os.path.expanduser("~/.config/google-dashboard-token.json")
-SCOPES = [
+TOKEN_PATH     = os.path.expanduser("~/.config/google-dashboard-token.json")
+SCOPES         = [
     "https://www.googleapis.com/auth/gmail.readonly",
     "https://www.googleapis.com/auth/calendar.readonly",
 ]
-MAX_EMAILS = 5
 MAX_EVENTS = 8
 
 
@@ -40,44 +40,19 @@ def get_credentials() -> Credentials:
     return creds
 
 
-def get_header(headers: list[dict], name: str, fallback: str = "") -> str:
-    for h in headers:
-        if h["name"].lower() == name.lower():
-            return h["value"]
-    return fallback
-
-
 def safe(value: str) -> str:
-    return value.replace("|||", " ")
+    return str(value).replace("|||", " ")
 
 
-def fetch_emails(service) -> None:
-    result = service.users().messages().list(
-        userId="me",
-        maxResults=MAX_EMAILS,
-        labelIds=["INBOX"],
-        q="is:unread from:@loomstate.org",
-    ).execute()
+def main():
+    creds    = get_credentials()
+    calendar = build("calendar", "v3", credentials=creds)
 
-    for msg_ref in result.get("messages", []):
-        msg = service.users().messages().get(
-            userId="me",
-            id=msg_ref["id"],
-            format="metadata",
-            metadataHeaders=["Subject", "From"],
-        ).execute()
-        headers = msg["payload"]["headers"]
-        subject = safe(get_header(headers, "subject", "(no subject)"))
-        sender = safe(get_header(headers, "from", "(unknown)"))
-        print(f"EMAIL|||{subject}|||{sender}", flush=True)
-
-
-def fetch_calendar(service) -> None:
-    now = datetime.now(timezone.utc)
+    now   = datetime.now(timezone.utc)
     start = now.replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
-    end = (now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)).isoformat()
+    end   = (now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)).isoformat()
 
-    result = service.events().list(
+    result = calendar.events().list(
         calendarId="primary",
         timeMin=start,
         timeMax=end,
@@ -96,17 +71,9 @@ def fetch_calendar(service) -> None:
         else:
             time_str = "all-day"
 
-        title = safe(event.get("summary", "(no title)"))
+        title    = safe(event.get("summary", "(no title)"))
         location = safe(event.get("location", ""))
         print(f"CAL|||{time_str}|||{title}|||{location}", flush=True)
-
-
-def main():
-    creds = get_credentials()
-    gmail = build("gmail", "v1", credentials=creds)
-    calendar = build("calendar", "v3", credentials=creds)
-    fetch_emails(gmail)
-    fetch_calendar(calendar)
 
 
 if __name__ == "__main__":

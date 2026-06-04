@@ -99,6 +99,7 @@
     "hyprland/workspaces": {
         "all-outputs": false,
         "disable-scroll": true,
+        "move-to-monitor": true,
         "format": "{icon} {name}",
         "format-icons": {
             "1": "",

@@ -6,9 +6,21 @@ Widget {
     title: "TODAY"
     property var model
 
-    content: Repeater {
-        model: root.model
-        delegate: Row {
+    content: Column {
+        width: parent.width
+
+        Text {
+            visible: root.model.count === 0
+            text: "nothing today"
+            color: Theme.subtext
+            font.family: Theme.monoFont
+            font.pixelSize: 11
+            font.italic: true
+        }
+
+        Repeater {
+            model: root.model
+            delegate: Row {
             width: parent.width
             spacing: 8
             topPadding: index === 0 ? 0 : 6
@@ -45,6 +57,7 @@ Widget {
                     height: visible ? implicitHeight : 0
                 }
             }
+        }
         }
     }
 }
