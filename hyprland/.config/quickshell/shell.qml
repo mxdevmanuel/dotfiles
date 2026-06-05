@@ -69,6 +69,7 @@ ShellRoot {
 
                     EmailWidget {
                         model: DataManager.emailModel
+                        maxHeight: clockWindow.rowMaxHeight
                     }
 
                     TodayCalWidget {

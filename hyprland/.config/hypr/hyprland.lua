@@ -175,6 +175,7 @@ hl.bind(mainMod .. " + N",         hl.dsp.exec_cmd("swaync-client -t"))
 hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -C"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("~/.local/bin/screenshot.sh"))
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(menu .. " -m clipboard"))
+hl.bind(mainMod .. " + question",  hl.dsp.exec_cmd("~/.local/bin/passwalker.sh"))
 
 -- Focus
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))

@@ -10,7 +10,7 @@ Output format:
 import subprocess
 import threading
 
-HOSTS = ["server-one.lan", "server-two.lan", "pi-one.lan", "pi-two.lan"]
+HOSTS = ["server-one.lan", "server-two.lan", "pi-one.lan", "pi-two.lan", "pi-three.lan"]
 
 lock = threading.Lock()
 

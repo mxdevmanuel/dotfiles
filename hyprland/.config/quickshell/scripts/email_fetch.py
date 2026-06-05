@@ -15,7 +15,6 @@ import sys
 import json
 import base64
 import subprocess
-import re
 
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -109,6 +108,29 @@ def summarize(client: OpenAI, subject: str, thread_text: str) -> str:
     return response.choices[0].message.content.strip()
 
 
+_CALENDAR_LABELS = {
+    "invitation":         "calendar invite",
+    "updated invitation": "updated invite",
+    "canceled":           "canceled invite",
+    "accepted":           "accepted invite",
+    "declined":           "declined invite",
+    "tentative":          "tentative invite",
+}
+
+
+def calendar_label(subject: str) -> str | None:
+    prefix = subject.split(":")[0].strip().lower()
+    return _CALENDAR_LABELS.get(prefix)
+
+
+def has_calendar_part(payload: dict, depth: int = 0) -> bool:
+    if depth > 5:
+        return False
+    if payload.get("mimeType", "") in ("text/calendar", "application/ics"):
+        return True
+    return any(has_calendar_part(p, depth + 1) for p in payload.get("parts", []))
+
+
 def safe(value: str) -> str:
     return str(value).replace("|||", " ")
 
@@ -123,7 +145,7 @@ def main():
     result = gmail.users().threads().list(
         userId="me",
         maxResults=MAX_THREADS,
-        q="is:unread is:important from:@loomstate.org",
+        q="is:unread from:@loomstate.org -from:orlandomedina@loomstate.org",
         fields="threads(id)",
     ).execute()
 
@@ -150,9 +172,6 @@ def main():
         subject = get_header(headers_list, "subject", "(no subject)")
         sender  = get_header(headers_list, "from", "")
 
-        if "orlandomedina@loomstate.org" in sender and re.search(r"VPO-\d+", subject):
-            continue
-
         if tid in cache:
             print(f"EMAIL|||{safe(subject)}|||{safe(sender)}|||{safe(cache[tid]['summary'])}", flush=True)
             continue
@@ -165,14 +184,18 @@ def main():
             fields="messages(payload)",
         ).execute()
 
-        thread_text = "\n\n---\n\n".join(
-            extract_text(m.get("payload", {})) for m in thread_full.get("messages", [])
-        ).strip() or subject
-
-        try:
-            summary = summarize(client, subject, thread_text)
-        except Exception as e:
-            summary = f"(error: {e})"
+        first_payload = (thread_full.get("messages") or [{}])[0].get("payload", {})
+        label = has_calendar_part(first_payload) and calendar_label(subject)
+        if label:
+            summary = label
+        else:
+            thread_text = "\n\n---\n\n".join(
+                extract_text(m.get("payload", {})) for m in thread_full.get("messages", [])
+            ).strip() or subject
+            try:
+                summary = summarize(client, subject, thread_text)
+            except Exception as e:
+                summary = f"(error: {e})"
 
         cache[tid] = {"summary": summary}
         updated = True

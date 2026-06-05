@@ -119,12 +119,30 @@ def load_domain() -> str:
         sys.exit(0)
 
 
+def verify_auth(domain: str, credentials: str) -> None:
+    req = urllib.request.Request(
+        f"https://{domain}/rest/api/3/myself",
+        headers={"Authorization": f"Basic {credentials}", "Accept": "application/json"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            me = json.loads(resp.read())
+        log(f"auth ok — {me.get('displayName')} ({me.get('emailAddress')})")
+    except urllib.error.HTTPError as e:
+        if e.code == 401:
+            log("ERROR: auth failed (401) — API token is invalid or expired")
+            print("JIRA_STATUS|||unavailable|||auth failed: token invalid or expired", flush=True)
+            sys.exit(0)
+        raise
+
+
 def main():
     log(f"--- jira_fetch start (pid {os.getpid()}) ---")
     token = load_api_token()
     email = load_email()
     domain = load_domain()
     credentials = base64.b64encode(f"{email}:{token}".encode()).decode()
+    verify_auth(domain, credentials)
     url = f"https://{domain}/rest/api/3/search/jql"
     log(f"requesting {url}")
     body = json.dumps({"jql": JQL, "fields": ["summary", "priority", "status"], "maxResults": 10}).encode()
