@@ -10,6 +10,16 @@ ShellRoot {
     // Monitor statically assigned to workspace 10, resolved at startup from Hyprland rules
     property string ws10Monitor: ""
 
+    TududiInput {
+        id: tududiInput
+        screen: Quickshell.screens.find(s => s.name === ws10Monitor) ?? Quickshell.screens[0]
+    }
+
+    IpcHandler {
+        target: "tududi"
+        function prompt(): void { tududiInput.show() }
+    }
+
     Process {
         running: true
         command: ["sh", "-c", "hyprctl workspacerules -j | jq -r '.[] | select(.workspaceString == \"10\") | .monitor'"]

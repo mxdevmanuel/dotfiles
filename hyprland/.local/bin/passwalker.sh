@@ -7,7 +7,6 @@ NAME=$(find "${DIR}/${BASE}" -maxdepth 1 -mindepth 1 ! -name '.*' -printf '%f\n'
 
 SECRET="${BASE}/${NAME}"
 
-pass show "$SECRET" | head -1 | wl-copy
-notify-send -i dialog-password -u low "Password Copied" "${SECRET}" -t 2000
+pass "$SECRET" -c
 
-wl-paste
+notify-send -i dialog-password -u low "Password Copied" "${SECRET}" -t 2000

@@ -34,7 +34,7 @@ local menu        = "walker"
 --------------------
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland && systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland")
+    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland && systemctl --user start hyprland-session.target && systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland")
     hl.exec_cmd("hyprpm reload -n")
     hl.exec_cmd("systemctl --user enable --now hyprpolkitagent.service")
     hl.exec_cmd("waybar")
@@ -164,6 +164,7 @@ hl.bind(mainMod .. " + Return",    hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + Backspace", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + C",         hl.dsp.window.close())
 hl.bind(mainMod .. " + M",         hl.dsp.exec_cmd("hyprshutdown"))
+hl.bind(mainMod .. " + SHIFT + M",         hl.dsp.exec_cmd("hyprshutdown -p 'systemctl reboot'"))
 hl.bind(mainMod .. " + E",         hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + U",         hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R",         hl.dsp.exec_cmd(menu))
@@ -175,7 +176,8 @@ hl.bind(mainMod .. " + N",         hl.dsp.exec_cmd("swaync-client -t"))
 hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -C"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("~/.local/bin/screenshot.sh"))
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(menu .. " -m clipboard"))
-hl.bind(mainMod .. " + question",  hl.dsp.exec_cmd("~/.local/bin/passwalker.sh"))
+hl.bind(mainMod .. " + Y",  hl.dsp.exec_cmd("~/.local/bin/passwalker.sh"))
+hl.bind(mainMod .. " + I",  hl.dsp.exec_cmd("quickshell ipc call tududi prompt"))
 
 -- Focus
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
