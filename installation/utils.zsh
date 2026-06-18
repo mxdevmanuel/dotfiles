@@ -29,7 +29,7 @@ function run_reflector(){
 	log_success "Reflector" "will attempt to get optimal mirrors"
 	reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 
-	if [[ "$!" != "0" ]]
+	if [[ "$?" != "0" ]]
 	then
 		log_error "Unable to run reflector, installation may proceed"
 	fi

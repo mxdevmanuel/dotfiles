@@ -1,0 +1,4 @@
+# Local container runtime (rootless podman, docker shim)
+podman
+podman-compose
+podman-docker

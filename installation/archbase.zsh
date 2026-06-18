@@ -80,7 +80,7 @@ then
 	exit 3
 fi
 
-log_warning "You will be dropped into partition tool to perform custom partitioning. Minimum 3 partitions need to be created root, home and efi"
+log_warning "You will be dropped into partition tool to perform custom partitioning. Minimum 2 partitions need to be created root and efi (a separate /home is optional)"
 
 vared -p "Continue?(Y/n)" -c tmp
 
@@ -124,9 +124,12 @@ export rootpart=$( whiptail --title "Block devices" --menu "Select partition for
 echo -e "Root: ${rootpart}"
 partstmp=$( echo $partstmp | grep -v $rootpart )
 
-export homepart=$( whiptail --title "Block devices" --menu "Select partition for /home" 0 0 0 $(echo $partstmp | grep -Ev "boot|rpmb|loop" | tac | sed ':a;N;$!ba;s/\n/ /g') 3>&1 1>&2 2>&3 )
-
-echo -e "Home: ${homepart}"
+vared -p "Separate /home partition? (Y/n): " -c wishhome
+if [[ "${wishhome}" != "n" ]]
+then
+	export homepart=$( whiptail --title "Block devices" --menu "Select partition for /home" 0 0 0 $(echo $partstmp | grep -Ev "boot|rpmb|loop" | tac | sed ':a;N;$!ba;s/\n/ /g') 3>&1 1>&2 2>&3 )
+	echo -e "Home: ${homepart}"
+fi
 
 askforswap=$(( $partnumber > 3))
 if [[ "$askforswap" != "0" ]]
@@ -137,7 +140,7 @@ fi
 mkfs.fat -F32 $bootpart
 
 dformat "/" $rootpart
-dformat "/home" $homepart
+[[ -n "$homepart" ]] && dformat "/home" $homepart
 
 echo -e "${GREEN}Creating mounting points...${NC}"
 echo -e "${GREEN}Mounting devices...${NC}"
@@ -146,10 +149,13 @@ echo -e "${GREEN}Mounting devices...${NC}"
 mount $rootpart /mnt
 
 mkdir -p /mnt/boot
-mkdir -p /mnt/home
-
 mount $bootpart /mnt/boot
-mount $homepart /mnt/home
+
+if [[ -n "$homepart" ]]
+then
+	mkdir -p /mnt/home
+	mount $homepart /mnt/home
+fi
 
 run_reflector
 

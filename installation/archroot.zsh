@@ -1,4 +1,9 @@
 #!/usr/bin/env zsh
+#
+# Runs inside the chroot (from archbase.zsh). Profile-aware: a "desktop"
+# profile sets up Hyprland (greetd, DHCP, laptop extras); a "server" profile
+# sets up sshd with static networking and a minimal package/group set.
+# The profile is selected from pkconfig.json (each entry has a "type" field).
 
 # sources colors, log_*, run_reflector, set_timezone
 BASE=${0:h}
@@ -7,7 +12,12 @@ source ${BASE}/utils.zsh
 
 pacman -Syu dialog jq archlinux-keyring reflector --noconfirm
 
+# Configure a systemd-networkd interface. mode = dhcp (default) | static.
 function configure_network_iface(){
+	local name=$1
+	local metric=$2
+	local mode=${3:-dhcp}
+
 	local ifaces=$(ip addr show | grep -vi "loopback" | grep -wi "up" | awk '{ match($0, /^[0-9]+:\s(.*):/, arr); if(arr[1] != "") print arr[1] }')
 	local count=$(echo $ifaces | wc -l)
 	local iface
@@ -22,7 +32,7 @@ function configure_network_iface(){
 		return 21
 	fi
 
-	local netfile=/etc/systemd/network/$1.network
+	local netfile=/etc/systemd/network/$name.network
 
 	if [[ -f $netfile ]]
 	then
@@ -33,10 +43,26 @@ function configure_network_iface(){
 	echo "Name=$iface" >> $netfile
 	echo "" >> $netfile
 	echo "[Network]" >> $netfile
-	echo "DHCP=yes" >> $netfile
-	echo "" >> $netfile
-	echo "[DHCP]" >> $netfile
-	echo "RouteMetric=$2" >> $netfile
+
+	if [[ "$mode" == "static" ]]
+	then
+		vared -p "IPv4: " -c ipv4
+		echo "Address=${ipv4}" >> $netfile
+		vared -p "IPv6: " -c ipv6
+		echo "Address=${ipv6}" >> $netfile
+		vared -p "Gateway: " -c gateway
+		echo "Gateway=${gateway}" >> $netfile
+		echo "Gateway=fe80::1" >> $netfile
+		vared -p "IPv4 DNS: " -c ipv4dns
+		echo "DNS=${ipv4dns}" >> $netfile
+		vared -p "IPv6 DNS: " -c ipv6dns
+		echo "DNS=${ipv6dns}" >> $netfile
+	else
+		echo "DHCP=yes" >> $netfile
+		echo "" >> $netfile
+		echo "[DHCP]" >> $netfile
+		echo "RouteMetric=$metric" >> $netfile
+	fi
 }
 
 function install_bootloader(){
@@ -50,7 +76,7 @@ function install_bootloader(){
 				pacman -S --noconfirm grub os-prober
 			fi
 
-			grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
+			grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 
 			vared -p "Wish customize bootloader installation e.g enable os-prober? y/N: " -c custgrub
 			if [[ "$custgrub" == "y" ]]
@@ -80,15 +106,13 @@ function install_bootloader(){
 					echo "initrd /${ucode}.img"
 				fi
 				echo "initrd /initramfs-linux.img"
-				echo "options root=\"$uuid\" rw"
+				echo "options root=$uuid rw"
 			} > /boot/loader/entries/arch.conf
 
 			popd
 		;;
 	esac
 }
-
-vared -p "Is this a laptop?y/N " -c laptop
 
 set_timezone
 
@@ -126,39 +150,65 @@ esac
 
 echo -e "${GREEN}Installing packages${NC}"
 
-echo "Configurations:"
-jq ".[].name" ${BASE}/pkconfig.json | tr -d "\"" |  awk '{print NR,$0}'
-vared -p "Select a configuration: (default=1) " -c cconf
+while true
+do
+	echo "Configurations:"
+	jq ".[].name" ${BASE}/pkconfig.json | tr -d "\"" |  awk '{print NR,$0}'
+	vared -p "Select a configuration: (default=1) " -c cconf
 
-if [[ -z "$cconf" ]]
-then
-	cconf=0
-else
-	cconf=$(( $cconf - 1 ))
-fi
+	if [[ -z "$cconf" ]]
+	then
+		cconf=0
+	else
+		cconf=$(( $cconf - 1 ))
+	fi
 
-pkgfile=$(jq -r ".[${cconf}].file" ${BASE}/pkconfig.json)
+	pkgfile=$(jq -r ".[${cconf}].file // empty" ${BASE}/pkconfig.json)
+	ptype=$(jq -r ".[${cconf}].type // \"desktop\"" ${BASE}/pkconfig.json)
 
-pacman -Syu $(cat ${BASE}/${pkgfile}) $ucode --noconfirm
+	if (( cconf >= 0 )) && [[ -n "$pkgfile" ]] && [[ -f ${BASE}/${pkgfile} ]]
+	then
+		break
+	fi
+
+	log_warning "Invalid selection" "pick a number from the list"
+	unset cconf
+done
+
+log_success "Profile" "selected ${pkgfile} (type: ${ptype})"
+
+pacman -Syu $(grep -vE '^\s*#|^\s*$' ${BASE}/${pkgfile}) $ucode --noconfirm
 
 systemctl enable systemd-networkd.service
 systemctl enable systemd-resolved.service
 
-if [[ "$laptop" == "y" ]]
+if [[ "$ptype" == "server" ]]
 then
-	systemctl enable iwd.service
-
-	vared -p "Is this a ThinkPad? (y/N): " -c thinkpad
-	if [[ "$thinkpad" == "y" ]]
+	systemctl enable sshd.service
+else
+	vared -p "Is this a laptop?y/N " -c laptop
+	if [[ "$laptop" == "y" ]]
 	then
-		setup_thinkpad
+		if [[ -s ${BASE}/laptop.pkgs ]]
+		then
+			log_success "Laptop" "installing laptop-only packages"
+			pacman -S --needed --noconfirm $(grep -vE '^\s*#|^\s*$' ${BASE}/laptop.pkgs)
+		fi
+
+		systemctl enable iwd.service
+
+		vared -p "Is this a ThinkPad? (y/N): " -c thinkpad
+		if [[ "$thinkpad" == "y" ]]
+		then
+			setup_thinkpad
+		fi
 	fi
 fi
 
 
 echo "Setting useful symlinks"
-ln -sf /usr/bin/nvim /usr/bin/vim
-ln -sf /usr/bin/doas /usr/bin/sudo
+command -v nvim &>/dev/null && ln -sf /usr/bin/nvim /usr/bin/vim
+command -v doas &>/dev/null && ln -sf /usr/bin/doas /usr/bin/sudo
 
 if [[ -d ${BASE}/../system/profile ]]
 then
@@ -166,8 +216,8 @@ then
 	cp ${BASE}/../system/profile/* /etc/profile.d/
 fi
 
-# Hyprland uses greetd as login manager; sway/i3 use tty1 autoexec.
-if [[ "$pkgfile" == "hyprlandconf.pkgs" ]] && [[ -f ${BASE}/../system/greetd/config.toml ]]
+# Hyprland uses greetd as login manager (desktop profile only).
+if [[ "$ptype" != "server" ]] && [[ "$pkgfile" == "hyprlandconf.pkgs" ]] && [[ -f ${BASE}/../system/greetd/config.toml ]]
 then
 	log_success "greetd" "installing config and enabling service"
 	mkdir -p /etc/greetd
@@ -175,13 +225,19 @@ then
 	systemctl enable greetd.service
 fi
 
-echo "Configure wired network"
-configure_network_iface "10-wired" 10
-
-vared -p "Wish to configure network interface (special for wireless)? Y/n: " -c ciface
-if [[ "$ciface" != "n" ]]
+if [[ "$ptype" == "server" ]]
 then
-	configure_network_iface "20-wireless" 20
+	echo "Configure wired network (static)"
+	configure_network_iface "10-wired" 10 static
+else
+	echo "Configure wired network (DHCP)"
+	configure_network_iface "10-wired" 10
+
+	vared -p "Wish to configure network interface (special for wireless)? Y/n: " -c ciface
+	if [[ "$ciface" != "n" ]]
+	then
+		configure_network_iface "20-wireless" 20
+	fi
 fi
 
 echo -e "${GREEN}Creating Initramfs${NC}"
@@ -192,7 +248,12 @@ install_bootloader $ucode
 
 vared -p "Enter username for primary user" -c puser
 
-useradd -m -G systemd-journal,video,uucp,lp,audio,wheel,optical -s /usr/bin/zsh $puser
+if [[ "$ptype" == "server" ]]
+then
+	useradd -m -G systemd-journal,wheel -s /usr/bin/zsh $puser
+else
+	useradd -m -G systemd-journal,video,uucp,lp,audio,wheel,optical -s /usr/bin/zsh $puser
+fi
 
 echo "Added user to sudo/doas file"
 printf "permit persist %s\n" "$puser" > /etc/doas.conf
@@ -208,8 +269,16 @@ chown -R ${puser}:${puser} /home/${puser}/.dotfiles
 echo "you will find these in ${GREEN}${BOLD}/home/$puser/.dotfiles${ND}${NC}"
 echo "you may remove this copy of dotfiles just run 'rm -rf /root/dotfiles'"
 
+# Post-reboot user script depends on the profile.
+if [[ "$ptype" == "server" ]]
+then
+	userscript="archserveruser.zsh"
+else
+	userscript="archuser.zsh"
+fi
+
 # Passwd PSA
 echo -e "${YELLOW} ####IMPORTANT#### ${NC}"
 echo "Root and $puser passwords will be set after this chroot exits."
 echo "After reboot, log in as $puser and run:"
-echo "  ~/.dotfiles/installation/archuser.zsh"
+echo "  ~/.dotfiles/installation/${userscript}"

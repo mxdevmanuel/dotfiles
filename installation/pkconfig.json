@@ -1,14 +1,12 @@
 [
   {
-    "name": "Sway",
-    "file": "swayconf.pkgs"
-  },
-  {
-    "name": "i3",
-    "file": "i3conf.pkgs"
-  },
-  {
     "name": "Hyprland",
-    "file": "hyprlandconf.pkgs"
+    "file": "hyprlandconf.pkgs",
+    "type": "desktop"
+  },
+  {
+    "name": "Server",
+    "file": "serverconf.pkgs",
+    "type": "server"
   }
 ]

@@ -1,0 +1,6 @@
+# Laptop-only packages (installed by archroot when "is this a laptop?" = y)
+# Power management + backlight + battery status.
+tlp
+tlp-pd
+acpi
+brightnessctl

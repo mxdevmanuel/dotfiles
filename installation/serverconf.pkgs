@@ -1,0 +1,9 @@
+# Server profile: minimal but usable headless base.
+openssh
+opendoas
+git
+neovim
+tmux
+stow
+reflector
+zsh

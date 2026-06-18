@@ -1,13 +1,13 @@
-cava
-clipman
+# AUR packages — installed by archuser.zsh via yay.
+# walker launcher + its elephant backend/plugins, wifi menu, chrome.
+walker
+elephant-bin
+elephant-calc-bin
+elephant-clipboard-bin
+elephant-desktopapplications-bin
+elephant-runner-bin
+elephant-websearch-bin
+elephant-windows-bin
+elephant-wireplumber-bin
+iwmenu
 google-chrome
-google-chrome-beta
-kmscon-patched-git
-laptop-mode-tools
-libtsm-patched-git
-mpv-mpris
-nq-git
-stm32flash
-wob-git
-xxd-standalone
-yay
