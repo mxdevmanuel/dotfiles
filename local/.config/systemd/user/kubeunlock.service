@@ -1,0 +1,6 @@
+[Unit]
+Description=Unlock kubeconfig after work hours
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'test -f %h/.kube/config.locked && mv %h/.kube/config.locked %h/.kube/config || true'

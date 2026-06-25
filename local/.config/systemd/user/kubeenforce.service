@@ -1,0 +1,10 @@
+[Unit]
+Description=Enforce kubeconfig lock during work hours
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '\
+  hour=$(date +%%H); \
+  if [ "$hour" -ge 8 ] && [ "$hour" -lt 17 ]; then \
+    test -f %h/.kube/config && mv %h/.kube/config %h/.kube/config.locked || true; \
+  fi'

@@ -1,0 +1,9 @@
+[Unit]
+Description=Periodically enforce kubeconfig lock on workdays
+
+[Timer]
+OnCalendar=Mon..Fri *:00/30
+Persistent=true
+
+[Install]
+WantedBy=timers.target
