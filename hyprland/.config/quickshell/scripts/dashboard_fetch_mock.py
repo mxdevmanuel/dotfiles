@@ -2,11 +2,11 @@
 import time
 
 EMAILS = [
-    ("EMAIL", "Project update: Q2 roadmap review", "Sarah Chen <sarah.chen@loomstate.org>"),
-    ("EMAIL", "Re: Design system tokens — feedback needed", "Alex Rivera <alex.rivera@loomstate.org>"),
+    ("EMAIL", "Project update: Q2 roadmap review", "Sarah Chen <sarah.chen@example.org>"),
+    ("EMAIL", "Re: Design system tokens — feedback needed", "Alex Rivera <alex.rivera@example.org>"),
     ("EMAIL", "Reminder: All-hands meeting tomorrow at 10am", "no-reply@calendar.google.com"),
     ("EMAIL", "[JIRA] LM-482 assigned to you: Fix auth token refresh", "jira@JIRA_DOMAIN"),
-    ("EMAIL", "Your weekly digest is ready", "digest@loomstate.org"),
+    ("EMAIL", "Your weekly digest is ready", "digest@example.org"),
 ]
 
 EVENTS = [

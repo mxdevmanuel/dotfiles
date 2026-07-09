@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Fetch unread important Gmail threads from @loomstate.org and summarize with GPT-4o-mini.
+"""Fetch unread important Gmail threads from the work domain and summarize with GPT-4o-mini.
 
 Credentials:
   pass openai/api-token
+  pass work/email-domain   (sender domain to match, e.g. example.org)
+  pass work/email-exclude  (optional, whitespace-separated addresses to exclude)
   Google OAuth via ~/.config/google-dashboard-token.json
 
 Output format:
@@ -38,6 +40,19 @@ def load_openai_key() -> str:
     except Exception as e:
         print(f"EMAIL_STATUS|||unavailable|||{e}", flush=True)
         sys.exit(0)
+
+
+def load_query() -> str:
+    try:
+        domain = subprocess.check_output(["pass", "work/email-domain"], text=True, timeout=5).strip()
+    except Exception as e:
+        print(f"EMAIL_STATUS|||unavailable|||{e}", flush=True)
+        sys.exit(0)
+    try:
+        excludes = subprocess.check_output(["pass", "work/email-exclude"], text=True, timeout=5).split()
+    except Exception:
+        excludes = []
+    return " ".join([f"is:unread from:@{domain}", *(f"-from:{addr}" for addr in excludes)])
 
 
 def get_credentials() -> Credentials:
@@ -145,7 +160,7 @@ def main():
     result = gmail.users().threads().list(
         userId="me",
         maxResults=MAX_THREADS,
-        q="is:unread from:@loomstate.org -from:orlandomedina@loomstate.org",
+        q=load_query(),
         fields="threads(id)",
     ).execute()
 
