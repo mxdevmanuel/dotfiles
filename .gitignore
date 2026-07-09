@@ -171,3 +171,8 @@ mimeapps.list
 #sway/.local/share/nvim
 #sway/.local/bin/direnv
 #sway/.config/chromium/*
+
+# ~/Pictures is stow-linked here; personal screenshots land in this dir.
+# Only wallpapers are meant to be tracked.
+hyprland/Pictures/*
+!hyprland/Pictures/wallpapers
