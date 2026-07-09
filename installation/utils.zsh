@@ -62,20 +62,21 @@ function set_timezone(){
 	log_success "Timezone" "set to $tz"
 }
 
-# ThinkPad-specific power management: TLP with battery charge thresholds.
-# Opt-in via prompt in archroot.zsh.
-function setup_thinkpad(){
+# Laptop power management: TLP with battery charge thresholds.
+# Works on any laptop whose kernel driver exposes charge_control_{start,end}_threshold
+# (thinkpad_acpi, dell-laptop, ideapad-laptop, etc). Opt-in via prompt in archroot.zsh.
+function setup_battery_thresholds(){
 	local start_thresh=75
 	local stop_thresh=80
 
 	vared -p "Battery start charge threshold (default 75): " -c start_thresh
 	vared -p "Battery stop charge threshold  (default 80): " -c stop_thresh
 
-	log_success "ThinkPad" "installing tlp, tlp-rdw, acpi"
-	pacman -S --noconfirm --needed tlp tlp-rdw acpi
+	log_success "Battery" "installing tlp, tlp-pd, acpi, thermald"
+	pacman -S --noconfirm --needed tlp tlp-pd acpi thermald
 
 	mkdir -p /etc/tlp.d
-	cat > /etc/tlp.d/00-thinkpad.conf <<EOF
+	cat > /etc/tlp.d/00-battery.conf <<EOF
 # Battery charge thresholds (preserve longevity)
 START_CHARGE_THRESH_BAT0=${start_thresh}
 STOP_CHARGE_THRESH_BAT0=${stop_thresh}
@@ -86,6 +87,18 @@ STOP_CHARGE_THRESH_BAT1=${stop_thresh}
 CPU_SCALING_GOVERNOR_ON_AC=performance
 CPU_SCALING_GOVERNOR_ON_BAT=powersave
 
+# Energy/perf policy (HWP hint used by Intel Thread Director on hybrid P/E CPUs)
+CPU_ENERGY_PERF_POLICY_ON_AC=performance
+CPU_ENERGY_PERF_POLICY_ON_BAT=power
+
+# HWP dynamic boost: lets single-thread bursts spike briefly on AC
+CPU_HWP_DYN_BOOST_ON_AC=1
+CPU_HWP_DYN_BOOST_ON_BAT=0
+
+# ACPI platform profile (thermal/perf envelope, keeps P-cores from being capped)
+PLATFORM_PROFILE_ON_AC=performance
+PLATFORM_PROFILE_ON_BAT=balanced
+
 # WiFi power save
 WIFI_PWR_ON_AC=off
 WIFI_PWR_ON_BAT=on
@@ -94,10 +107,10 @@ WIFI_PWR_ON_BAT=on
 USB_AUTOSUSPEND=1
 EOF
 
-	log_success "TLP" "enabling tlp.service and masking rfkill conflicts"
-	systemctl enable tlp.service
+	log_success "TLP" "enabling tlp.service, thermald.service and masking rfkill conflicts"
+	systemctl enable tlp.service thermald.service
 	systemctl mask systemd-rfkill.service
 	systemctl mask systemd-rfkill.socket
 
-	log_success "ThinkPad" "setup complete; thresholds apply after reboot"
+	log_success "Battery" "setup complete; thresholds apply after reboot"
 }

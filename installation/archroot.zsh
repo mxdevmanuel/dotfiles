@@ -197,10 +197,10 @@ else
 
 		systemctl enable iwd.service
 
-		vared -p "Is this a ThinkPad? (y/N): " -c thinkpad
-		if [[ "$thinkpad" == "y" ]]
+		vared -p "Enable battery charge thresholds? (y/N): " -c battery_thresh
+		if [[ "$battery_thresh" == "y" ]]
 		then
-			setup_thinkpad
+			setup_battery_thresholds
 		fi
 	fi
 fi
