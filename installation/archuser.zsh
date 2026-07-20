@@ -48,6 +48,12 @@ function enable_user_services(){
 # yay/makepkg must run as a non-root user, so this lives in the user stage.
 # Builds use sudo internally, which is symlinked to doas (set in archroot).
 function bootstrap_aur(){
+	if [[ -f /etc/makepkg.conf ]] && ! grep -q "^PACMAN_AUTH=(doas)" /etc/makepkg.conf
+	then
+		log_success "makepkg" "configuring doas as PACMAN_AUTH (doas)"
+		doas sed -i 's/^#\?\s*PACMAN_AUTH\s*=.*/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
+	fi
+
 	if ! command -v yay &>/dev/null
 	then
 		log_success "AUR" "bootstrapping yay-bin"
@@ -108,8 +114,11 @@ function setup_greetd(){
 		return 1
 	fi
 
-	# Skip if archroot already installed an identical config and enabled it.
-	if systemctl is-enabled greetd.service &>/dev/null && cmp -s $cfg /etc/greetd/config.toml
+	# Skip if archroot already installed identical configs and enabled it.
+	local pam=$REPO/system/greetd/greetd
+	if systemctl is-enabled greetd.service &>/dev/null && \
+	   cmp -s $cfg /etc/greetd/config.toml && \
+	   ([[ ! -f $pam ]] || cmp -s $pam /etc/pam.d/greetd)
 	then
 		log_success "greetd" "already configured, skipping"
 		return 0
@@ -118,6 +127,11 @@ function setup_greetd(){
 	log_success "greetd" "installing config and enabling service (doas)"
 	doas mkdir -p /etc/greetd
 	doas cp $cfg /etc/greetd/config.toml
+	if [[ -f $pam ]]
+	then
+		log_success "greetd" "installing PAM config (doas)"
+		doas cp $pam /etc/pam.d/greetd
+	fi
 	doas systemctl enable greetd.service
 }
 
@@ -129,6 +143,14 @@ function enable_system_services(){
 	else
 		log_success "bluetooth" "enabling bluetooth.service (doas)"
 		doas systemctl enable bluetooth.service
+	fi
+
+	if [[ -f /etc/bluetooth/main.conf ]]
+	then
+		log_success "bluetooth" "configuring reconnect attempts and auto-enable in main.conf (doas)"
+		doas sed -i 's/^#\s*ReconnectAttempts\s*=.*/ReconnectAttempts=7/' /etc/bluetooth/main.conf
+		doas sed -i 's/^#\s*ReconnectIntervals\s*=.*/ReconnectIntervals=1,2,4,8,16,32,64/' /etc/bluetooth/main.conf
+		doas sed -i 's/^#\s*AutoEnable\s*=.*/AutoEnable=true/' /etc/bluetooth/main.conf
 	fi
 }
 

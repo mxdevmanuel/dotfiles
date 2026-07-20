@@ -10,6 +10,12 @@ BASE=${0:h}
 
 source ${BASE}/utils.zsh
 
+if [[ -f /etc/pacman.conf ]]
+then
+	log_success "pacman" "enabling color in pacman.conf"
+	sed -i 's/^#Color$/Color/' /etc/pacman.conf
+fi
+
 pacman -Syu dialog jq archlinux-keyring reflector --noconfirm
 
 # Configure a systemd-networkd interface. mode = dhcp (default) | static.
@@ -18,7 +24,7 @@ function configure_network_iface(){
 	local metric=$2
 	local mode=${3:-dhcp}
 
-	local ifaces=$(ip addr show | grep -vi "loopback" | grep -wi "up" | awk '{ match($0, /^[0-9]+:\s(.*):/, arr); if(arr[1] != "") print arr[1] }')
+	local ifaces=$(ip link show | grep -vi "loopback" | awk '{ match($0, /^[0-9]+:\s([^:@]*)/, arr); if(arr[1] != "") print arr[1] }')
 	local count=$(echo $ifaces | wc -l)
 	local iface
 	if (( $count > 1 ))
@@ -43,6 +49,7 @@ function configure_network_iface(){
 	echo "Name=$iface" >> $netfile
 	echo "" >> $netfile
 	echo "[Network]" >> $netfile
+	echo "Domains=~." >> $netfile
 
 	if [[ "$mode" == "static" ]]
 	then
@@ -179,6 +186,14 @@ log_success "Profile" "selected ${pkgfile} (type: ${ptype})"
 
 pacman -Syu $(grep -vE '^\s*#|^\s*$' ${BASE}/${pkgfile}) $ucode --noconfirm
 
+if [[ -f /etc/bluetooth/main.conf ]]
+then
+	log_success "bluetooth" "configuring reconnect attempts and auto-enable in main.conf"
+	sed -i 's/^#\s*ReconnectAttempts\s*=.*/ReconnectAttempts=7/' /etc/bluetooth/main.conf
+	sed -i 's/^#\s*ReconnectIntervals\s*=.*/ReconnectIntervals=1,2,4,8,16,32,64/' /etc/bluetooth/main.conf
+	sed -i 's/^#\s*AutoEnable\s*=.*/AutoEnable=true/' /etc/bluetooth/main.conf
+fi
+
 systemctl enable systemd-networkd.service
 systemctl enable systemd-resolved.service
 
@@ -222,6 +237,11 @@ then
 	log_success "greetd" "installing config and enabling service"
 	mkdir -p /etc/greetd
 	cp ${BASE}/../system/greetd/config.toml /etc/greetd/config.toml
+	if [[ -f ${BASE}/../system/greetd/greetd ]]
+	then
+		log_success "greetd" "installing PAM config"
+		cp ${BASE}/../system/greetd/greetd /etc/pam.d/greetd
+	fi
 	systemctl enable greetd.service
 fi
 
@@ -257,6 +277,12 @@ fi
 
 echo "Added user to sudo/doas file"
 printf "permit persist %s\n" "$puser" > /etc/doas.conf
+
+if [[ -f /etc/makepkg.conf ]]
+then
+	log_success "makepkg" "configuring doas as PACMAN_AUTH"
+	sed -i 's/^#\?\s*PACMAN_AUTH\s*=.*/PACMAN_AUTH=(doas)/' /etc/makepkg.conf
+fi
 
 # Persist username so archbase can passwd it after chroot exits
 echo -n "$puser" > /root/.installer_user

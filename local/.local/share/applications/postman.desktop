@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Postman
+Comment=API Development Environment
+Exec=postman --ozone-platform=wayland
+Icon=postman
+Terminal=false
+Type=Application
+Categories=Development;
